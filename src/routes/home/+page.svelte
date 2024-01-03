@@ -1,4 +1,4 @@
 <svelte:head>
   <meta name="description" content="Welcome to the base of the Mari Angryneers!">
-  <title>Mari Angryneers</title>
+  <title>Home | Mari Angryneers</title>
 </svelte:head>
