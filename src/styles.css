@@ -1,1 +1,17 @@
 /* global stylesheet */
+@font-face {
+  font-family: "Angry Birds";
+  font-style: normal;
+  font-weight: 400 500;
+  src: url('/fonts/angrybirds-regular.ttf') format('truetype');
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.main-content, body {
+  font-family: "Angry Birds", sans-serif;
+}
