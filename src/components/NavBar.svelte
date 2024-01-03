@@ -23,10 +23,10 @@
   $: switchLink = isFr ? path.slice(3) : `/fr${path}`;
 </script>
 
-<nav class="navbar navbar-expand-lg mainNav">
+<nav class="navbar navbar-expand-lg mainNav position-relative">
   <div class="container-fluid navContainer">
-    <a class="navbar-brand me-lg-4" href="/home">
-      <img src="/favicon.png" alt="Mari Angryneers" width="40" height="40">
+    <a class="navbar-brand" href="/home">
+      <img src="/favicon.png" alt="Mari Angryneers" />
     </a>
     <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -39,12 +39,16 @@
             <a href={link} class="link-offset-1 nav-link{link === path ? ' active text-decoration-underline' : ''}">{page}</a>
           </li>
         {/each}
-        <li class="nav-item">
+        <li class="nav-item langSwitcher">
           <a href={switchLink} class="nav-link">{isFr ? 'English' : 'Français'}</a>
         </li>
       </ul>
     </div>
   </div>
+
+  <!-- 2 wooden posts for the sign -->
+  <div class="d-none d-lg-block position-absolute woodenPost left"></div>
+  <div class="d-none d-lg-block position-absolute woodenPost right"></div>
 </nav>
 
 <style>
@@ -55,14 +59,36 @@
     src: url('/fonts/angrybirds-regular.ttf') format('truetype');
   }
 
+  .navbar-brand img {
+    height: 75px;
+  }
+
   .mainNav {
     background-image: url('/textures/wood.png');
     background-size: 100% 66px; /* nav height is 66px for the mobile/collapse version */
     font-family: 'Angry Birds', sans-serif;
   }
 
+  .woodenPost {
+    background-image: url('/textures/wood-post.png');
+    background-repeat: no-repeat;
+    background-position: 50% -187px;
+    width: 40px;
+    height: 50px;
+    top: 0;
+  }
+
+  .woodenPost.left {
+    left: 200px;
+  }
+
+  .woodenPost.right {
+    right: 85px;
+  }
+
   .navContainer {
     padding: 0;
+    z-index: 999;
   }
 
   .navbar-brand {
@@ -84,6 +110,10 @@
     text-shadow: none;
   }
 
+  .nav-item.langSwitcher {
+    border-bottom: solid 2px #562600;
+  }
+
   /* we use different styling for the wood texture look depending on mobile (collapsed) vs. desktop (expanded) nav */
   .nav-item {
     background-image: url('/textures/wood.png');
@@ -94,6 +124,14 @@
   @media screen and (min-width: 992px) {
     .mainNav, .nav-item {
       background-image: none;
+    }
+
+    .navbar-brand img {
+      height: 100px;
+    }
+
+    .nav-item.langSwitcher {
+      border: none;
     }
 
     .navContainer {
