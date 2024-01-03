@@ -25,7 +25,7 @@
 
 <nav class="navbar navbar-expand-lg mainNav position-relative">
   <div class="container-fluid navContainer">
-    <a class="navbar-brand" href="/home">
+    <a class="navbar-brand" href="{isFr ? '/fr' : ''}/home">
       <img src="/favicon.png" alt="Mari Angryneers" />
     </a>
     <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
