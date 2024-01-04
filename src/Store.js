@@ -2,7 +2,7 @@ import {writable} from "svelte/store";
 import {browser} from "$app/environment";
 
 // Initial Store values
-const user = { name: "bird", hat: "hat1", color: "blue", level: 1};
+const user = { name: "bird", hat: "whiteHat", hatIndex: 0, color: "blue", colorIndex: 0, level: 1};
 
 // Retrieve stored object from local storage
 const storedUserData = browser && localStorage.getItem("userData");

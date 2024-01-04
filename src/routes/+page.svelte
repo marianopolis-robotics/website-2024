@@ -5,7 +5,9 @@
 </script>
 
 
-<main>
-   <h1>{$userStore.hat}</h1>
-   <input type="text" bind:value={$userStore.hat}>
-</main>
+
+<svelte:head>
+  <meta name="description" content="Welcome to the base of the Mari Angryneers!">
+  <title>Mari Angryneers</title>
+</svelte:head>
+
