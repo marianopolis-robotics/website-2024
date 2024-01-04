@@ -24,14 +24,14 @@
 </script>
 
 <nav class="navbar navbar-expand-lg mainNav position-relative">
-  <div class="container-fluid navContainer">
+  <div class="container-fluid navContainer align-items-center">
     <a class="navbar-brand" href="{isFr ? '/fr' : ''}/home">
       <img src="/favicon.png" alt="Mari Angryneers" />
     </a>
     <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse navLinks px-lg-5" id="navbarNav">
+    <div class="collapse navbar-collapse navLinks" id="navbarNav">
       <ul class="navbar-nav text-center w-100 justify-content-lg-between">
         <!-- use an each loop to generate navlinks efficiently (avoids hard-coding and repetition for page names, links, language/active-navlink checking logic) -->
         {#each Object.entries(navLinks) as [page, link] (page)}
@@ -67,6 +67,7 @@
     background-image: url('/textures/wood.png');
     background-size: 100% 66px; /* nav height is 66px for the mobile/collapse version */
     font-family: 'Angry Birds', sans-serif;
+    z-index: 999;
   }
 
   .woodenPost {
@@ -148,12 +149,40 @@
     }
 
     .navLinks {
+      padding-left: 3rem;
+      padding-right: 3rem;
+    }
+
+    .navLinks {
       border-radius: 50px;
       background-image: url('/textures/wood.png');
       background-position: center;
       background-repeat: no-repeat;
       background-size: 100% 100%;
     }
+  }
 
+  @media screen and (min-width: 1600px) {
+    .navContainer {
+      justify-content: center;
+    }
+
+    .navLinks {
+      max-width: 80%;
+      padding-left: 5rem;
+      padding-right: 5rem;
+    }
+
+    .nav-item {
+      font-size: 35px;
+    }
+
+    .woodenPost.left {
+      left: calc(10% + 150px);
+    }
+
+    .woodenPost.right {
+      right: calc(10% + 35px);
+    }
   }
 </style>
