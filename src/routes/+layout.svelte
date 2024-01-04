@@ -1,36 +1,58 @@
 <script>
-  import NavBar from "../components/NavBar.svelte";
+  import { fade } from 'svelte/transition';
   import { page } from '$app/stores';
+  import { backOut } from 'svelte/easing';
+  import NavBar from "../components/NavBar.svelte";
 
   $: path = $page.url.pathname; // layout doesn't (seem to) unmount/mount between pages with the same layout
                                 // meaning path needs to be reactive so that the correct active page/link
                                 // can be detected here and passed to the navbar
 </script>
 
-{#if path !== '/' && path !== '/fr'}
-  <NavBar {path} />
-{/if}
+<NavBar {path} />
 
-<div id="main-content">
-  <slot />
-</div>
-
-<div class="skyWaves position-absolute"></div>
-<div class="islands position-absolute"></div>
-
-<img src="/backdrops/cloud-1.png" alt="Cloud" class="position-absolute cloud one" />
-<img src="/backdrops/cloud-2.png" alt="Cloud" class="position-absolute cloud two" />
-<img src="/backdrops/cloud-2.png" alt="Cloud" class="position-absolute cloud three" />
-<img src="/backdrops/cloud-1.png" alt="Cloud" class="position-absolute cloud four d-none d-sm-block" />
-<img src="/backdrops/cloud-2.png" alt="Cloud" class="position-absolute cloud five d-none d-md-block" />
-<img src="/backdrops/cloud-1.png" alt="Cloud" class="position-absolute cloud six d-none d-md-block" />
-<img src="/backdrops/cloud-2.png" alt="Cloud" class="position-absolute cloud seven" />
-<img src="/backdrops/cloud-1.png" alt="Cloud" class="position-absolute cloud eight" />
+{#key path}
+  <div in:fade={(path !== '/' && path !== '/fr') ? { duration: 700, delay: 500, easing: backOut } : { duration: 1000, easing: backOut }} class="w-100 h-100">
+    <div id="main-content">
+      <slot />
+    </div>
+  
+    <div class="skyWaves position-absolute" class:top-0={path === '/' || path === '/fr'}></div>
+    <div class="islands position-absolute"></div>
+  
+    <img src="/backdrops/cloud-1.png" alt="Cloud" class="position-absolute cloud one" />
+    <img src="/backdrops/cloud-2.png" alt="Cloud" class="position-absolute cloud two" />
+    <img src="/backdrops/cloud-2.png" alt="Cloud" class="position-absolute cloud three" />
+    <img src="/backdrops/cloud-1.png" alt="Cloud" class="position-absolute cloud four d-none d-sm-block" />
+    <img src="/backdrops/cloud-2.png" alt="Cloud" class="position-absolute cloud five d-none d-md-block" />
+    <img src="/backdrops/cloud-1.png" alt="Cloud" class="position-absolute cloud six d-none d-md-block" />
+    <img src="/backdrops/cloud-2.png" alt="Cloud" class="position-absolute cloud seven" />
+    <img src="/backdrops/cloud-1.png" alt="Cloud" class="position-absolute cloud eight" />
+  </div>
+{/key}
 
 <style>
-  /* need to override some Bootstrap styles here (not enough specificity/precedence in `styles.css`) */
+  @font-face {
+    font-family: "Angry Birds";
+    font-style: normal;
+    font-weight: 400 500;
+    src: url('/fonts/angrybirds-regular.ttf') format('truetype');
+  }
+
+  :global(*) {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  :global(h1, h2, h3, h4, h5, h6) {
+    font-family: 'Angry Birds', sans-serif;
+  }
+
   div#main-content {
     font-family: 'Jockey One';
+    position: relative;
+    z-index: 500;
   }
 
   :global(body) {
@@ -62,6 +84,7 @@
 
   .cloud {
     opacity: 0.75;
+    user-select: none;
   }
 
   .cloud.one {

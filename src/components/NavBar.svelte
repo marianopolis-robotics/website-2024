@@ -1,4 +1,6 @@
 <script>
+  import { slide } from 'svelte/transition';
+  import { bounceOut } from 'svelte/easing';
   export let path;
 
   const enLinks = {
@@ -12,7 +14,7 @@
   const frLinks = {
     "Accueil": "/fr/home",
     "Kryptik": "/fr/kryptik",
-    "Angrynieurs": "/fr/angryneers",
+    "Angryneers": "/fr/angryneers",
     "Archives": "/fr/archives",
     "Robot": "/fr/robot"
   };
@@ -23,33 +25,38 @@
   $: switchLink = isFr ? path.slice(3) : `/fr${path}`;
 </script>
 
-<nav class="navbar navbar-expand-lg mainNav position-relative">
-  <div class="container-fluid navContainer align-items-center">
-    <a class="navbar-brand" href="{isFr ? '/fr' : ''}/home">
-      <img src="/favicon.png" alt="Mari Angryneers" />
-    </a>
-    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse navLinks" id="navbarNav">
-      <ul class="navbar-nav text-center w-100 justify-content-lg-between">
-        <!-- use an each loop to generate navlinks efficiently (avoids hard-coding and repetition for page names, links, language/active-navlink checking logic) -->
-        {#each Object.entries(navLinks) as [page, link] (page)}
-          <li class="nav-item">
-            <a href={link} class="link-offset-1 nav-link{link === path ? ' active text-decoration-underline' : ''}">{page}</a>
-          </li>
-        {/each}
-        <li class="nav-item langSwitcher">
-          <a href={switchLink} class="nav-link">{isFr ? 'English' : 'Français'}</a>
-        </li>
-      </ul>
-    </div>
-  </div>
+{#key path}
+  <!-- check this condition here to play the nav bounce animation even after navigating to (home) page through landing/root page -->
+  {#if path !== '/' && path !== '/fr'}
+    <nav class="navbar navbar-expand-lg mainNav position-relative" in:slide|global={{ duration: 1000, easing: bounceOut }}>
+      <div class="container-fluid navContainer align-items-center">
+        <a class="navbar-brand" href="{isFr ? '/fr' : ''}/home">
+          <img src="/favicon.png" alt="Mari Angryneers" />
+        </a>
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse navLinks" id="navbarNav">
+          <ul class="navbar-nav text-center w-100 justify-content-lg-between">
+            <!-- use an each loop to generate navlinks efficiently (avoids hard-coding and repetition for page names, links, language/active-navlink checking logic) -->
+            {#each Object.entries(navLinks) as [page, link] (page)}
+              <li class="nav-item">
+                <a href={link} class="link-offset-1 nav-link{link === path ? ' active text-decoration-underline' : ''}">{page}</a>
+              </li>
+            {/each}
+            <li class="nav-item langSwitcher">
+              <a href={switchLink} class="nav-link">{isFr ? 'English' : 'Français'}</a>
+            </li>
+          </ul>
+        </div>
+      </div>
 
-  <!-- 2 wooden posts for the sign -->
-  <div class="d-none d-lg-block position-absolute woodenPost left"></div>
-  <div class="d-none d-lg-block position-absolute woodenPost right"></div>
-</nav>
+      <!-- 2 wooden posts for the sign -->
+      <div class="d-none d-lg-block position-absolute woodenPost left"></div>
+      <div class="d-none d-lg-block position-absolute woodenPost right"></div>
+    </nav>
+  {/if}
+{/key}
 
 <style>
   @font-face {
