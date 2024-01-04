@@ -2,7 +2,8 @@
   import { fade } from 'svelte/transition';
   import { page } from '$app/stores';
   import { backOut } from 'svelte/easing';
-  import NavBar from "../components/NavBar.svelte";
+  import '$lib/global.css';
+  import NavBar from "$lib/components/NavBar.svelte";
 
   $: path = $page.url.pathname; // layout doesn't (seem to) unmount/mount between pages with the same layout
                                 // meaning path needs to be reactive so that the correct active page/link
@@ -12,7 +13,7 @@
 <NavBar {path} />
 
 {#key path}
-  <div in:fade={(path !== '/' && path !== '/fr') ? { duration: 700, delay: 500, easing: backOut } : { duration: 1000, easing: backOut }} class="w-100 h-100">
+  <div in:fade={(path !== '/' && path !== '/fr') ? { duration: 700, delay: 500, easing: backOut } : { duration: 1000, easing: backOut }} class="w-100">
     <div id="main-content">
       <slot />
     </div>
@@ -39,28 +40,10 @@
     src: url('/fonts/angrybirds-regular.ttf') format('truetype');
   }
 
-  :global(*) {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-
-  :global(h1, h2, h3, h4, h5, h6) {
-    font-family: 'Angry Birds', sans-serif;
-  }
-
   div#main-content {
     font-family: 'Jockey One';
     position: relative;
     z-index: 500;
-  }
-
-  :global(body) {
-    width: 100%;
-    height: 100%;
-    background-image: linear-gradient(#2CABEA, #ADF4FF);
-    background-repeat: no-repeat;
-    position: relative;
   }
 
   .islands {

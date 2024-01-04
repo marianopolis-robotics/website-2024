@@ -1,6 +1,9 @@
 <script>
   import { slide } from 'svelte/transition';
   import { bounceOut } from 'svelte/easing';
+  import smNavbarBrandMeta from '$lib/assets/logos/mari-angryneers-xs.png?w=75;100&format=avif;webp;png&as=picture';
+  import navbarBrandMeta from '$lib/assets/logos/mari-angryneers-sm.png?w=150&format=avif;webp;png&as=picture';
+  import Picture from '$lib/components/Picture.svelte';
   export let path;
 
   const enLinks = {
@@ -31,7 +34,16 @@
     <nav class="navbar navbar-expand-lg mainNav position-relative" in:slide|global={{ duration: 1000, easing: bounceOut }}>
       <div class="container-fluid navContainer align-items-center">
         <a class="navbar-brand" href="{isFr ? '/fr' : ''}/home">
-          <img src="/favicon.png" alt="Mari Angryneers" />
+          <Picture meta={smNavbarBrandMeta}
+            sizes="(min-width: 768px) 100px, 75px" 
+            alt={isFr ? "Angryneers de Mari" : "Mari Angryneers"} 
+            loading="eager"
+            pictureClass="d-block d-lg-none" />
+          <Picture meta={navbarBrandMeta}
+            sizes="150px" 
+            alt={isFr ? "Angryneers de Mari" : "Mari Angryneers"} 
+            loading="eager"
+            pictureClass="d-none d-lg-block" />
         </a>
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -66,10 +78,6 @@
     src: url('/fonts/angrybirds-regular.ttf') format('truetype');
   }
 
-  .navbar-brand img {
-    height: 75px;
-  }
-
   .mainNav {
     background-image: url('/textures/wood.png');
     background-size: 100% 66px; /* nav height is 66px for the mobile/collapse version */
@@ -80,14 +88,14 @@
   .woodenPost {
     background-image: url('/textures/wood-post.png');
     background-repeat: no-repeat;
-    background-position: 50% -187px;
+    background-position: 67% -145px;
     width: 40px;
-    height: 50px;
+    height: 80px;
     top: 0;
   }
 
   .woodenPost.left {
-    left: 200px;
+    left: 250px;
   }
 
   .woodenPost.right {
@@ -100,11 +108,11 @@
   }
 
   .navbar-brand {
-    margin-left: 0.75rem;
+    margin-left: 1rem;
   }
 
   .navbar-toggler {
-    margin-right: 0.75rem;
+    margin-right: 1.25rem;
     background: #ffffff90; /* full opacity bg is a little too "intense" */
   }
   
@@ -134,10 +142,6 @@
       background-image: none;
     }
 
-    .navbar-brand img {
-      height: 100px;
-    }
-
     .nav-item.langSwitcher {
       border: none;
     }
@@ -145,10 +149,12 @@
     .navContainer {
       padding-left: 1rem;
       padding-right: 1rem;
+      justify-content: center;
     }
 
     .navbar-brand {
-      margin-left: 0;
+      margin-left: 0.25rem;
+      /* margin-left: 0rem; */
     }
 
     .navbar-toggler {
@@ -170,14 +176,14 @@
   }
 
   @media screen and (min-width: 1600px) {
-    .navContainer {
-      justify-content: center;
-    }
-
     .navLinks {
       max-width: 80%;
       padding-left: 5rem;
       padding-right: 5rem;
+    }
+
+    .navContainer {
+      justify-content: space-evenly;
     }
 
     .nav-item {
@@ -185,11 +191,21 @@
     }
 
     .woodenPost.left {
-      left: calc(10% + 150px);
+      left: calc(20% + 1rem);
     }
 
     .woodenPost.right {
-      right: calc(10% + 35px);
+      right: calc(10% - 2.25rem);
+    }
+  }
+
+  @media screen and (min-width: 2000px) {
+    .woodenPost.left {
+      left: calc(18% + 2.5rem);
+    }
+
+    .woodenPost.right {
+      right: calc(8.5% + 1.5rem);
     }
   }
 </style>
