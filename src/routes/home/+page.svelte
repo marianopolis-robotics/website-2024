@@ -1,5 +1,6 @@
 <script>
-  import BirdCustomization from "../../components/BirdCustomization.svelte";
+  import BirdCustomization from "../../components/home/BirdCustomization.svelte";
+  import Intro from "../../components/home/Intro.svelte";
 
 </script>
 
@@ -10,11 +11,13 @@
 
 <!-- remove later! just a placeholder for testing background -->
 <main>
-  <div class="mt-75">
-    <h1 class="text-center angry_birds_font">Welcome to the Marianopolis Angryneers home base!</h1>
+  <div class="my-5">
+    <h1 class="text-center angry_birds_font">The Mari Angryneers</h1>
   </div>
 
+  <Intro/>
   <BirdCustomization/>
+  
  
 </main>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
@@ -23,5 +26,6 @@
      .angry_birds_font{
         font-family: "Angry Birds";
         color: white;
+        font-size: 100px;
     }
 </style>
