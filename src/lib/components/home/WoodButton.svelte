@@ -11,9 +11,10 @@
 
 <style>
 .button{
-    background-size: 100%;
     background: url("/textures/wood.png") no-repeat scroll 0 0 transparent;
+    background-size: cover;
     color:white;
+    resize: both;
 }
 
 .selected{
