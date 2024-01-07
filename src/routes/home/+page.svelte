@@ -1,6 +1,7 @@
 <script>
   import BirdCustomization from "../../lib/components/home/BirdCustomization.svelte";
   import Intro from "../../lib/components/home/Intro.svelte";
+  import UserAttributes from "../../lib/components/home/UserAttributes.svelte";
 
 </script>
 
@@ -15,12 +16,13 @@
     <h1 class="text-center angry_birds_font">The Mari Angryneers</h1>
   </div>
 
-  <Intro/>
-  <BirdCustomization/>
+  <Intro />
+  <BirdCustomization />
+  <UserAttributes />
   
  
 </main>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<!-- <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br> -->
 
 <style>
      .angry_birds_font{

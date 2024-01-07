@@ -2,7 +2,8 @@
     import { userStore } from "../../../Store";
     import WoodButton from "./WoodButton.svelte";
     import {onMount} from 'svelte';
-  
+
+    export let isFr = false;
 
    let accessories = {
       colors: ["blue", "red", "yellow", "pink"],
@@ -10,13 +11,14 @@
       shapes: ["red", "bomb"]
    } 
 
-   let tabs = [{tab: "Color", selected: true}, {tab: "Hat", selected: false}, {tab: "Shape", selected: false}]
+   let tabs = [{tab: "Color", tabFr: "Couleur", selected: true}, 
+              {tab: "Hat", tabFr: "Chapeur", selected: false}, 
+              {tab: "Shape", tabFr:"Forme", selected: false}]
 
-    
-   let selectedTab = "color";
+   let selectedTab = tabs[0];
   
    let newIndex = 0;
-  
+
    function nextAccessory(accessory){
           
     newIndex = $userStore[`${accessory}Index`] + 1;
@@ -54,7 +56,7 @@
       for (let tab of tabs){
         if (tab == clickedTab){
           tab.selected = true;
-          selectedTab = tab.tab.toLowerCase();
+          selectedTab = tab;
         }
         else{
           tab.selected = false;
@@ -63,6 +65,16 @@
       // in order for svelte to detect change in tabs
       tabs=tabs;
   }
+
+  function setSubmitCostume(value){
+    userStore.update( currentElemens => ({
+            ...currentElemens, 
+            submittedCostume: value,
+          }))
+  }
+
+  
+  
   </script>
   
   <svelte:head>
@@ -72,30 +84,53 @@
   
  
   <main>
-    <div class="container my-5">
-      <div class="row text-center">
-        <div class="col description_text">Chose your {selectedTab}!</div>
-      </div>
-      <div class="row align-items-center">
-        <!-- Chose accessory type tabs -->
-        <div class="col text-center">
-          {#each tabs as tab}
-            <WoodButton message={tab.tab} isSelected={tab.selected} large_width={true} on:click={() => {toggleSelect(tab)}} /> 
-          {/each}
+    <div class="container my-5 description-text">
+      {#if !$userStore.submittedCostume}
+        <div class="row text-center">
+          <div class="col description_text">{(isFr ? `Choisissez votre ${selectedTab.tabFr.toLocaleLowerCase()}!` : `Chose your ${selectedTab.tab.toLowerCase()}!`)}</div>
         </div>
-        <!-- Switch between accessories -->
-        <div class="col text-center col-lg-3">
-          <WoodButton message="<" on:click={() => {prevAccessory(selectedTab)}}/>
+        <div class="row align-items-center">
+          <!-- Chose accessory type tabs -->
+          <div class="col text-center">
+            {#each tabs as tab}
+              <WoodButton message={(isFr? tab.tabFr : tab.tab)} isSelected={tab.selected} large_width={true} on:click={() => {toggleSelect(tab)}} /> 
+            {/each}
+          </div>
+          <!-- Switch between accessories -->
+          <div class="col text-center col-lg-3">
+            <WoodButton message="<" on:click={() => {prevAccessory(selectedTab.tab.toLowerCase())}}/>
+          </div>
+          <div class="col">
+            <p class="text-center">
+              {$userStore[selectedTab.tab.toLowerCase()]}
+            </p>
+          </div>
+          <div class="col text-center">
+            <WoodButton message=">" on:click={() => {nextAccessory(selectedTab.tab.toLowerCase())}}/>
+          </div>
         </div>
-        <div class="col">
-          <p class="text-center">
-            {$userStore[selectedTab]}
-          </p>
+        <div class="row">
+          <div class="col text-center">
+            <WoodButton message={(isFr ? "Sauvegarder" : "Save")} on:click={() => {setSubmitCostume(true)}}/>
+          </div>
         </div>
-        <div class="col text-center">
-          <WoodButton message=">" on:click={() => {nextAccessory(selectedTab)}}/>
+      {:else}
+        <div class="row">
+          <div class="col text-center description-text m-">
+            <div class="description_text">{(isFr? `Cela vous va bien` : `You look great`)}{($userStore.name=="" ? "" : `, ${$userStore.name}`)}!</div>
+          </div>
         </div>
-      </div>
+        <div class="row text-center">
+          <div class="col">
+            <div class="m-3">(display costume)</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col text-center">
+            <WoodButton message="Edit costume" on:click={() => {setSubmitCostume(false)}}/>
+          </div>
+        </div>
+      {/if}
     </div>
     
    
