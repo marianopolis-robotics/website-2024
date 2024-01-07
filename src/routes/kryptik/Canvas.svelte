@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import * as THREE from 'three';
 	import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-	import RAPIER from './rapier.es.js';
+	import RAPIER from '@dimforge/rapier3d-compat';
 	import { Vector3 } from './vector.js';
 
 	import playingField from '$lib/assets/3d-objects/playingField.glb';
