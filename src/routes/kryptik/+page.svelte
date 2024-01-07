@@ -10,18 +10,19 @@
 <h1>Kryptik</h1>
 
 <p>
-	The winners of this year's Kryptik competition will be selected to lead the attack on the king
-	pig's castle to take back the bird eggs. <br />
+	The winners of this year's Kryptik competition will be selected to lead the attack on the king pig's castle to take back the bird eggs. <br />
 
-	However, the Angryneers plan to use attacks which would not put themselves at risk. As such, they
-	developed a mechanism to launch projectiles other than themselves ! <br />
+	However, the Angryneers plan to use attacks which would not put themselves at risk. As such, they developed a mechanism to launch projectiles other
+	than themselves ! <br />
 
 	Help them test it by running the following simulation.
 </p>
 
 <p>
-	Click the simulation window to start. Press the escape key to exit simulation.<br />
-	Controls: WASD to move, doesn't work yet -> [Q and E to adjust power, space bar to launch]
+	Click the simulation window to start. Press the [Esc] key to exit simulation. <br />
+	Camera: Move mouse to adjust view, [I] key to zoom in, [O] key to zoom out. <br />
+	Movement: [WASD] keys to move. <br />
+	Shooting: [Q] key to increase power, [E] key to decrease power, [Space] bar to launch. <br />
 </p>
 
 <Canvas />
