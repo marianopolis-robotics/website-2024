@@ -5,6 +5,8 @@
 	import RAPIER from './rapier.es.js';
 	import { Vector3 } from './vector.js';
 
+	import playingField from '$lib/assets/3d-objects/playingField.glb';
+
 	//global variables
 	let canvas;
 	let self_player = {
@@ -156,7 +158,7 @@
 		//load all custom meshes here, NOT WORKING FOR THE MOMENT
 		let loader = new GLTFLoader();
 
-		loader.load('src/routes/kryptik/playingField.glb', function (gltf) {
+		loader.load(playingField, function (gltf) {
 			let mesh = gltf.scene;
 			mesh.position.set(-490, -100, 0);
 			scene.add(gltf.scene);

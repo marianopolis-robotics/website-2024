@@ -3,5 +3,6 @@ import { imagetools } from 'vite-imagetools';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-	plugins: [sveltekit(), imagetools()]
+	plugins: [sveltekit(), imagetools()],
+	assetsInclude: ['**/*.glb']
 });
