@@ -25,7 +25,9 @@
 	Shooting: [Q] key to increase power, [E] key to decrease power, [Space] bar to launch. <br />
 </p>
 
-<Canvas />
+<div>
+	<div class="spacer"><Canvas /></div>
+</div>
 
 <style>
 	h1 {
@@ -38,5 +40,8 @@
 		margin: auto;
 		padding: 0px 0px 50px;
 		text-align: center;
+	}
+	div .spacer {
+		padding: 0px 0px 200px;
 	}
 </style>

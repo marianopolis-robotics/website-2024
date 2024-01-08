@@ -5,45 +5,62 @@
 	import RAPIER from '@dimforge/rapier3d-compat';
 	import { Vector3 } from './vector.js';
 
-	import playingField from '$lib/assets/3d-objects/playingField.glb';
+	import playingFieldURL from '$lib/assets/3d-objects/playingField.glb';
 
-	//global variables
+	//html elements
+	let main_div;
 	let canvas;
-	let game_info;
+	let game_info_div;
+	//global three objects
+	let camera;
+	let renderer;
+	//run or pause simulation
+	let canvas_active = false;
+	//everything is in meters, and scaled for render :
+	const ratio_render_over_physics = 100;
+	//game variables
 	let self_player = {
-		position: new Vector3(-450, -50, -100),
+		position: new Vector3(-4.5, 1, -1),
 		rotation: {
 			y: 0
 		},
 		velocity: new Vector3(0, 0, 0),
 		desired_displacement: new Vector3(0, 0, 0),
 		touching_ground: false,
-		power: 500,
+		power: 5,
 		game_piece_number: 3
 	};
 	let game_pieces = [];
-	const speed = 10;
-	const offset = 0.01; //character collision margin
-	const gravity = { x: 0, y: -500, z: 0 };
-	const damping = 0.5;
-	const launch_error_radians = 0.2;
+	let score = 0;
+	let timer_seconds = 300;
+	const speed = 1;
+	const robot_radius = 0.3;
+	const ball_radius = 0.16;
+	const character_collision_offset = 0.05;
+	const gravity = { x: 0, y: -10, z: 0 };
+	const friction_damping = 0.7;
+	const launch_angle_error = Math.PI / 6;
+	const field_length = 10.6;
+	const field_width = 6.1;
 	const default_camera = {
 		position: {
 			x: 0,
-			y: 200,
-			z: 400
+			y: 3,
+			z: 5
 		},
 		rotation: {
-			elevation: -0.5,
+			elevation: -Math.PI / 6,
 			y: 0
-		}
+		},
+		zoom: 1
 	};
+	const row_subdiv = 1;
+	const col_subdiv = 20;
 	const height_field = [
-		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-		0, 0, 0, 0, 0, 0, 0, 12, 12, 12, 12, 12, 12, 12, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 12, 12, 12,
-		12, 12, 12, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0.2, 0.4, 0.4, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.4, 0.4, 0.2, 0.2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0
 	];
+	//controls
 	let active_keys = {
 		w: false,
 		a: false,
@@ -59,10 +76,12 @@
 		x: 0,
 		y: 0
 	};
-	let zoom = 1;
-	let camera; //setting camera and renderer as global to access when rescaling the window
-	let renderer;
-	let element_active = false; //canvas active/inactive to prevent using CPU when inactive
+
+	let set_camera_default = function () {
+		camera.rotation.set(default_camera.rotation.elevation, default_camera.rotation.y, 0, 'YXZ');
+		default_camera.zoom = 1;
+		camera.updateProjectionMatrix();
+	};
 
 	//event handlers
 	let on_key_down = function (e) {
@@ -132,85 +151,183 @@
 		mouse_position.y += e.movementY;
 	};
 	let on_resize = function (e) {
-		renderer.setSize(window.innerWidth / 1.5, window.innerHeight - 200);
-		camera.aspect = window.innerWidth / window.innerHeight;
+		renderer.setSize(main_div.offsetWidth, window.innerHeight * 0.75);
+		camera.aspect = main_div.offsetWidth / (window.innerHeight * 0.75);
 		camera.updateProjectionMatrix();
 	};
 	let on_canvas_click = function (e) {
 		canvas.requestPointerLock();
-		setTimeout(function () {
-			element_active = true;
-		}, 100);
 	};
 	let on_pointlock_change = function (e) {
-		element_active = !element_active;
-		camera.rotation.set(default_camera.rotation.elevation, default_camera.rotation.y, 0, 'YXZ');
-		zoom = 1;
-		camera.updateProjectionMatrix();
+		canvas_active = !canvas_active;
+		set_camera_default();
 	};
 	let on_pointlock_error = function (e) {
 		alert('Please slow down your actions : when exiting pointer lock, please wait a few seconds before entering pointer lock again.');
 	};
 
-	let start_perpetual_render_and_physics = async function () {
-		//scene
+	//game initial setup
+	let start_perpetual = async function () {
 		let scene = new THREE.Scene();
 		scene.background = new THREE.Color(0x9dc5d1);
 
-		//load all custom meshes here, NOT WORKING FOR THE MOMENT
-		let loader = new GLTFLoader();
-
-		loader.load(playingField, function (gltf) {
-			let model = gltf.scene;
-			model.position.set(-490, -100, 0);
-			model.traverse(function (o) {
-				if (o.isMesh) {
-					o.material = new THREE.MeshPhongMaterial({ color: 0x404040 });
-					o.receiveShadow = true;
-				}
+		//load all custom meshes here
+		{
+			let loader = new GLTFLoader();
+			loader.load(playingFieldURL, function (gltf) {
+				let model = gltf.scene;
+				model.traverse(function (o) {
+					if (o.isMesh) {
+						o.material = new THREE.MeshPhongMaterial({ color: 0x404040 });
+						o.castShadow = true;
+						o.receiveShadow = true;
+					}
+				});
+				model.position.set(-490, -10, 50); //centers it
+				scene.add(model);
 			});
-			scene.add(model);
-		});
+		}
 
 		//camera from global variable
-		camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 2000);
-		camera.position.set(default_camera.position.x, default_camera.position.y, default_camera.position.z);
-		camera.rotation.set(default_camera.rotation.elevation, default_camera.rotation.y, 0, 'YXZ');
+		camera = new THREE.PerspectiveCamera(75, 1, 0.1, 20 * ratio_render_over_physics);
+		camera.position.set(
+			default_camera.position.x * ratio_render_over_physics,
+			default_camera.position.y * ratio_render_over_physics,
+			default_camera.position.z * ratio_render_over_physics
+		);
+		set_camera_default();
 
 		//three.js generated static objects
 		{
-			let dirLight = new THREE.DirectionalLight(0xffffff, 3);
-			dirLight.color.setHSL(0.1, 1, 0.95);
-			dirLight.position.set(-1, 1.75, 1);
-			dirLight.position.multiplyScalar(100);
-			dirLight.castShadow = true;
-			scene.add(dirLight);
+			let ceiling_lamp_config = {
+				color: 0xffffff,
+				intensity: 5,
+				distance: 9,
+				decay: 1
+			};
+			let create_ceiling_lamp = function (x, y, z) {
+				let point_light = new THREE.PointLight(
+					ceiling_lamp_config.color,
+					ceiling_lamp_config.intensity * ratio_render_over_physics,
+					ceiling_lamp_config * ratio_render_over_physics,
+					ceiling_lamp_config.decay
+				);
+				point_light.position.set(x * ratio_render_over_physics, y * ratio_render_over_physics, z * ratio_render_over_physics);
+				point_light.castShadow = true;
+				scene.add(point_light);
+			};
+			create_ceiling_lamp(4, 1, 1);
+			create_ceiling_lamp(-3, 1, 1);
+			create_ceiling_lamp(0.5, 4, -3);
 		}
 		{
-			let ground = new THREE.Mesh(new THREE.BoxGeometry(2000, 2, 1000), new THREE.MeshPhongMaterial({ color: 0x818d9c }));
-			ground.position.set(0, -200, 0);
+			let ambient_light_config = {
+				intensity: 10
+			};
+			let ambient_light = new THREE.AmbientLight(0x404040, ambient_light_config.intensity);
+			scene.add(ambient_light);
+		}
+		{
+			let ground_config = {
+				length: 20,
+				width: 10
+			};
+			let position = {
+				x: 0,
+				y: -2,
+				z: 0
+			};
+			let ground = new THREE.Mesh(
+				new THREE.BoxGeometry(ground_config.length * ratio_render_over_physics, 5, ground_config.width * ratio_render_over_physics),
+				new THREE.MeshPhongMaterial({ color: 0x818d9c })
+			);
+			ground.position.set(position.x * ratio_render_over_physics, position.y * ratio_render_over_physics, position.z * ratio_render_over_physics);
+			ground.receiveShadow = true;
 			scene.add(ground);
 		}
 		{
-			let wall = new THREE.Mesh(new THREE.BoxGeometry(2, 500, 1000), new THREE.MeshPhongMaterial({ color: 0x818d9c }));
-			wall.position.set(-1000, 0, 0);
+			let wall_config = {
+				widthX: 0.02,
+				widthZ: 10,
+				height: 10
+			};
+			let position = {
+				x: -10,
+				y: 2.5,
+				z: 0
+			};
+			let wall = new THREE.Mesh(
+				new THREE.BoxGeometry(
+					wall_config.widthX * ratio_render_over_physics,
+					wall_config.height * ratio_render_over_physics,
+					wall_config.widthZ * ratio_render_over_physics
+				),
+				new THREE.MeshPhongMaterial({ color: 0x818d9c })
+			);
+			wall.position.set(position.x * ratio_render_over_physics, position.y * ratio_render_over_physics, position.z * ratio_render_over_physics);
 			scene.add(wall);
 		}
 		{
-			let wall = new THREE.Mesh(new THREE.BoxGeometry(2, 500, 1000), new THREE.MeshPhongMaterial({ color: 0x818d9c }));
-			wall.position.set(1000, 0, 0);
+			let wall_config = {
+				widthX: 0.02,
+				widthZ: 10,
+				height: 10
+			};
+			let position = {
+				x: 10,
+				y: 2.5,
+				z: 0
+			};
+			let wall = new THREE.Mesh(
+				new THREE.BoxGeometry(
+					wall_config.widthX * ratio_render_over_physics,
+					wall_config.height * ratio_render_over_physics,
+					wall_config.widthZ * ratio_render_over_physics
+				),
+				new THREE.MeshPhongMaterial({ color: 0x818d9c })
+			);
+			wall.position.set(position.x * ratio_render_over_physics, position.y * ratio_render_over_physics, position.z * ratio_render_over_physics);
 			scene.add(wall);
 		}
 		{
-			let wall = new THREE.Mesh(new THREE.BoxGeometry(2000, 500, 2), new THREE.MeshPhongMaterial({ color: 0x818d9c }));
-			wall.position.set(0, 0, -500);
+			let wall_config = {
+				widthX: 20,
+				widthZ: 0.02,
+				height: 10
+			};
+			let position = {
+				x: 0,
+				y: 2.5,
+				z: -5
+			};
+			let wall = new THREE.Mesh(
+				new THREE.BoxGeometry(
+					wall_config.widthX * ratio_render_over_physics,
+					wall_config.height * ratio_render_over_physics,
+					wall_config.widthZ * ratio_render_over_physics
+				),
+				new THREE.MeshPhongMaterial({ color: 0x818d9c })
+			);
+			wall.position.set(position.x * ratio_render_over_physics, position.y * ratio_render_over_physics, position.z * ratio_render_over_physics);
 			scene.add(wall);
 		}
 
 		//three.js dynamic objects : robot
-		let self_mesh = new THREE.Mesh(new THREE.BoxGeometry(25, 25, 25), new THREE.MeshPhongMaterial({ color: 0xff0505 }));
-		self_mesh.position.set(self_player.position.x, self_player.position.y, self_player.position.z);
+		let self_mesh = new THREE.Mesh(
+			new THREE.BoxGeometry(
+				robot_radius * 2 * ratio_render_over_physics,
+				robot_radius * 2 * ratio_render_over_physics,
+				robot_radius * 2 * ratio_render_over_physics
+			),
+			new THREE.MeshPhongMaterial({ color: 0xab3333 })
+		);
+		self_mesh.position.set(
+			self_player.position.x * ratio_render_over_physics,
+			self_player.position.y * ratio_render_over_physics,
+			self_player.position.z * ratio_render_over_physics
+		);
 		self_mesh.castShadow = true;
+		self_mesh.receiveShadow = true;
 		scene.add(self_mesh);
 
 		//renderer from global variable
@@ -218,144 +335,277 @@
 			canvas: canvas
 		});
 		renderer.shadowMap.enabled = true;
-		renderer.setSize(window.innerWidth / 1.5, window.innerHeight - 200);
+		on_resize(); //call event handler for initial size
 
 		//physics
 		await RAPIER.init();
 
 		let world = new RAPIER.World(gravity);
 
-		//ground : length 1000, width 600, center : x 0, y -90, z -50
-		let ground_rigid_body_desc = RAPIER.RigidBodyDesc.fixed().setTranslation(0, 0, 0);
-		let ground_rigid_body = world.createRigidBody(ground_rigid_body_desc);
-		let ground_collider_desc = RAPIER.ColliderDesc.heightfield(6, 20, height_field, new RAPIER.Vector3(1200, 1, 700)).setTranslation(0, -90, -50); //offset the collider relative to the rigid body
-		let ground_collider = world.createCollider(ground_collider_desc, ground_rigid_body);
-		let floor_handle = ground_collider.handle; //unique ID associated with the floor collider
-
-		//walls
+		//floor
+		let floor_handle; //unique ID associated with the floor collider
 		{
-			let wall_rigid_body_desc = RAPIER.RigidBodyDesc.fixed().setTranslation(0, 0, 0);
-			let wall_rigid_body = world.createRigidBody(wall_rigid_body_desc);
-			let left_wall_collider_desc = RAPIER.ColliderDesc.cuboid(100, 1000, 500).setTranslation(-575, 400, 0);
-			let right_wall_collider_desc = RAPIER.ColliderDesc.cuboid(100, 1000, 500).setTranslation(575, 400, 0);
-			let top_wall_collider_desc = RAPIER.ColliderDesc.cuboid(700, 1000, 100).setTranslation(0, 400, -450);
-			let bottom_wall_collider_desc = RAPIER.ColliderDesc.cuboid(700, 1000, 100).setTranslation(0, 400, 350);
-			world.createCollider(left_wall_collider_desc, wall_rigid_body);
-			world.createCollider(right_wall_collider_desc, wall_rigid_body);
-			world.createCollider(top_wall_collider_desc, wall_rigid_body);
-			world.createCollider(bottom_wall_collider_desc, wall_rigid_body);
+			let rigid_body_desc = RAPIER.RigidBodyDesc.fixed().setTranslation(0, 0, 0);
+			let rigid_body = world.createRigidBody(rigid_body_desc);
+			let collider_desc = RAPIER.ColliderDesc.heightfield(row_subdiv, col_subdiv, height_field, new RAPIER.Vector3(field_length, 1, field_width));
+			let collider = world.createCollider(collider_desc, rigid_body);
+			floor_handle = collider.handle;
 		}
 
+		//west barrier
+		{
+			let barrier_config = {
+				widthX: 0.5,
+				widthZ: field_width / 2,
+				height: 10
+			};
+			let position = {
+				x: -(field_length / 2 + barrier_config.widthX),
+				y: barrier_config.height / 2 - 1,
+				z: 0
+			};
+			let rigid_body_desc = RAPIER.RigidBodyDesc.fixed().setTranslation(0, 0, 0);
+			let rigid_body = world.createRigidBody(rigid_body_desc);
+			let collider_desc = RAPIER.ColliderDesc.cuboid(barrier_config.widthX, barrier_config.height, barrier_config.widthZ).setTranslation(
+				position.x,
+				position.y,
+				position.z
+			);
+			world.createCollider(collider_desc, rigid_body);
+		}
+		//east barrier
+		{
+			let barrier_config = {
+				widthX: 0.5,
+				widthZ: field_width / 2,
+				height: 10
+			};
+			let position = {
+				x: field_length / 2 + barrier_config.widthX,
+				y: barrier_config.height / 2 - 1,
+				z: 0
+			};
+			let rigid_body_desc = RAPIER.RigidBodyDesc.fixed().setTranslation(0, 0, 0);
+			let rigid_body = world.createRigidBody(rigid_body_desc);
+			let collider_desc = RAPIER.ColliderDesc.cuboid(barrier_config.widthX, barrier_config.height, barrier_config.widthZ).setTranslation(
+				position.x,
+				position.y,
+				position.z
+			);
+			world.createCollider(collider_desc, rigid_body);
+		}
+		//north barrier
+		{
+			let barrier_config = {
+				widthX: field_length / 2,
+				widthZ: 0.5,
+				height: 10
+			};
+			let position = {
+				x: 0,
+				y: barrier_config.height / 2 - 1,
+				z: field_width / 2 + barrier_config.widthZ
+			};
+			let rigid_body_desc = RAPIER.RigidBodyDesc.fixed().setTranslation(0, 0, 0);
+			let rigid_body = world.createRigidBody(rigid_body_desc);
+			let collider_desc = RAPIER.ColliderDesc.cuboid(barrier_config.widthX, barrier_config.height, barrier_config.widthZ).setTranslation(
+				position.x,
+				position.y,
+				position.z
+			);
+			world.createCollider(collider_desc, rigid_body);
+		}
+		//south barrier
+		{
+			let barrier_config = {
+				widthX: field_length / 2,
+				widthZ: 0.5,
+				height: 10
+			};
+			let position = {
+				x: 0,
+				y: barrier_config.height / 2 - 1,
+				z: -(field_width / 2 + barrier_config.widthZ)
+			};
+			let rigid_body_desc = RAPIER.RigidBodyDesc.fixed().setTranslation(0, 0, 0);
+			let rigid_body = world.createRigidBody(rigid_body_desc);
+			let collider_desc = RAPIER.ColliderDesc.cuboid(barrier_config.widthX, barrier_config.height, barrier_config.widthZ).setTranslation(
+				position.x,
+				position.y,
+				position.z
+			);
+			world.createCollider(collider_desc, rigid_body);
+		}
+
+		//targets
+		let low_target_collider;
+		{
+			let scale = {
+				x: 0.12,
+				y: 0.12,
+				z: 0.12
+			};
+			let position = {
+				x: (field_length / 2) * (3 / 5),
+				y: 1 * ratio_render_over_physics,
+				z: -((field_width / 2) * (7 / 8))
+			};
+			let rigid_body_desc = RAPIER.RigidBodyDesc.fixed().setTranslation(0, 0, 0);
+			let rigid_body = world.createRigidBody(rigid_body_desc);
+			let collider_desc = RAPIER.ColliderDesc.cuboid(scale.x, scale.y, scale.z).setTranslation(position.x, position.y, position.z).setSensor(true);
+			low_target_collider = world.createCollider(collider_desc, rigid_body);
+		}
+		let high_target_collider;
+		{
+			let scale = {
+				x: 0.12,
+				y: 0.35,
+				z: 0.12
+			};
+			let position = {
+				x: (field_length / 2) * (19 / 20),
+				y: 2.5,
+				z: -(field_width / 75)
+			};
+			let rigid_body_desc = RAPIER.RigidBodyDesc.fixed().setTranslation(0, 0, 0);
+			let rigid_body = world.createRigidBody(rigid_body_desc);
+			let collider_desc = RAPIER.ColliderDesc.cuboid(scale.x, scale.y, scale.z).setTranslation(position.x, position.y, position.z).setSensor(true);
+			high_target_collider = world.createCollider(collider_desc, rigid_body);
+		}
+
+		//player
 		let player_rigid_body_desc = RAPIER.RigidBodyDesc.dynamic()
 			.setTranslation(self_player.position.x, self_player.position.y, self_player.position.z)
 			.setLinvel(0, 0, 0);
 		let player_rigid_body = world.createRigidBody(player_rigid_body_desc);
 
-		let player_collider_desc = RAPIER.ColliderDesc.ball(12);
+		let player_collider_desc = RAPIER.ColliderDesc.ball(robot_radius);
 		let player_collider = world.createCollider(player_collider_desc, player_rigid_body);
 
-		let character_controller = world.createCharacterController(offset);
-		//has a function which takes in the player collider to generate desired displacement
-
-		let move_direction = function (angle) {
-			self_player.desired_displacement = Vector3.polar_to_coord(angle + Math.PI / 2, 0, speed);
-			//further modified later to account for vertical movement
-			//only planar movements here
-		};
+		let character_controller = world.createCharacterController(character_collision_offset);
 
 		//game piece
 		let Game_piece = class {
 			constructor(position, velocity) {
+				let material;
 				if (Math.random() > 0.5) {
-					this.mesh = new THREE.Mesh(new THREE.SphereGeometry(6), new THREE.MeshPhongMaterial({ color: 0xffff00 }));
+					material = new THREE.MeshPhongMaterial({ color: 0xffff00 }); //yellow
 				} else {
-					this.mesh = new THREE.Mesh(new THREE.SphereGeometry(6), new THREE.MeshPhongMaterial({ color: 0x800080 }));
+					material = new THREE.MeshPhongMaterial({ color: 0x800080 }); //purple
 				}
+				this.mesh = new THREE.Mesh(new THREE.SphereGeometry(ball_radius * ratio_render_over_physics), material);
 				this.mesh.castShadow = true;
 
 				let rigid_body_desc = RAPIER.RigidBodyDesc.dynamic()
 					.setTranslation(position.x, position.y, position.z)
 					.setLinvel(velocity.x, velocity.y, velocity.z)
-					.setLinearDamping(damping);
+					.setLinearDamping(friction_damping);
 				this.rigid_body = world.createRigidBody(rigid_body_desc);
 
-				let collider_desc = RAPIER.ColliderDesc.ball(6);
+				let collider_desc = RAPIER.ColliderDesc.ball(ball_radius);
 				this.collider = world.createCollider(collider_desc, this.rigid_body);
 			}
 			update_mesh() {
-				this.mesh.position.set(this.rigid_body.translation().x, this.rigid_body.translation().y, this.rigid_body.translation().z);
-			}
-			add_to_scene(scene) {
-				scene.add(this.mesh);
+				this.mesh.position.set(
+					this.rigid_body.translation().x * ratio_render_over_physics,
+					this.rigid_body.translation().y * ratio_render_over_physics,
+					this.rigid_body.translation().z * ratio_render_over_physics
+				);
 			}
 			remove_everywhere() {
 				scene.remove(this.mesh);
 				world.removeRigidBody(this.rigid_body);
 			}
+			touch_target(collider) {
+				return world.intersectionPair(this.collider, collider);
+			}
 		};
 
 		//add initial game pieces
 		for (let z = -15; z < 15; z++) {
-			let game_piece = new Game_piece(new Vector3(0, 0, 20 * z - 50), new Vector3(0, 0, 0));
+			let game_piece = new Game_piece(new Vector3(0, 1, 0.2 * z), new Vector3(0, 0, 0));
 			game_piece.update_mesh();
-			game_piece.add_to_scene(scene);
 			game_pieces.push(game_piece);
+			scene.add(game_piece.mesh);
 		}
 
+		//initial render
+		renderer.render(scene, camera);
+
 		//game loop
-		let delay_seconds = 0.05; //how fast you want the simulation? smaller delay = faster animation
+		let start = 0;
+		let now = performance.now();
+		let delay_seconds;
 		let perpetual = function () {
-			//canvas active?
-			if (element_active) {
+			if (canvas_active && timer_seconds > 0) {
+				//time management
+				start = now;
+				now = performance.now();
+				if (now - start > 100) {
+					start = now - 100;
+				}
+				delay_seconds = (now - start) / 1000;
+				timer_seconds -= delay_seconds;
+
+				//camera zoom
+				if (active_keys.o === true && default_camera.zoom > 0.5) {
+					default_camera.zoom -= 0.05;
+					camera.zoom = default_camera.zoom;
+					camera.updateProjectionMatrix();
+				}
+				if (active_keys.i === true && default_camera.zoom < 10) {
+					default_camera.zoom += 0.05;
+					camera.zoom = default_camera.zoom;
+					camera.updateProjectionMatrix();
+				}
+
 				//player movement
-				if (active_keys.w === true) {
-					move_direction(self_player.rotation.y);
-				}
-				if (active_keys.s === true) {
-					move_direction(self_player.rotation.y + Math.PI);
-				}
 				if (active_keys.a === true) {
-					self_player.rotation.y += 0.02;
+					self_player.rotation.y += (speed * delay_seconds) / robot_radius;
 				}
 				if (active_keys.d === true) {
-					self_player.rotation.y -= 0.02;
+					self_player.rotation.y -= (speed * delay_seconds) / robot_radius;
+				}
+				if (active_keys.w === true) {
+					self_player.desired_displacement = Vector3.polar_to_coord(self_player.rotation.y, 0, speed * delay_seconds);
+				}
+				if (active_keys.s === true) {
+					self_player.desired_displacement = Vector3.polar_to_coord(self_player.rotation.y, 0, -speed * delay_seconds);
 				}
 
 				//game piece shooting controls
-				if (active_keys.q === true && self_player.power < 1000) {
-					self_player.power += 10;
+				if (active_keys.q === true && self_player.power < 10) {
+					self_player.power += 0.1;
+					self_player.power = Math.round(self_player.power * 10) / 10;
 				}
 				if (active_keys.e === true && self_player.power > 0) {
-					self_player.power -= 10;
+					self_player.power -= 0.1;
+					self_player.power = Math.round(self_player.power * 10) / 10;
 				}
 				if (active_keys.space === true && self_player.game_piece_number > 0) {
 					active_keys.space = false;
 					self_player.game_piece_number--;
-					let direction_shot = Vector3.polar_to_coord(
-						self_player.rotation.y + Math.PI / 2 + (Math.random() - 0.5) * launch_error_radians,
-						Math.PI / 6,
-						self_player.power
+
+					let game_piece = new Game_piece(
+						new Vector3(self_player.position.x, self_player.position.y + (robot_radius + ball_radius) * 1.2, self_player.position.z),
+						Vector3.polar_to_coord(self_player.rotation.y + (Math.random() - 0.5) * launch_angle_error, Math.PI / 4, self_player.power)
 					);
-					let game_piece = new Game_piece(new Vector3(self_player.position.x, self_player.position.y + 25, self_player.position.z), direction_shot);
 					game_piece.update_mesh();
-					game_piece.add_to_scene(scene);
 					game_pieces.push(game_piece);
+					scene.add(game_piece.mesh);
 				}
 
-				//camera zoom
-				if (active_keys.o === true && zoom > 0.5) {
-					zoom -= 0.03;
-				}
-				if (active_keys.i === true && zoom < 10) {
-					zoom += 0.03;
-				}
+				//set y velocity (x and z desired displacement already set in player movement)
+				self_player.velocity.add(new Vector3(0, delay_seconds * gravity.y, 0));
+				self_player.desired_displacement.y = delay_seconds * self_player.velocity.y;
 
-				self_player.velocity.add(new Vector3(0, delay_seconds * gravity.y, 0)); //honestly, there is only Y velocity, as you can see
-				self_player.desired_displacement.y = delay_seconds * self_player.velocity.y; //vertical movement added here, x and z already set
-
-				//character collisions
+				//robot collision
 				character_controller.computeColliderMovement(player_collider, self_player.desired_displacement);
 				let corrected_displacement = character_controller.computedMovement();
+
+				if (player_rigid_body.translation().x > 0) {
+					corrected_displacement.x = -speed * delay_seconds;
+				}
 				player_rigid_body.setLinvel(
 					{
 						x: corrected_displacement.x / delay_seconds,
@@ -365,28 +615,43 @@
 					true
 				); //Linvel = linear velocity (rapier built-in)
 
-				//check for touch ground
+				//go through the collisions
 				self_player.touching_ground = false;
 				for (let i = 0; i < character_controller.numComputedCollisions(); i++) {
 					let collision = character_controller.computedCollision(i);
-					//floor handle used here
+
+					//check for touch ground
 					if (collision.collider.handle === floor_handle) {
 						self_player.velocity.y = 0;
 						self_player.touching_ground = true;
 					}
 
-					let found_game_piece_index = game_pieces.findIndex(function (e) {
-						return e.collider.handle === collision.collider.handle;
+					//check for touch game piece
+					let found_game_piece_index = game_pieces.findIndex(function (game_piece) {
+						return game_piece.collider.handle === collision.collider.handle;
 					});
-					if (found_game_piece_index >= 0) {
+					if (found_game_piece_index >= 0 && self_player.game_piece_number < 10) {
 						game_pieces[found_game_piece_index].remove_everywhere();
 						game_pieces.splice(found_game_piece_index, 1);
 						self_player.game_piece_number++;
-						break;
+						break; //this resolves a weird bug, don't touch, the floor collision is still fine
 					}
 				}
 
-				//update player object
+				for (let game_piece of game_pieces) {
+					if (game_piece.touch_target(high_target_collider) === true) {
+						game_piece.rigid_body.setTranslation({ x: field_length / 2 - ball_radius * 1.2, y: 0.7, z: -(field_width / 12) });
+						game_piece.rigid_body.setLinvel({ x: 0, y: 0, z: 0 });
+						score += 250;
+					}
+					if (game_piece.touch_target(low_target_collider) === true) {
+						game_piece.rigid_body.setTranslation({ x: field_length * (3 / 5) - 0.2, y: 0.2, z: -(field_width / 3 - 0.2) });
+						game_piece.rigid_body.setLinvel({ x: 0, y: 0, z: 0 });
+						score += 50;
+					}
+				}
+
+				//update player object position
 				self_player.position.x = player_rigid_body.translation().x;
 				self_player.position.y = player_rigid_body.translation().y;
 				self_player.position.z = player_rigid_body.translation().z;
@@ -396,22 +661,34 @@
 
 				//update scene
 				camera.rotation.set(-mouse_position.y / 500, (-mouse_position.x + canvas.width / 2) / 500, 0, 'YXZ');
-				camera.zoom = zoom;
-				camera.updateProjectionMatrix();
 
-				self_mesh.position.set(self_player.position.x, self_player.position.y, self_player.position.z);
+				self_mesh.position.set(
+					self_player.position.x * ratio_render_over_physics,
+					self_player.position.y * ratio_render_over_physics,
+					self_player.position.z * ratio_render_over_physics
+				);
 				self_mesh.rotation.set(0, self_player.rotation.y, 0);
 
-				for (let i = 0; i < game_pieces.length; i++) {
-					game_pieces[i].update_mesh();
+				for (let game_piece of game_pieces) {
+					game_piece.update_mesh();
 				}
 
-				//reset desired displacement, so that if keyboard is inactive, it will default to zero
+				//reset desired displacement to default
 				self_player.desired_displacement = new Vector3(0, 0, 0);
 
 				//game info
-				game_info.innerHTML =
-					'Launch power (initial m/s) : ' + self_player.power / 50 + '<br/>' + 'Game pieces carried : ' + self_player.game_piece_number;
+				game_info_div.innerHTML =
+					'Timer : ' +
+					Math.round(timer_seconds) +
+					'<br/>' +
+					'Launch power (initial m/s) : ' +
+					self_player.power +
+					'<br/>' +
+					'Game pieces carried : ' +
+					self_player.game_piece_number +
+					'<br/>' +
+					'Score : ' +
+					score;
 			}
 
 			renderer.render(scene, camera);
@@ -421,9 +698,8 @@
 		perpetual();
 	};
 
-	//start rendering when ready
 	onMount(function () {
-		start_perpetual_render_and_physics();
+		start_perpetual();
 	});
 </script>
 
@@ -432,9 +708,9 @@
 <svelte:document on:pointerlockchange={on_pointlock_change} on:pointerlockerror={on_pointlock_error} />
 
 <div>
-	<div class="main">
+	<div class="main" bind:this={main_div}>
 		<canvas bind:this={canvas} on:mousemove={on_mouse_move} on:click={on_canvas_click}> </canvas>
-		<div bind:this={game_info} class="game-info"></div>
+		<div bind:this={game_info_div} class="game-info"></div>
 	</div>
 </div>
 
@@ -444,6 +720,12 @@
 		margin: auto;
 		position: relative;
 		width: 75%;
+		outline: 10px solid white;
+	}
+	canvas {
+		width: 100%;
+		height: 100%;
+		display: block;
 	}
 	div .game-info {
 		position: absolute;
