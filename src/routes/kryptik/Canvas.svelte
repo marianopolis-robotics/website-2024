@@ -586,7 +586,7 @@
 		margin: auto;
 		position: relative;
 		width: 75%;
-		outline: 10px solid white;
+		outline: 10px solid #ffedc2;
 		border-radius: 5px;
 	}
 	canvas {
