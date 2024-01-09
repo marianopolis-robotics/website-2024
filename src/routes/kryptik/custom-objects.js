@@ -122,19 +122,19 @@ let fourty_text = new THREE.Mesh(new TextGeometry('40', font_config), new THREE.
 fourty_text.position.set(300, -3, 10);
 fourty_text.rotation.set(-Math.PI / 2, 0, 0, 'XYZ');
 
-let ten_text = new THREE.Mesh(new TextGeometry('10', font_config), new THREE.MeshPhongMaterial({ color: 0xffff00 }));
+let ten_text = new THREE.Mesh(new TextGeometry('20', font_config), new THREE.MeshPhongMaterial({ color: 0xffff00 }));
 ten_text.position.set(415, -3, 10);
-ten_text.rotation.set(-Math.PI / 2, 0, 0, 'XYZ');
+ten_text.rotation.set(-Math.PI / 2, 0, 0, 'XYZ'); //rules changed to 20
 
-let two_fifty_text = new THREE.Mesh(new TextGeometry('250', font_config), new THREE.MeshPhongMaterial({ color: 0xffff00 }));
+let two_fifty_text = new THREE.Mesh(new TextGeometry('120', font_config), new THREE.MeshPhongMaterial({ color: 0xffff00 }));
 two_fifty_text.position.set(500, 150, 0);
-two_fifty_text.rotation.set(0, -Math.PI / 2, 0, 'YXZ');
+two_fifty_text.rotation.set(0, -Math.PI / 2, 0, 'YXZ'); //rules changed to 120
 
-let fifty_text = new THREE.Mesh(new TextGeometry('50', font_config), new THREE.MeshPhongMaterial({ color: 0xffff00 }));
-fifty_text.position.set(290, 15, -230);
+let fifty_text = new THREE.Mesh(new TextGeometry('60', font_config), new THREE.MeshPhongMaterial({ color: 0xffff00 }));
+fifty_text.position.set(290, 15, -230); //rules changed to 60
 
-let twenty_five_text = new THREE.Mesh(new TextGeometry('25', font_config), new THREE.MeshPhongMaterial({ color: 0xffff00 }));
-twenty_five_text.position.set(170, 100, -230);
+let twenty_five_text = new THREE.Mesh(new TextGeometry('30', font_config), new THREE.MeshPhongMaterial({ color: 0xffff00 }));
+twenty_five_text.position.set(170, 100, -230); //rules changed to 30
 
 export { twenty_text, fourty_text, ten_text, two_fifty_text, fifty_text, twenty_five_text };
 

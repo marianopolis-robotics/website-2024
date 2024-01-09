@@ -23,6 +23,7 @@
 	Camera: Move mouse to adjust view, [I] key to zoom in, [O] key to zoom out. <br />
 	Movement: [WASD] keys to move. <br />
 	Shooting: [Q] key to increase power, [E] key to decrease power, [Space] bar to launch. <br />
+	Multiplier: [M] key to place multiplier.
 </p>
 
 <div>

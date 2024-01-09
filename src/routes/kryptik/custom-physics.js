@@ -24,10 +24,8 @@ export function test(scale, position, rotation) {
 let __ = class {
 	constructor(RAPIER, world) {
 		{
-			let rigid_body_desc = RAPIER.RigidBodyDesc.fixed().setTranslation(0, 0, 0);
-			let rigid_body = world.createRigidBody(rigid_body_desc);
 			let collider_desc = RAPIER.ColliderDesc.heightfield(row_subdiv, col_subdiv, height_field, new RAPIER.Vector3(field_length, 1, field_width));
-			let collider = world.createCollider(collider_desc, rigid_body);
+			let collider = world.createCollider(collider_desc);
 			this.floor_handle = collider.handle;
 		}
 		//west barrier
@@ -37,14 +35,12 @@ let __ = class {
 				widthZ: field_width / 2,
 				height: 10
 			};
-			let rigid_body_desc = RAPIER.RigidBodyDesc.fixed().setTranslation(0, 0, 0);
-			let rigid_body = world.createRigidBody(rigid_body_desc);
 			let collider_desc = RAPIER.ColliderDesc.cuboid(barrier_config.widthX, barrier_config.height, barrier_config.widthZ).setTranslation(
 				-(field_length / 2 + barrier_config.widthX),
 				barrier_config.height / 2 - 1,
 				0
 			);
-			world.createCollider(collider_desc, rigid_body);
+			world.createCollider(collider_desc);
 		}
 		//east barrier
 		{
@@ -53,14 +49,12 @@ let __ = class {
 				widthZ: field_width / 2,
 				height: 10
 			};
-			let rigid_body_desc = RAPIER.RigidBodyDesc.fixed().setTranslation(0, 0, 0);
-			let rigid_body = world.createRigidBody(rigid_body_desc);
 			let collider_desc = RAPIER.ColliderDesc.cuboid(barrier_config.widthX, barrier_config.height, barrier_config.widthZ).setTranslation(
 				field_length / 2 + barrier_config.widthX,
 				barrier_config.height / 2 - 1,
 				0
 			);
-			world.createCollider(collider_desc, rigid_body);
+			world.createCollider(collider_desc);
 		}
 		//north barrier
 		{
@@ -69,14 +63,12 @@ let __ = class {
 				widthZ: 0.5,
 				height: 10
 			};
-			let rigid_body_desc = RAPIER.RigidBodyDesc.fixed().setTranslation(0, 0, 0);
-			let rigid_body = world.createRigidBody(rigid_body_desc);
 			let collider_desc = RAPIER.ColliderDesc.cuboid(barrier_config.widthX, barrier_config.height, barrier_config.widthZ).setTranslation(
 				0,
 				barrier_config.height / 2 - 1,
 				field_width / 2 + barrier_config.widthZ
 			);
-			world.createCollider(collider_desc, rigid_body);
+			world.createCollider(collider_desc);
 		}
 		//south barrier
 		{
@@ -85,98 +77,76 @@ let __ = class {
 				widthZ: 0.5,
 				height: 10
 			};
-			let rigid_body_desc = RAPIER.RigidBodyDesc.fixed().setTranslation(0, 0, 0);
-			let rigid_body = world.createRigidBody(rigid_body_desc);
 			let collider_desc = RAPIER.ColliderDesc.cuboid(barrier_config.widthX, barrier_config.height, barrier_config.widthZ).setTranslation(
 				0,
 				barrier_config.height / 2 - 1,
 				-(field_width / 2 + barrier_config.widthZ)
 			);
-			world.createCollider(collider_desc, rigid_body);
+			world.createCollider(collider_desc);
 		}
 		//target sensors
 		//lowest target
 		{
-			let rigid_body_desc = RAPIER.RigidBodyDesc.fixed().setTranslation(0, 0, 0);
-			let rigid_body = world.createRigidBody(rigid_body_desc);
 			let collider_desc = RAPIER.ColliderDesc.cuboid(0.15, 0.15, 0.05).setTranslation(3.3, 0.85, -2.5).setSensor(true);
-			this.low_target_collider = world.createCollider(collider_desc, rigid_body);
+			this.low_target_collider = world.createCollider(collider_desc);
 		}
 		//low target
 		{
-			let rigid_body_desc = RAPIER.RigidBodyDesc.fixed().setTranslation(0, 0, 0);
-			let rigid_body = world.createRigidBody(rigid_body_desc);
 			let collider_desc = RAPIER.ColliderDesc.cuboid(0.15, 0.15, 0.05).setTranslation(2.8, 1.2, -2.5).setSensor(true);
-			this.lowest_target_collider = world.createCollider(collider_desc, rigid_body);
+			this.lowest_target_collider = world.createCollider(collider_desc);
 		}
 		//high target
 		{
-			let rigid_body_desc = RAPIER.RigidBodyDesc.fixed().setTranslation(0, 0, 0);
-			let rigid_body = world.createRigidBody(rigid_body_desc);
 			let collider_desc = RAPIER.ColliderDesc.cuboid(0.05, 0.35, 0.2).setTranslation(4.8, 2.5, 0.5).setSensor(true);
-			this.high_target_collider = world.createCollider(collider_desc, rigid_body);
+			this.high_target_collider = world.createCollider(collider_desc);
 		}
 		//low target collider
 		//top
 		{
 			let quaternion = new THREE.Quaternion();
 			quaternion.setFromEuler(new THREE.Euler(0, 0, -1.25, 'XYZ'));
-			let rigid_body_desc = RAPIER.RigidBodyDesc.fixed().setTranslation(0, 0, 0);
-			let rigid_body = world.createRigidBody(rigid_body_desc);
 			let collider_desc = RAPIER.ColliderDesc.cuboid(0.25, 0.25, 0.25).setTranslation(3.1, 1.05, -2.8).setRotation(quaternion);
-			world.createCollider(collider_desc, rigid_body);
+			world.createCollider(collider_desc);
 		}
 		//bottom front
 		{
 			let quaternion = new THREE.Quaternion();
 			quaternion.setFromEuler(new THREE.Euler(0, -0.5, 0.3, 'ZYX'));
-			let rigid_body_desc = RAPIER.RigidBodyDesc.fixed().setTranslation(0, 0, 0);
-			let rigid_body = world.createRigidBody(rigid_body_desc);
 			let collider_desc = RAPIER.ColliderDesc.cuboid(0.05, 0.2, 0.25).setTranslation(3.1, 0.85, -2.7).setRotation(quaternion);
-			world.createCollider(collider_desc, rigid_body);
+			world.createCollider(collider_desc);
 		}
 		//bottom
 		{
 			let quaternion = new THREE.Quaternion();
 			quaternion.setFromEuler(new THREE.Euler(0, 0, -1.3, 'XYZ'));
-			let rigid_body_desc = RAPIER.RigidBodyDesc.fixed().setTranslation(0, 0, 0);
-			let rigid_body = world.createRigidBody(rigid_body_desc);
 			let collider_desc = RAPIER.ColliderDesc.cuboid(0.05, 0.4, 0.25).setTranslation(3.5, 0.7, -2.7).setRotation(quaternion);
-			world.createCollider(collider_desc, rigid_body);
+			world.createCollider(collider_desc);
 		}
 		//small side
 		{
 			let quaternion = new THREE.Quaternion();
 			quaternion.setFromEuler(new THREE.Euler(-0.3, Math.PI / 2, 0, 'YXZ'));
-			let rigid_body_desc = RAPIER.RigidBodyDesc.fixed().setTranslation(0, 0, 0);
-			let rigid_body = world.createRigidBody(rigid_body_desc);
 			let collider_desc = RAPIER.ColliderDesc.cuboid(0.05, 0.2, 0.25).setTranslation(3.2, 1.35, -2.4).setRotation(quaternion);
-			world.createCollider(collider_desc, rigid_body);
+			world.createCollider(collider_desc);
 		}
 		//big side
 		{
 			let quaternion = new THREE.Quaternion();
 			quaternion.setFromEuler(new THREE.Euler(-0.3, Math.PI / 2, 0, 'YXZ'));
-			let rigid_body_desc = RAPIER.RigidBodyDesc.fixed().setTranslation(0, 0, 0);
-			let rigid_body = world.createRigidBody(rigid_body_desc);
 			let collider_desc = RAPIER.ColliderDesc.cuboid(0.05, 0.4, 0.35).setTranslation(3.7, 1.25, -2.4).setRotation(quaternion);
-			world.createCollider(collider_desc, rigid_body);
+			world.createCollider(collider_desc);
 		}
 		//back
 		{
-			let rigid_body_desc = RAPIER.RigidBodyDesc.fixed().setTranslation(0, 0, 0);
-			let rigid_body = world.createRigidBody(rigid_body_desc);
 			let collider_desc = RAPIER.ColliderDesc.cuboid(0.05, 0.9, 0.3).setTranslation(3.9, 0.9, -2.75);
-			world.createCollider(collider_desc, rigid_body);
+			world.createCollider(collider_desc);
 		}
 		//front
 		{
 			let quaternion = new THREE.Quaternion();
 			quaternion.setFromEuler(new THREE.Euler(0, -0.6, 0, 'XYZ'));
-			let rigid_body_desc = RAPIER.RigidBodyDesc.fixed().setTranslation(0, 0, 0);
-			let rigid_body = world.createRigidBody(rigid_body_desc);
 			let collider_desc = RAPIER.ColliderDesc.cuboid(0.05, 0.7, 0.3).setTranslation(2.8, 0.6, -2.75).setRotation(quaternion);
-			world.createCollider(collider_desc, rigid_body);
+			world.createCollider(collider_desc);
 		}
 		//multipliers
 		{
@@ -184,41 +154,49 @@ let __ = class {
 				y: 0.45,
 				radius: 0.05
 			};
+			//multiplier collider
 			{
-				let rigid_body_desc = RAPIER.RigidBodyDesc.fixed().setTranslation(0, 0, 0);
-				let rigid_body = world.createRigidBody(rigid_body_desc);
 				let collider_desc = RAPIER.ColliderDesc.cylinder(scale.y, scale.radius).setTranslation(-3.39, scale.y / 2, -1.83);
-				world.createCollider(collider_desc, rigid_body);
+				world.createCollider(collider_desc);
 			}
 			{
-				let rigid_body_desc = RAPIER.RigidBodyDesc.fixed().setTranslation(0, 0, 0);
-				let rigid_body = world.createRigidBody(rigid_body_desc);
 				let collider_desc = RAPIER.ColliderDesc.cylinder(scale.y, scale.radius).setTranslation(-4.95, scale.y / 2, 0.35);
-				world.createCollider(collider_desc, rigid_body);
+				world.createCollider(collider_desc);
 			}
 			{
-				let rigid_body_desc = RAPIER.RigidBodyDesc.fixed().setTranslation(0, 0, 0);
-				let rigid_body = world.createRigidBody(rigid_body_desc);
 				let collider_desc = RAPIER.ColliderDesc.cylinder(scale.y, scale.radius).setTranslation(-2.35, scale.y / 2, 1.28);
-				world.createCollider(collider_desc, rigid_body);
+				world.createCollider(collider_desc);
 			}
 			{
-				let rigid_body_desc = RAPIER.RigidBodyDesc.fixed().setTranslation(0, 0, 0);
-				let rigid_body = world.createRigidBody(rigid_body_desc);
 				let collider_desc = RAPIER.ColliderDesc.cylinder(scale.y, scale.radius).setTranslation(3.33, scale.y / 2, 1.83);
-				world.createCollider(collider_desc, rigid_body);
+				world.createCollider(collider_desc);
 			}
 			{
-				let rigid_body_desc = RAPIER.RigidBodyDesc.fixed().setTranslation(0, 0, 0);
-				let rigid_body = world.createRigidBody(rigid_body_desc);
 				let collider_desc = RAPIER.ColliderDesc.cylinder(scale.y, scale.radius).setTranslation(4.89, scale.y / 2, -0.35);
-				world.createCollider(collider_desc, rigid_body);
+				world.createCollider(collider_desc);
 			}
 			{
-				let rigid_body_desc = RAPIER.RigidBodyDesc.fixed().setTranslation(0, 0, 0);
-				let rigid_body = world.createRigidBody(rigid_body_desc);
 				let collider_desc = RAPIER.ColliderDesc.cylinder(scale.y, scale.radius).setTranslation(2.29, scale.y / 2, -1.28);
-				world.createCollider(collider_desc, rigid_body);
+				world.createCollider(collider_desc);
+			}
+			//multiplier sensors
+			{
+				let collider_desc = RAPIER.ColliderDesc.cylinder(scale.y, scale.radius * 10)
+					.setTranslation(-3.39, scale.y / 2, -1.83)
+					.setSensor(true);
+				this.ally_multiplier_top = world.createCollider(collider_desc);
+			}
+			{
+				let collider_desc = RAPIER.ColliderDesc.cylinder(scale.y, scale.radius * 10)
+					.setTranslation(-4.95, scale.y / 2, 0.35)
+					.setSensor(true);
+				this.ally_multiplier_middle = world.createCollider(collider_desc);
+			}
+			{
+				let collider_desc = RAPIER.ColliderDesc.cylinder(scale.y, scale.radius * 10)
+					.setTranslation(-2.35, scale.y / 2, 1.28)
+					.setSensor(true);
+				this.ally_multiplier_bottom = world.createCollider(collider_desc);
 			}
 		}
 		{

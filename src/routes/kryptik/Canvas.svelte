@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import * as THREE from 'three';
 	import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-	import RAPIER from '@dimforge/rapier3d-compat';
+	import RAPIER, { QueryFilterFlags } from '@dimforge/rapier3d-compat';
 	import { Vector3 } from './vector.js';
 
 	import playingFieldURL from '$lib/assets/3d-objects/playingField.glb';
@@ -35,6 +35,7 @@
 	let game_info_div;
 	let start_mask_div;
 	let start_mask_text;
+	let add_multiplier_button;
 	//global three objects
 	let camera;
 	let renderer;
@@ -52,11 +53,16 @@
 		},
 		velocity: new Vector3(0, 0, 0),
 		desired_displacement: new Vector3(0, 0, 0),
-		touching_ground: false,
 		power: 5,
 		game_piece_number: 3
 	};
 	let score = 0;
+	let selected_multiplier;
+	let multiplier_1_placed = false;
+	let multiplier_2_placed = false;
+	let multiplier_3_placed = false;
+	let multiplier_count = 0;
+	let multiply_factor = 1;
 	let timer_seconds = 300; //set initial
 	const field_width = 6.1;
 	const speed = 1;
@@ -204,8 +210,6 @@
 		//load static custom physics
 		let custom_physics = new __(RAPIER, world);
 
-		let floor_handle = custom_physics.floor_handle;
-
 		let low_target_collider = custom_physics.low_target_collider;
 		let lowest_target_collider = custom_physics.lowest_target_collider;
 		let high_target_collider = custom_physics.high_target_collider;
@@ -214,6 +218,10 @@
 		player_rigid_body.setTranslation(self_player.position);
 		let player_collider = custom_physics.player_collider;
 		let character_controller = custom_physics.character_controller;
+
+		let ally_multiplier_top = custom_physics.ally_multiplier_top;
+		let ally_multiplier_middle = custom_physics.ally_multiplier_middle;
+		let ally_multiplier_bottom = custom_physics.ally_multiplier_bottom;
 
 		//game piece
 		let Game_piece = class {
@@ -291,6 +299,9 @@
 				'Game pieces carried : ' +
 				self_player.game_piece_number +
 				'<br/>' +
+				'Multiplier factor : ' +
+				multiply_factor +
+				'<br/>' +
 				'Score : ' +
 				score +
 				' pts';
@@ -359,13 +370,54 @@
 					scene.add(game_piece.mesh);
 				}
 
+				if (active_keys.m === true && self_player.game_piece_number > 0) {
+					if (selected_multiplier === 1 && multiplier_1_placed === false) {
+						Game_piece.fast_spawn(new Vector3(-3.39, 1, -1.83), new Vector3(0, 0, 0));
+						self_player.game_piece_number--;
+						multiplier_1_placed = true;
+						multiplier_count++;
+					}
+					if (selected_multiplier === 2 && multiplier_2_placed === false) {
+						Game_piece.fast_spawn(new Vector3(-4.95, 1, 0.35), new Vector3(0, 0, 0));
+						self_player.game_piece_number--;
+						multiplier_2_placed = true;
+						multiplier_count++;
+					}
+					if (selected_multiplier === 3 && multiplier_3_placed === false) {
+						Game_piece.fast_spawn(new Vector3(-2.35, 1, 1.28), new Vector3(0, 0, 0));
+						self_player.game_piece_number--;
+						multiplier_3_placed = true;
+						multiplier_count++;
+					}
+				}
+
+				//compute multiplier
+				if (multiplier_count === 0) {
+					multiply_factor = 1;
+				}
+				if (multiplier_count === 1) {
+					multiply_factor = 1.5;
+				}
+				if (multiplier_count === 2) {
+					multiply_factor = 2;
+				}
+				if (multiplier_count === 3) {
+					multiply_factor = 2.5;
+				}
+
 				//set y velocity (x and z desired displacement already set in player movement)
 				self_player.velocity.add(new Vector3(0, delay_seconds * gravity.y, 0));
 				self_player.desired_displacement.y = delay_seconds * self_player.velocity.y;
 
 				//robot collision
-				character_controller.computeColliderMovement(player_collider, self_player.desired_displacement);
+				character_controller.computeColliderMovement(player_collider, self_player.desired_displacement, undefined, undefined, function (collider) {
+					return collider.isSensor() === false;
+				});
 				let corrected_displacement = character_controller.computedMovement();
+
+				if (character_controller.computedGrounded()) {
+					self_player.velocity.y = 0;
+				}
 
 				if (player_rigid_body.translation().x > 0) {
 					corrected_displacement.x = -speed * delay_seconds;
@@ -380,15 +432,8 @@
 				); //Linvel = linear velocity (rapier built-in)
 
 				//go through the collisions
-				self_player.touching_ground = false;
 				for (let i = 0; i < character_controller.numComputedCollisions(); i++) {
 					let collision = character_controller.computedCollision(i);
-
-					//check for touch ground
-					if (collision.collider.handle === floor_handle) {
-						self_player.velocity.y = 0;
-						self_player.touching_ground = true;
-					}
 
 					//check for touch game piece
 					let found_game_piece_index = game_pieces.findIndex(function (game_piece) {
@@ -406,17 +451,17 @@
 					if (game_piece.touch_target(high_target_collider) === true) {
 						game_piece.rigid_body.setTranslation({ x: 4.5, y: 1, z: 0.5 });
 						game_piece.rigid_body.setLinvel({ x: 0, y: 0, z: 0 });
-						score += 250;
+						score += 120 * multiply_factor;
 					}
 					if (game_piece.touch_target(low_target_collider) === true) {
 						game_piece.rigid_body.setTranslation({ x: 3.3, y: 0.85, z: -2 });
 						game_piece.rigid_body.setLinvel({ x: 0, y: 0, z: 0 });
-						score += 25;
+						score += 30 * multiply_factor;
 					}
 					if (game_piece.touch_target(lowest_target_collider) === true) {
 						game_piece.rigid_body.setTranslation({ x: 2.8, y: 1.2, z: -2 });
 						game_piece.rigid_body.setLinvel({ x: 0, y: 0, z: 0 });
-						score += 50;
+						score += 60 * multiply_factor;
 					}
 				}
 
@@ -451,6 +496,43 @@
 
 			renderer.render(scene, camera);
 
+			{
+				let position = new THREE.Vector3(0, 0, 0);
+				let visible = true;
+				if (world.intersectionPair(player_collider, ally_multiplier_top)) {
+					position = new THREE.Vector3(ally_multiplier_top.translation().x, ally_multiplier_top.translation().y, ally_multiplier_top.translation().z);
+					selected_multiplier = 1;
+				} else if (world.intersectionPair(player_collider, ally_multiplier_middle)) {
+					position = new THREE.Vector3(
+						ally_multiplier_middle.translation().x,
+						ally_multiplier_middle.translation().y,
+						ally_multiplier_middle.translation().z
+					);
+					selected_multiplier = 2;
+				} else if (world.intersectionPair(player_collider, ally_multiplier_bottom)) {
+					position = new THREE.Vector3(
+						ally_multiplier_bottom.translation().x,
+						ally_multiplier_bottom.translation().y,
+						ally_multiplier_bottom.translation().z
+					);
+					selected_multiplier = 3;
+				} else {
+					visible = false;
+					selected_multiplier = undefined;
+				}
+				if (visible) {
+					position.multiplyScalar(ratio_render_over_physics);
+					let position_view = position.project(camera);
+					position_view.add(new THREE.Vector3(1, -1, 0));
+					position_view.multiply(new THREE.Vector3(canvas.width / 2, -canvas.height / 2, 1));
+					add_multiplier_button.style.left = position_view.x + 'px';
+					add_multiplier_button.style.top = position_view.y + 'px';
+					add_multiplier_button.style.visibility = 'visible';
+				} else {
+					add_multiplier_button.style.visibility = 'hidden';
+				}
+			}
+
 			if (timer_seconds > 0) {
 				requestAnimationFrame(perpetual);
 			} else {
@@ -461,11 +543,11 @@
 					for (let game_piece of game_pieces) {
 						let positionX = game_piece.rigid_body.translation().x;
 						if (positionX > 0.5 && positionX <= 2.5) {
-							score += 20;
+							score += 20 * multiply_factor;
 						} else if (positionX > 2.5 && positionX <= 3.75) {
-							score += 40;
+							score += 40 * multiply_factor;
 						} else if (positionX > 3.75 && positionX <= 5) {
-							score += 10;
+							score += 20 * multiply_factor;
 						}
 						update_game_info();
 						start_mask_text.innerHTML = 'Heat ended' + '<br/>' + 'Score : ' + score;
@@ -487,6 +569,7 @@
 
 <div>
 	<div class="main" bind:this={main_div}>
+		<button bind:this={add_multiplier_button}>Put a multiplier?</button>
 		<canvas bind:this={canvas} on:mousemove={on_mouse_move}> </canvas>
 		<div bind:this={game_info_div} class="game-info"></div>
 		<!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -534,5 +617,8 @@
 		text-align: center;
 		color: white;
 		font-size: 50px;
+	}
+	button {
+		position: absolute;
 	}
 </style>
