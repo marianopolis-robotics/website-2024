@@ -10,7 +10,6 @@
   <title>Home | Mari Angryneers</title>
 </svelte:head>
 
-<!-- remove later! just a placeholder for testing background -->
 <main>
   <div class="my-5">
     <h1 class="text-center angry_birds_font">The Mari Angryneers</h1>
@@ -19,10 +18,7 @@
   <Intro />
   <BirdCustomization />
   <UserAttributes />
-  
- 
 </main>
-<!-- <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br> -->
 
 <style>
      .angry_birds_font{
