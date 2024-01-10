@@ -11,9 +11,9 @@
 <h1>Kryptik</h1>
 
 <p>
-	The winners of this year's Kryptik competition will be selected to lead the attack on the king pig's castle to take back the bird eggs. However, the
-	Angryneers plan to use attacks which would not put themselves at risk. In fact, they developed a mechanism to launch projectiles other than
-	themselves ! Help them test their launcher. First, read the instructions before entering the experiment.
+	The [name] game is celebrated each year to remember the victorious attack on the King Pig's castle, which allowed us to rightfully retrieve the
+	eggs. The game was designed to replicate the tactics used during the war, but we removed the original dangerous launching mechanism. In fact, they
+	developed a mechanism to launch projectiles other than themselves! First, read the instructions before entering the arena.
 </p>
 
 <div>

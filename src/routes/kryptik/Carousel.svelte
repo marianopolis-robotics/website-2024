@@ -125,10 +125,10 @@
 						<p>
 							Now we’re getting to the fun part! The objective of the game is to score as many points as possible with your teammate.There are 3 ways
 							to score points in the Kryptik game. <br /><br />
-							Small targets are worth 50 points per game piece exiting through the lower floor. The small target is worth 25 points per game piece exiting
+							1. Small targets are worth 50 points per game piece exiting through the lower floor. The small target is worth 25 points per game piece exiting
 							from the upper floor. <br /><br />
-							Each large target is worth 250 points per game piece entering it. <br /><br />
-							At the end of the joust, game pieces on the ground are awarded points according to where they are after they stop moving. The following image
+							2. Each large target is worth 250 points per game piece entering it. <br /><br />
+							3. At the end of the joust, game pieces on the ground are awarded points according to where they are after they stop moving. The following image
 							shows the point values for each zone, delimited by the red speed bumps, the sides of the playing field and the neutral zone at the top of
 							the hill.
 						</p>

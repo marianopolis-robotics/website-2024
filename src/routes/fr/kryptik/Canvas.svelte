@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import * as THREE from 'three';
 	import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-	import RAPIER from '@dimforge/rapier3d-compat';
+	import RAPIER, { QueryFilterFlags } from '@dimforge/rapier3d-compat';
 	import { Vector3 } from './vector.js';
 
 	import playingFieldURL from '$lib/assets/3d-objects/playingField.glb';
@@ -116,7 +116,7 @@
 	};
 	const on_canvas_click = function () {
 		if (timer_seconds > 0) {
-			start_mask_text.innerHTML = 'Continue';
+			start_mask_text.innerHTML = 'Continuer';
 			canvas.requestPointerLock();
 		}
 	};
@@ -131,7 +131,7 @@
 		canvas_active = !canvas_active;
 	};
 	const on_pointlock_error = function () {
-		alert('Please slow down your actions : when exiting pointer lock, please wait a few seconds before entering pointer lock again.');
+		alert("S'il vous plaît, ralentir vos actions : quand vous quittez la simulation, attendre quelques secondes avant d'entrer à nouveau.");
 	};
 
 	//game initial setup
@@ -288,21 +288,21 @@
 
 		let update_game_info = function () {
 			game_info_div.innerHTML =
-				'Timer : ' +
+				'Chronomètre : ' +
 				Math.round(timer_seconds) +
 				' s' +
 				'<br/>' +
-				'Launch power : ' +
+				'Puissance du tir : ' +
 				self_player.power +
 				' m/s' +
 				'<br/>' +
-				'Game pieces carried : ' +
+				'Pièces de jeu transportées : ' +
 				self_player.game_piece_number +
 				'<br/>' +
-				'Multiplier factor : ' +
+				'Facteur de multiplication des points : ' +
 				multiply_factor +
 				'<br/>' +
-				'Score : ' +
+				'Pointage : ' +
 				score +
 				' pts';
 		};
@@ -494,6 +494,8 @@
 				update_game_info();
 			}
 
+			renderer.render(scene, camera);
+
 			{
 				let position = new THREE.Vector3(0, 0, 0);
 				let visible = true;
@@ -532,12 +534,11 @@
 			}
 
 			if (timer_seconds > 0) {
-				renderer.render(scene, camera);
 				requestAnimationFrame(perpetual);
 			} else {
 				//end score calculation
 				start_mask_div.style.visibility = 'visible';
-				start_mask_text.innerHTML = 'Heat ended : Waiting for game pieces to immobilize...';
+				start_mask_text.innerHTML = "Partie terminée : Attendre que les pièces de jeu s'immobilisent...";
 				setTimeout(function () {
 					for (let game_piece of game_pieces) {
 						let positionX = game_piece.rigid_body.translation().x;
@@ -549,7 +550,7 @@
 							score += 20 * multiply_factor;
 						}
 						update_game_info();
-						start_mask_text.innerHTML = 'Heat ended' + '<br/>' + 'Score : ' + score;
+						start_mask_text.innerHTML = 'Partie terminée' + '<br/>' + 'Pointage : ' + score;
 					}
 				}, 5000);
 			}
@@ -568,7 +569,7 @@
 
 <div>
 	<div class="main" bind:this={main_div}>
-		<button bind:this={add_multiplier_button}>Put a multiplier?</button>
+		<button bind:this={add_multiplier_button}>Ajouter un multiplicateur?</button>
 		<canvas bind:this={canvas} on:mousemove={on_mouse_move}> </canvas>
 		<div bind:this={game_info_div} class="game-info"></div>
 		<!-- svelte-ignore a11y-click-events-have-key-events -->
