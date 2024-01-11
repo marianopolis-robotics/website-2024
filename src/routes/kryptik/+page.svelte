@@ -19,15 +19,20 @@
 <div>
 	<div class="spacer"><Carousel /></div>
 
-	<p>
-		Click the simulation window to start. Press the [Esc] key to exit simulation. <br />
-		Camera: Move mouse to adjust view, [I] key to zoom in, [O] key to zoom out. <br />
-		Movement: [WASD] keys to move. <br />
-		Shooting: [Q] key to increase power, [E] key to decrease power, [Space] bar to launch. <br />
-		Multiplier: [M] key to place multiplier.
-	</p>
+	<div class="laptop-show">
+		<p>
+			Click the simulation window to start. Press the [Esc] key to exit simulation. <br />
+			Camera: Move mouse to adjust view, [I] key to zoom in, [O] key to zoom out. <br />
+			Movement: [WASD] keys to move. <br />
+			Shooting: [Q] key to increase power, [E] key to decrease power, [Space] bar to launch. <br />
+			Multiplier: [M] key to place multiplier.
+		</p>
 
-	<div class="spacer"><Canvas /></div>
+		<div class="spacer"><Canvas /></div>
+	</div>
+	<div class="mobile-show">
+		<p>The game demo does not support mobile devices.</p>
+	</div>
 </div>
 
 <style>
@@ -37,12 +42,31 @@
 	}
 	p {
 		display: block;
-		width: 50%;
+		width: 75%;
 		margin: auto;
 		padding: 0px 0px 50px;
 		text-align: center;
 	}
 	div .spacer {
 		padding: 0px 0px 100px;
+	}
+	.mobile-show p {
+		text-align: center;
+	}
+	@media screen and (min-device-width: 400px) {
+		.laptop-show {
+			display: block;
+		}
+		.mobile-show {
+			display: none;
+		}
+	}
+	@media screen and (max-device-width: 400px) {
+		.laptop-show {
+			display: none;
+		}
+		.mobile-show {
+			display: block;
+		}
 	}
 </style>
