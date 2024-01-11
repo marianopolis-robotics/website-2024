@@ -9,13 +9,6 @@
 
     let inputError = false;
 
-    function cleanInput(e) {
-        if (e.target.value && inputFilter.isProfane(e.target.value)) {
-            e.target.value = inputFilter.clean(e.target.value);
-            inputError = true;
-        }
-    }
-
     function setSubmitAttributes(value){
 
         if($userStore.hobbies == "" || $userStore.superPower == "" || inputFilter.isProfane($userStore.hobbies) || inputFilter.isProfane($userStore.superPower)){
@@ -43,11 +36,11 @@
                         <label for="power" class="form-label">{(isFr ? "Votre super pouvoir:" : "Your super power:")}</label>
                         <input type="text" id="power" class="form-control form-control-lg inputError" class:input_error={inputError} 
                             placeholder={(inputError? (isFr ? "Veuillez entrer un super pouvoir" : "Please enter a super power") : (isFr? "Ex: teleportation, télékinésie, enlargement" : "e.g. teleportation, telekinesis, enlargement"))} 
-                            on:input={cleanInput} bind:value={$userStore.superPower}>
+                            bind:value={$userStore.superPower}>
                         <label for="hobbies" class="form-label mt-4">{(isFr? "Vos passe-temps:" : "Your hobbies:")}</label>
                         <input type="text" id="hobbies" class="form-control form-control-lg" class:input_error={inputError} 
                                 placeholder={(inputError? (isFr? "Veuillez entrer un passe-temps" : "Please enter a hobby") : (isFr? "Ex: ingénierie, piano, jeux video" : "e.g. engineering,  play piano, video games"))} 
-                                on:input={cleanInput} bind:value={$userStore.hobbies}>
+                                bind:value={$userStore.hobbies}>
                     
                     </form>
                     <div class="text-center m-3">
