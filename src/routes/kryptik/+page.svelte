@@ -19,19 +19,26 @@
 <div>
 	<div class="spacer"><Carousel /></div>
 
-	<div class="laptop-show">
-		<p>
-			Click the simulation window to start. Press the [Esc] key to exit simulation. <br />
-			Camera: Move mouse to adjust view, [I] key to zoom in, [O] key to zoom out. <br />
-			Movement: [WASD] keys to move. <br />
-			Shooting: [Q] key to increase power, [E] key to decrease power, [Space] bar to launch. <br />
-			Multiplier: [M] key to place multiplier.
+	<p class="laptop-show">
+		Click the simulation window to start. Press the [Esc] key to exit simulation. <br />
+		Camera: Move mouse to adjust view, [I] key to zoom in, [O] key to zoom out. <br />
+		Movement: [WASD] keys to move. <br />
+		Shooting: [Q] key to increase power, [E] key to decrease power, [Space] bar to launch. <br />
+		Multiplier: [M] key to place multiplier.
+	</p>
+	<div class="landscape-show">
+		<p class="mobile-show">
+			<span style="color: red">REFRESH PAGE</span> if you haven't already after changing to landscape mode. <br />
+			Click the simulation window to start. Refresh the page to exit and restart simulation. <br />
+			Camera: Drag screen to adjust view, pinch to zoom in and zoom out. <br />
+			Movement: Joystick to move. <br />
+			Shooting: Use the slider on your right to increase power and decrease power, [insert image of icon] to launch. <br />
+			Multiplier: [insert image of icon] to place multiplier.
 		</p>
-
 		<div class="spacer"><Canvas /></div>
 	</div>
-	<div class="mobile-show">
-		<p>The game demo does not support mobile devices.</p>
+	<div class="portrait-show">
+		<p>Please use landscape mode. <span style="color: red">REFRESH PAGE AFTER THIS</span> to load appropriate scripts.</p>
 	</div>
 </div>
 
@@ -50,10 +57,10 @@
 	div .spacer {
 		padding: 0px 0px 100px;
 	}
-	.mobile-show p {
+	.portrait-show p {
 		text-align: center;
 	}
-	@media screen and (min-device-width: 400px) {
+	@media screen and (min-device-width: 800px) {
 		.laptop-show {
 			display: block;
 		}
@@ -61,11 +68,27 @@
 			display: none;
 		}
 	}
-	@media screen and (max-device-width: 400px) {
+	@media screen and (max-device-width: 800px) {
 		.laptop-show {
 			display: none;
 		}
 		.mobile-show {
+			display: block;
+		}
+	}
+	@media screen and (min-device-width: 400px) {
+		.landscape-show {
+			display: block;
+		}
+		.portrait-show {
+			display: none;
+		}
+	}
+	@media screen and (max-device-width: 400px) {
+		.landscape-show {
+			display: none;
+		}
+		.portrait-show {
 			display: block;
 		}
 	}

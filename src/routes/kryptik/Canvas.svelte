@@ -29,6 +29,8 @@
 	} from './custom-objects.js';
 	import __ from './custom-physics.js';
 
+	import GunImage from '$lib/assets/icons/gun.png';
+
 	//html elements
 	let main_div;
 	let canvas;
@@ -36,6 +38,11 @@
 	let start_mask_div;
 	let start_mask_text;
 	let add_multiplier_button;
+	let joystick_start_div;
+	let camera_drag_div;
+	let joystick_start_svg;
+	let joystick_current_svg;
+	let power_input;
 	//global three objects
 	let camera;
 	let renderer;
@@ -91,6 +98,16 @@
 		x: 0,
 		y: 0
 	};
+	const touch_position = {
+		joystick_current: { x: 0, y: 0 },
+		joystick_start: { x: 0, y: 0 },
+		joystick_active: false,
+		camera_current: { x: 0, y: 0 },
+		camera_start: { x: 0, y: 0 },
+		camera_active: false
+	};
+	let mobile = false;
+	let add_multiplier; //function
 
 	const set_camera_default = function () {
 		camera.rotation.set(default_camera.rotation.elevation, default_camera.rotation.y, 0, 'YXZ');
@@ -106,8 +123,10 @@
 		active_keys[e.key] = false;
 	};
 	const on_mouse_move = function (e) {
-		mouse_position.x += e.movementX;
-		mouse_position.y += e.movementY;
+		if (mobile === false) {
+			mouse_position.x += e.movementX;
+			mouse_position.y += e.movementY;
+		}
 	};
 	const on_resize = function () {
 		renderer.setSize(main_div.offsetWidth, window.innerHeight * 0.75);
@@ -116,8 +135,14 @@
 	};
 	const on_canvas_click = function () {
 		if (timer_seconds > 0) {
-			start_mask_text.innerHTML = 'Continue';
-			canvas.requestPointerLock();
+			if (mobile === true) {
+				start_mask_div.style.visibility = 'hidden';
+				start_mask_text.innerHTML = 'Continue';
+				canvas_active = !canvas_active;
+			} else {
+				start_mask_text.innerHTML = 'Continue';
+				canvas.requestPointerLock();
+			}
 		}
 	};
 	const on_pointlock_change = function () {
@@ -132,6 +157,81 @@
 	};
 	const on_pointlock_error = function () {
 		alert('Please slow down your actions : when exiting pointer lock, please wait a few seconds before entering pointer lock again.');
+	};
+	const on_joy_touch_start = function (e) {
+		e.preventDefault();
+		for (let touch of e.changedTouches) {
+			if (touch_position.joystick_active === false) {
+				let rect = joystick_start_div.getBoundingClientRect();
+				touch_position.joystick_start = {
+					x: touch.clientX - rect.left,
+					y: touch.clientY - rect.top
+				};
+				touch_position.joystick_active = true;
+			}
+		}
+	};
+	const on_joy_touch_move = function (e) {
+		e.preventDefault();
+		for (let touch of e.touches) {
+			if (touch_position.joystick_active === true) {
+				let rect = joystick_start_div.getBoundingClientRect();
+				touch_position.joystick_current = {
+					x: touch.clientX - rect.left,
+					y: touch.clientY - rect.top
+				};
+			}
+		}
+	};
+	const on_joy_touch_end = function (e) {
+		e.preventDefault();
+		if (touch_position.joystick_active === true) {
+			touch_position.joystick_active = false;
+			touch_position.joystick_start = { x: joystick_start_div.offsetWidth / 2, y: joystick_start_div.offsetHeight / 2 };
+			touch_position.joystick_current = { x: joystick_start_div.offsetWidth / 2, y: joystick_start_div.offsetHeight / 2 };
+		}
+	};
+	const on_camera_touch_start = function (e) {
+		e.preventDefault();
+		for (let touch of e.changedTouches) {
+			if (touch_position.camera_active === false) {
+				let rect = camera_drag_div.getBoundingClientRect();
+				touch_position.camera_start = {
+					x: touch.clientX - rect.left,
+					y: touch.clientY - rect.top
+				};
+				touch_position.camera_current = {
+					x: touch.clientX - rect.left,
+					y: touch.clientY - rect.top
+				};
+				touch_position.camera_active = true;
+			}
+		}
+	};
+	const on_camera_touch_move = function (e) {
+		e.preventDefault();
+		for (let touch of e.touches) {
+			if (touch_position.camera_active === true) {
+				let rect = camera_drag_div.getBoundingClientRect();
+				touch_position.camera_current = {
+					x: touch.clientX - rect.left,
+					y: touch.clientY - rect.top
+				};
+			}
+		}
+	};
+	const on_camera_touch_end = function (e) {
+		e.preventDefault();
+		if (touch_position.camera_active === true) {
+			touch_position.camera_active = false;
+			mouse_position.x -= touch_position.camera_current.x - touch_position.camera_start.x;
+			mouse_position.y -= touch_position.camera_current.y - touch_position.camera_start.y;
+			touch_position.camera_start = { x: 0, y: 0 };
+			touch_position.camera_current = { x: 0, y: 0 };
+		}
+	};
+	const fire = function () {
+		active_keys[' '] = true;
 	};
 
 	//game initial setup
@@ -200,7 +300,6 @@
 			canvas: canvas
 		});
 		renderer.shadowMap.enabled = true;
-		on_resize(); //call event handler for initial size
 
 		//physics
 		await RAPIER.init();
@@ -307,6 +406,27 @@
 				' pts';
 		};
 
+		add_multiplier = function () {
+			if (selected_multiplier === 1 && multiplier_1_placed === false) {
+				Game_piece.fast_spawn(new Vector3(-3.39, 1, -1.83), new Vector3(0, 0, 0));
+				self_player.game_piece_number--;
+				multiplier_1_placed = true;
+				multiplier_count++;
+			}
+			if (selected_multiplier === 2 && multiplier_2_placed === false) {
+				Game_piece.fast_spawn(new Vector3(-4.95, 1, 0.35), new Vector3(0, 0, 0));
+				self_player.game_piece_number--;
+				multiplier_2_placed = true;
+				multiplier_count++;
+			}
+			if (selected_multiplier === 3 && multiplier_3_placed === false) {
+				Game_piece.fast_spawn(new Vector3(-2.35, 1, 1.28), new Vector3(0, 0, 0));
+				self_player.game_piece_number--;
+				multiplier_3_placed = true;
+				multiplier_count++;
+			}
+		};
+
 		//game loop
 		let start = 0;
 		let now = performance.now();
@@ -336,16 +456,30 @@
 
 				//player movement
 				if (active_keys.a === true) {
-					self_player.rotation.y += (speed * delay_seconds) / robot_radius;
+					self_player.rotation.y += (speed * delay_seconds) / robot_radius / 2;
 				}
 				if (active_keys.d === true) {
-					self_player.rotation.y -= (speed * delay_seconds) / robot_radius;
+					self_player.rotation.y -= (speed * delay_seconds) / robot_radius / 2;
 				}
 				if (active_keys.w === true) {
 					self_player.desired_displacement = Vector3.polar_to_coord(self_player.rotation.y, 0, speed * delay_seconds);
 				}
 				if (active_keys.s === true) {
 					self_player.desired_displacement = Vector3.polar_to_coord(self_player.rotation.y, 0, -speed * delay_seconds);
+				}
+				if (mobile === true) {
+					if (touch_position.joystick_current.x - touch_position.joystick_start.x < -joystick_start_div.offsetWidth / 4) {
+						self_player.rotation.y += (speed * delay_seconds) / robot_radius / 2;
+					}
+					if (touch_position.joystick_current.x - touch_position.joystick_start.x > joystick_start_div.offsetWidth / 4) {
+						self_player.rotation.y -= (speed * delay_seconds) / robot_radius / 2;
+					}
+					if (touch_position.joystick_current.y - touch_position.joystick_start.y < -joystick_start_div.offsetHeight / 4) {
+						self_player.desired_displacement = Vector3.polar_to_coord(self_player.rotation.y, 0, speed * delay_seconds);
+					}
+					if (touch_position.joystick_current.y - touch_position.joystick_start.y > joystick_start_div.offsetHeight / 4) {
+						self_player.desired_displacement = Vector3.polar_to_coord(self_player.rotation.y, 0, -speed * delay_seconds);
+					}
 				}
 
 				//game piece shooting controls
@@ -370,25 +504,12 @@
 					scene.add(game_piece.mesh);
 				}
 
+				if (mobile === true) {
+					self_player.power = power_input.value;
+				}
+
 				if (active_keys.m === true && self_player.game_piece_number > 0) {
-					if (selected_multiplier === 1 && multiplier_1_placed === false) {
-						Game_piece.fast_spawn(new Vector3(-3.39, 1, -1.83), new Vector3(0, 0, 0));
-						self_player.game_piece_number--;
-						multiplier_1_placed = true;
-						multiplier_count++;
-					}
-					if (selected_multiplier === 2 && multiplier_2_placed === false) {
-						Game_piece.fast_spawn(new Vector3(-4.95, 1, 0.35), new Vector3(0, 0, 0));
-						self_player.game_piece_number--;
-						multiplier_2_placed = true;
-						multiplier_count++;
-					}
-					if (selected_multiplier === 3 && multiplier_3_placed === false) {
-						Game_piece.fast_spawn(new Vector3(-2.35, 1, 1.28), new Vector3(0, 0, 0));
-						self_player.game_piece_number--;
-						multiplier_3_placed = true;
-						multiplier_count++;
-					}
+					add_multiplier();
 				}
 
 				//compute multiplier
@@ -474,7 +595,12 @@
 				world.step();
 
 				//update scene
-				camera.rotation.set(-mouse_position.y / 500, (-mouse_position.x + canvas.width / 2) / 500, 0, 'YXZ');
+				camera.rotation.set(
+					-(mouse_position.y - (touch_position.camera_current.y - touch_position.camera_start.y)) / 500,
+					(-mouse_position.x + (touch_position.camera_current.x - touch_position.camera_start.x) + canvas.width / 2) / 500,
+					0,
+					'YXZ'
+				);
 
 				self_mesh.position.set(
 					self_player.position.x * ratio_render_over_physics,
@@ -531,8 +657,17 @@
 				}
 			}
 
+			if (mobile === true) {
+				joystick_start_svg.style.left = touch_position.joystick_start.x;
+				joystick_start_svg.style.top = touch_position.joystick_start.y;
+
+				joystick_current_svg.style.left = touch_position.joystick_current.x;
+				joystick_current_svg.style.top = touch_position.joystick_current.y;
+			}
+
 			if (timer_seconds > 0) {
 				renderer.render(scene, camera);
+
 				requestAnimationFrame(perpetual);
 			} else {
 				//end score calculation
@@ -558,7 +693,11 @@
 	};
 
 	onMount(function () {
+		if (window.innerHeight < 400) {
+			mobile = true;
+		}
 		start_perpetual();
+		on_resize(); //call event handler for initial size
 	});
 </script>
 
@@ -568,8 +707,37 @@
 
 <div>
 	<div class="main" bind:this={main_div}>
-		<button bind:this={add_multiplier_button}>Put a multiplier?</button>
-		<canvas bind:this={canvas} on:mousemove={on_mouse_move}> </canvas>
+		<button class="multiplier" bind:this={add_multiplier_button} on:click={add_multiplier}>Put a multiplier?</button>
+		<div class="game-view">
+			<canvas bind:this={canvas} on:mousemove={on_mouse_move}></canvas>
+			{#if mobile === true}
+				<div
+					class="joystick-start"
+					bind:this={joystick_start_div}
+					on:touchstart={on_joy_touch_start}
+					on:touchmove={on_joy_touch_move}
+					on:touchend={on_joy_touch_end}
+				>
+					<svg class="joystick-start" bind:this={joystick_start_svg} height="10" width="10">
+						<circle cx="5" cy="5" r="5" fill="grey" />
+					</svg>
+					<svg class="joystick-current" bind:this={joystick_current_svg} height="20" width="20">
+						<circle cx="10" cy="10" r="10" stroke="white" stroke-width="1" fill="grey" />
+					</svg>
+				</div>
+				<div
+					class="camera-drag"
+					bind:this={camera_drag_div}
+					on:touchstart={on_camera_touch_start}
+					on:touchmove={on_camera_touch_move}
+					on:touchend={on_camera_touch_end}
+				></div>
+				<button class="fire" on:click={fire}><img src={GunImage} alt="Launch" /></button>
+				<div class="input-wrapper">
+					<input bind:this={power_input} type="range" min="0" max="15" value="5" />
+				</div>
+			{/if}
+		</div>
 		<div bind:this={game_info_div} class="game-info"></div>
 		<!-- svelte-ignore a11y-click-events-have-key-events -->
 		<!-- svelte-ignore a11y-no-static-element-interactions -->
@@ -617,7 +785,55 @@
 		color: white;
 		font-size: 50px;
 	}
-	button {
+	button.multiplier {
 		position: absolute;
+		z-index: 150;
+	}
+	button.fire {
+		position: absolute;
+		right: 5%;
+		bottom: 5%;
+		width: 25%;
+		height: 40%;
+		z-index: 200;
+		background-color: transparent;
+		border: none;
+	}
+	button.fire img {
+		height: 100%;
+		opacity: 0.3;
+	}
+	div.joystick-start {
+		position: absolute;
+		left: 0px;
+		bottom: 0px;
+		width: 25%;
+		height: 50%;
+		z-index: 100;
+		background-color: black;
+		opacity: 0.2;
+	}
+	div.camera-drag {
+		position: absolute;
+		right: 0px;
+		bottom: 0px;
+		width: 50%;
+		height: 100%;
+		z-index: 100;
+		background-color: black;
+		opacity: 0.2;
+	}
+	.joystick-start {
+		position: absolute;
+	}
+	.joystick-current {
+		position: absolute;
+	}
+	div.input-wrapper {
+		position: absolute;
+		right: 20px;
+		bottom: 0px;
+		z-index: 250;
+		opacity: 0.5;
 	}
 </style>

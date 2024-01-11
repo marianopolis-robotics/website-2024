@@ -22,7 +22,7 @@
 </div>
 
 <style>
-	@media screen and (min-device-width: 400px) {
+	@media screen and (min-device-width: 800px) {
 		.content {
 			width: 100%;
 			height: 100%;
@@ -47,7 +47,7 @@
 			font-size: 2vh;
 		}
 	}
-	@media screen and (max-device-width: 400px) {
+	@media screen and (max-device-width: 800px) {
 		.content {
 			width: 100%;
 			height: 100%;
@@ -69,7 +69,6 @@
 		.p-wrapper p {
 			margin: 0px;
 			text-align: justify;
-			font-size: 2vh;
 		}
 	}
 	.img-wrapper img {

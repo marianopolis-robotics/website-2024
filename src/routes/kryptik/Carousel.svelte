@@ -128,7 +128,7 @@
 		margin: auto;
 	}
 
-	@media screen and (min-device-width: 400px) {
+	@media screen and (min-device-width: 800px) {
 		div.main {
 			display: block;
 			position: relative;
@@ -182,7 +182,7 @@
 			width: 25%;
 		}
 	}
-	@media screen and (max-device-width: 400px) {
+	@media screen and (max-device-width: 800px) {
 		div.main {
 			display: block;
 			position: relative;
@@ -196,8 +196,8 @@
 
 		div.left {
 			position: absolute;
-			left: -10%;
-			bottom: -5%;
+			left: -15%;
+			bottom: 50%;
 			height: 10%;
 			display: flex;
 			justify-content: left;
@@ -211,8 +211,8 @@
 		}
 		div.right {
 			position: absolute;
-			right: -10%;
-			bottom: -5%;
+			right: -15%;
+			bottom: 50%;
 			height: 10%;
 			display: flex;
 			justify-content: right;
