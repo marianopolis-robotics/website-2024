@@ -1,6 +1,14 @@
 <script>
 	import Canvas from './Canvas.svelte';
 	import Carousel from './Carousel.svelte';
+
+	let portrait_div;
+	let landscape_div;
+
+	let forceful_mobile = function () {
+		portrait_div.style.display = 'none';
+		landscape_div.style.display = 'block';
+	};
 </script>
 
 <svelte:head>
@@ -26,7 +34,7 @@
 		Shooting: [Q] key to increase power, [E] key to decrease power, [Space] bar to launch. <br />
 		Multiplier: [M] key to place multiplier.
 	</p>
-	<div class="landscape-show">
+	<div bind:this={landscape_div} class="landscape-show">
 		<p class="mobile-show">
 			<span style="color: red">REFRESH PAGE</span> if you haven't already after changing to landscape mode. <br />
 			Click the simulation window to start. Refresh the page to exit and restart simulation. <br />
@@ -37,8 +45,9 @@
 		</p>
 		<div class="spacer"><Canvas /></div>
 	</div>
-	<div class="portrait-show">
+	<div bind:this={portrait_div} class="portrait-show">
 		<p>Please use landscape mode. <span style="color: red">REFRESH PAGE AFTER THIS</span> to load appropriate scripts.</p>
+		<p>If you are already in landscape mode, forcefully activate game demo : <button on:click={forceful_mobile}>Force demo</button></p>
 	</div>
 </div>
 
