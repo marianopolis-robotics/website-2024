@@ -5,6 +5,7 @@
 
     let inputError = false;
 
+
     function setSubmittedName(value){
         if($userStore.name == ""){
             inputError=true;

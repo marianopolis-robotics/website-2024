@@ -1,6 +1,7 @@
 <script>
     import { userStore } from "../../../Store";
 
+
     export let isFr=false;
     let inputError=false;
 
@@ -56,7 +57,6 @@
         {/if}
 
         <div class="competition-description p-5 text-center">
-            <!-- change font -->
             <p>{(isFr? "En mémoire de la défaite du Chateau du Roi Cochon, les Angrynieurs reproduissent cet événement mémorial à chaque année et compétitionnent pour le meilleur lance-pierre! Les Angrynieurs de Mari sont divisés en cinq équipes afin de réaliser cet événement:" : "In memory of the defeat of the King Pig's Castle, the Angryneers reproduce this memorial event each year and compete in order to test who has the best slingshot! The Mari Angryneers are divided into five subteams to make this happen:")}</p>
             <div class="text-center mt-2 p-5">
                 <ul>
@@ -64,11 +64,11 @@
                     <li> <strong>{(isFr ? "L'équipe de recrutement" : "The recruitement team")}</strong> {(isFr ? "pour produire des vidéos qui attirent des nouveaux recrus" : "for producing videos that attract new recruits")}</li>
                     <li> <strong>{(isFr ? "L'équipe du site web" : "The website team")}</strong> {(isFr ? "pour aider les nouveaux recrus à se familiariser avec la compétition" : "for helping new recruits to get familiar with the competition")}</li>
                     <li><strong>{(isFr ? "L'équipe de design" : "The design team")}</strong> {(isFr ? "qui est en charge de reconstruire le Chateau du Roi Cochon où la compétition aura lieu" : "that is in charge of rebuilding the King Pig's Castle where the competition will take place")}</li>
-                    <li><strong>{(isFr ? "L'équipe de programmation" :"The programming team")}</strong> {(isFr ? "qui est en charge de s'assurer qu'on a les systèmes les plus sécuritaire pour tenir pirateurs informatiques loin durant la compétition" : "that is in charge of making sure that we have the most secure systems to keep hackers away during the competition")}</li>
+                    <li><strong>{(isFr ? "L'équipe de programmation" :"The programming team")}</strong> {(isFr ? "qui est en charge de s'assurer que nous avons les systèmes les plus sécuritaire pour tenir les pirateurs informatiques loin durant la compétition" : "that is in charge of making sure that we have the most secure systems to keep hackers away during the competition")}</li>
                 </ul>
             </div>
         </div>
-        <div class="description-text ms-5 mb-5">{(isFr? `Apprend à bien les connaitre, ${($userStore.name =="" ? "Angrynieur" : $userStore.name)}!` : `Get to know them well, ${($userStore.name =="" ? "Angryneer" : $userStore.name)}!`)}</div>
+        <div class="description-text ms-5 mb-5">{(isFr? `Apprenez à bien les connaitre, ${($userStore.name =="" ? "Angrynieur" : $userStore.name)}!` : `Get to know them well, ${($userStore.name =="" ? "Angryneer" : $userStore.name)}!`)}</div>
     </div>
 </main>
 

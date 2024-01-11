@@ -5,7 +5,7 @@
 </script>
 
 <main>
-    <button class="btn btn-lg button my-2" class:selected = {isSelected} class:w-100={large_width} on:click|self>{message}</button>
+    <button class="btn btn-lg button my-2 change_on_hover" class:selected = {isSelected} class:w-100={large_width} on:click|self>{message}</button>
 </main>
 
 
@@ -15,9 +15,15 @@
     background-size: cover;
     color:white;
     resize: both;
+    font-family: "Angry Birds";
+    font: 40px;
 }
 
 .selected{
     text-decoration: underline;
+}
+
+.change_on_hover:hover{
+    color: black
 }
 </style>

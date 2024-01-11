@@ -127,7 +127,7 @@
         </div>
         <div class="row">
           <div class="col text-center">
-            <WoodButton message="Edit costume" on:click={() => {setSubmitCostume(false)}}/>
+            <WoodButton message={(isFr? "Modifier votre costume":"Edit costume")} on:click={() => {setSubmitCostume(false)}}/>
           </div>
         </div>
       {/if}

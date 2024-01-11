@@ -13,7 +13,7 @@
 <!-- remove later! just a placeholder for testing background -->
 <main>
   <div class="my-5">
-    <h1 class="text-center angry_birds_font">Les Angrynieurs de Mari</h1>
+    <h1 class="text-center angry_birds_title">Les Angrynieurs de Mari</h1>
   </div>
 
   <Intro isFr=true/>
@@ -23,11 +23,3 @@
  
 </main>
 <!-- <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br> -->
-
-<style>
-     .angry_birds_font{
-        font-family: "Angry Birds";
-        color: white;
-        font-size: 100px;
-    }
-</style>
