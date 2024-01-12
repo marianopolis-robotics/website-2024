@@ -3,5 +3,8 @@ import { imagetools } from 'vite-imagetools';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-	plugins: [sveltekit(), imagetools()]
+	plugins: [sveltekit(), imagetools()],
+	optimizeDeps: {
+		include: ['bad-words', 'french-badwords-list']
+	}
 });

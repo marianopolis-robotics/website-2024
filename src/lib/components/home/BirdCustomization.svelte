@@ -1,7 +1,6 @@
 <script>
     import { userStore } from "../../../Store";
     import WoodButton from "./WoodButton.svelte";
-    import {onMount} from 'svelte';
 
     export let isFr = false;
 
@@ -87,10 +86,10 @@
     <div class="container my-5 description-text">
       {#if !$userStore.submittedCostume}
         <div class="row text-center">
-          <div class="col description_text">{(isFr ? `Choisissez votre ${selectedTab.tabFr.toLocaleLowerCase()}!` : `Chose your ${selectedTab.tab.toLowerCase()}!`)}</div>
+          <div class="col description_text">{(isFr ? `Choisissez votre ${selectedTab.tabFr.toLocaleLowerCase()}!` : `Choose your ${selectedTab.tab.toLowerCase()}!`)}</div>
         </div>
         <div class="row align-items-center">
-          <!-- Chose accessory type tabs -->
+          <!-- Choose accessory type tabs -->
           <div class="col text-center">
             {#each tabs as tab}
               <WoodButton message={(isFr? tab.tabFr : tab.tab)} isSelected={tab.selected} large_width={true} on:click={() => {toggleSelect(tab)}} /> 

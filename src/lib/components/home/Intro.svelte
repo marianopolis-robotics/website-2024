@@ -1,24 +1,35 @@
 <script>
+	import badWords from 'bad-words';
+	import frenchWords from 'french-badwords-list';
 	import { userStore } from '../../../Store';
 
-    export let isFr=false;
+	export let isFr = false;
+	const inputFilter = new badWords;
+	inputFilter.addWords(...frenchWords.array);
 
-    let inputError = false;
+	let inputError = false;
 
+	function cleanNameInput() {
+		// only one input to clean here so we can directly clean the name in the writable store
+		if ($userStore.name && inputFilter.isProfane($userStore.name)) {
+				$userStore.name = inputFilter.clean($userStore.name);
+				inputError = true;
+		}
+	}
 
-    function setSubmittedName(value){
-        if($userStore.name == ""){
-            inputError=true;
-        }
-        else{
-            userStore.update( currentElemens => ({
-            ...currentElemens, 
-            submittedName: value,
-          }))
+	function setSubmittedName(value){
+			if($userStore.name == "" || inputFilter.isProfane($userStore.name)){
+					inputError=true;
+			}
+			else{
+					userStore.update( currentElemens => ({
+					...currentElemens, 
+					submittedName: value,
+				}))
 
-          inputError=false;
-        }
-    }
+				inputError=false;
+			}
+	}
 
 </script>
 
@@ -34,6 +45,7 @@
 				<input
 					type="text"
 					bind:value={$userStore.name}
+					on:input={cleanNameInput}
 					placeholder={(inputError? (isFr? "Veuillez entrer un nom" : "Please enter a name") : (isFr? "Entrez votre nom" : "Enter your name"))}
 					class="form-control-lg w-75 m-0"
                     class:input_error={inputError}
