@@ -44,15 +44,16 @@
 
 <h1 class="text-white text-center">Archives</h1>
 
-<button on:click={toRobotTab}>Robot</button>
-<button on:click={toKioskTab}>Kiosk</button>
-<button on:click={toWebsiteTab}>Website</button>
-<button on:click={toVideoTab}>Video</button>
-<button on:click={toProgrammingTab}>Programming</button>
-
 <div
-	class="book-container d-flex justify-content-center align-items-center px-3 px-md-5 px-xl-none"
+	class="book-container position-relative d-flex justify-content-center align-items-center px-3 px-md-5 px-xl-none"
 >
+	<div class="button">
+		<button class="buttondetail" on:click={toRobotTab}>Robot</button>
+		<button class="buttondetail" on:click={toKioskTab}>Kiosk</button>
+		<button class="buttondetail" on:click={toWebsiteTab}>Website</button>
+		<button class="buttondetail" on:click={toVideoTab}>Video</button>
+		<button class="buttondetail" on:click={toProgrammingTab}>Programming</button>
+	</div>
 	<div id="book" bind:this={flipbook}>
 		<div class="book-page">Page Cover</div>
 		<div class="book-page">!!!back of front cover page!!!</div>
@@ -141,19 +142,41 @@
 </div>
 
 <style>
+	div.button {
+		position: absolute;
+		margin-right: 25%;
+		z-index: 1;
+		top: -0.55rem;
+		border-radius: 25px;
+	}
+
+	.buttondetail {
+		font-size: 24px;
+		background-image: url('/textures/wood.png');
+		background-size: 100px;
+		border: 0px;
+		border-top-left-radius: 10px;
+		border-top-right-radius: 10px;
+		padding: 7px 7px;
+		min-height: 33px;
+		margin-left: 5px;
+		margin-right: 5px;
+	}
+
 	.book-container {
 		min-height: 100px;
 		max-height: 600px;
-		padding-bottom: 2rem;
 	}
 
 	#book {
+		/* avoid scrollbars when flipping pages */
 		overflow: hidden;
 		border-radius: 10px;
 	}
 
 	.book-page {
 		border: solid 1.5rem antiquewhite;
+		z-index: 0;
 		background: ghostwhite;
 		padding: 2rem;
 		overflow: auto;
@@ -219,9 +242,37 @@
 		/* font-size: 2.75rem; */
 	}
 
+	/* at 592px the page-flip turns into one page */
+	@media screen and (min-width: 592px) {
+		div.button {
+			top: calc(-2.25vw + 2px);
+		}
+	}
+
+	@media screen and (min-width: 768px) {
+		div.button {
+			top: -2.25vw;
+		}
+	}
+
 	@media screen and (min-width: 992px) {
+		div.button {
+			top: -1.5rem;
+		}
 		.book-container {
-			padding-bottom: 3rem;
+			margin-top: 2rem;
+		}
+	}
+
+	@media screen and (max-width: 1096px) {
+		.buttondetail {
+			font-size: 2.25vw;
+		}
+	}
+
+	@media screen and (max-width: 400px) {
+		.buttondetail {
+			font-size: 9.6px;
 		}
 	}
 </style>
