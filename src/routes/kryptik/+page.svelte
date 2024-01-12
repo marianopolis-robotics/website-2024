@@ -85,7 +85,7 @@
 			display: block;
 		}
 	}
-	@media screen and (min-device-width: 400px) {
+	@media screen and (min-device-width: 500px) {
 		.landscape-show {
 			display: block;
 		}
@@ -93,7 +93,7 @@
 			display: none;
 		}
 	}
-	@media screen and (max-device-width: 400px) {
+	@media screen and (max-device-width: 500px) {
 		.landscape-show {
 			display: none;
 		}

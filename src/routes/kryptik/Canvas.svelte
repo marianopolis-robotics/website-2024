@@ -106,7 +106,7 @@
 		camera_start: { x: 0, y: 0 },
 		camera_active: false
 	};
-	let mobile = false;
+	let mobile = true;
 	let add_multiplier; //function
 
 	const set_camera_default = function () {
@@ -129,16 +129,23 @@
 		}
 	};
 	const on_resize = function () {
-		renderer.setSize(main_div.offsetWidth, window.innerHeight * 0.75);
-		camera.aspect = main_div.offsetWidth / (window.innerHeight * 0.75);
-		camera.updateProjectionMatrix();
+		if (window.innerWidth > window.innerHeight) {
+			renderer.setSize(main_div.offsetWidth, window.innerHeight * 0.75);
+			camera.aspect = main_div.offsetWidth / (window.innerHeight * 0.75);
+			camera.updateProjectionMatrix();
+		} else if (window.innerWidth < window.innerHeight) {
+			renderer.setSize(main_div.offsetWidth, window.innerHeight * 0.75);
+			camera.aspect = main_div.offsetWidth / (window.innerHeight * 0.75);
+			camera.updateProjectionMatrix();
+		}
+		console.log(main_div.offsetWidth)
 	};
 	const on_canvas_click = function () {
 		if (timer_seconds > 0) {
 			if (mobile === true) {
 				start_mask_div.style.visibility = 'hidden';
 				start_mask_text.innerHTML = 'Continue';
-				canvas_active = !canvas_active;
+				canvas_active = true;
 			} else {
 				start_mask_text.innerHTML = 'Continue';
 				canvas.requestPointerLock();
@@ -694,12 +701,12 @@
 
 	onMount(function () {
 		if (window.innerWidth > window.innerHeight) {
-			if (window.innerHeight < 400) {
-				mobile = true;
+			if (window.innerHeight > 400) {
+				mobile = false;
 			}
 		} else if (window.innerWidth < window.innerHeight) {
-			if (window.innerWidth < 400) {
-				mobile = true;
+			if (window.innerWidth > 400) {
+				mobile = false;
 			}
 		}
 		start_perpetual();
@@ -713,37 +720,35 @@
 
 <div>
 	<div class="main" bind:this={main_div}>
+		<canvas bind:this={canvas} on:mousemove={on_mouse_move}></canvas>
+		{#if mobile === true}
+			<div
+				class="joystick-start"
+				bind:this={joystick_start_div}
+				on:touchstart={on_joy_touch_start}
+				on:touchmove={on_joy_touch_move}
+				on:touchend={on_joy_touch_end}
+			>
+				<svg class="joystick-start" bind:this={joystick_start_svg} height="10" width="10">
+					<circle cx="5" cy="5" r="5" fill="grey" />
+				</svg>
+				<svg class="joystick-current" bind:this={joystick_current_svg} height="20" width="20">
+					<circle cx="10" cy="10" r="10" stroke="white" stroke-width="1" fill="grey" />
+				</svg>
+			</div>
+			<div
+				class="camera-drag"
+				bind:this={camera_drag_div}
+				on:touchstart={on_camera_touch_start}
+				on:touchmove={on_camera_touch_move}
+				on:touchend={on_camera_touch_end}
+			></div>
+			<button class="fire" on:click={fire}><img src={GunImage} alt="Launch" /></button>
+			<div class="input-wrapper">
+				<input bind:this={power_input} type="range" min="0" max="15" value="5" />
+			</div>
+		{/if}
 		<button class="multiplier" bind:this={add_multiplier_button} on:click={add_multiplier}>Put a multiplier?</button>
-		<div class="game-view">
-			<canvas bind:this={canvas} on:mousemove={on_mouse_move}></canvas>
-			{#if mobile === true}
-				<div
-					class="joystick-start"
-					bind:this={joystick_start_div}
-					on:touchstart={on_joy_touch_start}
-					on:touchmove={on_joy_touch_move}
-					on:touchend={on_joy_touch_end}
-				>
-					<svg class="joystick-start" bind:this={joystick_start_svg} height="10" width="10">
-						<circle cx="5" cy="5" r="5" fill="grey" />
-					</svg>
-					<svg class="joystick-current" bind:this={joystick_current_svg} height="20" width="20">
-						<circle cx="10" cy="10" r="10" stroke="white" stroke-width="1" fill="grey" />
-					</svg>
-				</div>
-				<div
-					class="camera-drag"
-					bind:this={camera_drag_div}
-					on:touchstart={on_camera_touch_start}
-					on:touchmove={on_camera_touch_move}
-					on:touchend={on_camera_touch_end}
-				></div>
-				<button class="fire" on:click={fire}><img src={GunImage} alt="Launch" /></button>
-				<div class="input-wrapper">
-					<input bind:this={power_input} type="range" min="0" max="15" value="5" />
-				</div>
-			{/if}
-		</div>
 		<div bind:this={game_info_div} class="game-info"></div>
 		<!-- svelte-ignore a11y-click-events-have-key-events -->
 		<!-- svelte-ignore a11y-no-static-element-interactions -->
@@ -754,7 +759,7 @@
 </div>
 
 <style>
-	div .main {
+	div.main {
 		display: block;
 		margin: auto;
 		position: relative;
@@ -762,19 +767,14 @@
 		outline: 10px solid #ffedc2;
 		border-radius: 5px;
 	}
-	canvas {
-		width: 100%;
-		height: 100%;
-		display: block;
-	}
-	div .game-info {
+	div.game-info {
 		position: absolute;
 		top: 0px;
 		left: 0px;
 		color: white;
 		padding: 10px 10px 0px;
 	}
-	div .start-mask {
+	div.start-mask {
 		position: absolute;
 		top: 0px;
 		left: 0px;
@@ -784,7 +784,7 @@
 		background-color: black;
 		cursor: grab;
 	}
-	div .start-mask > p {
+	div.start-mask > p {
 		display: block;
 		margin-top: 25%;
 		text-align: center;
