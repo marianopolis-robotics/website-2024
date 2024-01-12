@@ -693,9 +693,14 @@
 	};
 
 	onMount(function () {
-		console.log(window.screen.width);
-		if (window.screen.width < 400) {
-			mobile = true;
+		if (window.innerWidth > window.innerHeight) {
+			if (window.innerHeight < 400) {
+				mobile = true;
+			}
+		} else if (window.innerWidth < window.innerHeight) {
+			if (window.innerWidth < 400) {
+				mobile = true;
+			}
 		}
 		start_perpetual();
 		on_resize(); //call event handler for initial size
