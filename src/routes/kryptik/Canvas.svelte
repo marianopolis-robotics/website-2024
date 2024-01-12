@@ -693,7 +693,8 @@
 	};
 
 	onMount(function () {
-		if (screen.innerWidth < 400) {
+		console.log(window.screen.width);
+		if (window.screen.width < 400) {
 			mobile = true;
 		}
 		start_perpetual();
