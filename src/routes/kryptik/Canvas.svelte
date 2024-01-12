@@ -693,7 +693,7 @@
 	};
 
 	onMount(function () {
-		if (window.innerHeight < 400) {
+		if (screen.innerWidth < 400) {
 			mobile = true;
 		}
 		start_perpetual();
