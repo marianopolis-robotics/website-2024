@@ -4,17 +4,17 @@
 
     export let isFr = false;
 
-   let accessories = {
-      colors: ["blue", "red", "yellow", "pink"],
+   let attributes = {
+      accessories: ["caliper", "screwdriver"],
       hats: ["whiteHat", "greenHat"],
-      shapes: ["red", "bomb"]
+      shapes: ["red", "bomb", "blue", "bubbles", "chuck", "dahlia", "drill", "hal", "ice", "luca", "matilda", "melody", "pig", "poppy", "silver", "stella", "terence", "tony"]
    } 
 
-   let tabs = [{tab: "Color", tabFr: "Couleur", selected: true}, 
-              {tab: "Hat", tabFr: "Chapeur", selected: false}, 
-              {tab: "Shape", tabFr:"Forme", selected: false}]
+   let tabs = [ {tab: "Shape", tabFr:"Forme", selected: true},
+              {tab: "Accessory", tabFr: "Accessoire", selected: false}, 
+              {tab: "Hat", tabFr: "Chapeur", selected: false}]
 
-   let selectedTab = tabs[0];
+   let selectedTab = tabs[0]; //make reactive to tabs selected value
   
    let newIndex = 0;
 
@@ -22,20 +22,26 @@
           
     newIndex = $userStore[`${accessory}Index`] + 1;
   
-      if(newIndex >= accessories[`${accessory}s`].length){
+      if(newIndex >= attributes[(accessory=="accessory" ? "accessories" : `${accessory}s`)].length){
         newIndex = 0;
     }
     updateAccessory(newIndex, accessory);
     
    }
   
-   function prevAccessory(accessory){
+   function prevAccessory(attribute){
+    console.log($userStore.accessory);
+    console.log(attribute);
+    console.log((accessory=="accessory" ? "accessories" : `${accessory}s`));
     
-    newIndex = $userStore[`${accessory}Index`] - 1;
+    newIndex = $userStore[`${attribute}Index`] - 1;
     if(newIndex <= -1){
-      newIndex = accessories[`${accessory}s`].length -1;
+      newIndex = attributes[`${attribute}s`].length -1;
     }
-    updateAccessory(newIndex, accessory);
+    updateAccessory(newIndex, attribute);
+   
+    
+    console.log($userStore.accessoryIndex);
     
    }
   
@@ -44,7 +50,7 @@
           userStore.update( currentElemens => ({
             ...currentElemens, 
             [`${accessoryType}Index`]: index,
-            [accessoryType]: accessories[`${accessoryType}s`][index]
+            [accessoryType]: attributes[`${accessoryType}s`][index]
           }))
     
   }
@@ -100,9 +106,8 @@
             <WoodButton message="<" on:click={() => {prevAccessory(selectedTab.tab.toLowerCase())}}/>
           </div>
           <div class="col">
-            <p class="text-center">
-              {$userStore[selectedTab.tab.toLowerCase()]}
-            </p>
+            <p>{`/birds/${$userStore.shape} and ${$userStore[selectedTab.tab.toLowerCase()]}`}</p>
+            <img src={`/birds/${$userStore.shape}.svg`} alt="">
           </div>
           <div class="col text-center">
             <WoodButton message=">" on:click={() => {nextAccessory(selectedTab.tab.toLowerCase())}}/>
@@ -121,7 +126,7 @@
         </div>
         <div class="row text-center">
           <div class="col">
-            <div class="m-3">(display costume)</div>
+            <div class="m-3"><img src={`/birds/${$userStore.shape}.svg`} alt=""></div>
           </div>
         </div>
         <div class="row">

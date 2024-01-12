@@ -9,15 +9,20 @@
 
     let inputError = false;
 
+    let userHobbies = $userStore.hobbies;
+    let userPower = $userStore.superPower;
+
     function setSubmitAttributes(value){
 
-        if($userStore.hobbies == "" || $userStore.superPower == "" || inputFilter.isProfane($userStore.hobbies) || inputFilter.isProfane($userStore.superPower)){
+        if(userHobbies == "" || userPower == "" || inputFilter.isProfane(userHobbies) || inputFilter.isProfane(userPower)){
             inputError = true;
         }
         else{
             userStore.update( currentElemens => ({
             ...currentElemens, 
             submittedAttributes: value,
+            superPower: userPower,
+            hobbies: userHobbies
           }))
             inputError = false;
         }
@@ -36,11 +41,11 @@
                         <label for="power" class="form-label">{(isFr ? "Votre super pouvoir:" : "Your super power:")}</label>
                         <input type="text" id="power" class="form-control form-control-lg inputError" class:input_error={inputError} 
                             placeholder={(inputError? (isFr ? "Veuillez entrer un super pouvoir" : "Please enter a super power") : (isFr? "Ex: teleportation, télékinésie, enlargement" : "e.g. teleportation, telekinesis, enlargement"))} 
-                            bind:value={$userStore.superPower}>
+                            bind:value={userPower}>
                         <label for="hobbies" class="form-label mt-4">{(isFr? "Vos passe-temps:" : "Your hobbies:")}</label>
                         <input type="text" id="hobbies" class="form-control form-control-lg" class:input_error={inputError} 
                                 placeholder={(inputError? (isFr? "Veuillez entrer un passe-temps" : "Please enter a hobby") : (isFr? "Ex: ingénierie, piano, jeux video" : "e.g. engineering,  play piano, video games"))} 
-                                bind:value={$userStore.hobbies}>
+                                bind:value={userHobbies}>
                     
                     </form>
                     <div class="text-center m-3">

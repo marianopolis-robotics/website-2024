@@ -8,15 +8,17 @@
 	inputFilter.addWords(...frenchWords.array);
 
 	let inputError = false;
+	let userName = $userStore.name;
 	
 	function setSubmittedName(value){
-			if($userStore.name == "" || inputFilter.isProfane($userStore.name)){
+			if(userName == "" || inputFilter.isProfane($userStore.name)){
 					inputError=true;
 			}
 			else{
 					userStore.update( currentElemens => ({
 					...currentElemens, 
 					submittedName: value,
+					name: userName
 				}))
 
 				inputError=false;
@@ -36,12 +38,13 @@
 				<p>{(isFr? "Quel est votre nom, Angrynieur?" : "What is your name, Angryneer?")}</p>
 				<input
 					type="text"
-					bind:value={$userStore.name}
+					bind:value={userName}
 					placeholder={(inputError? (isFr? "Veuillez entrer un nom" : "Please enter a name") : (isFr? "Entrez votre nom" : "Enter your name"))}
 					class="form-control-lg w-75 m-0"
                     class:input_error={inputError}
 				/>
-                
+
+                <!--  -->
                 <button class="btn btn-outline-primary btn-lg m-0 px-2" on:click={() => {setSubmittedName(true)}}>{(isFr ? "Entrée" : "Enter")}</button>
                 {:else}
                 <p>{(isFr? `C'est un plaisir de vous avoir parmi nous, ${$userStore.name}!` : `It is great to have you among us, ${$userStore.name}!`)}</p>

@@ -11,9 +11,9 @@ const user = {
                 submittedAttributes: false,
                 hat: "whiteHat", 
                 hatIndex: 0, 
-                color: "blue", 
-                colorIndex: 0, 
-                shape: "redShape", 
+                accessory: "caliper", 
+                accessoryIndex: 0, 
+                shape: "red", 
                 shapeIndex: 0, 
                 level: 1
             };
