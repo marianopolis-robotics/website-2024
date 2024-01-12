@@ -144,9 +144,9 @@
 <style>
 	div.button {
 		position: absolute;
-		margin-right: 25%;
 		z-index: 1;
 		top: -0.55rem;
+		margin-left: -30rem;
 		border-radius: 25px;
 	}
 
@@ -249,6 +249,12 @@
 		}
 	}
 
+	@media screen and (max-width: 592px) {
+		div.button {
+			left: 50%;
+		}
+	}
+
 	@media screen and (min-width: 768px) {
 		div.button {
 			top: -2.25vw;
@@ -265,6 +271,11 @@
 	}
 
 	@media screen and (max-width: 1096px) {
+		div.button {
+			margin-left: -40vw;
+		
+		}
+
 		.buttondetail {
 			font-size: 2.25vw;
 		}
