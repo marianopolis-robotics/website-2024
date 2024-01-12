@@ -129,16 +129,9 @@
 		}
 	};
 	const on_resize = function () {
-		if (window.innerWidth > window.innerHeight) {
-			renderer.setSize(main_div.offsetWidth, window.innerHeight * 0.75);
-			camera.aspect = main_div.offsetWidth / (window.innerHeight * 0.75);
-			camera.updateProjectionMatrix();
-		} else if (window.innerWidth < window.innerHeight) {
-			renderer.setSize(main_div.offsetWidth, window.innerHeight * 0.75);
-			camera.aspect = main_div.offsetWidth / (window.innerHeight * 0.75);
-			camera.updateProjectionMatrix();
-		}
-		console.log(main_div.offsetWidth)
+		renderer.setSize(main_div.offsetWidth, window.innerHeight * 0.75);
+		camera.aspect = main_div.offsetWidth / (window.innerHeight * 0.75);
+		camera.updateProjectionMatrix();
 	};
 	const on_canvas_click = function () {
 		if (timer_seconds > 0) {
@@ -475,17 +468,14 @@
 					self_player.desired_displacement = Vector3.polar_to_coord(self_player.rotation.y, 0, -speed * delay_seconds);
 				}
 				if (mobile === true) {
-					if (touch_position.joystick_current.x - touch_position.joystick_start.x < -joystick_start_div.offsetWidth / 4) {
-						self_player.rotation.y += (speed * delay_seconds) / robot_radius / 2;
-					}
-					if (touch_position.joystick_current.x - touch_position.joystick_start.x > joystick_start_div.offsetWidth / 4) {
-						self_player.rotation.y -= (speed * delay_seconds) / robot_radius / 2;
-					}
-					if (touch_position.joystick_current.y - touch_position.joystick_start.y < -joystick_start_div.offsetHeight / 4) {
+					let deltaX = touch_position.joystick_current.x - touch_position.joystick_start.x;
+					let deltaY = -(touch_position.joystick_current.y - touch_position.joystick_start.y);
+					if (deltaY !== 0) {
+						self_player.rotation.y = Math.atan(deltaY / deltaX);
+						if (deltaX < 0) {
+							self_player.rotation.y += Math.PI;
+						}
 						self_player.desired_displacement = Vector3.polar_to_coord(self_player.rotation.y, 0, speed * delay_seconds);
-					}
-					if (touch_position.joystick_current.y - touch_position.joystick_start.y > joystick_start_div.offsetHeight / 4) {
-						self_player.desired_displacement = Vector3.polar_to_coord(self_player.rotation.y, 0, -speed * delay_seconds);
 					}
 				}
 
@@ -498,6 +488,7 @@
 					self_player.power -= 0.1;
 					self_player.power = Math.round(self_player.power * 10) / 10;
 				}
+				//for this case, mobile directly changes the space active_key to true
 				if (active_keys[' '] === true && self_player.game_piece_number > 0) {
 					active_keys[' '] = false;
 					self_player.game_piece_number--;
@@ -695,6 +686,8 @@
 					}
 				}, 5000);
 			}
+
+			on_resize();
 		};
 		perpetual();
 	};
@@ -710,7 +703,6 @@
 			}
 		}
 		start_perpetual();
-		on_resize(); //call event handler for initial size
 	});
 </script>
 
