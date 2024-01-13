@@ -1,5 +1,5 @@
 <script>
-    import { userStore } from "../../../Store";
+    import { userStore } from "$lib/Store";
     import WoodButton from "./WoodButton.svelte";
 
     export let isFr = false;
@@ -10,9 +10,9 @@
       shapes: ["red", "bomb", "blue", "bubbles", "chuck", "dahlia", "drill", "hal", "ice", "luca", "matilda", "melody", "pig", "poppy", "silver", "stella", "terence", "tony"]
    } 
 
-   let tabs = [ {tab: "Shape", tabFr:"Forme", selected: true},
-              {tab: "Accessory", tabFr: "Accessoire", selected: false}, 
-              {tab: "Hat", tabFr: "Chapeur", selected: false}]
+   let tabs = [ { tab: "Shape", tabFr:"Forme", selected: true },
+              { tab: "Accessory", tabFr: "Accessoire", selected: false }, 
+              { tab: "Hat", tabFr: "Chapeur", selected: false }]
 
    let selectedTab = tabs[0]; //make reactive to tabs selected value
   

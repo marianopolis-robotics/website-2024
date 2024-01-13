@@ -2,6 +2,7 @@
   import { onMount } from 'svelte';
 	import * as St from 'page-flip';
 	import { en, fr, enTabs, frTabs } from '$lib/archives';
+	import { userStore } from "$lib/Store";
 
 	export let isFr = false;
 	let flipbook, pageFlip;
@@ -17,16 +18,33 @@
 			maxWidth: 500
 		});
 		pageFlip.loadFromHTML(flipbook.querySelectorAll('.book-page'));
+		console.log($userStore.archivesPg)
+		console.log(pageFlip)
+		
+		if ($userStore.archivesPg !== 0) pageFlip.flip($userStore.archivesPg, 'top');
 	});
+	
+	
+	const getCurrentPage = () => {
+		// use timeout to ensure page has fully flipped when getting current page index
+		setTimeout(() => {
+			$userStore.archivesPg = pageFlip.getCurrentPageIndex();
+		}, 1000);
+	};
+
+	const tocClick = () => {
+		pageFlip.flip(1, 'top');
+		getCurrentPage();
+	}
 </script>
 
 <div
-	class="book-container position-relative d-flex flex-column justify-content-center px-3 px-md-5 px-xl-none"
+	class="book-container position-relative d-flex flex-column justify-content-center px-3 px-md-5 px-xl-none" on:click={getCurrentPage} on:keyup={getCurrentPage} role='button' tabindex="0"
 	>
-	<button class="toc" on:click={() => pageFlip.flip(1, 'top')}>
+	<button class="toc" on:click={tocClick}>
 		{content.toc}
 	</button>
-	<div class="tabs">
+	<div class="tabs" on:click={getCurrentPage} on:keyup={getCurrentPage} role='button' tabindex="0">
 		{#each Object.entries(tabs) as [text, page] (page)}
 			<button class="tab" on:click={() => pageFlip.flip(page, 'top')}>{text}</button>
 		{/each}
@@ -168,7 +186,7 @@
 	}
 
 	#book {
-		box-shadow: rgba(0, 0, 0, 0.7) 0px 14px 28px, rgba(0, 0, 0, 0.65) 0px 10px 10px;
+		filter: drop-shadow(#000 0px 10px 10px);
 		border-radius: 10px;
 		overflow: hidden; /* unfortunately the only way to prevent glitchy scrolling behaviour
 												 caused by 3D transform overflow :/
@@ -222,27 +240,11 @@
 			left: calc((100% - 470px) / 2);
 		}
 	}
-
-	@media screen and (min-width: 545px) {
-		/* needed due to strange book width behaviour */
-		#book {
-			box-shadow: none;
-		}
-
-		.book-page {
-			box-shadow: rgba(0, 0, 0, 0.7) 0px 14px 28px, rgba(0, 0, 0, 0.65) 0px 10px 10px;
-		}
-	}
 	
 	/* at around 592px the page-flip turns into one page */
 	@media screen and (min-width: 592px) {
 		.book-page {
 			border-radius: 0px;
-			box-shadow: none;
-		}
-
-		#book {
-			box-shadow: rgba(0, 0, 0, 0.7) 0px 14px 28px, rgba(0, 0, 0, 0.65) 0px 10px 10px;
 		}
 
 		.tabs {

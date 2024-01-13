@@ -1,5 +1,5 @@
-import {writable} from "svelte/store";
-import {browser} from "$app/environment";
+import { writable } from "svelte/store";
+import { browser } from "$app/environment";
 
 // Initial Store values
 const user = { 
@@ -15,7 +15,8 @@ const user = {
                 accessoryIndex: 0, 
                 shape: "red", 
                 shapeIndex: 0, 
-                level: 1
+                level: 1,
+                archivesPg: 0,
             };
 
 // Retrieve stored object from local storage
