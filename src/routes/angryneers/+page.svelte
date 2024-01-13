@@ -1,4 +1,14 @@
 <svelte:head>
-  <meta name="description" content="Meet the Mari Angryneers!">
-  <title>Angryneers | Mari Angryneers</title>
+  <meta name="description" content="The Mari Angryneers' official archives!">
+  <title>Archives | Mari Angryneers</title>
 </svelte:head>
+
+
+<script>
+  import Landingpage from  "../../lib/components/angryneers/LandingPage.svelte"
+</script>
+
+<Landingpage/>
+<p>
+  what isnt workinng
+</p>
