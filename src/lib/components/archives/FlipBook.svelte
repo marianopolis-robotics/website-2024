@@ -1,8 +1,12 @@
 <script>
   import { onMount } from 'svelte';
 	import * as St from 'page-flip';
+	import { en, fr, enTabs, frTabs } from '$lib/archives';
 
+	export let isFr = false;
 	let flipbook, pageFlip;
+	let content = isFr ? fr : en;
+	let tabs = isFr ? frTabs : enTabs;
 
 	onMount(() => {
 		pageFlip = new St.PageFlip(flipbook, {
@@ -14,113 +18,110 @@
 		});
 		pageFlip.loadFromHTML(flipbook.querySelectorAll('.book-page'));
 	});
-
-	const tabs = {
-		'Robot': 2,
-		'Kiosk': 10,
-		'Website': 18,
-		'Video': 26,
-		'Programming': 34
-	}
 </script>
 
 <div
 	class="book-container position-relative d-flex flex-column justify-content-center px-3 px-md-5 px-xl-none"
 	>
 	<button class="toc" on:click={() => pageFlip.flip(1, 'top')}>
-		Table of Contents
+		{content.toc}
 	</button>
 	<div class="tabs">
 		{#each Object.entries(tabs) as [text, page] (page)}
 			<button class="tab" on:click={() => pageFlip.flip(page, 'top')}>{text}</button>
 		{/each}
 	</div>
+	<!-- overflow had to be hidden due to glitchy scrolling behaviour caused by 3D transform overflow :/ -->
 <div id="book" class="mx-auto" bind:this={flipbook}>
-		<div class="book-page">The Mari Angryneer Archives</div>
-		<div class="book-page">Table of contents</div>
-		<div class="book-page">Robot tab page</div>
-		<div class="book-page">back of robot tab page</div>
+		<div class="book-page">{content.title}</div>
+		<div class="book-page">{content.toc}</div>
+		<div class="book-page">{content.robotTitle}</div>
+		<div class="book-page">{content.robotTabPg}</div>
 		<div class="book-page">
 			<div class="flex-container">
-				<div>image 1</div>
-				<p>text for img 1</p>
+				<div>{content.robotImg1}</div>
+				<p>{content.robotText1}</p>
 			</div>
 			<div class="flex-container">
-				<div>image 2</div>
-				<p>text for img 2</p>
+				<div>{content.robotImg2}</div>
+				<p>{content.robotText2}</p>
 			</div>
 			<div class="flex-container">
-				<div>image 3</div>
-				<p>text for img 3</p>
+				<div>{content.robotImg3}</div>
+				<p>{content.robotText3}</p>
 			</div>
 		</div>
 		<div class="book-page">
 			<div class="flex-container">
-				<div>image 1</div>
-				<p>text for img 1</p>
+				<div>{content.robotImg4}</div>
+				<p>{content.robotText4}</p>
 			</div>
 			<div class="flex-container">
-				<div>image 2</div>
-				<p>text for img 2</p>
+				<div>{content.robotImg5}</div>
+				<p>{content.robotText5}</p>
 			</div>
 			<div class="flex-container">
-				<div>image 3</div>
-				<p>text for img 3</p>
+				<div>{content.robotImg6}</div>
+				<p>{content.robotText6}</p>
 			</div>
 		</div>
 		<div class="book-page">
 			<div class="flex-container">
-				<div>image 1</div>
-				<p>text for img 1</p>
+				<div>{content.robotImg7}</div>
+				<p>{content.robotText7}</p>
 			</div>
 			<div class="flex-container">
-				<div>image 2</div>
-				<p>text for img 2</p>
+				<div>{content.robotImg8}</div>
+				<p>{content.robotText8}</p>
 			</div>
 			<div class="flex-container">
-				<div>image 3</div>
-				<p>text for img 3</p>
+				<div>{content.robotImg9}</div>
+				<p>{content.robotText9}</p>
 			</div>
 		</div>
-		<div class="book-page">Robot page 4</div>
-		<div class="book-page">Robot page 5</div>
-		<div class="book-page">Robot page 6</div>
-		<div class="book-page">Kiosk tab page</div>
-		<div class="book-page">back of kiosk tab page</div>
-		<div class="book-page">kiosk page 1</div>
-		<div class="book-page">kiosk page 2</div>
-		<div class="book-page">kiosk page 3</div>
-		<div class="book-page">kiosk page 4</div>
-		<div class="book-page">kiosk page 5</div>
-		<div class="book-page">kiosk page 6</div>
-		<div class="book-page">Website tab page</div>
-		<div class="book-page">back of website tab page</div>
-		<div class="book-page">website page 1</div>
-		<div class="book-page">website page 2</div>
-		<div class="book-page">website page 3</div>
-		<div class="book-page">website page 4</div>
-		<div class="book-page">website page 5</div>
-		<div class="book-page">website page 6</div>
-		<div class="book-page">Video tab page</div>
-		<div class="book-page">back of video tab page</div>
-		<div class="book-page">video page 1</div>
-		<div class="book-page">video page 2</div>
-		<div class="book-page">video page 3</div>
-		<div class="book-page">video page 4</div>
-		<div class="book-page">video page 5</div>
-		<div class="book-page">video page 6</div>
-		<div class="book-page">Programming tab page</div>
-		<div class="book-page">back of programming tab page</div>
-		<div class="book-page">prog page 1</div>
-		<div class="book-page">kiosk page 2</div>
-		<div class="book-page">kiosk page 3</div>
-		<div class="book-page">kiosk page 4</div>
-		<div class="book-page">kiosk page 5</div>
-		<div class="book-page">kiosk page 6</div>
-		<div class="book-page">Last page</div>
-		<div class="book-page">Cover of last page</div>
+		<div class="book-page">{content.robotPage4}</div>
+		<div class="book-page">{content.robotPage5}</div>
+		<div class="book-page">{content.robotPage6}</div>
+		<div class="book-page">{content.kioskTabPg}</div>
+		<div class="book-page">{content.kioskTabBack}</div>
+		<div class="book-page">{content.kioskPage1}</div>
+		<div class="book-page">{content.kioskPage2}</div>
+		<div class="book-page">{content.kioskPage3}</div>
+		<div class="book-page">{content.kioskPage4}</div>
+		<div class="book-page">{content.kioskPage5}</div>
+		<div class="book-page">{content.kioskPage6}</div>
+		<div class="book-page">{content.websiteTabPg}</div>
+		<div class="book-page">{content.websiteTabBack}</div>
+		<div class="book-page">{content.websitePage1}</div>
+		<div class="book-page">{content.websitePage2}</div>
+		<div class="book-page">{content.websitePage3}</div>
+		<div class="book-page">{content.websitePage4}</div>
+		<div class="book-page">{content.websitePage5}</div>
+		<div class="book-page">{content.websitePage6}</div>
+		<div class="book-page">{content.videoTabPg}</div>
+		<div class="book-page">{content.videoTabBack}</div>
+		<div class="book-page">{content.videoPage1}</div>
+		<div class="book-page">{content.videoPage2}</div>
+		<div class="book-page">{content.videoPage3}</div>
+		<div class="book-page">{content.videoPage4}</div>
+		<div class="book-page">{content.videoPage5}</div>
+		<div class="book-page">{content.videoPage6}</div>
+		<div class="book-page">{content.progTabPg}</div>
+		<div class="book-page">{content.progTabBack}</div>
+		<div class="book-page">{content.progPage1}</div>
+		<div class="book-page">{content.progPage2}</div>
+		<div class="book-page">{content.progPage3}</div>
+		<div class="book-page">{content.progPage4}</div>
+		<div class="book-page">{content.progPage5}</div>
+		<div class="book-page">{content.progPage6}</div>
+		<div class="book-page">{content.lastPage}</div>
+		<div class="book-page">{content.end}</div>
 	</div>
 </div>
+<!-- margin and padding on the book or its parents break the layout and/or background
+	so we use these line breaks to space out the bottom of the journal and the bottom of the site
+-->
+<br><br>
 
 <style>
   	.tabs, .toc {
@@ -142,6 +143,7 @@
 		color: white;
 		transition: color 0.15s ease-in-out;
     text-shadow: 1.5px 1.5px #000;
+		box-shadow: rgba(0, 0, 0, 0.7) 0px 14px 28px, rgba(0, 0, 0, 0.65) 0px 10px 10px;
 	}
 
 	.tab:hover, .toc:hover {
@@ -163,6 +165,14 @@
 		min-height: 100px;
 		max-height: 600px;
 		margin-top: 3rem;
+	}
+
+	#book {
+		box-shadow: rgba(0, 0, 0, 0.7) 0px 14px 28px, rgba(0, 0, 0, 0.65) 0px 10px 10px;
+		border-radius: 10px;
+		overflow: hidden; /* unfortunately the only way to prevent glitchy scrolling behaviour
+												 caused by 3D transform overflow :/
+											*/
 	}
 
 	.book-page {
@@ -212,11 +222,27 @@
 			left: calc((100% - 470px) / 2);
 		}
 	}
+
+	@media screen and (min-width: 545px) {
+		/* needed due to strange book width behaviour */
+		#book {
+			box-shadow: none;
+		}
+
+		.book-page {
+			box-shadow: rgba(0, 0, 0, 0.7) 0px 14px 28px, rgba(0, 0, 0, 0.65) 0px 10px 10px;
+		}
+	}
 	
 	/* at around 592px the page-flip turns into one page */
 	@media screen and (min-width: 592px) {
 		.book-page {
 			border-radius: 0px;
+			box-shadow: none;
+		}
+
+		#book {
+			box-shadow: rgba(0, 0, 0, 0.7) 0px 14px 28px, rgba(0, 0, 0, 0.65) 0px 10px 10px;
 		}
 
 		.tabs {

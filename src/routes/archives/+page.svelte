@@ -9,10 +9,17 @@
 
 <h1 class="text-white text-center">Archives</h1>
 
-<FlipBook />
+<FlipBook isFr={false} />
 
 <style>
 	h1 {
 		padding: 25px;
+		font-size: 3.5rem;
+	}
+
+	@media screen and (min-width: 576px) {
+		h1 {
+			font-size: 5rem;
+		}
 	}
 </style>
