@@ -4,10 +4,10 @@
 </svelte:head>
 
 <script>
-  import Logo from "$lib/components/landing-pages/Logo.svelte";
-  import LandingHero from "$lib/components/landing-pages/LandingHero.svelte";
-  import PlayBtn from "$lib/components/landing-pages/PlayBtn.svelte";
-  import SwitchLang from "$lib/components/landing-pages/SwitchLang.svelte";
+  import Logo from "$lib/components/landingPages/Logo.svelte";
+  import LandingHero from "$lib/components/landingPages/LandingHero.svelte";
+  import PlayBtn from "$lib/components/landingPages/PlayBtn.svelte";
+  import SwitchLang from "$lib/components/landingPages/SwitchLang.svelte";
 </script>
 
 <LandingHero>

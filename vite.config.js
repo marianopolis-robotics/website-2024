@@ -5,6 +5,6 @@ import { defineConfig } from 'vite';
 export default defineConfig({
     plugins: [sveltekit(), imagetools()],
     optimizeDeps: {
-        include: ["page-flip"]
-    }
+        include: ['page-flip', 'bad-words', 'french-badwords-list']
+	}
 });
