@@ -4,5 +4,8 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
 	plugins: [sveltekit(), imagetools()],
-	assetsInclude: ['**/*.glb']
+	assetsInclude: ['**/*.glb'],
+	optimizeDeps: {
+		include: ['bad-words', 'french-badwords-list']
+	}
 });
