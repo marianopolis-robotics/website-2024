@@ -1,6 +1,6 @@
 <script>
-	import Canvas from './Canvas.svelte';
-	import Carousel from './Carousel.svelte';
+	import Canvas from '$lib/components/kryptik/Canvas.svelte';
+	import Carousel from '$lib/components/kryptik/Carousel.svelte';
 
 	let portrait_div;
 	let landscape_div;

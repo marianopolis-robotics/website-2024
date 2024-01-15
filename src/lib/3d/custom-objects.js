@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
 import helvetiker_font from 'three/examples/fonts/helvetiker_regular.typeface.json';
-import { Vector3 } from './vector.js';
+import { Vector3 } from '$lib/3d/vector.js';
 
 //repeated here, I didn't have a more intuitive way to include
 const ratio_render_over_physics = 100;

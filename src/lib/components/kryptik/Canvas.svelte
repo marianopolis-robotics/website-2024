@@ -3,7 +3,7 @@
 	import * as THREE from 'three';
 	import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 	import RAPIER from '@dimforge/rapier3d-compat';
-	import { Vector3 } from './vector.js';
+	import { Vector3 } from '$lib/3d/vector.js';
 
 	import playingFieldURL from '$lib/assets/3d-objects/playingField.glb';
 	import {
@@ -26,8 +26,8 @@
 		fifty_text,
 		twenty_five_text,
 		self_mesh
-	} from './custom-objects.js';
-	import __ from './custom-physics.js';
+	} from '$lib/3d/custom-objects.js';
+	import __ from '$lib/3d/custom-physics.js';
 
 	import GunImage from '$lib/assets/icons/gun.png';
 
