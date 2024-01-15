@@ -1,5 +1,6 @@
 <script>
 	import FlipBook from "$lib/components/archives/FlipBook.svelte";
+	import Tutorial from '$lib/components/archives/Tutorial.svelte';
 </script>
 
 <svelte:head>
@@ -10,6 +11,8 @@
 <h1 class="text-white text-center">Archives</h1>
 
 <FlipBook isFr={false} />
+
+<Tutorial isFr={false} />
 
 <style>
 	h1 {

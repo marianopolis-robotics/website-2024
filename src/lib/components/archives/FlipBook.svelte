@@ -3,6 +3,7 @@
 	import * as St from 'page-flip';
 	import { en, fr, enTabs, frTabs } from '$lib/archives';
 	import { userStore } from "$lib/Store";
+	import Entry from '$lib/components/archives/Entry.svelte';
 
 	export let isFr = false;
 	let flipbook, pageFlip;
@@ -18,12 +19,9 @@
 			maxWidth: 500
 		});
 		pageFlip.loadFromHTML(flipbook.querySelectorAll('.book-page'));
-		console.log($userStore.archivesPg)
-		console.log(pageFlip)
 		
 		if ($userStore.archivesPg !== 0) pageFlip.flip($userStore.archivesPg, 'top');
 	});
-	
 	
 	const getCurrentPage = () => {
 		// use timeout to ensure page has fully flipped when getting current page index
@@ -53,86 +51,24 @@
 <div id="book" class="mx-auto" bind:this={flipbook}>
 		<div class="book-page">{content.title}</div>
 		<div class="book-page">{content.toc}</div>
-		<div class="book-page">{content.robotTitle}</div>
-		<div class="book-page">{content.robotTabPg}</div>
 		<div class="book-page">
-			<div class="flex-container">
-				<div>{content.robotImg1}</div>
-				<p>{content.robotText1}</p>
-			</div>
-			<div class="flex-container">
+			<h2>{content.robotTitle}</h2>
+		</div>
+		<div class="book-page">
+			
+				<Entry title={content.robotTitle} text={content.robotText1}>
+				</Entry>
+			
+			
 				<div>{content.robotImg2}</div>
 				<p>{content.robotText2}</p>
-			</div>
-			<div class="flex-container">
+			
+			
 				<div>{content.robotImg3}</div>
 				<p>{content.robotText3}</p>
-			</div>
+			
 		</div>
-		<div class="book-page">
-			<div class="flex-container">
-				<div>{content.robotImg4}</div>
-				<p>{content.robotText4}</p>
-			</div>
-			<div class="flex-container">
-				<div>{content.robotImg5}</div>
-				<p>{content.robotText5}</p>
-			</div>
-			<div class="flex-container">
-				<div>{content.robotImg6}</div>
-				<p>{content.robotText6}</p>
-			</div>
-		</div>
-		<div class="book-page">
-			<div class="flex-container">
-				<div>{content.robotImg7}</div>
-				<p>{content.robotText7}</p>
-			</div>
-			<div class="flex-container">
-				<div>{content.robotImg8}</div>
-				<p>{content.robotText8}</p>
-			</div>
-			<div class="flex-container">
-				<div>{content.robotImg9}</div>
-				<p>{content.robotText9}</p>
-			</div>
-		</div>
-		<div class="book-page">{content.robotPage4}</div>
-		<div class="book-page">{content.robotPage5}</div>
-		<div class="book-page">{content.robotPage6}</div>
-		<div class="book-page">{content.kioskTabPg}</div>
-		<div class="book-page">{content.kioskTabBack}</div>
-		<div class="book-page">{content.kioskPage1}</div>
-		<div class="book-page">{content.kioskPage2}</div>
-		<div class="book-page">{content.kioskPage3}</div>
-		<div class="book-page">{content.kioskPage4}</div>
-		<div class="book-page">{content.kioskPage5}</div>
-		<div class="book-page">{content.kioskPage6}</div>
-		<div class="book-page">{content.websiteTabPg}</div>
-		<div class="book-page">{content.websiteTabBack}</div>
-		<div class="book-page">{content.websitePage1}</div>
-		<div class="book-page">{content.websitePage2}</div>
-		<div class="book-page">{content.websitePage3}</div>
-		<div class="book-page">{content.websitePage4}</div>
-		<div class="book-page">{content.websitePage5}</div>
-		<div class="book-page">{content.websitePage6}</div>
-		<div class="book-page">{content.videoTabPg}</div>
-		<div class="book-page">{content.videoTabBack}</div>
-		<div class="book-page">{content.videoPage1}</div>
-		<div class="book-page">{content.videoPage2}</div>
-		<div class="book-page">{content.videoPage3}</div>
-		<div class="book-page">{content.videoPage4}</div>
-		<div class="book-page">{content.videoPage5}</div>
-		<div class="book-page">{content.videoPage6}</div>
-		<div class="book-page">{content.progTabPg}</div>
-		<div class="book-page">{content.progTabBack}</div>
-		<div class="book-page">{content.progPage1}</div>
-		<div class="book-page">{content.progPage2}</div>
-		<div class="book-page">{content.progPage3}</div>
-		<div class="book-page">{content.progPage4}</div>
-		<div class="book-page">{content.progPage5}</div>
-		<div class="book-page">{content.progPage6}</div>
-		<div class="book-page">{content.lastPage}</div>
+		<div class="book-page">{content.robotTabPg}</div>
 		<div class="book-page">{content.end}</div>
 	</div>
 </div>
@@ -142,7 +78,11 @@
 <br><br>
 
 <style>
-  	.tabs, .toc {
+	h2 {
+		font-family: 'Jockey One', sans-serif;
+	}
+
+	.tabs, .toc {
 		margin-left: 0.5rem;
 	}
 	
@@ -152,7 +92,7 @@
 
 	.tab, .toc {
 		background-image: url('/textures/wood.png');
-		background-size: 100px;
+		background-size: 100% 100%;
 		border-top-left-radius: 10px;
 		border-top-right-radius: 10px;
 		padding: 7px 7px;
@@ -195,32 +135,15 @@
 
 	.book-page {
 		z-index: 1;
-		background: ghostwhite;
+		background: #FBFAE8;
 		padding: 1.5rem;
 		overflow: auto;
 		border-radius: 10px;
-		border: solid 1.5rem antiquewhite;
+		border: solid 1.5rem #c39a6f;
 	}
 
-	.flex-container {
-		display: flex;
-	}
-
-	.flex-container > div {
-		width: 200px;
-		height: 150px;
-		margin: 25px;
-		font-size: 30px;
-		flex-wrap: wrap;
-	}
-
-	.flex-container > p {
-		background-color: dimgray;
-		width: 600px;
-		margin: 25px;
-		height: 150px;
-		font-size: 30px;
-		flex-wrap: wrap;
+	.book-page:nth-child(even) {
+		border: solid 1.5rem #bb8e5d;
 	}
 
 	@media screen and (min-width: 500px) {
