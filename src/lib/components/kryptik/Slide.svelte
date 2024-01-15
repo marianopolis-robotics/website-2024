@@ -1,12 +1,14 @@
 <script>
-	export let images;
+	import { slide } from 'svelte/transition';
+ 	export let images;
 	export let text;
 	export let img_num;
 
 	let img_height = (1 / img_num) * 100;
 </script>
 
-<div class="content">
+{#key text}
+<div class="content" transition:slide>
 	<div class="images-wrapper">
 		{#each images as { url, alternate_text }}
 			<div class="img-wrapper" style="height: {img_height}%"><img src={url} alt={alternate_text} /></div>
@@ -20,6 +22,7 @@
 		</div>
 	</div>
 </div>
+{/key}
 
 <style>
 	@media screen and (min-device-width: 800px) {

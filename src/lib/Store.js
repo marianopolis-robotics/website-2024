@@ -4,7 +4,7 @@ import {browser} from "$app/environment";
 // Initial Store values
 const user = { 
                 name: "",
-                suprePower: "", 
+                superPower: "", 
                 hobbies: "",
                 submittedName: false, 
                 submittedCostume: false, 

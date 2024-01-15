@@ -1,4 +1,5 @@
 <script>
+	import { userStore } from '$lib/Store';
 	import Slide from './Slide.svelte';
 
 	import LeftButton from '$lib/assets/icons/arrow.png';
@@ -9,8 +10,9 @@
 	import FloorScoreImage from '$lib/assets/images/floor-score.png';
 	import MultiplierImage from '$lib/assets/images/multiplier.png';
 	import MultFactorImage from '$lib/assets/images/mult-factor.png';
-	import AngryBirdImage from '$lib/assets/images/angry-bird.png';
 	import BlueCircle from '$lib/assets/images/blue-circle.png';
+
+	const bird = $userStore.shape.replace('Shape', '');
 
 	let current_slide = 1;
 	let indices = [1, 2, 3, 4, 5, 6];
@@ -35,7 +37,7 @@
 					{#each indices as index}
 						<td>
 							{#if current_slide === index}
-								<img class="angry-bird" src={AngryBirdImage} alt="Angry bird icon" />
+								<img class="angry-bird" src='/birds/{bird}.svg' alt="Angry bird icon" />
 							{:else}
 								<svg height="10" width="10">
 									<circle cx="5" cy="5" r="5" fill="#f5c03b" />

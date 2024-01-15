@@ -1,5 +1,5 @@
 <script>
-    import { userStore } from "../../../Store";
+    import { userStore } from "$lib/Store";
     import WoodButton from "./WoodButton.svelte";
 
     export let isFr = false;
@@ -8,7 +8,7 @@
       accessories: ["caliper", "screwdriver"],
       hats: ["whiteHat", "greenHat"],
       shapes: ["red", "bomb", "blue", "bubbles", "chuck", "dahlia", "drill", "hal", "ice", "luca", "matilda", "melody", "pig", "poppy", "silver", "stella", "terence", "tony"]
-   } 
+   }
 
    let tabs = [ {tab: "Shape", tabFr:"Forme", selected: true},
               {tab: "Accessory", tabFr: "Accessoire", selected: false}, 
@@ -106,7 +106,6 @@
             <WoodButton message="<" on:click={() => {prevAccessory(selectedTab.tab.toLowerCase())}}/>
           </div>
           <div class="col">
-            <p>{`/birds/${$userStore.shape} and ${$userStore[selectedTab.tab.toLowerCase()]}`}</p>
             <img src={`/birds/${$userStore.shape}.svg`} alt="">
           </div>
           <div class="col text-center">
