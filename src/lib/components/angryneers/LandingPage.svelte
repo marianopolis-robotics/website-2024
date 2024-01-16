@@ -14,11 +14,11 @@
 {/each}
 
 
-{#key showPopup}
 
-    <Popup bind:showPopup />
 
- {/key}
+<Popup bind:showPopup/>
+
+ 
 
  
 
