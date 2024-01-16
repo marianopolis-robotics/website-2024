@@ -233,6 +233,9 @@
 	const fire = function () {
 		active_keys[' '] = true;
 	};
+	const reset_balls = function () {
+		active_keys.reset_ball = true;
+	};
 
 	//game initial setup
 	const start_perpetual = async function () {
@@ -366,21 +369,24 @@
 		};
 
 		//add initial game pieces
-		for (let z = -15.5; z <= 15.5; z++) {
-			if (z === -5.5 || z === 5.5) {
-				z++;
+		let setup_ball = function() {
+			for (let z = -15.5; z <= 15.5; z++) {
+				if (z === -5.5 || z === 5.5) {
+					z++;
+				}
+				Game_piece.fast_spawn(new Vector3(0, 0.5, (field_width / 32) * z), new Vector3(0, 0, 0));
 			}
-			Game_piece.fast_spawn(new Vector3(0, 0.5, (field_width / 32) * z), new Vector3(0, 0, 0));
+			Game_piece.fast_spawn(new Vector3(4.4, 0.5, 1), new Vector3(0, 0, 0));
+			Game_piece.fast_spawn(new Vector3(4.4, 0.5, 1.5), new Vector3(0, 0, 0));
+			Game_piece.fast_spawn(new Vector3(4.7, 0.5, 1.25), new Vector3(0, 0, 0));
+			Game_piece.fast_spawn(new Vector3(4.4, 0.5, -1), new Vector3(0, 0, 0));
+			Game_piece.fast_spawn(new Vector3(4.4, 0.5, -1.5), new Vector3(0, 0, 0));
+			Game_piece.fast_spawn(new Vector3(4.7, 0.5, -1.25), new Vector3(0, 0, 0));
+			Game_piece.fast_spawn(new Vector3(-4.4, 0.5, 1), new Vector3(0, 0, 0));
+			Game_piece.fast_spawn(new Vector3(-4.4, 0.5, 1.5), new Vector3(0, 0, 0));
+			Game_piece.fast_spawn(new Vector3(-4.7, 0.5, 1.25), new Vector3(0, 0, 0));
 		}
-		Game_piece.fast_spawn(new Vector3(4.4, 0.5, 1), new Vector3(0, 0, 0));
-		Game_piece.fast_spawn(new Vector3(4.4, 0.5, 1.5), new Vector3(0, 0, 0));
-		Game_piece.fast_spawn(new Vector3(4.7, 0.5, 1.25), new Vector3(0, 0, 0));
-		Game_piece.fast_spawn(new Vector3(4.4, 0.5, -1), new Vector3(0, 0, 0));
-		Game_piece.fast_spawn(new Vector3(4.4, 0.5, -1.5), new Vector3(0, 0, 0));
-		Game_piece.fast_spawn(new Vector3(4.7, 0.5, -1.25), new Vector3(0, 0, 0));
-		Game_piece.fast_spawn(new Vector3(-4.4, 0.5, 1), new Vector3(0, 0, 0));
-		Game_piece.fast_spawn(new Vector3(-4.4, 0.5, 1.5), new Vector3(0, 0, 0));
-		Game_piece.fast_spawn(new Vector3(-4.7, 0.5, 1.25), new Vector3(0, 0, 0));
+		setup_ball();
 
 		//initial render
 		renderer.render(scene, camera);
@@ -500,6 +506,11 @@
 					game_piece.update_mesh();
 					game_pieces.push(game_piece);
 					scene.add(game_piece.mesh);
+				}
+
+				if (active_keys.reset_ball === true) {
+					active_keys.reset_ball = false;
+					setup_ball();
 				}
 
 				if (mobile === true) {
@@ -710,7 +721,7 @@
 
 <svelte:document on:pointerlockchange={on_pointlock_change} on:pointerlockerror={on_pointlock_error} />
 
-<div>
+<div class="canvas-container">
 	<div class="main" bind:this={main_div}>
 		<canvas bind:this={canvas} on:mousemove={on_mouse_move}></canvas>
 		{#if mobile === true}
@@ -742,15 +753,21 @@
 		{/if}
 		<button class="multiplier" bind:this={add_multiplier_button} on:click={add_multiplier}>Put a multiplier?</button>
 		<div bind:this={game_info_div} class="game-info"></div>
+		<!-- more efficient to ignore/overwrite some rules for this simulation -->
 		<!-- svelte-ignore a11y-click-events-have-key-events -->
 		<!-- svelte-ignore a11y-no-static-element-interactions -->
 		<div bind:this={start_mask_div} on:click={on_canvas_click} class="start-mask">
 			<p bind:this={start_mask_text}>Play</p>
 		</div>
 	</div>
+	<button class="reset-ball" on:click={reset_balls}>Reset game pieces?</button>
 </div>
 
 <style>
+	div.canvas-container {
+		padding: 1rem 0 4rem;
+	}
+
 	div.main {
 		display: block;
 		margin: auto;
@@ -833,5 +850,9 @@
 		bottom: 0px;
 		z-index: 250;
 		opacity: 0.5;
+	}
+	button.reset-ball {
+		display: block;
+		margin: 10px auto 0;
 	}
 </style>

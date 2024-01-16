@@ -1,193 +1,131 @@
 <script>
+	import { fade } from 'svelte/transition';
 	import { userStore } from '$lib/Store';
 	import Slide from './Slide.svelte';
 
 	import Arrow from '$lib/assets/icons/arrow.svg';
+	import ArrowDisabled from '$lib/assets/icons/arrow-disabled.svg';
 
 	export let isFr = false;
 
 	const bird = $userStore.shape;
+	let load = false;
+	setTimeout(() => load = true, 100);
 
 	let current_slide = 1;
 	let indices = [1, 2, 3, 4, 5, 6];
 
-	const left = function () {
+	const left = () => {
 		if (current_slide > 1) {
 			current_slide--;
 		}
 	};
-	const right = function () {
+	const right = () => {
 		if (current_slide < 6) {
 			current_slide++;
 		}
 	};
+	
 </script>
 
-<div>
-	<div class="main">
-		<div class="top">
-			<table>
-				<tr>
-					{#each indices as index}
-						<td>
-							{#if current_slide === index}
-									<img class="angry-bird" src='/birds/{bird}.svg' alt="Angry bird icon" />
-							{:else}
-								<svg height="10" width="10">
-									<circle cx="5" cy="5" r="5" fill="#f5c03b" />
-								</svg>
-							{/if}
-						</td>
-					{/each}
-				</tr>
-			</table>
-		</div>
-		<div class="left">
-			<button on:click={left}><img src={Arrow} alt="Left button" /></button>
-		</div>
-		<div class="middle">
-			{#key current_slide}
-				<Slide {current_slide} {bird} {isFr} />
-			{/key}
-		</div>
-		<div class="right">
-			<button on:click={right}><img src={Arrow} alt="Right button" /></button>
-		</div>
+<div class="carousel p-4 px-5">
+	<div class="top w-100">
+		<table>
+			<tr>
+				{#each indices as index}
+					<td>
+						{#if current_slide === index && load}
+								<img src="/birds/{bird}.svg" alt="Angry Birds icon" in:fade={{ duration: 100 }} />
+						{:else}
+							<svg viewBox="0 0 50 50">
+								<circle cx="25" cy="25" r="25" fill="#f5c03b" />
+							</svg>
+						{/if}
+					</td>
+				{/each}
+			</tr>
+		</table>
+	</div>
+	<div class="left" class:disable={current_slide == 1}>
+		<button on:click={left}><img src={current_slide == 1 ? ArrowDisabled : Arrow} alt="Left button" /></button>
+	</div>
+	<div class="middle px-3 py-4">
+		{#key current_slide}
+			<Slide {current_slide} {bird} {isFr} />
+		{/key}
+	</div>
+	<div class="right" class:disable={current_slide == 6}>
+		<button on:click={right}><img src={current_slide == 6 ? ArrowDisabled : Arrow} alt="Right button" /></button>
 	</div>
 </div>
 
 <style>
-	div.top {
-		display: block;
-		height: 10%;
+	div.carousel {
+		background-color: #ffedc2;
+		border-radius: 10px;
+		margin: 1rem 1.5rem 2rem;
 	}
-	table {
-		margin: auto;
+
+	table tr td {
+		width: 40px;
+		aspect-ratio: 1;
+		padding: 0.5rem;
 	}
-	td {
-		width: 50px;
-		vertical-align: middle;
-		padding: 0px 10px 0px;
-	}
-	img.angry-bird {
-		width: 100%;
-	}
+
 	svg {
-		display: block;
-		width: 50%;
-		margin: auto;
+		border: inset 0.5px black;
+		border-radius: 50%;
+	}
+
+	div.top {
+		position: absolute;
+		top: 0;
+		left: 0;
+		display: flex;
+		justify-content: center;
 	}
 
 	div.left, div.right {
-		transition: background-color 0.15s ease-in-out;
+		position: absolute;
+		bottom: 1rem;
+		transition: background-color, opacity 0.15s ease-in-out;
 	}
 
-	div.left:hover, div.right:hover {
-		background-color: #e5dbc2;
+	div.left {
+		left: 2rem;
 	}
 
-	@media screen and (min-device-width: 800px) {
-		div.main {
-			display: block;
-			position: relative;
-			margin: auto;
-			width: 75%;
-			aspect-ratio: 5/3;
-			outline: 10px solid #ffedc2;
-			border-radius: 5px;
-			background-color: #ffedc2;
-		}
-
-		div.left {
-			position: absolute;
-			left: 0px;
-			bottom: 0px;
-			width: 10%;
-			height: 90%;
-			display: flex;
-			justify-content: center;
-			align-content: center;
-			flex-direction: column;
-		}
-		div.middle {
-			display: block;
-			margin: auto;
-			width: 80%;
-			height: 90%;
-		}
-		div.right {
-			position: absolute;
-			bottom: 0px;
-			right: 0px;
-			width: 10%;
-			height: 90%;
-			display: flex;
-			justify-content: center;
-			align-content: center;
-			flex-direction: column;
-		}
-		button {
-			border: none;
-			background-color: transparent;
-			width: 100%;
-			height: 100%;
-		}
-		div.left button img {
-			width: 25%;
-			transform: rotate(180deg);
-		}
-		div.right button img {
-			width: 25%;
-		}
+	div.right {
+		right: 2rem;
 	}
-	@media screen and (max-device-width: 800px) {
-		div.main {
-			display: block;
-			position: relative;
-			margin: auto;
-			width: 75%;
-			aspect-ratio: 3/5;
-			outline: 10px solid #ffedc2;
-			border-radius: 5px;
-			background-color: #ffedc2;
-		}
 
-		div.left {
-			position: absolute;
-			left: -15%;
-			bottom: 50%;
-			height: 10%;
-			display: flex;
-			justify-content: left;
-			flex-direction: row;
-		}
-		div.middle {
-			display: block;
-			margin: auto;
-			width: 100%;
-			height: 90%;
-		}
-		div.right {
-			position: absolute;
-			right: -15%;
-			bottom: 50%;
-			height: 10%;
-			display: flex;
-			justify-content: right;
-			flex-direction: row;
-		}
-		button {
-			border: none;
-			background-color: transparent;
-			width: 100%;
-			height: 100%;
-		}
-		div.left button img {
-			height: 100%;
-			transform: rotate(180deg);
-		}
-		div.right button img {
-			height: 100%;
+	div.left:not(.disable):hover, div.right:not(.disable):hover {
+		opacity: 0.8;
+	}
+
+	div.left.disable button, div.left.disable button {
+		cursor: auto;
+	}
+
+	button {
+		border: none;
+		background-color: transparent;
+		width: 100%;
+		height: 100%;
+	}
+
+	div.left button img {
+		height: 100%;
+		transform: rotate(180deg);
+	}
+
+	div.right button img {
+		height: 100%;
+	}
+
+	@media screen and (min-width: 768px) {
+		div.left:not(.disable):hover, div.right:not(.disable):hover {
+			background-color: #e5dbc2;
 		}
 	}
 </style>

@@ -1,5 +1,5 @@
 import FieldImage from '$lib/assets/images/field.png';
-import GamePieceImage from '$lib/assets/images/game-piece.jpg';
+import GamePieceImage from '$lib/assets/images/game-piece.png';
 import SmallTargetImage from '$lib/assets/images/small-target.png';
 import BigTargetImage from '$lib/assets/images/big-target.png';
 import FloorScoreImage from '$lib/assets/images/floor-score.png';

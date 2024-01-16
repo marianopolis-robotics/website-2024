@@ -15,7 +15,7 @@ const user = {
                 accessoryIndex: 0, 
                 shape: "red", 
                 shapeIndex: 0, 
-                level: 1
+                level: 1,
             };
 
 // Retrieve stored object from local storage

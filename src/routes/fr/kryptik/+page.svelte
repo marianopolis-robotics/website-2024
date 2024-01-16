@@ -21,7 +21,7 @@
 
 <svelte:window bind:innerWidth={winW} bind:innerHeight={winH} on:resize={checkOrientation}></svelte:window>
 
-<h1>Kryptik</h1>
+<h1 class="px-2 py-5 display-1">Kryptik</h1>
 
 <p>
 	The Kryptik Angryneering competition is hosted each year to commemorate the victorious attack on the King Pig's castle, which allowed us to rightfully retrieve the
@@ -30,7 +30,7 @@
 </p>
 
 <div>
-	<div class="spacer"><Carousel isFr={false} /></div>
+	<Carousel isFr={false} />
 
 	{#if landscape}
 		<p>
@@ -40,7 +40,7 @@
 			Shooting: [Q] key to increase power, [E] key to decrease power, [Space] bar to launch. <br />
 			Multiplier: [M] key to place multiplier.
 		</p>
-		<div class="spacer"><Canvas /></div>
+		<Canvas />
 	{:else}
 		<p class="landscapeWarning">Please use landscape mode to play the Kryptik simulation.</p>
 	{/if}
@@ -56,10 +56,6 @@
 		width: 75%;
 		margin: auto;
 		padding: 0px 0px 50px;
-	}
-
-	div .spacer {
-		padding: 0px 0px 100px;
 	}
 
 	.landscapeWarning {
