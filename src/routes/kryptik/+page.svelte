@@ -1,104 +1,67 @@
+<svelte:head>
+	<meta name="description" content="Learn more about the annual Kryptik Angryneering competition!" />
+	<title>Kryptik | Mari Angryneers</title>
+</svelte:head>
+
 <script>
 	import Canvas from '$lib/components/kryptik/Canvas.svelte';
 	import Carousel from '$lib/components/kryptik/Carousel.svelte';
+	import { onMount } from 'svelte';
 
-	let portrait_div;
-	let landscape_div;
+	let winW, winH; // window width and height
+	let landscape = false;
 
-	let forceful_mobile = function () {
-		portrait_div.style.display = 'none';
-		landscape_div.style.display = 'block';
-	};
+	function checkOrientation() {
+		setTimeout(() => landscape = winW > winH ? true : false, 500); // need slight delay for width and height bindings to update to final/correct screen dimensions
+	}
+
+	onMount(checkOrientation); // load initial screen size (otherwise winW and winH will be 0 until resize :/)
 </script>
 
-<svelte:head>
-	<meta name="description" content="The annual Kryptik angryneering competition!" />
-	<title>Kryptik | Mari Angryneers</title>
-</svelte:head>
+<svelte:window bind:innerWidth={winW} bind:innerHeight={winH} on:resize={checkOrientation}></svelte:window>
 
 <h1>Kryptik</h1>
 
 <p>
-	The [name] game is celebrated each year to remember the victorious attack on the King Pig's castle, which allowed us to rightfully retrieve the
+	The Kryptik Angryneering competition is hosted each year to commemorate the victorious attack on the King Pig's castle, which allowed us to rightfully retrieve the
 	eggs. The game was designed to replicate the tactics used during the war, but we removed the original dangerous launching mechanism. In fact, they
 	developed a mechanism to launch projectiles other than themselves! First, read the instructions before entering the arena.
 </p>
 
 <div>
-	<div class="spacer"><Carousel /></div>
+	<div class="spacer"><Carousel isFr={false} /></div>
 
-	<p class="laptop-show">
-		Click the simulation window to start. Press the [Esc] key to exit simulation. <br />
-		Camera: Move mouse to adjust view, [I] key to zoom in, [O] key to zoom out. <br />
-		Movement: [WASD] keys to move. <br />
-		Shooting: [Q] key to increase power, [E] key to decrease power, [Space] bar to launch. <br />
-		Multiplier: [M] key to place multiplier.
-	</p>
-	<div bind:this={landscape_div} class="landscape-show">
-		<p class="mobile-show">
-			<span style="color: red">REFRESH PAGE</span> if you haven't already after changing to landscape mode. <br />
-			Click the simulation window to start. Refresh the page to exit and restart simulation. <br />
-			Camera: Drag screen to adjust view, pinch to zoom in and zoom out. <br />
-			Movement: Joystick to move. <br />
-			Shooting: Use the slider on your right to increase power and decrease power, [insert image of icon] to launch. <br />
-			Multiplier: [insert image of icon] to place multiplier.
+	{#if landscape}
+		<p>
+			Click the simulation window to start. Press the [Esc] key to exit simulation. <br />
+			Camera: Move mouse to adjust view, [I] key to zoom in, [O] key to zoom out. <br />
+			Movement: [WASD] keys to move. <br />
+			Shooting: [Q] key to increase power, [E] key to decrease power, [Space] bar to launch. <br />
+			Multiplier: [M] key to place multiplier.
 		</p>
 		<div class="spacer"><Canvas /></div>
-	</div>
-	<div bind:this={portrait_div} class="portrait-show">
-		<p>Please use landscape mode. <span style="color: red">REFRESH PAGE AFTER THIS</span> to load appropriate scripts.</p>
-		<p>If you are already in landscape mode, forcefully activate game demo : <button on:click={forceful_mobile}>Force demo</button></p>
-	</div>
+	{:else}
+		<p class="landscapeWarning">Please use landscape mode to play the Kryptik simulation.</p>
+	{/if}
 </div>
 
 <style>
 	h1 {
-		display: block;
 		text-align: center;
 	}
+
 	p {
-		display: block;
+		font-size: 1.5rem;
 		width: 75%;
 		margin: auto;
 		padding: 0px 0px 50px;
-		text-align: center;
 	}
+
 	div .spacer {
 		padding: 0px 0px 100px;
 	}
-	.portrait-show p {
-		text-align: center;
-	}
-	@media screen and (min-device-width: 800px) {
-		.laptop-show {
-			display: block;
-		}
-		.mobile-show {
-			display: none;
-		}
-	}
-	@media screen and (max-device-width: 800px) {
-		.laptop-show {
-			display: none;
-		}
-		.mobile-show {
-			display: block;
-		}
-	}
-	@media screen and (min-device-width: 500px) {
-		.landscape-show {
-			display: block;
-		}
-		.portrait-show {
-			display: none;
-		}
-	}
-	@media screen and (max-device-width: 500px) {
-		.landscape-show {
-			display: none;
-		}
-		.portrait-show {
-			display: block;
-		}
+
+	.landscapeWarning {
+		color: red;
 	}
 </style>

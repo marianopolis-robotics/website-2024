@@ -1,41 +1,76 @@
 <script>
-	import { slide } from 'svelte/transition';
- 	export let images;
-	export let text;
-	export let img_num;
+	import { fly } from 'svelte/transition';
+	import { cubicOut } from 'svelte/easing';
+	export let current_slide = 1;
+	export let isFr = false;
+ 	export let bird;
+	import { enSlides, frSlides } from '$lib/kryptik';
 
-	let img_height = (1 / img_num) * 100;
+	let slides = isFr ? frSlides : enSlides;
+
+	let slide_info = slides[current_slide];
+	let { images, text } = slide_info;
+
 </script>
 
-{#key text}
-<div class="content" transition:slide>
+<div class="content" in:fly={{ delay: 300, duration: 300, axis: 'x', easing: cubicOut }} out:fly={{ duration: 300, axis: 'x', easing: cubicOut }}>
+	{#key current_slide}
 	<div class="images-wrapper">
+		{#if current_slide === 6}
+			<div class="img-wrapper">
+				<img src='/birds/{bird}.svg' alt={isFr ? 'L\'Angrynieur de l\'utilisateur' : 'The user\'s Angryneer'} />
+			</div>
+		{:else}
 		{#each images as { url, alternate_text }}
-			<div class="img-wrapper" style="height: {img_height}%"><img src={url} alt={alternate_text} /></div>
+			<div class="img-wrapper">
+				<img src={url} alt={alternate_text} />
+			</div>
 		{/each}
+		{/if}
 	</div>
 	<div class="p-wrapper">
 		<div class="scroll-container">
 			<p>
-				{@html text}
+				{text}
 			</p>
 		</div>
 	</div>
+	{/key}
 </div>
-{/key}
 
 <style>
-	@media screen and (min-device-width: 800px) {
+	.content {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+	}
+	.images-wrapper {
+		width: 100%;
+		max-height: 50%;
+		display: flex;
+		flex-direction: column;
+	}
+	.p-wrapper {
+		padding: 5%;
+		width: 100%;
+		height: 100%;
+		overflow-y: scroll;
+	}
+	.p-wrapper p {
+		margin: 0px;
+		text-align: justify;
+	}
+
+	@media screen and (min-width: 800px) {
 		.content {
 			width: 100%;
 			height: 100%;
-			display: flex;
 			flex-direction: row;
 		}
 		.images-wrapper {
 			width: 50%;
 			height: 100%;
-			display: flex;
 			flex-direction: column;
 		}
 		.p-wrapper {
@@ -48,30 +83,6 @@
 			padding: 30px;
 			text-align: justify;
 			font-size: 2vh;
-		}
-	}
-	@media screen and (max-device-width: 800px) {
-		.content {
-			width: 100%;
-			height: 100%;
-			display: flex;
-			flex-direction: column;
-		}
-		.images-wrapper {
-			width: 100%;
-			max-height: 50%;
-			display: flex;
-			flex-direction: column;
-		}
-		.p-wrapper {
-			padding: 5%;
-			width: 100%;
-			height: 100%;
-			overflow-y: scroll;
-		}
-		.p-wrapper p {
-			margin: 0px;
-			text-align: justify;
 		}
 	}
 	.img-wrapper img {
