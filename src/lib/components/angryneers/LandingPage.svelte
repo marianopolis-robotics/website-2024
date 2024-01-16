@@ -1,22 +1,37 @@
 <script>
-    import Popup from "./Popup.svelte"
+    import Popup from "./Popup.svelte"  
+
     let showPopup = false;
+    let birds = ['poppy', 'blue', 'bomb', 'bubbles', 'chuck', 'dahlia', 'drill', 
+'hal', 'ice', 'luca', 'matilda', 'melody', 'red', 'silver', 'stella', 
+'terence', 'tony', 'willow'];
     
-    const birdArray = ['poppy', 'blue', 'bomb', 'bubbles', 'chuck', 'dahlia', 'drill', 
-    'hal', 'ice', 'luca', 'matilda', 'melody', 'red', 'silver', 'stella', 
-    'terence', 'tony', 'willow']
+    let currentBird = birds[0];
+
+    
+
+    function displayPopup(bird){
+        showPopup = true;
+        currentBird = bird;
+    }
+
 
 </script>
 
-
-{#each birdArray as bird (bird)}
-    <button on:click={() => showPopup = true}><img src="/birds/{bird}.svg" alt= {bird}></button>
+<div>
+    {#each birds as bird (bird)}
+    <button class="angryneer" on:click={() => displayPopup(bird) }><img src="/birds/{bird}.svg" alt= {bird}></button>
 {/each}
 
 
+    <p>{currentBird}</p>
+
+<Popup bind:showPopup bird={currentBird}/>
 
 
-<Popup bind:showPopup/>
+
+</div>
+
 
  
 
@@ -31,6 +46,9 @@
     img {
         height: 150px;
         width: 150px;
+    }
+    .angryneer{
+        /* margin-right: -7vw; */
     }
 
 </style>

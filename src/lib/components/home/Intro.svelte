@@ -57,10 +57,7 @@
 </main>
 
 <style>
-	.rounded-content-box {
-		background-color: #ffeab5;
-		border-radius: 25px;
-	}
+	
 
 	.description-text {
 		font-size: 30px;
