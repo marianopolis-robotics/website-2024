@@ -9,7 +9,7 @@ const user = {
                 submittedName: false, 
                 submittedCostume: false, 
                 submittedAttributes: false,
-                hat: "whiteHat", 
+                hat: "construction-hat", 
                 hatIndex: 0, 
                 accessory: "caliper", 
                 accessoryIndex: 0, 

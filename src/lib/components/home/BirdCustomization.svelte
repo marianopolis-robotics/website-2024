@@ -1,63 +1,59 @@
 <script>
     import { userStore } from "../../../Store";
     import WoodButton from "./WoodButton.svelte";
+    import UserBird from "./UserBird.svelte";
 
     export let isFr = false;
 
    let attributes = {
-      accessories: ["caliper", "screwdriver"],
-      hats: ["whiteHat", "greenHat"],
+      accessories: ["caliper", "screwdriver", "laptop", "measuring-tape"],
+      hats: ["construction-hat", "gear-hat", "director-hat", "hacker-hat"],
       shapes: ["red", "bomb", "blue", "bubbles", "chuck", "dahlia", "drill", "hal", "ice", "luca", "matilda", "melody", "pig", "poppy", "silver", "stella", "terence", "tony"]
    } 
 
    let tabs = [ {tab: "Shape", tabFr:"Forme", selected: true},
-              {tab: "Accessory", tabFr: "Accessoire", selected: false}, 
-              {tab: "Hat", tabFr: "Chapeur", selected: false}]
+                {tab: "Hat", tabFr: "Chapeur", selected: false},
+                {tab: "Accessory", tabFr: "Accessoire", selected: false}, 
+              ]
 
    let selectedTab = tabs[0]; //make reactive to tabs selected value
   
    let newIndex = 0;
 
-   function nextAccessory(accessory){
+   function nextAccessory(attribute){
           
-    newIndex = $userStore[`${accessory}Index`] + 1;
+    newIndex = $userStore[`${attribute}Index`] + 1;
   
-      if(newIndex >= attributes[(accessory=="accessory" ? "accessories" : `${accessory}s`)].length){
+      if(newIndex >= attributes[(attribute=="accessory" ? "accessories" : `${attribute}s`)].length){
         newIndex = 0;
     }
-    updateAccessory(newIndex, accessory);
+    updateAccessory(newIndex, attribute);
     
    }
   
    function prevAccessory(attribute){
-    console.log($userStore.accessory);
-    console.log(attribute);
-    console.log((accessory=="accessory" ? "accessories" : `${accessory}s`));
     
     newIndex = $userStore[`${attribute}Index`] - 1;
     if(newIndex <= -1){
-      newIndex = attributes[`${attribute}s`].length -1;
+      newIndex = attributes[(attribute=="accessory" ? "accessories" : `${attribute}s`)].length -1;
     }
     updateAccessory(newIndex, attribute);
-   
-    
-    console.log($userStore.accessoryIndex);
+
     
    }
   
   function updateAccessory(index, accessoryType){
   
-          userStore.update( currentElemens => ({
-            ...currentElemens, 
+          userStore.update( currentElements => ({
+            ...currentElements, 
             [`${accessoryType}Index`]: index,
-            [accessoryType]: attributes[`${accessoryType}s`][index]
+            [accessoryType]: attributes[(accessoryType=="accessory" ? "accessories" : `${accessoryType}s`)][index]
           }))
     
   }
 
   // change selected value of each tab when a tab is clicked
   function toggleSelect(clickedTab){
-    console.log("clicked");
       for (let tab of tabs){
         if (tab == clickedTab){
           tab.selected = true;
@@ -94,9 +90,9 @@
         <div class="row text-center">
           <div class="col description_text">{(isFr ? `Choisissez votre ${selectedTab.tabFr.toLocaleLowerCase()}!` : `Choose your ${selectedTab.tab.toLowerCase()}!`)}</div>
         </div>
-        <div class="row align-items-center">
+        <div class="row align-items-center customization_row"> 
           <!-- Choose accessory type tabs -->
-          <div class="col text-center">
+          <div class="col text-center"  >
             {#each tabs as tab}
               <WoodButton message={(isFr? tab.tabFr : tab.tab)} isSelected={tab.selected} large_width={true} on:click={() => {toggleSelect(tab)}} /> 
             {/each}
@@ -105,9 +101,10 @@
           <div class="col text-center col-lg-3">
             <WoodButton message="<" on:click={() => {prevAccessory(selectedTab.tab.toLowerCase())}}/>
           </div>
-          <div class="col">
-            <p>{`/birds/${$userStore.shape} and ${$userStore[selectedTab.tab.toLowerCase()]}`}</p>
-            <img src={`/birds/${$userStore.shape}.svg`} alt="">
+          <div class="col align-items-center">
+            <!-- <p>{`/birds/${$userStore.shape} and ${$userStore[selectedTab.tab.toLowerCase()]}`}</p> -->
+            <UserBird/>
+            
           </div>
           <div class="col text-center">
             <WoodButton message=">" on:click={() => {nextAccessory(selectedTab.tab.toLowerCase())}}/>
@@ -119,14 +116,17 @@
           </div>
         </div>
       {:else}
+      <!-- Display after submit -->
         <div class="row">
           <div class="col text-center description-text m-">
             <div class="description_text">{(isFr? `Cela vous va bien` : `You look great`)}{($userStore.name=="" ? "" : `, ${$userStore.name}`)}!</div>
           </div>
         </div>
-        <div class="row text-center">
-          <div class="col">
-            <div class="m-3"><img src={`/birds/${$userStore.shape}.svg`} alt=""></div>
+        <div class="row text-center customization_row justify-content-center mt-5">
+          <div class="col col-3">
+            
+              <UserBird/>
+            
           </div>
         </div>
         <div class="row">
@@ -145,5 +145,11 @@
       .description_text{
         font-size: 40px;
       }
+
+      .customization_row{
+        height: 50vh;
+      }
+
+      
   </style>
   
