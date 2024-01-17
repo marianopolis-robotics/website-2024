@@ -93,7 +93,7 @@
         <div class="row align-items-center customization_row"> 
           <!-- Choose accessory type tabs -->
           <div class="col text-center"  >
-            {#each tabs as tab}
+            {#each tabs as tab}              
               <WoodButton message={(isFr? tab.tabFr : tab.tab)} isSelected={tab.selected} large_width={true} on:click={() => {toggleSelect(tab)}} /> 
             {/each}
           </div>
