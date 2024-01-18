@@ -47,7 +47,7 @@
     $: currentBird = bird;
     let birdIndex = birds.indexOf(bird);
 
-    
+
     function changeBird(number){
         console.log(birds.length);
         birdIndex += number;
@@ -67,8 +67,8 @@
 </script>
 {#if showPopup}
 
-<div class="background">
-    <div class="grid character_box">
+<main class="background">
+    <div class="container character_box ">
         <div class="row">
             <div class="col close_button d-flex justify-content-end">
                 <WoodButton on:click = {() => showPopup = false} message="X"/>
@@ -79,22 +79,33 @@
             <div class="col-md-auto p-5">
                 <WoodButton message="<" on:click={() => {changeBird(-1)}}/>
             </div>
-            <div class="col ">
+            <div class="col col-4">
                 <img src={`/birds/${currentBird}.svg`} alt="">
             </div>
-            <div class="col rounded-content-box box">
-                
-                <div>
-                    <img class="frame_left" src="/textures/woodddd_please.svg" alt="">
-                    <p class="stat p-2 mt-2"><strong>Name:</strong> Adelina</p>
-                    <p class="stat p-2"><strong>Power:</strong> Tornado spin</p>
-                    <p class="stat p-2"><strong>Hobbies:</strong> 3D modelling, karate, and learning new skills through online courses</p>
-                    <p class="stat p-2"><strong>Fun Facts:</strong> I was born prematurely and I have a little dog that has a very snobby personality.</p>
-                    <p class="stat p-2"><strong>Description:</strong> I learned some web development to program this very page (the Angryneers page). I learned how to design, paint and build a thematic kiosk.
+            <div class="col" id="box_container">
+                <img class="frame_left"  src="/textures/wood_frame.svg" alt="">
+                <img class="frame_right" src="/textures/wood_frame.svg" alt="">
 
-                        I had to sacrifice many nights of sleep and relaxation during the winter break by learning to code from absolutely no experience in web development. Initially, I thought this path would be too difficult and boring, but I could not have been more wrong. I had so much fun learning to program and debug my code, that I actually plan on doing more web dev in the future.
-                        </p>
+                
+                <img class="frame_top" src="/textures/wood_frame_horizontal.svg" alt="">
+                <img class="frame_bottom" src="/textures/wood_frame_horizontal.svg" alt="">
+              
+                
+                <div class="rounded-content-box box m-4 p-4 pt-5">
+                    <div>
+                        
+                        <p class="stat p-2 mt-2"><strong>Name:</strong> Adelina</p>
+                        <p class="stat p-2"><strong>Power:</strong> Tornado spin</p>
+                        <p class="stat p-2"><strong>Hobbies:</strong> 3D modelling, karate, and learning new skills through online courses</p>
+                        <p class="stat p-2"><strong>Fun Facts:</strong> I was born prematurely and I have a little dog that has a very snobby personality.</p>
+                        <p class="stat p-2"><strong>Description:</strong> I learned some web development to program this very page (the Angryneers page). I learned how to design, paint and build a thematic kiosk.
+    
+                            I had to sacrifice many nights of sleep and relaxation during the winter break by learning to code from absolutely no experience in web development. Initially, I thought this path would be too difficult and boring, but I could not have been more wrong. I had so much fun learning to program and debug my code, that I actually plan on doing more web dev in the future.
+                            </p>
+                    </div>
                 </div>
+                
+               
             </div>
             <div class="col-md-auto p-5 ">
                 <WoodButton message = ">" on:click={() => changeBird(1)}/>
@@ -105,28 +116,51 @@
    
     
    
-</div>
+</main>
 
 {/if}
 
  
 <style>
 
-.box{
-    /* background-color: #0a8723; */
+#box_container{
     position: relative;
+}
+
+.box{
     height: 400px;
     overflow: scroll;
-    
-    /* border-image:url(/textures/wood-frame.svg) 30 stretch; */
-
 }
 
 .frame_left{
     position: absolute;
     left: 0;
     top: 0;
-    width: 60vh;
+    height: 100%;
+}
+
+.frame_right{
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+}
+.frame_top{
+
+    position: absolute;
+    
+    right: 0;
+    top: 0;
+    width:100%;
+
+    /* width: 100%; */
+}
+.frame_bottom{
+    position: absolute;
+    
+    right: 0;
+    bottom: 0;
+    width:100%;
 }
 .stat{
     background-color: #85bce7;
@@ -141,13 +175,13 @@
 }
 
 .character_box{
-    margin-top: 20%;
-    margin: 200px;
+    margin-top: 10%;
+    
 }
 
-.test{
+/* .test{
     background-color: aqua;
-}
+} */
 
 .background{
     position: fixed; /* Stay in place */

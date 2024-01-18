@@ -10,5 +10,5 @@
 
 <Landingpage/>
 <p>
-  what isnt workinng
+
 </p>
