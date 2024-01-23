@@ -35,7 +35,7 @@
 
     .accessory{
         float:left;
-        width: 55%;
+        width: 50%;
         position:absolute;
         z-index: 3;
         left: 0vw;
