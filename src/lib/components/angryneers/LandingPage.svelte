@@ -88,7 +88,7 @@
 			translate: 0 0%;
 		}
 		100% {
-			translate: 0 -10%;
+			translate: 0 -30%;
 		}
 	}
 </style>
