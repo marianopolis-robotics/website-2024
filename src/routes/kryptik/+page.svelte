@@ -24,14 +24,22 @@
 
 <p class="pb-4 px-5">
 	The Kryptik Angryneering competition is hosted each year to commemorate the victorious attack on the King Pig's castle, which allowed us to rightfully retrieve the
-	eggs. The game was designed to replicate the tactics used during the war, but we removed the original dangerous launching mechanism. In fact, they
+	eggs.
+</p>
+<p class="pb-4 px-5">
+	 The game was designed to replicate the tactics used during the war, but we removed the original dangerous launching mechanism. In fact, they
 	developed a mechanism to launch projectiles other than themselves! First, read the instructions before entering the arena.
+</p>
+<p class="pb-4 px-5">
+	New to the Kryptik competition or unfamiliar with angryneering in general? We've prepared detailed instructions below for you to
+	read before entering the arena!
 </p>
 
 <div>
 	<Carousel isFr={false} />
 
 	{#if landscape}
+		<h2 class="text-center display-4 mb-3">Ready to play?</h2>
 		<p class="pb-4 px-5">
 			Click the simulation window to start. Press the [Esc] key to exit simulation. <br />
 			Camera: Move mouse to adjust view, [I] key to zoom in, [O] key to zoom out. <br />

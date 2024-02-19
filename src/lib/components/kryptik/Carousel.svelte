@@ -1,5 +1,6 @@
 <script>
 	import { fade } from 'svelte/transition';
+
 	import { userStore } from '$lib/Store';
 	import Slide from './Slide.svelte';
 
@@ -25,17 +26,16 @@
 			current_slide++;
 		}
 	};
-	
 </script>
 
-<div class="carousel p-4 px-5">
-	<div class="top w-100">
+<div class="carousel pt-2 pb-3">
+	<div class="top w-100 px-3">
 		<table>
 			<tr>
 				{#each indices as index}
 					<td>
 						{#if current_slide === index && load}
-								<img src="/birds/{bird}.svg" alt="Angry Birds icon" in:fade={{ duration: 100 }} />
+								<img src="/birds/{bird}.svg" id="userPos" alt="Angry Birds icon" in:fade={{ duration: 100 }} />
 						{:else}
 							<svg viewBox="0 0 50 50">
 								<circle cx="25" cy="25" r="25" fill="#f5c03b" />
@@ -46,16 +46,18 @@
 			</tr>
 		</table>
 	</div>
-	<div class="left" class:disable={current_slide == 1}>
-		<button on:click={left}><img src={current_slide == 1 ? ArrowDisabled : Arrow} alt="Left button" /></button>
-	</div>
-	<div class="middle px-3 py-4">
-		{#key current_slide}
-			<Slide {current_slide} {bird} {isFr} />
-		{/key}
-	</div>
-	<div class="right" class:disable={current_slide == 6}>
-		<button on:click={right}><img src={current_slide == 6 ? ArrowDisabled : Arrow} alt="Right button" /></button>
+	<div class="slideControls d-flex pt-3 pb-4">
+		<div class="left px-3" class:disable={current_slide == 1}>
+			<button on:click={left}><img src={current_slide == 1 ? ArrowDisabled : Arrow} alt="Left button" /></button>
+		</div>
+		<div class="middle px-3">
+			{#key current_slide}
+				<Slide {current_slide} {bird} {isFr} />
+			{/key}
+		</div>
+		<div class="right px-3" class:disable={current_slide == 6}>
+			<button on:click={right}><img src={current_slide == 6 ? ArrowDisabled : Arrow} alt="Right button" /></button>
+		</div>
 	</div>
 </div>
 
@@ -78,33 +80,29 @@
 	}
 
 	div.top {
-		position: absolute;
-		top: 0;
-		left: 0;
 		display: flex;
 		justify-content: center;
 	}
 
 	div.left, div.right {
-		position: absolute;
-		bottom: 1rem;
-		transition: background-color, opacity 0.15s ease-in-out;
+		transition: background-color 0.15s ease-in-out;
 	}
 
-	div.left {
-		left: 2rem;
-	}
-
-	div.right {
-		right: 2rem;
+	div.left button img, div.right button img {
+		width: fit-content;
 	}
 
 	div.left:not(.disable):hover, div.right:not(.disable):hover {
-		opacity: 0.8;
+		background-color: #e5dbc2;
 	}
 
 	div.left.disable button, div.left.disable button {
 		cursor: auto;
+	}
+
+	div.middle {
+		height: 400px;
+		overflow-y: scroll;
 	}
 
 	button {
@@ -121,6 +119,10 @@
 
 	div.right button img {
 		height: 100%;
+	}
+
+	#userPos {
+		width: 35px;
 	}
 
 	@media screen and (min-width: 768px) {
