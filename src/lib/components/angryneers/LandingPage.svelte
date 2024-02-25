@@ -4,7 +4,9 @@
 	let showPopup = false;
 	let birds = [
 		'poppy',
-		'blue',
+		'blue1',
+		'blue2',
+		'blue3',
 		'bomb',
 		'bubbles',
 		'chuck',
@@ -41,7 +43,7 @@
 			style="--rotate-duration: {randomRange(0.5, 0.75)}s; --translate-duration: {randomRange(
 				0.5,
 				2
-			)}s;"><img src="/birds/{bird}.svg" alt={bird} /></button
+			)}s;"><img src="/birds/{bird.includes("blue") ? "blue" : bird}.svg" alt={bird} /></button
 		>
 	{/each}
 
