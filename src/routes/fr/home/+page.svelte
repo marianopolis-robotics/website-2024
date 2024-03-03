@@ -12,8 +12,8 @@
 
 <!-- remove later! just a placeholder for testing background -->
 <main>
-  <div class="my-5">
-    <h1 class="text-center angry_birds_title">Les Angrynieurs de Mari</h1>
+  <div class="w-100 landingHero text-center px-4 px-lg-5 d-flex justify-content-center mb-5">
+    <h1>Les Angrynieurs de Mari</h1>
   </div>
 
   <Intro isFr=true/>

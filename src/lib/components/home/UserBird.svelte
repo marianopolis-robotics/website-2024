@@ -1,56 +1,98 @@
 <script>
-    import { userStore } from "../../../Store";
+	import { userStore } from '../../../Store';
+    import { onMount } from 'svelte';
 
-    let tallBirds = ["tony", "terence", "matilda"]
+
+    let birdImg;
+    let imageHeight;
+    
+    onMount(() => {
+    
+    if (birdImg){
+        imageHeight=birdImg.clientHeight;
+    }
+
+  });
+  function onResize(){
+    imageHeight=birdImg.clientHeight;
+  }
+   
+	let tallBirds = ['tony', 'terence', 'matilda'];
 </script>
-
-
+<svelte:window on:resize={onResize} />
 <main>
-    <div class="text-center bird_display">
-        <!-- <p>{$userStore.shape}</p> -->
-        <img class="accessory" class:big_accessory={$userStore.accessory=="laptop"} src="{`/accessories/${$userStore.accessory}.svg`}" alt={$userStore.hat}>
-        <img class="hat mx-auto" src="{`/hats/${$userStore.hat}.svg`}" alt={$userStore.hat}>
-        <img class="bird" class:big_bird={tallBirds.includes($userStore.shape)} src={`/birds/${$userStore.shape}.svg`} alt="">
-        
-        
-    </div>
+	<div class="text-center bird_display" style="--birdImg-height: {imageHeight}">
+		<img
+			class="accessory"
+			class:big_accessory={$userStore.accessory == 'laptop'}
+			src={`/accessories/${$userStore.accessory}.svg`}
+			alt={$userStore.hat}
+		/>
+		<img class="hat" class:hat-big={tallBirds.includes($userStore.shape)} src={`/hats/${$userStore.hat}.svg`} alt={$userStore.hat} />
+		<img 
+			class="bird"
+			
+			src={`/birds/${$userStore.shape}.svg`}
+            bind:this={birdImg}
+			alt=""
+		/>
+	</div>
+
 </main>
 
-
 <style>
-    .hat{
+	.hat {
+		width: 50%;
+		z-index: 2;
+        position: absolute;
+        top: 10%;
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+
+		/* position: relative; */
+	}
+
+    .hat-big{
         width: 50%;
-        z-index: 2;
-        
-        /* position: relative; */
-      }
-
-    .bird{
-        z-index: 1;
-        margin-top: -11vw;
-    }
-    .big_bird{
-        margin-top: -7vw !important;
+		z-index: 2;
+        position: absolute;
+        top: -10%;
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
     }
 
-    .accessory{
-        float:left;
-        width: 50%;
-        position:absolute;
-        z-index: 3;
-        left: 0vw;
-        top: 7vw;
-    }
+	.bird {
+		z-index: 1;
+		/* margin-top: -11vw; */
+	}
+	
 
-    .big_accessory{
-        left: -3vw;
-    }
+	.accessory {
+		float: left;
+		width: 50%;
+		position: absolute;
+		z-index: 3;
+		left: -5%;
+		top: 45%;
+		/* top: 7vw; */
+		/* top: 0 */
+        /* top:50% */
+	}
 
-    .bird_display{
-        position: relative;
-    }
+	.big_accessory {
+		left: -3vw;
+	}
 
-    img{
-        position: relative;
-    }
+	.bird_display {
+		position: relative;
+	}
+
+	img {
+		position: relative;
+	}
+   
 </style>

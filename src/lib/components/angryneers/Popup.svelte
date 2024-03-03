@@ -217,8 +217,8 @@
 			name: 'Dominique Paradis (mentor)',
 			subteam: 'Supervisor',
 			power: 'Bubble wand',
-			hobbies: 'Playing Hay Day',
-			funFacts: '[fun facts]',
+			hobbies: 'Astrophysics',
+			funFacts: 'I am a hyperspheroid-earther',
 			learned: '[description]'
 		},
 		tony: {
@@ -254,22 +254,21 @@
 	<main class="background">
 		<div class="container character_box">
 			<div class="row align-items-center">
-				
-					<div class="col col-5 arrows_small">
-						<WoodButton
-							message="<"
-							on:click={() => {
-								changeBird(-1);
-							}}
-						/>
-					</div>
-					<div class="col arrows_small">
-						<WoodButton message=">" on:click={() => changeBird(1)} />
-					</div>
-				<div class="col col-1 close_button d-flex justify-content-end">
+				<div class="col col-5 arrows_small">
+					<WoodButton
+						large_width={true}
+						message="<"
+						on:click={() => {
+							changeBird(-1);
+						}}
+					/>
+				</div>
+				<div class="col arrows_small col-5">
+					<WoodButton message=">" on:click={() => changeBird(1)} large_width={true} />
+				</div>
+				<div class="col  close_button float-end">
 					<WoodButton on:click={() => (showPopup = false)} message="X" />
 				</div>
-				
 			</div>
 
 			<div class="row popup align-items-center">
@@ -281,43 +280,44 @@
 						}}
 					/>
 				</div>
-					<div class="col">
-
-					
+				<div class="col">
 					<div class="container">
-						<div class="row align-items-center row-cols-sm-1 row-cols-md-2">
+						<div class="row align-items-center row-cols-1 row-cols-md-2 row-cols-lg-2">
+							<div class="col col-sm-12 col-lg-4 col-md-12 bird_display">
+								<img
+									src={`/birds/${currentBird.includes('blue') ? 'blue' : currentBird}.svg`}
+									alt=""
+								/>
+							</div>
+							<div class="col col-sm-12 col-md-12 col-lg-8" id="box_container">
+								<img class="frame_left" src="/textures/wood_frame.svg" alt="wood frame left" />
+								<img class="frame_right" src="/textures/wood_frame.svg" alt="" />
 
-						
+								<img class="frame_top" src="/textures/wood_frame_horizontal.svg" alt="" />
+								<img class="frame_bottom" src="/textures/wood_frame_horizontal.svg" alt="" />
 
-						<div class="col col-sm-12 col-lg-4 col-md-12 bird_display">
-							<img src={`/birds/${currentBird.includes('blue') ? 'blue' : currentBird}.svg`} alt="" />
-						</div>
-						<div class="col col-sm-12 col-md-12 col-lg-8" id="box_container">
-							<img class="frame_left" src="/textures/wood_frame.svg" alt="wood frame left" />
-							<img class="frame_right" src="/textures/wood_frame.svg" alt="" />
-
-							<img class="frame_top" src="/textures/wood_frame_horizontal.svg" alt="" />
-							<img class="frame_bottom" src="/textures/wood_frame_horizontal.svg" alt="" />
-
-							<div class="rounded-content-box box m-4 p-4 pt-5">
-								<div>
-									<p class="stat p-2 mt-2"><strong>Name:</strong> {angryneer[currentBird].name}</p>
-									<p class="stat p-2"><strong>Power:</strong> {angryneer[currentBird].power}</p>
-									<p class="stat p-2">
-										<strong>Hobbies:</strong>
-										{angryneer[currentBird].hobbies}
-									</p>
-									<p class="stat p-2">
-										<strong>Fun Facts:</strong>
-										{angryneer[currentBird].funFacts}
-									</p>
-									<p class="stat p-2 mb-5">
-										<strong>Description:</strong>
-										{angryneer[currentBird].learned}
-									</p>
+								<div class="rounded-content-box box m-4 p-4 pt-5">
+									<div>
+										<p class="stat p-2 mt-2">
+											<strong>Name:</strong>
+											{angryneer[currentBird].name}
+										</p>
+										<p class="stat p-2"><strong>Power:</strong> {angryneer[currentBird].power}</p>
+										<p class="stat p-2">
+											<strong>Hobbies:</strong>
+											{angryneer[currentBird].hobbies}
+										</p>
+										<p class="stat p-2">
+											<strong>Fun Facts:</strong>
+											{angryneer[currentBird].funFacts}
+										</p>
+										<p class="stat p-2 mb-5">
+											<strong>Description:</strong>
+											{angryneer[currentBird].learned}
+										</p>
+									</div>
 								</div>
 							</div>
-						</div>
 						</div>
 					</div>
 				</div>
@@ -333,7 +333,7 @@
 	#box_container {
 		position: relative;
 	}
-	.bird_display{
+	.bird_display {
 		min-width: 25%;
 	}
 
@@ -411,7 +411,7 @@
 	.popup {
 		height: 20%;
 	}
-	
+
 	@media only screen and (max-width: 600px) {
 		.arrows {
 			display: none;

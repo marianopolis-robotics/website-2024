@@ -29,11 +29,11 @@
 
 <main>
 	<div class="container rounded-content-box my-5 description-text">
-		<div class="row align-items-center">
-			<div class="col text-center p-5">
+		<div class="row align-items-center row-cols-1 row-cols-md-2">
+			<div class="col text-center p-md-5 p-3 pt-5">
 				{(isFr ? "Bienvenue à la base principale des Angrynieurs de Mari! Designez votre oiseau pour rejoindre la compétition annuelle des Angrynieurs Kryptic!" : "Welcome to the Mari Angryneers Home Base! Design your bird in order to join the annual Kryptik Angryneers competition!")}
 			</div>
-			<div class="col p-5 text-center">
+			<div class="col p-md-5 p-3 pt-5 pb-5 text-center">
                 {#if !$userStore.submittedName}
 				<p>{(isFr? "Quel est votre nom, Angrynieur?" : "What is your name, Angryneer?")}</p>
 				<input
