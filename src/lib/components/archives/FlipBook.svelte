@@ -49,27 +49,33 @@
 	</div>
 	<!-- overflow had to be hidden due to glitchy scrolling behaviour caused by 3D transform overflow :/ -->
 <div id="book" class="mx-auto" bind:this={flipbook}>
-		<div class="book-page">{content.title}</div>
-		<div class="book-page">{content.toc}</div>
 		<div class="book-page">
-			<h2>{content.robotTitle}</h2>
+			<div class="d-flex align-items-center h-100">
+				<h2 class="title">{content.title}</h2>
+			</div>
 		</div>
 		<div class="book-page">
-			
-				<Entry title={content.robotTitle} text={content.robotText1}>
-				</Entry>
-			
-			
-				<div>{content.robotImg2}</div>
-				<p>{content.robotText2}</p>
-			
-			
-				<div>{content.robotImg3}</div>
-				<p>{content.robotText3}</p>
+			<h2 class="chapter mb-2">{content.toc}</h2>
+		</div>
+		<div class="book-page">
+			<p>{content.intro}</p>
+		</div>
+		<div class="book-page">
+			<h2 class="chapter mb-1">Robot</h2>
+			<Entry date={content.robot.date1} text={content.robot.text1}
+						 img='/archives/{content.robot.img1}' alt={content.robot.alt1} rotate='left'>
+			</Entry>
+			<Entry date={content.robot.date2} text={content.robot.text2}
+						 img='/archives/{content.robot.img2}' alt={content.robot.alt2} rotate='right'>
+			</Entry>
 			
 		</div>
-		<div class="book-page">{content.robotTabPg}</div>
-		<div class="book-page">{content.end}</div>
+		<div class="book-page">{content.robot.text1}</div>
+		<div class="book-page">
+			<div class="d-flex align-items-center h-100">
+				<h2 class="title">{content.end}</h2>
+			</div>
+		</div>
 	</div>
 </div>
 <!-- margin and padding on the book or its parents break the layout and/or background
@@ -78,10 +84,6 @@
 <br><br>
 
 <style>
-	h2 {
-		font-family: 'Jockey One', sans-serif;
-	}
-
 	.tabs, .toc {
 		margin-left: 0.5rem;
 	}
@@ -119,6 +121,15 @@
 		width: max-content;
 	}
 
+	.title {
+		text-transform: uppercase;
+	}
+
+	.chapter, .title {
+		font-family: 'Jockey One', sans-serif;
+		text-align: center;
+	}
+
 	.book-container {
 		min-height: 100px;
 		max-height: 600px;
@@ -135,15 +146,11 @@
 
 	.book-page {
 		z-index: 1;
-		background: #FBFAE8;
+		background: #f7ddbb;
 		padding: 1.5rem;
 		overflow: auto;
 		border-radius: 10px;
-		border: solid 1.5rem #c39a6f;
-	}
-
-	.book-page:nth-child(even) {
-		border: solid 1.5rem #bb8e5d;
+		border: solid 1.5rem #b4814b;
 	}
 
 	@media screen and (min-width: 500px) {
