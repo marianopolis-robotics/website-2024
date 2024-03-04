@@ -1,4 +1,5 @@
 <script>
+	import { onMount } from 'svelte';
 	import { userStore } from '../../../Store';
 	import UserBird from '../home/UserBird.svelte';
 	import WoodButton from '../home/WoodButton.svelte';
@@ -103,7 +104,7 @@
 				'I like to play music, I love building gundams (model kits), and I love to play video games.',
 			funFacts: 'I love bubble tea and I love classical music :)',
 			learned:
-				'I sacrificed most of my APs, which are 2-hour periods on Tuesdays and Thursdays when no students have class, and I had to sacrifice a bit of study time as well.'
+				'One thing that I learned in robotics is that Not everything is as easy as it seems. even if our ideas were good but once we start building it become very hard, but I think me and the rest of the team has found our way around this problem. I sacrificed most of my APs, which are 2-hour periods on Tuesdays and Thursdays when no students have class, and I had to sacrifice a bit of study time as well.'
 		},
 		dahlia: {
 			bird: 'dahlia',
@@ -237,6 +238,10 @@
 
 	$: currentBird = bird;
 	let birdIndex = birds.indexOf(bird);
+	onMount(() => {
+		let birdIndex = birds.indexOf(bird);
+	});
+	
 
 	function changeBird(number) {
 		birdIndex += number;
@@ -256,8 +261,10 @@
 	<main class="background">
 		<div class="container">
 			<div class="row align-items-center">
-				
-				<div class="col d-flex flex-row-reverse top-spacing" class:close_button={document.documentElement.scrollTop<=100}>
+				<div
+					class="col d-flex flex-row-reverse top-spacing"
+					class:close_button={document.documentElement.scrollTop <= 100}
+				>
 					<WoodButton on:click={() => (showPopup = false)} message="X" />
 				</div>
 			</div>
@@ -272,65 +279,65 @@
 					/>
 				</div>
 				<div class="col">
-					
-						<div class="row align-items-center row-cols-1 row-cols-md-2 row-cols-lg-2">
-							<div class="col col-12 col-md-12 col-lg-4 bird_display">
-								{#if currentBird=='user'}
-									<UserBird/>
-								{:else}
-									<img
+					<div class="row align-items-center row-cols-1 row-cols-md-2 row-cols-lg-2">
+						<div class="col col-12 col-md-12 col-lg-4 bird_display">
+							{#if currentBird == 'user'}
+								<UserBird />
+							{:else}
+								<img
 									src={`/birds/${currentBird.includes('blue') ? 'blue' : currentBird}.svg`}
 									alt=""
+								/>
+							{/if}
+						</div>
+						<div class="col arrows_small">
+							<div class="row arrows-small">
+								<div class="col">
+									<WoodButton
+										large_width={true}
+										message="<"
+										on:click={() => {
+											changeBird(-1);
+										}}
 									/>
-								{/if}
-								
-							</div>
-							<div class="col arrows_small">
-								<div class="row arrows-small">
-									<div class="col">
-										<WoodButton
-											large_width={true}
-											message="<"
-											on:click={() => {
-												changeBird(-1);
-											}}
-										/>
-									</div>
-									<div class="col">
-										<WoodButton message=">" on:click={() => changeBird(1)} large_width={true} />
-									</div>
+								</div>
+								<div class="col">
+									<WoodButton message=">" on:click={() => changeBird(1)} large_width={true} />
 								</div>
 							</div>
-							<div class="col col-sm-12 col-md-12 col-lg-8" id="box_container">
-								<img class="frame_left" src="/textures/wood_frame.svg" alt="wood frame left" />
-								<img class="frame_right" src="/textures/wood_frame.svg" alt="" />
+						</div>
+						<div class="col col-sm-12 col-md-12 col-lg-8" id="box_container">
+							<img class="frame_left" src="/textures/wood_frame.svg" alt="wood frame left" />
+							<img class="frame_right" src="/textures/wood_frame.svg" alt="" />
 
-								<img class="frame_top" src="/textures/wood_frame_horizontal.svg" alt="" />
-								<img class="frame_bottom" src="/textures/wood_frame_horizontal.svg" alt="" />
+							<img class="frame_top" src="/textures/wood_frame_horizontal.svg" alt="" />
+							<img class="frame_bottom" src="/textures/wood_frame_horizontal.svg" alt="" />
 
-								<div class="rounded-content-box box m-4 p-4 pt-5">
-									<div>
-										<p class="stat p-2 mt-2">
-											<strong>Name:</strong>
-											{currentBird == 'user'? $userStore.name : angryneer[currentBird].name}
-										</p>
-										<p class="stat p-2"><strong>Power:</strong> {currentBird == 'user'? $userStore.superPower : angryneer[currentBird].power}</p>
-										<p class="stat p-2">
-											<strong>Hobbies:</strong>
-											{currentBird == 'user'? $userStore.hobbies :angryneer[currentBird].hobbies}
-										</p>
-										<p class="stat p-2">
-											<strong>Fun Facts:</strong>
-											{currentBird == 'user'? "fun fact" :angryneer[currentBird].funFacts}
-										</p>
-										<p class="stat p-2 mb-5">
-											<strong>Description:</strong>
-											{currentBird == 'user'? $userStore.name :angryneer[currentBird].learned}
-										</p>
-									</div>
+							<div class="rounded-content-box box m-4 p-4 pt-5">
+								<div>
+									<p class="stat p-2 mt-2">
+										<strong>Name:</strong>
+										{currentBird == 'user' ? $userStore.name : angryneer[currentBird].name}
+									</p>
+									<p class="stat p-2">
+										<strong>Power:</strong>
+										{currentBird == 'user' ? $userStore.superPower : angryneer[currentBird].power}
+									</p>
+									<p class="stat p-2">
+										<strong>Hobbies:</strong>
+										{currentBird == 'user' ? $userStore.hobbies : angryneer[currentBird].hobbies}
+									</p>
+									<p class="stat p-2">
+										<strong>Fun Facts:</strong>
+										{currentBird == 'user' ? $userStore.funFact : angryneer[currentBird].funFacts}
+									</p>
+									<p class="stat p-2 mb-5">
+										<strong>Description:</strong>
+										{currentBird == 'user' ? $userStore.name : angryneer[currentBird].learned}
+									</p>
 								</div>
 							</div>
-						
+						</div>
 					</div>
 				</div>
 				<div class="col col-1 arrows">
@@ -394,7 +401,6 @@
 	.close_button {
 		margin-top: 20%;
 	}
-
 
 	.background {
 		position: fixed; /* Stay in place */
