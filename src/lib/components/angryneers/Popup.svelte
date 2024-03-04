@@ -1,4 +1,6 @@
 <script>
+	import { userStore } from '../../../Store';
+	import UserBird from '../home/UserBird.svelte';
 	import WoodButton from '../home/WoodButton.svelte';
 	export let showPopup;
 	export let bird;
@@ -24,7 +26,8 @@
 		'stella',
 		'terence',
 		'tony',
-		'willow'
+		'willow',
+		'user'
 	];
 
 	let angryneer = {
@@ -236,7 +239,6 @@
 	let birdIndex = birds.indexOf(bird);
 
 	function changeBird(number) {
-		console.log(birds.length);
 		birdIndex += number;
 
 		if (birdIndex <= -1) {
@@ -252,21 +254,10 @@
 
 {#if showPopup}
 	<main class="background">
-		<div class="container character_box">
+		<div class="container">
 			<div class="row align-items-center">
-				<div class="col col-5 arrows_small">
-					<WoodButton
-						large_width={true}
-						message="<"
-						on:click={() => {
-							changeBird(-1);
-						}}
-					/>
-				</div>
-				<div class="col arrows_small col-5">
-					<WoodButton message=">" on:click={() => changeBird(1)} large_width={true} />
-				</div>
-				<div class="col  close_button float-end">
+				
+				<div class="col d-flex flex-row-reverse top-spacing" class:close_button={document.documentElement.scrollTop<=100}>
 					<WoodButton on:click={() => (showPopup = false)} message="X" />
 				</div>
 			</div>
@@ -281,13 +272,34 @@
 					/>
 				</div>
 				<div class="col">
-					<div class="container">
+					
 						<div class="row align-items-center row-cols-1 row-cols-md-2 row-cols-lg-2">
-							<div class="col col-sm-12 col-lg-4 col-md-12 bird_display">
-								<img
+							<div class="col col-12 col-md-12 col-lg-4 bird_display">
+								{#if currentBird=='user'}
+									<UserBird/>
+								{:else}
+									<img
 									src={`/birds/${currentBird.includes('blue') ? 'blue' : currentBird}.svg`}
 									alt=""
-								/>
+									/>
+								{/if}
+								
+							</div>
+							<div class="col arrows_small">
+								<div class="row arrows-small">
+									<div class="col">
+										<WoodButton
+											large_width={true}
+											message="<"
+											on:click={() => {
+												changeBird(-1);
+											}}
+										/>
+									</div>
+									<div class="col">
+										<WoodButton message=">" on:click={() => changeBird(1)} large_width={true} />
+									</div>
+								</div>
 							</div>
 							<div class="col col-sm-12 col-md-12 col-lg-8" id="box_container">
 								<img class="frame_left" src="/textures/wood_frame.svg" alt="wood frame left" />
@@ -300,25 +312,25 @@
 									<div>
 										<p class="stat p-2 mt-2">
 											<strong>Name:</strong>
-											{angryneer[currentBird].name}
+											{currentBird == 'user'? $userStore.name : angryneer[currentBird].name}
 										</p>
-										<p class="stat p-2"><strong>Power:</strong> {angryneer[currentBird].power}</p>
+										<p class="stat p-2"><strong>Power:</strong> {currentBird == 'user'? $userStore.superPower : angryneer[currentBird].power}</p>
 										<p class="stat p-2">
 											<strong>Hobbies:</strong>
-											{angryneer[currentBird].hobbies}
+											{currentBird == 'user'? $userStore.hobbies :angryneer[currentBird].hobbies}
 										</p>
 										<p class="stat p-2">
 											<strong>Fun Facts:</strong>
-											{angryneer[currentBird].funFacts}
+											{currentBird == 'user'? "fun fact" :angryneer[currentBird].funFacts}
 										</p>
 										<p class="stat p-2 mb-5">
 											<strong>Description:</strong>
-											{angryneer[currentBird].learned}
+											{currentBird == 'user'? $userStore.name :angryneer[currentBird].learned}
 										</p>
 									</div>
 								</div>
 							</div>
-						</div>
+						
 					</div>
 				</div>
 				<div class="col col-1 arrows">
@@ -380,17 +392,9 @@
 	}
 
 	.close_button {
-		margin-top: -20px;
+		margin-top: 20%;
 	}
 
-	.character_box {
-		margin-top: 10%;
-		/* overflow-y: scroll; */
-	}
-
-	/* .test{
-    background-color: aqua;
-} */
 
 	.background {
 		position: fixed; /* Stay in place */
@@ -423,7 +427,9 @@
 			display: none;
 		}
 	}
-	/* .border{
-		border: red solid 20px;
-	} */
+	@media only screen and (min-width: 992px) {
+		.top-spacing {
+			margin-top: 20vh;
+		}
+	}
 </style>

@@ -2,6 +2,7 @@
 	import badWords from 'bad-words';
 	import frenchWords from 'french-badwords-list';
 	import { userStore } from '../../../Store';
+	import {onMount} from 'svelte';
 
 	export let isFr = false;
 	const inputFilter = new badWords;
@@ -9,9 +10,19 @@
 
 	let inputError = false;
 	let userName = $userStore.name;
+
+	onMount(() => {
+		if (typeof $userStore.submittedName != "boolean"){
+      userStore.update((currentElements) => ({
+			...currentElements,
+			submittedName: false,
+		  }));
+    }
+    
+  });
 	
 	function setSubmittedName(value){
-			if(userName == "" || inputFilter.isProfane($userStore.name)){
+			if(userName == "" || inputFilter.isProfane(userName)){
 					inputError=true;
 			}
 			else{
@@ -21,8 +32,10 @@
 					name: userName
 				}))
 
+
 				inputError=false;
 			}
+	
 	}
 
 </script>

@@ -1,5 +1,6 @@
 <script>
 	import { userStore } from '../../../Store';
+  import {onMount} from 'svelte';
 	import WoodButton from './WoodButton.svelte';
 	import UserBird from './UserBird.svelte';
 
@@ -30,6 +31,33 @@
 			'tony'
 		]
 	};
+
+  onMount(() => {
+		if (!attributes.shapes.includes($userStore.shape)){
+      userStore.update((currentElements) => ({
+			...currentElements,
+			shape: attributes.shapes[0],
+      shapeIndex: 0
+		  }));
+    }
+    if (!attributes.hats.includes($userStore.hat)){
+      userStore.update((currentElements) => ({
+			...currentElements,
+			hat: attributes.hats[0],
+      hatIndex: 0
+		  }));
+    }
+    if (!attributes.accessories.includes($userStore.accessory)){
+      console.log("worked");
+      console.log($userStore.accessory)
+      userStore.update((currentElements) => ({
+			...currentElements,
+			accessory: attributes.accessories[0],
+      accessoryIndex: 0
+		  }));
+      
+    }
+  });
 
 	let tabs = [
 		{ tab: 'Shape', tabFr: 'Forme', selected: true },
@@ -192,7 +220,7 @@
 		{:else}
 			<!-- Display after submit -->
 			<div class="row">
-				<div class="col text-center description-text m-">
+				<div class="col text-center description-text">
 					<div class="description_text">
 						{isFr ? `Cela vous va bien` : `You look great`}{$userStore.name == ''
 							? ''
@@ -201,9 +229,8 @@
 				</div>
 			</div>
 			<div class="row text-center display-row justify-content-center mt-5">
-				<div class="col col-3">
-          <!-- need to fix display -->
-					<UserBird />
+				<div class="col col col-md-8 col-lg-4" >
+					<UserBird/>
 				</div>
 			</div>
 			<div class="row">
@@ -225,9 +252,6 @@
 		font-size: 40px;
 	}
 
-/* .display-row{
-  height: 50vh;
-} */
 
   @media only screen and (max-width: 768px) {
 		.big-screen {
