@@ -8,13 +8,17 @@
 </script>
 
 <div class="text-center bird_display" class:mirror={mirrored} >
+    {#if $userStore.accessory != 'none'}
     <img
         class="accessory"
         class:big_accessory={$userStore.accessory == 'laptop'}
         src={`/accessories/${$userStore.accessory}.svg`}
         alt={$userStore.hat}
     />
+    {/if}
+    {#if $userStore.hat!= 'none'}
     <img class="hat" class:hat-big={tallBirds.includes($userStore.shape)} class:mirror={mirrored && $userStore.hat == "director-hat"} src={`/hats/${$userStore.hat}.svg`} alt={$userStore.hat} />
+    {/if}
     <img 
         class="bird"
         

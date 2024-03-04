@@ -8,8 +8,8 @@
 
 
 	let attributes = {
-		accessories: ['caliper', 'screwdriver', 'laptop', 'measuring-tape'],
-		hats: ['construction-hat', 'gear-hat', 'director-hat', 'hacker-hat'],
+		accessories: ['caliper', 'screwdriver', 'laptop', 'measuring-tape', "none"],
+		hats: ['construction-hat', 'gear-hat', 'director-hat', 'hacker-hat', "none"],
 		shapes: [
 			'red',
 			'bomb',
