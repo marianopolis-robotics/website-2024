@@ -11,13 +11,15 @@
 
 	let userHobbies = $userStore.hobbies;
 	let userPower = $userStore.superPower;
+	let userFunFact = $userStore.funFact;
 
 	function setSubmitAttributes(value) {
 		if (
 			userHobbies == '' ||
 			userPower == '' ||
 			inputFilter.isProfane(userHobbies) ||
-			inputFilter.isProfane(userPower)
+			inputFilter.isProfane(userPower) ||
+			inputFilter.isProfane(userFunFact)
 		) {
 			inputError = true;
 		} else {
@@ -25,7 +27,8 @@
 				...currentElemens,
 				submittedAttributes: value,
 				superPower: userPower,
-				hobbies: userHobbies
+				hobbies: userHobbies,
+				funFact: userFunFact
 			}));
 			inputError = false;
 		}
@@ -82,6 +85,23 @@
 									: 'e.g. engineering,  play piano, video games'}
 							bind:value={userHobbies}
 						/>
+						<label for="fun fact" class="form-label mt-4"
+							>{isFr ? 'Un fait divers:' : 'Fun Fact:'}</label
+						>
+						<input
+							type="text"
+							id="fun fact"
+							class="form-control form-control-lg"
+							class:input_error={inputError}
+							placeholder={inputError
+								? isFr
+									? 'Veuillez entrer un fait interessant'
+									: 'Please enter a fun fact'
+								: isFr
+									? "Ex: J'aime les chiens"
+									: 'e.g. I like dogs'}
+							bind:value={userFunFact}
+						/>
 					</form>
 					<div class="text-center m-3">
 						<button
@@ -98,6 +118,11 @@
 				{isFr
 					? `Il parait que vous êtes un maitre de ${$userStore.superPower} et que vous aimez ${$userStore.hobbies}!`
 					: `It looks like you are a master of ${$userStore.superPower} and you enjoy ${$userStore.hobbies}!`}
+			</p>
+			<p class="description-text text-center">
+				{isFr
+					? `Fait interessant sur vous: ${$userStore.funFact}!`
+					: `Fun fact about you: ${$userStore.funFact}!`}
 			</p>
 			<div class="text-center mb-4">
 				<button

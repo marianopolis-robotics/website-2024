@@ -1,19 +1,20 @@
 <script>
 	import { userStore } from '../../../Store';
 
+    export let mirrored=false;
     let birdImg;
    
 	let tallBirds = ['tony', 'terence', 'matilda'];
 </script>
 
-<div class="text-center bird_display" >
+<div class="text-center bird_display" class:mirror={mirrored} >
     <img
         class="accessory"
         class:big_accessory={$userStore.accessory == 'laptop'}
         src={`/accessories/${$userStore.accessory}.svg`}
         alt={$userStore.hat}
     />
-    <img class="hat" class:hat-big={tallBirds.includes($userStore.shape)} src={`/hats/${$userStore.hat}.svg`} alt={$userStore.hat} />
+    <img class="hat" class:hat-big={tallBirds.includes($userStore.shape)} class:mirror={mirrored && $userStore.hat == "director-hat"} src={`/hats/${$userStore.hat}.svg`} alt={$userStore.hat} />
     <img 
         class="bird"
         
@@ -36,6 +37,10 @@
 
 		/* position: relative; */
 	}
+    .mirror{
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+    }
 
     .hat-big{
         width: 50%;
