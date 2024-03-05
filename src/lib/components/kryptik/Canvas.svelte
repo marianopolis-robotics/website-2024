@@ -29,7 +29,7 @@
 	} from '$lib/3d/custom-objects.js';
 	import __ from '$lib/3d/custom-physics.js';
 
-	import GunImage from '$lib/assets/icons/gun.png';
+	import SlingshotImage from '$lib/assets/icons/slingshot.png';
 
 	//html elements
 	let main_div;
@@ -236,6 +236,9 @@
 	const reset_balls = function () {
 		active_keys.reset_ball = true;
 	};
+	const restart_game = function () {
+		window.location.reload();
+	};
 
 	//game initial setup
 	const start_perpetual = async function () {
@@ -369,7 +372,7 @@
 		};
 
 		//add initial game pieces
-		let setup_ball = function() {
+		let setup_ball = function () {
 			for (let z = -15.5; z <= 15.5; z++) {
 				if (z === -5.5 || z === 5.5) {
 					z++;
@@ -385,7 +388,7 @@
 			Game_piece.fast_spawn(new Vector3(-4.4, 0.5, 1), new Vector3(0, 0, 0));
 			Game_piece.fast_spawn(new Vector3(-4.4, 0.5, 1.5), new Vector3(0, 0, 0));
 			Game_piece.fast_spawn(new Vector3(-4.7, 0.5, 1.25), new Vector3(0, 0, 0));
-		}
+		};
 		setup_ball();
 
 		//initial render
@@ -693,7 +696,29 @@
 							score += 20 * multiply_factor;
 						}
 						update_game_info();
-						start_mask_text.innerHTML = 'Heat ended' + '<br/>' + 'Score : ' + score;
+					}
+					let highscore = localStorage.getItem('highscore');
+					if (highscore != null) {
+						if (score > highscore) {
+							start_mask_text.innerHTML =
+								'Heat ended' +
+								'<br/>' +
+								'Score : ' +
+								score +
+								'<br/>' +
+								'You beat your previous highscore : ' +
+								highscore +
+								'<br/>' +
+								'Your new highscore is : ' +
+								score;
+							localStorage.setItem('highscore', score);
+						} else {
+							start_mask_text.innerHTML =
+								'Heat ended' + '<br/>' + 'Score : ' + score + '<br/>' + 'You did not beat your previous highscore : ' + highscore;
+						}
+					} else {
+						start_mask_text.innerHTML = 'Heat ended' + '<br/>' + 'Score : ' + score + '<br/>' + 'Your new highscore is : ' + score;
+						localStorage.setItem('highscore', score);
 					}
 				}, 5000);
 			}
@@ -705,14 +730,16 @@
 
 	onMount(function () {
 		if (window.innerWidth > window.innerHeight) {
-			if (window.innerHeight > 400) {
+			if (window.innerHeight > 600) {
 				mobile = false;
 			}
 		} else if (window.innerWidth < window.innerHeight) {
-			if (window.innerWidth > 400) {
+			if (window.innerWidth > 600) {
 				mobile = false;
 			}
 		}
+		console.log(window.innerWidth);
+		console.log(window.innerHeight);
 		start_perpetual();
 	});
 </script>
@@ -746,7 +773,7 @@
 				on:touchmove={on_camera_touch_move}
 				on:touchend={on_camera_touch_end}
 			></div>
-			<button class="fire" on:click={fire}><img src={GunImage} alt="Launch" /></button>
+			<button class="fire" on:click={fire}><img src={SlingshotImage} alt="Launch" /></button>
 			<div class="input-wrapper">
 				<input bind:this={power_input} type="range" min="0" max="15" value="5" />
 			</div>
@@ -760,14 +787,13 @@
 			<p bind:this={start_mask_text}>Play</p>
 		</div>
 	</div>
-	<button class="reset-ball" on:click={reset_balls}>Reset game pieces?</button>
+	<div class="button-wrapper">
+		<button class="reset-ball" on:click={reset_balls}>Spawn more game pieces</button>
+		<button class="restart-game" on:click={restart_game}>Restart game (refreshes page, all progress lost)</button>
+	</div>
 </div>
 
 <style>
-	div.canvas-container {
-		padding: 1rem 0 4rem;
-	}
-
 	div.main {
 		display: block;
 		margin: auto;
@@ -815,8 +841,9 @@
 		border: none;
 	}
 	button.fire img {
-		height: 100%;
-		opacity: 0.3;
+		width: 100%;
+		opacity: 0.5;
+		border-radius: 100px;
 	}
 	div.joystick-start {
 		position: absolute;
@@ -851,8 +878,20 @@
 		z-index: 250;
 		opacity: 0.5;
 	}
-	button.reset-ball {
+	div.button-wrapper {
 		display: block;
-		margin: 10px auto 0;
+		margin: 20px auto 0px;
+		width: 50%;
+		background-color: beige;
+		border-radius: 10px;
+		text-align: center;
+	}
+	.reset-ball,
+	.restart-game {
+		padding: 5px;
+		border-radius: 10px;
+		border: 2px solid black;
+		margin: 5px;
+		font-size: 1.5vw;
 	}
 </style>
