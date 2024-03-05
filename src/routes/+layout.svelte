@@ -1,25 +1,32 @@
 <script>
-  import { fade } from 'svelte/transition';
   import { page } from '$app/stores';
+  import { fade } from 'svelte/transition';
   import { backOut } from 'svelte/easing';
   import '$lib/global.css';
   import NavBar from "$lib/components/NavBar.svelte";
-  
+  import BottomNav from '$lib/components/BottomNav.svelte';
+  import Footer from '$lib/components/Footer.svelte';
 
   $: path = $page.url.pathname; // layout doesn't (seem to) unmount/mount between pages with the same layout
                                 // meaning path needs to be reactive so that the correct active page/link
                                 // can be detected here and passed to the navbar
+
+  const isLanding = (path) => path === '/' || path === '/fr';
 </script>
 
 
 <NavBar {path} />
 
 {#key path}
-  <div in:fade={(path !== '/' && path !== '/fr') ? { duration: 700, delay: 500, easing: backOut } : { duration: 1000, easing: backOut }} class="w-100">
+  <div in:fade={!isLanding(path) ? { duration: 700, delay: 500, easing: backOut } : { duration: 1000, easing: backOut }} class="w-100">
     <main id="main-content">
       <slot />
     </main>
-    <div class="skyWaves position-absolute" class:top-0={path === '/' || path === '/fr'}></div>
+    {#if !isLanding(path)}
+      <BottomNav {path} />
+      <Footer {path} />
+    {/if}
+    <div class="skyWaves position-absolute" class:top-0={isLanding(path)}></div>
     <div class="islands position-absolute"></div>
 
     <img src="/backdrops/cloud-1.png" alt="Cloud" class="position-absolute cloud one" />
@@ -30,10 +37,6 @@
     <img src="/backdrops/cloud-1.png" alt="Cloud" class="position-absolute cloud six d-none d-md-block" />
     <img src="/backdrops/cloud-2.png" alt="Cloud" class="position-absolute cloud seven" />
     <img src="/backdrops/cloud-1.png" alt="Cloud" class="position-absolute cloud eight" />
-    
-      
-  
-    
   </div>
 {/key}
 
