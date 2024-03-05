@@ -3,6 +3,8 @@
 	import Popup from './Popup.svelte';
 	import { userStore } from '../../../Store';
 
+	export let isFr = false;
+
 	let showPopup = false;
 	let birds = [
 		'poppy',
@@ -29,7 +31,6 @@
 	let currentBird = birds[0];
 
 	function displayPopup(bird) {
-		console.log(bird);
 		currentBird = bird;
 		showPopup = true;
 	}
@@ -51,7 +52,8 @@
 			</div>
 			<div class="col">
 				<blockquote class="speech bubble h2 speech-text">
-					Meet your team, {$userStore.name == '' ? 'Angryneer' : $userStore.name}
+					{isFr ? 'Rencontrer votre équipe,' : 'Meet your team,'}
+					{$userStore.name == '' ? isFr? "Angrynieur" : 'Angryneer' : $userStore.name}
 				</blockquote>
 			</div>
 			<div class="col pe-5">
@@ -96,7 +98,7 @@
 	</div>
 
 	{#if showPopup}
-		<Popup bind:showPopup bird={currentBird} />
+		<Popup bind:showPopup bird={currentBird} {isFr} />
 	{/if}
 
 	<br />
@@ -188,6 +190,7 @@
 	@media only screen and (max-width: 450px) {
 		.speech-text {
 			font-size: 3vh;
+			padding-bottom: 50% !important;
 		}
 	}
 </style>

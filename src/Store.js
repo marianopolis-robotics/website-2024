@@ -16,13 +16,13 @@ const user = {
                 accessoryIndex: 0, 
                 shape: "red", 
                 shapeIndex: 0, 
-                level: 1
+                level: 1,
             };
 
 // Retrieve stored object from local storage
-const storedUserData = browser && localStorage.getItem("userData");
+const storedUserData = browser && localStorage.getItem("angryneerData");
 
 export const userStore = writable(storedUserData ? JSON.parse(storedUserData) : user);
 
 // Subscribe to changes in the store and update local storage 
-userStore.subscribe((val) => browser && localStorage.setItem("userData", JSON.stringify(val)));
+userStore.subscribe((val) => browser && localStorage.setItem("angryneerData", JSON.stringify(val)));
