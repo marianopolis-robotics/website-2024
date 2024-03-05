@@ -36,12 +36,12 @@
         <a class="navbar-brand" href="{isFr ? '/fr' : ''}/home">
           <Picture meta={smNavbarBrandMeta}
             sizes="(min-width: 768px) 100px, 75px" 
-            alt={isFr ? "Angryneers de Mari" : "Mari Angryneers"} 
+            alt={isFr ? "Angrynieurs de Mari" : "Mari Angryneers"} 
             loading="eager"
             pictureClass="d-block d-lg-none" />
           <Picture meta={navbarBrandMeta}
             sizes="150px" 
-            alt={isFr ? "Angryneers de Mari" : "Mari Angryneers"} 
+            alt={isFr ? "Angrynieurs de Mari" : "Mari Angryneers"} 
             loading="eager"
             pictureClass="d-none d-lg-block" />
         </a>
