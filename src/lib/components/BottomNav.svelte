@@ -25,7 +25,7 @@
   $: navBtns = isFr ? btns.fr : btns.en;
 </script>
 
-<div class="bottom-nav position-relative d-grid px-5 pt-5">
+<div class="bottom-nav position-relative d-grid p-5">
   {#each Object.entries(navBtns) as [link, text]}
     {#if link !== path}
       <a href="{link}" class="wood-btn p-3 text-decoration-none text-white text-center">
@@ -38,34 +38,57 @@
 <style>
   .bottom-nav {
     z-index: 999;
+    row-gap: 1.2rem;
   }
-
+  
   .inner-wood {
     background-color: #4F250A;
     border-radius: 4px;
+    transition: background-color 0.15s;
+    font-size: 1.3rem;
   }
-
+  
   .wood-btn {
     background: url("/textures/wood.png") no-repeat scroll 0 0;
     background-size: cover;
     border-radius: 10px;
-    font-size: 1.3rem;
     font-family: 'Angry Birds', sans-serif;
+    border: solid 1px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.7);
     text-shadow: 2.5px 2.5px #000;
   }
 
-  @media screen and (min-width: 768px) {
+  .wood-btn:hover .inner-wood {
+    background-color: transparent;
+    color: #000;
+    text-shadow: none;
+  }
+
+  @media screen and (min-width: 992px) {
+    .inner-wood {
+      font-size: 1.5rem;
+    }
+  }
+  
+  @media screen and (min-width: 1024px) {
     .bottom-nav {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem 2rem;
+      gap: 1.5rem 2.5rem;
+    }
+    
+    .inner-wood {
       font-size: 1.75rem;
     }
   }
 
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 1200px) {
     .bottom-nav {
-      gap: 1.5rem 2.5rem;
-      font-size: 2rem;
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media screen and (min-width: 1600px) {
+    .bottom-nav {
+      grid-template-columns: repeat(3, 1fr);
     }
   }
 </style>

@@ -53,144 +53,145 @@
     position: relative;
     z-index: 500;
   }
+
   .islands {
-        bottom: 0;
-        width: 100%;
-        height: 50%;
-        background-image: url('/backdrops/islands.png');
-        background-repeat: repeat-x;
-        background-size: auto 100%;
-        user-select: none;
-    }
+    bottom: 0;
+    width: 100%;
+    height: 50%;
+    background-image: url('/backdrops/islands.png');
+    background-repeat: repeat-x;
+    background-size: auto 100%;
+    user-select: none;
+  }
 
-    .skyWaves {
-        top: 66px;
-        width: 100%;
-        height: 70%;
-        background-image: url('/backdrops/sky-waves.png');
-        background-size: 100% 100%;
-        user-select: none;
-    }
+  .skyWaves {
+    top: 66px;
+    width: 100%;
+    height: 70%;
+    background-image: url('/backdrops/sky-waves.png');
+    background-size: 100% 100%;
+    user-select: none;
+  }
 
-    .cloud {
-        opacity: 0.75;
-        user-select: none;
-    }
+  .cloud {
+    opacity: 0.75;
+    user-select: none;
+  }
 
+  .cloud.one {
+    top: 13%;
+    left: 15%;
+  }
+
+  .cloud.two {
+    top: 32%;
+    left: 1%;
+  }
+
+  .cloud.three {
+    top: 23%;
+    right: 9%;
+  }
+
+  .cloud.four {
+    top: 16%;
+    right: 4%;
+  }
+
+  .cloud.seven {
+    top: 57%;
+    right: 5%;
+  }
+
+  .cloud.eight {
+    top: 42%;
+    right: 28%;
+  }
+
+  @media screen and (min-width: 576px) {
     .cloud.one {
-        top: 13%;
-        left: 15%;
+      top: 13%;
+      left: 15%;
     }
 
     .cloud.two {
-        top: 32%;
-        left: 1%;
+      top: 32%;
+      left: 1%;
     }
 
     .cloud.three {
-        top: 23%;
-        right: 9%;
+      top: 23%;
+      right: 40%;
     }
 
     .cloud.four {
-        top: 16%;
-        right: 4%;
+      top: 16%;
+      right: 4%;
     }
 
     .cloud.seven {
-        top: 57%;
-        right: 5%;
+      top: 55%;
+      left: 30%;
     }
 
     .cloud.eight {
-        top: 42%;
-        right: 28%;
+      top: 42%;
+      right: 25%;
     }
+  }
 
-    @media screen and (min-width: 576px) {
-        .cloud.one {
-        top: 13%;
-        left: 15%;
-        }
-
-        .cloud.two {
-        top: 32%;
-        left: 1%;
-        }
-
-        .cloud.three {
-        top: 23%;
-        right: 40%;
-        }
-
-        .cloud.four {
-        top: 16%;
-        right: 4%;
-        }
-
-        .cloud.seven {
-        top: 55%;
-        left: 30%;
-        }
-
-        .cloud.eight {
-        top: 42%;
-        right: 25%;
-        }
+  @media screen and (min-width: 768px) {
+    .cloud.one {
+      top: 12%;
+      left: 15%;
     }
-
-    @media screen and (min-width: 768px) {
-        .cloud.one {
-        top: 12%;
-        left: 15%;
-        }
-    
-        .cloud.two {
-        top: 30%;
-        left: 1%;
-        }
-    
-        .cloud.three {
-        top: 20%;
-        right: 40%;
-        }
-    
-        .cloud.four {
-        top: 15%;
-        right: 4%;
-        }
-    
-        .cloud.five {
-        top: 30%;
-        right: 12%;
-        }
-    
-        .cloud.six {
-        top: 35%;
-        left: 29%;
-        }
-    
-        .cloud.seven {
-        top: 55%;
-        left: 20%;
-        }
-    
-        .cloud.eight {
-        top: 42%;
-        right: 25%;
-        }
+  
+    .cloud.two {
+      top: 30%;
+      left: 1%;
     }
-
-    @media screen and (min-width: 992px) {
-        .skyWaves {
-        top: 0;
-        height: 100%;
-        }
+  
+    .cloud.three {
+      top: 20%;
+      right: 40%;
     }
-
-    @media screen and (min-width: 1440px) {
-        .cloud.seven {
-        left: 13%;
-        }
+  
+    .cloud.four {
+      top: 15%;
+      right: 4%;
     }
+  
+    .cloud.five {
+      top: 30%;
+      right: 12%;
+    }
+  
+    .cloud.six {
+      top: 35%;
+      left: 29%;
+    }
+  
+    .cloud.seven {
+      top: 55%;
+      left: 20%;
+    }
+  
+    .cloud.eight {
+      top: 42%;
+      right: 25%;
+    }
+  }
+
+  @media screen and (min-width: 992px) {
+    .skyWaves {
+      top: 0;
+      height: 100%;
+    }
+  }
+
+  @media screen and (min-width: 1440px) {
+    .cloud.seven {
+      left: 13%;
+    }
+  }
 </style>
