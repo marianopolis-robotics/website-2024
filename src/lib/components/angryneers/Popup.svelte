@@ -31,11 +31,7 @@
 		'user'
 	];
 
-	onMount(() => {
-		if (document.documentElement.scrollTop <= 100) {
-			document.documentElement.scrollTop = 100;
-		}
-	});
+	
 
 	let angryneer = {
 		poppy: {
@@ -352,8 +348,16 @@
 
 	$: currentBird = bird;
 	let birdIndex = birds.indexOf(bird);
+	
 	onMount(() => {
-		let birdIndex = birds.indexOf(bird);
+		birdIndex = birds.indexOf(bird); 
+		let navbarHeight = document.getElementById("main-navbar").offsetHeight; 
+		if (document.documentElement.scrollTop <= navbarHeight) {
+			document.documentElement.scrollTop = navbarHeight; //set scrolling to navbar height to make sure navbar doesn't hide components
+			console.log(navbarHeight)
+		}
+		document.body.classList.add("overflow-y-hidden"); //disable scrolling on the background page
+		return () => document.body.classList.remove("overflow-y-hidden"); //reactivate scrolling on the page
 	});
 
 	function changeBird(number) {
@@ -534,8 +538,6 @@
 		right: 0;
 		top: 0;
 		width: 100%;
-
-		/* width: 100%; */
 	}
 	.frame_bottom {
 		position: absolute;

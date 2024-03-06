@@ -31,7 +31,7 @@
 {#key path}
   <!-- check this condition here to play the nav bounce animation even after navigating to (home) page through landing/root page -->
   {#if path !== '/' && path !== '/fr'}
-    <nav class="navbar navbar-expand-lg mainNav position-relative" in:slide|global={{ duration: 1000, easing: bounceOut }}>
+    <nav class="navbar navbar-expand-lg mainNav position-relative" id="main-navbar" in:slide|global={{ duration: 1000, easing: bounceOut }}>
       <div class="container-fluid navContainer align-items-center">
         <a class="navbar-brand" href="{isFr ? '/fr' : ''}/home">
           <Picture meta={smNavbarBrandMeta}
