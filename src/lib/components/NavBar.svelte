@@ -17,7 +17,7 @@
   const frLinks = {
     "Accueil": "/fr/home",
     "Kryptik": "/fr/kryptik",
-    "Angryneers": "/fr/angryneers",
+    "Angrynieurs": "/fr/angryneers",
     "Archives": "/fr/archives",
     "Robot": "/fr/robot"
   };
