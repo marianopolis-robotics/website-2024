@@ -1,10 +1,10 @@
-import FieldImage from '$lib/assets/images/field.png';
-import GamePieceImage from '$lib/assets/images/game-piece.png';
-import SmallTargetImage from '$lib/assets/images/small-target.png';
-import BigTargetImage from '$lib/assets/images/big-target.png';
-import FloorScoreImage from '$lib/assets/images/floor-score.png';
-import MultiplierImage from '$lib/assets/images/multiplier.png';
-import MultFactorImage from '$lib/assets/images/mult-factor.png';
+import FieldImage from '$lib/assets/kryptik/field.png';
+import GamePieceImage from '$lib/assets/kryptik/game-piece.png';
+import SmallTargetImage from '$lib/assets/kryptik/small-target.png';
+import BigTargetImage from '$lib/assets/kryptik/big-target.png';
+import FloorScoreImage from '$lib/assets/kryptik/floor-score.png';
+import MultiplierImage from '$lib/assets/kryptik/multiplier.png';
+import MultFactorImage from '$lib/assets/kryptik/mult-factor.png';
 
 // kryptik carousel info
 export const enSlides = {

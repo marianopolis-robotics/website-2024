@@ -1,4 +1,5 @@
 <script>
+	export let mobile;
 	import { onMount } from 'svelte';
 	import * as THREE from 'three';
 	import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
@@ -6,6 +7,7 @@
 	import { Vector3 } from '$lib/3d/vector.js';
 
 	import playingFieldURL from '$lib/assets/3d-objects/playingField.glb';
+	import { userStore } from "$lib/Store";
 	import {
 		ceiling_lamp_1,
 		ceiling_lamp_2,
@@ -43,16 +45,16 @@
 	let joystick_start_svg;
 	let joystick_current_svg;
 	let power_input;
-	//global three objects
+	// global three objects
 	let camera;
 	let renderer;
-	//run or pause simulation
+	// run or pause simulation
 	let canvas_active = false;
-	//everything is in meters, and scaled for render :
+	// everything is in meters, and scaled for render:
 	const ratio_render_over_physics = 100;
-	//game pieces
+	// game pieces
 	let game_pieces = [];
-	//game variables
+	// game variables
 	let self_player = {
 		position: new Vector3(-4.5, 0.7, -1),
 		rotation: {
@@ -70,7 +72,7 @@
 	let multiplier_3_placed = false;
 	let multiplier_count = 0;
 	let multiply_factor = 1;
-	let timer_seconds = 300; //set initial
+	let timer_seconds = 300; // set initial
 	const field_width = 6.1;
 	const speed = 1;
 	const robot_radius = 0.3;
@@ -92,7 +94,7 @@
 		},
 		zoom: 1
 	};
-	//controls
+	// controls
 	const active_keys = {};
 	const mouse_position = {
 		x: 0,
@@ -106,8 +108,7 @@
 		camera_start: { x: 0, y: 0 },
 		camera_active: false
 	};
-	let mobile = true;
-	let add_multiplier; //function
+	let add_multiplier; // function
 
 	const set_camera_default = function () {
 		camera.rotation.set(default_camera.rotation.elevation, default_camera.rotation.y, 0, 'YXZ');
@@ -115,7 +116,7 @@
 		camera.updateProjectionMatrix();
 	};
 
-	//event handlers
+	// event handlers
 	const on_key_down = function (e) {
 		active_keys[e.key] = true;
 	};
@@ -123,7 +124,7 @@
 		active_keys[e.key] = false;
 	};
 	const on_mouse_move = function (e) {
-		if (mobile === false) {
+		if (!mobile) {
 			mouse_position.x += e.movementX;
 			mouse_position.y += e.movementY;
 		}
@@ -135,12 +136,12 @@
 	};
 	const on_canvas_click = function () {
 		if (timer_seconds > 0) {
-			if (mobile === true) {
+			if (mobile) {
 				start_mask_div.style.visibility = 'hidden';
-				start_mask_text.innerHTML = 'Continue';
+				start_mask_text.textContent = 'Continue';
 				canvas_active = true;
 			} else {
-				start_mask_text.innerHTML = 'Continue';
+				start_mask_text.textContent = 'Continue';
 				canvas.requestPointerLock();
 			}
 		}
@@ -476,7 +477,7 @@
 				if (active_keys.s === true) {
 					self_player.desired_displacement = Vector3.polar_to_coord(self_player.rotation.y, 0, -speed * delay_seconds);
 				}
-				if (mobile === true) {
+				if (mobile) {
 					let deltaX = touch_position.joystick_current.x - touch_position.joystick_start.x;
 					let deltaY = -(touch_position.joystick_current.y - touch_position.joystick_start.y);
 					if (deltaY !== 0) {
@@ -516,7 +517,7 @@
 					setup_ball();
 				}
 
-				if (mobile === true) {
+				if (mobile) {
 					self_player.power = power_input.value;
 				}
 
@@ -669,7 +670,7 @@
 				}
 			}
 
-			if (mobile === true) {
+			if (mobile) {
 				joystick_start_svg.style.left = touch_position.joystick_start.x;
 				joystick_start_svg.style.top = touch_position.joystick_start.y;
 
@@ -697,9 +698,10 @@
 						}
 						update_game_info();
 					}
-					let highscore = localStorage.getItem('highscore');
+					let highscore = $userStore.highscore;
 					if (highscore != null) {
 						if (score > highscore) {
+							// inner HTML may not be the best practice, but it is the most efficient solution for our purposes
 							start_mask_text.innerHTML =
 								'Heat ended' +
 								'<br/>' +
@@ -711,14 +713,14 @@
 								'<br/>' +
 								'Your new highscore is : ' +
 								score;
-							localStorage.setItem('highscore', score);
+							$userStore.highscore = score;
 						} else {
 							start_mask_text.innerHTML =
-								'Heat ended' + '<br/>' + 'Score : ' + score + '<br/>' + 'You did not beat your previous highscore : ' + highscore;
+								'Heat ended' + '<br/>' + 'Score: ' + score + '<br/>' + 'Your previous highscore was ' + highscore;
 						}
 					} else {
-						start_mask_text.innerHTML = 'Heat ended' + '<br/>' + 'Score : ' + score + '<br/>' + 'Your new highscore is : ' + score;
-						localStorage.setItem('highscore', score);
+						start_mask_text.innerHTML = 'Heat ended' + '<br/>' + 'Score: ' + score + '<br/>' + 'Your new highscore is: ' + score;
+						$userStore.highscore = score;
 					}
 				}, 5000);
 			}
@@ -728,20 +730,7 @@
 		perpetual();
 	};
 
-	onMount(function () {
-		if (window.innerWidth > window.innerHeight) {
-			if (window.innerHeight > 600) {
-				mobile = false;
-			}
-		} else if (window.innerWidth < window.innerHeight) {
-			if (window.innerWidth > 600) {
-				mobile = false;
-			}
-		}
-		console.log(window.innerWidth);
-		console.log(window.innerHeight);
-		start_perpetual();
-	});
+	onMount(start_perpetual);
 </script>
 
 <svelte:window on:resize={on_resize} on:keydown|preventDefault={on_key_down} on:keyup|preventDefault={on_key_up} />
@@ -780,7 +769,7 @@
 		{/if}
 		<button class="multiplier" bind:this={add_multiplier_button} on:click={add_multiplier}>Put a multiplier?</button>
 		<div bind:this={game_info_div} class="game-info"></div>
-		<!-- more efficient to ignore/overwrite some rules for this simulation -->
+		<!-- more efficient to overwrite some rules for this simulation -->
 		<!-- svelte-ignore a11y-click-events-have-key-events -->
 		<!-- svelte-ignore a11y-no-static-element-interactions -->
 		<div bind:this={start_mask_div} on:click={on_canvas_click} class="start-mask">
@@ -788,6 +777,7 @@
 		</div>
 	</div>
 	<div class="button-wrapper">
+		<p>Your high score is: {$userStore.highscore}</p>
 		<button class="reset-ball" on:click={reset_balls}>Spawn more game pieces</button>
 		<button class="restart-game" on:click={restart_game}>Restart game (refreshes page, all progress lost)</button>
 	</div>

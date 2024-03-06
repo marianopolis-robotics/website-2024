@@ -1,14 +1,13 @@
 <svelte:head>
-	<meta name="description" content="En apprendre plus sur la compétition annuelle Kryptik!" />
+	<meta name="description" content="En savoir plus sur Kryptik, la compétition d'angryneering annuelle!" />
 	<title>Kryptik | Angrynieurs Mari</title>
 </svelte:head>
 
-
 <script>
+	import { onMount } from 'svelte';
 	import Canvas from '$lib/components/kryptik/Canvas.svelte';
 	import Carousel from '$lib/components/kryptik/Carousel.svelte';
-	import { onMount } from 'svelte';
-
+	
 	let winW, winH; // window width and height
 	let landscape = false;
 
@@ -21,19 +20,27 @@
 
 <svelte:window bind:innerWidth={winW} bind:innerHeight={winH} on:resize={checkOrientation}></svelte:window>
 
-<h1 class="px-2 py-5 display-1">Kryptik</h1>
+<h1 class="px-2 py-5 display-1 text-white">Kryptik</h1>
 
-<p>
-	The Kryptik Angryneering competition is hosted each year to commemorate the victorious attack on the King Pig's castle, which allowed us to rightfully retrieve the
-	eggs. The game was designed to replicate the tactics used during the war, but we removed the original dangerous launching mechanism. In fact, they
+<p class="pb-4 px-5">
+	The Kryptik Angryneering competition is organized each year by the CRC to commemorate the victorious attack on the King Pig's castle, which allowed us to rightfully retrieve the
+	eggs. This year, Kryptik 2024 will take place at École Curé-Antoine-Labelle (216 Blvd Marc-Aurèle-Fortin, Laval, QC) from April 11th to 13th!
+</p>
+<p class="pb-4 px-5">
+	 The game was designed to replicate the tactics used during the war, but we removed the original dangerous launching mechanism. In fact, they
 	developed a mechanism to launch projectiles other than themselves! First, read the instructions before entering the arena.
+</p>
+<p class="pb-4 px-5">
+	New to the Kryptik competition or unfamiliar with angryneering in general? We've prepared detailed instructions below for you to
+	read before entering the arena! If you want to go the extra mile, you can train for Kryptik 2024 using our 3D simulation!
 </p>
 
 <div>
 	<Carousel isFr={false} />
 
 	{#if landscape}
-		<p>
+		<h2 class="text-center display-4 mb-3">Ready to play?</h2>
+		<p class="pb-4 px-5">
 			Click the simulation window to start. Press the [Esc] key to exit simulation. <br />
 			Camera: Move mouse to adjust view, [I] key to zoom in, [O] key to zoom out. <br />
 			Movement: [WASD] keys to move. <br />
@@ -42,7 +49,7 @@
 		</p>
 		<Canvas />
 	{:else}
-		<p class="landscapeWarning">Please use landscape mode to play the Kryptik simulation.</p>
+		<p class="landscapeWarning position-relative text-danger pt-2 pb-4 px-5">Please use landscape mode to play the Kryptik simulation.</p>
 	{/if}
 </div>
 
@@ -53,12 +60,18 @@
 
 	p {
 		font-size: 1.5rem;
-		width: 75%;
-		margin: auto;
-		padding: 0px 0px 50px;
 	}
 
-	.landscapeWarning {
-		color: red;
+	.landscapeWarning::before {
+		position: absolute;
+		content: "";
+		background: white;
+		width: 100%;
+		height: 100%;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		opacity: 0.2;
+		z-index: -1;
 	}
 </style>

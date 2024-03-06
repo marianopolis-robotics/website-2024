@@ -10,21 +10,27 @@
 	
 	let winW, winH; // window width and height
 	let landscape = false;
+	$: mobile = false;
+
+	const checkMobile = () => window.matchMedia("(pointer: coarse)").matches;
 
 	function checkOrientation() {
-		setTimeout(() => landscape = winW > winH ? true : false, 500); // need slight delay for width and height bindings to update to final/correct screen dimensions
+		setTimeout(() => landscape = winW > winH ? true : false, 300); // need slight delay for width and height bindings to update to final/correct screen dimensions
 	}
 
-	onMount(checkOrientation); // load initial screen size (otherwise winW and winH will be 0 until resize :/)
+	onMount(() => {
+		mobile = checkMobile();
+		checkOrientation();
+	}); // load initial screen size (otherwise winW and winH will be 0 until resize :/)
 </script>
 
 <svelte:window bind:innerWidth={winW} bind:innerHeight={winH} on:resize={checkOrientation}></svelte:window>
 
-<h1 class="px-2 py-5 display-1">Kryptik</h1>
+<h1 class="px-2 py-5 display-1 text-white">Kryptik</h1>
 
 <p class="pb-4 px-5">
-	The Kryptik Angryneering competition is hosted each year to commemorate the victorious attack on the King Pig's castle, which allowed us to rightfully retrieve the
-	eggs.
+	The Kryptik Angryneering competition is organized each year by the CRC to commemorate the victorious attack on the King Pig's castle, which allowed us to rightfully retrieve the
+	eggs. This year, Kryptik 2024 will take place at École Curé-Antoine-Labelle (216 Blvd Marc-Aurèle-Fortin, Laval, QC) from April 11th to 13th!
 </p>
 <p class="pb-4 px-5">
 	 The game was designed to replicate the tactics used during the war, but we removed the original dangerous launching mechanism. In fact, they
@@ -32,7 +38,7 @@
 </p>
 <p class="pb-4 px-5">
 	New to the Kryptik competition or unfamiliar with angryneering in general? We've prepared detailed instructions below for you to
-	read before entering the arena!
+	read before entering the arena! If you want to go the extra mile, you can train for Kryptik 2024 using our 3D simulation!
 </p>
 
 <div>
@@ -47,7 +53,7 @@
 			Shooting: [Q] key to increase power, [E] key to decrease power, [Space] bar to launch. <br />
 			Multiplier: [M] key to place multiplier.
 		</p>
-		<Canvas />
+		<Canvas {mobile} />
 	{:else}
 		<p class="landscapeWarning position-relative text-danger pt-2 pb-4 px-5">Please use landscape mode to play the Kryptik simulation.</p>
 	{/if}
