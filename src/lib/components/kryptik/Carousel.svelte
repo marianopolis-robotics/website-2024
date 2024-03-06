@@ -65,7 +65,7 @@
 	div.carousel {
 		background-color: #ffedc2;
 		border-radius: 10px;
-		margin: 1rem 1.5rem 2rem;
+		margin: 1rem 1.5rem 3rem;
 	}
 
 	table tr td {

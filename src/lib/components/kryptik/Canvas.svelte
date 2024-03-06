@@ -1,5 +1,6 @@
 <script>
-	export let mobile;
+	export let mobile = false;
+	export let isFr = false;
 	import { onMount } from 'svelte';
 	import * as THREE from 'three';
 	import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
@@ -45,6 +46,7 @@
 	let joystick_start_svg;
 	let joystick_current_svg;
 	let power_input;
+	let reset_ball_requested = false;
 	// global three objects
 	let camera;
 	let renderer;
@@ -138,10 +140,10 @@
 		if (timer_seconds > 0) {
 			if (mobile) {
 				start_mask_div.style.visibility = 'hidden';
-				start_mask_text.textContent = 'Continue';
+				start_mask_text.textContent = `${isFr ? 'Continuer' : 'Continue'}`;
 				canvas_active = true;
 			} else {
-				start_mask_text.textContent = 'Continue';
+				start_mask_text.textContent = `${isFr ? 'Continuer' : 'Continue'}`;
 				canvas.requestPointerLock();
 			}
 		}
@@ -156,8 +158,8 @@
 		}
 		canvas_active = !canvas_active;
 	};
-	const on_pointlock_error = function () {
-		alert('Please slow down your actions : when exiting pointer lock, please wait a few seconds before entering pointer lock again.');
+	const on_pointlock_error = function() {
+		alert(`${isFr ? 'Veuillez attendre quelques secondes avant de réactiver le verrouillage du pointeur.' : 'Please wait a few seconds before entering pointer lock again.'}`);
 	};
 	const on_joy_touch_start = function (e) {
 		e.preventDefault();
@@ -234,19 +236,23 @@
 	const fire = function () {
 		active_keys[' '] = true;
 	};
-	const reset_balls = function () {
+	const reset_balls = function() {
 		active_keys.reset_ball = true;
+		reset_ball_requested = true;
+		setTimeout(() => {
+			reset_ball_requested = false;
+		}, 3000);
 	};
 	const restart_game = function () {
 		window.location.reload();
 	};
 
-	//game initial setup
+	// game initial setup
 	const start_perpetual = async function () {
 		let scene = new THREE.Scene();
 		scene.background = new THREE.Color(0x9dc5d1);
 
-		//load objects from blender/fusion/etc
+		// load objects from blender/fusion/etc
 		{
 			let loader = new GLTFLoader();
 			loader.load(playingFieldURL, function (gltf) {
@@ -259,13 +265,13 @@
 					}
 				});
 				model.rotation.set(0, Math.PI, 0, 'YXZ');
-				model.position.set(530, -10, -55); //centers it
+				model.position.set(530, -10, -55); // centers the object
 				model.scale.set(1.09, 1, 1);
 				scene.add(model);
 			});
 		}
 
-		//add js generated custom objects
+		// add js generated custom objects
 		scene.add(ceiling_lamp_1);
 		scene.add(ceiling_lamp_2);
 		scene.add(ceiling_lamp_3);
@@ -285,7 +291,7 @@
 		scene.add(fifty_text);
 		scene.add(twenty_five_text);
 
-		//camera from global variable
+		// camera from global variable
 		camera = new THREE.PerspectiveCamera(75, 1, 0.1, 20 * ratio_render_over_physics);
 		camera.position.set(
 			default_camera.position.x * ratio_render_over_physics,
@@ -294,7 +300,7 @@
 		);
 		set_camera_default();
 
-		//set robot mesh position after loading
+		// set robot mesh position after loading
 		self_mesh.position.set(
 			self_player.position.x * ratio_render_over_physics,
 			self_player.position.y * ratio_render_over_physics,
@@ -302,18 +308,18 @@
 		);
 		scene.add(self_mesh);
 
-		//renderer from global variable
+		// renderer from global variable
 		renderer = new THREE.WebGLRenderer({
 			canvas: canvas
 		});
 		renderer.shadowMap.enabled = true;
 
-		//physics
+		// physics using Rapier library
 		await RAPIER.init();
 
 		let world = new RAPIER.World(gravity);
 
-		//load static custom physics
+		// load static custom physics
 		let custom_physics = new __(RAPIER, world);
 
 		let low_target_collider = custom_physics.low_target_collider;
@@ -329,14 +335,14 @@
 		let ally_multiplier_middle = custom_physics.ally_multiplier_middle;
 		let ally_multiplier_bottom = custom_physics.ally_multiplier_bottom;
 
-		//game piece
+		// game piece
 		let Game_piece = class {
 			constructor(position, velocity) {
 				let material;
 				if (Math.random() > 0.5) {
-					material = new THREE.MeshPhongMaterial({ color: 0xffff00 }); //yellow
+					material = new THREE.MeshPhongMaterial({ color: 0xffff00 }); // yellow
 				} else {
-					material = new THREE.MeshPhongMaterial({ color: 0x800080 }); //purple
+					material = new THREE.MeshPhongMaterial({ color: 0x800080 }); // purple
 				}
 				this.mesh = new THREE.Mesh(new THREE.SphereGeometry(ball_radius * ratio_render_over_physics), material);
 				this.mesh.castShadow = true;
@@ -372,7 +378,7 @@
 			scene.add(game_piece.mesh);
 		};
 
-		//add initial game pieces
+		// add initial game pieces
 		let setup_ball = function () {
 			for (let z = -15.5; z <= 15.5; z++) {
 				if (z === -5.5 || z === 5.5) {
@@ -392,26 +398,26 @@
 		};
 		setup_ball();
 
-		//initial render
+		// initial render
 		renderer.render(scene, camera);
 
 		let update_game_info = function () {
 			game_info_div.innerHTML =
-				'Timer : ' +
+				`${isFr ? 'Temps restant: ' : 'Time remaining: '}` +
 				Math.round(timer_seconds) +
 				' s' +
 				'<br/>' +
-				'Launch power : ' +
+				`${isFr ? 'Pouvoir du lancement: ' : 'Launch power: '}` +
 				self_player.power +
 				' m/s' +
 				'<br/>' +
-				'Game pieces carried : ' +
+				`${isFr ? 'Pièces de jeu portées: ' : 'Game pieces carried: '}` +
 				self_player.game_piece_number +
 				'<br/>' +
-				'Multiplier factor : ' +
+				`${isFr ? 'Facteur multiplicateur: ' : 'Multiplier factor: '}` +
 				multiply_factor +
 				'<br/>' +
-				'Score : ' +
+				'Score: ' +
 				score +
 				' pts';
 		};
@@ -437,13 +443,13 @@
 			}
 		};
 
-		//game loop
+		// game loop
 		let start = 0;
 		let now = performance.now();
 		let delay_seconds;
 		let perpetual = function () {
 			if (canvas_active) {
-				//time management
+				// time management
 				start = now;
 				now = performance.now();
 				if (now - start > 50) {
@@ -452,7 +458,7 @@
 				delay_seconds = (now - start) / 1000;
 				timer_seconds -= delay_seconds;
 
-				//camera zoom
+				// camera zoom
 				if (active_keys.o === true && default_camera.zoom > 0.5) {
 					default_camera.zoom -= 0.05;
 					camera.zoom = default_camera.zoom;
@@ -464,7 +470,7 @@
 					camera.updateProjectionMatrix();
 				}
 
-				//player movement
+				// player movement
 				if (active_keys.a === true) {
 					self_player.rotation.y += (speed * delay_seconds) / robot_radius / 2;
 				}
@@ -489,7 +495,7 @@
 					}
 				}
 
-				//game piece shooting controls
+				// game piece shooting controls
 				if (active_keys.q === true && self_player.power < max_launch_power) {
 					self_player.power += 0.1;
 					self_player.power = Math.round(self_player.power * 10) / 10;
@@ -498,7 +504,7 @@
 					self_player.power -= 0.1;
 					self_player.power = Math.round(self_player.power * 10) / 10;
 				}
-				//for this case, mobile directly changes the space active_key to true
+				// for this case, mobile directly changes the space active_key to true
 				if (active_keys[' '] === true && self_player.game_piece_number > 0) {
 					active_keys[' '] = false;
 					self_player.game_piece_number--;
@@ -525,7 +531,7 @@
 					add_multiplier();
 				}
 
-				//compute multiplier
+				// compute multiplier
 				if (multiplier_count === 0) {
 					multiply_factor = 1;
 				}
@@ -539,11 +545,11 @@
 					multiply_factor = 2.5;
 				}
 
-				//set y velocity (x and z desired displacement already set in player movement)
+				// set y velocity (x and z desired displacement already set in player movement)
 				self_player.velocity.add(new Vector3(0, delay_seconds * gravity.y, 0));
 				self_player.desired_displacement.y = delay_seconds * self_player.velocity.y;
 
-				//robot collision
+				// robot collision
 				character_controller.computeColliderMovement(player_collider, self_player.desired_displacement, undefined, undefined, function (collider) {
 					return collider.isSensor() === false;
 				});
@@ -563,13 +569,13 @@
 						z: corrected_displacement.z / delay_seconds
 					},
 					true
-				); //Linvel = linear velocity (rapier built-in)
+				); // Linvel = linear velocity (rapier built-in)
 
-				//go through the collisions
+				// go through the collisions
 				for (let i = 0; i < character_controller.numComputedCollisions(); i++) {
 					let collision = character_controller.computedCollision(i);
 
-					//check for touch game piece
+					// check for touch game piece
 					let found_game_piece_index = game_pieces.findIndex(function (game_piece) {
 						return game_piece.collider.handle === collision.collider.handle;
 					});
@@ -577,7 +583,7 @@
 						game_pieces[found_game_piece_index].remove_everywhere();
 						game_pieces.splice(found_game_piece_index, 1);
 						self_player.game_piece_number++;
-						break; //this resolves a weird bug, don't touch, the floor collision is still fine
+						break; // this resolves a weird bug, don't touch, the floor collision is still fine
 					}
 				}
 
@@ -599,15 +605,15 @@
 					}
 				}
 
-				//update player object position
+				// update player object position
 				self_player.position.x = player_rigid_body.translation().x;
 				self_player.position.y = player_rigid_body.translation().y;
 				self_player.position.z = player_rigid_body.translation().z;
 
-				//run one tick of physics engine
+				// run one tick of physics engine
 				world.step();
 
-				//update scene
+				// update scene
 				camera.rotation.set(
 					-(mouse_position.y - (touch_position.camera_current.y - touch_position.camera_start.y)) / 500,
 					(-mouse_position.x + (touch_position.camera_current.x - touch_position.camera_start.x) + canvas.width / 2) / 500,
@@ -626,10 +632,10 @@
 					game_piece.update_mesh();
 				}
 
-				//reset desired displacement to default
+				// reset desired displacement to default
 				self_player.desired_displacement = new Vector3(0, 0, 0);
 
-				//game info update
+				// game info update
 				update_game_info();
 			}
 
@@ -683,9 +689,9 @@
 
 				requestAnimationFrame(perpetual);
 			} else {
-				//end score calculation
+				// end score calculation
 				start_mask_div.style.visibility = 'visible';
-				start_mask_text.innerHTML = 'Heat ended : Waiting for game pieces to immobilize...';
+				start_mask_text.innerHTML = `${isFr ? 'Fin de la joute: calcul de votre pointage en cours...' : 'Heat ended: calculating your score...'}`;
 				setTimeout(function () {
 					for (let game_piece of game_pieces) {
 						let positionX = game_piece.rigid_body.translation().x;
@@ -703,23 +709,23 @@
 						if (score > highscore) {
 							// inner HTML may not be the best practice, but it is the most efficient solution for our purposes
 							start_mask_text.innerHTML =
-								'Heat ended' +
+								`${isFr ? 'Fin de la joute' : 'Heat ended'}` +
 								'<br/>' +
-								'Score : ' +
+								`${isFr ? 'Pointage: ' : 'Score: '}` +
 								score +
 								'<br/>' +
-								'You beat your previous highscore : ' +
+								`${isFr ? 'Vous avez battu votre pointage record de ' : 'You beat your previous highscore of '}` +
 								highscore +
 								'<br/>' +
-								'Your new highscore is : ' +
+								`${isFr ? 'Votre nouveau pointage record est: ' : 'Your new highscore is: '}` +
 								score;
 							$userStore.highscore = score;
 						} else {
 							start_mask_text.innerHTML =
-								'Heat ended' + '<br/>' + 'Score: ' + score + '<br/>' + 'Your previous highscore was ' + highscore;
+								`${isFr ? 'Fin de la joute' : 'Heat ended'}` + '<br/>' + 'Score: ' + score + '<br/>' + `${isFr ? 'Votre pointage record précédent était ' : 'Your previous highscore was '}` + highscore;
 						}
 					} else {
-						start_mask_text.innerHTML = 'Heat ended' + '<br/>' + 'Score: ' + score + '<br/>' + 'Your new highscore is: ' + score;
+						start_mask_text.innerHTML = `${isFr ? 'Fin de la joute' : 'Heat ended'}` + '<br/>' + 'Score: ' + score + '<br/>' + `${isFr ? 'Votre nouveau pointage record est: ' : 'Your new highscore is: '}` + score;
 						$userStore.highscore = score;
 					}
 				}, 5000);
@@ -762,24 +768,26 @@
 				on:touchmove={on_camera_touch_move}
 				on:touchend={on_camera_touch_end}
 			></div>
-			<button class="fire" on:click={fire}><img src={SlingshotImage} alt="Launch" /></button>
+			<button class="fire" on:click={fire}><img src={SlingshotImage} alt={isFr ? 'Lancer' : "Launch"} /></button>
 			<div class="input-wrapper">
 				<input bind:this={power_input} type="range" min="0" max="15" value="5" />
 			</div>
 		{/if}
-		<button class="multiplier" bind:this={add_multiplier_button} on:click={add_multiplier}>Put a multiplier?</button>
+		<button class="multiplier" bind:this={add_multiplier_button} on:click={add_multiplier}>{isFr ? 'Activer le multiplicateur? [M]' : 'Put on multiplier? [M]'}</button>
 		<div bind:this={game_info_div} class="game-info"></div>
 		<!-- more efficient to overwrite some rules for this simulation -->
 		<!-- svelte-ignore a11y-click-events-have-key-events -->
 		<!-- svelte-ignore a11y-no-static-element-interactions -->
 		<div bind:this={start_mask_div} on:click={on_canvas_click} class="start-mask">
-			<p bind:this={start_mask_text}>Play</p>
+			<p bind:this={start_mask_text}>{isFr ? 'Jouer' : 'Play'}</p>
 		</div>
 	</div>
-	<div class="button-wrapper">
-		<p>Your high score is: {$userStore.highscore}</p>
-		<button class="reset-ball" on:click={reset_balls}>Spawn more game pieces</button>
-		<button class="restart-game" on:click={restart_game}>Restart game (refreshes page, all progress lost)</button>
+	<div class="options p-4 mt-5">
+		<p class="mb-4 fs-4">{isFr ? 'Votre pointage record est' : 'Your high score is'}: {$userStore.highscore} points</p>
+		<div class="buttons d-grid">
+			<button class="reset" on:click={reset_balls}>{reset_ball_requested ? (isFr ? 'Pièces de jeu ajoutées!' : 'Game pieces spawned!') : (isFr ? 'Ajouter plus de pièces de jeu' : 'Spawn more game pieces')}</button>
+			<button class="reset" on:click={restart_game}>{isFr ? 'Recommencer le jeu' : 'Restart game'}</button>
+		</div>
 	</div>
 </div>
 
@@ -789,8 +797,8 @@
 		margin: auto;
 		position: relative;
 		width: 75%;
-		outline: 10px solid #ffedc2;
-		border-radius: 5px;
+		outline: solid 15px rgba(255, 237, 194, 0.8);
+		border-radius: 10px;
 	}
 	div.game-info {
 		position: absolute;
@@ -810,8 +818,11 @@
 		cursor: grab;
 	}
 	div.start-mask > p {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
 		display: block;
-		margin-top: 25%;
 		text-align: center;
 		color: white;
 		font-size: 50px;
@@ -868,20 +879,55 @@
 		z-index: 250;
 		opacity: 0.5;
 	}
-	div.button-wrapper {
-		display: block;
-		margin: 20px auto 0px;
-		width: 50%;
-		background-color: beige;
+	div.options {
+		margin: 2rem auto 0px;
+		width: calc(100% - 6rem); /* to "imitate" 3rem margin on both sides */
+		background-color: rgba(255, 237, 194, 0.6);
 		border-radius: 10px;
 		text-align: center;
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.3);
+		border: solid 0.5px #332400;
 	}
-	.reset-ball,
-	.restart-game {
-		padding: 5px;
-		border-radius: 10px;
-		border: 2px solid black;
-		margin: 5px;
-		font-size: 1.5vw;
+
+	.buttons {
+		gap: 1rem;
+	}
+
+	.reset {
+    font-family: 'Angry Birds', sans-serif;
+    border-radius: 20px;
+		background-color: #ffba32;
+    font-size: 1.2rem;
+    transition: 0.15s ease-in-out;
+    z-index: 0;
+    overflow: hidden;
+    top: 50%;
+		color: #fff;
+		padding: 0.5rem 1rem;
+
+    /* generated using https://owumaro.github.io/text-stroke-generator/
+      long (text-)shadow values can be costly for load time, so we use these very, very sparingly in this website!
+    */
+    text-shadow: #CC6600 3px 0px 0px, #CC6600 2.83487px 0.981584px 0px, #CC6600 2.35766px 1.85511px 0px, #CC6600 1.62091px 2.52441px 0px, #CC6600 0.705713px 2.91581px 0px, #CC6600 -0.287171px 2.98622px 0px, #CC6600 -1.24844px 2.72789px 0px, #CC6600 -2.07227px 2.16926px 0px, #CC6600 -2.66798px 1.37182px 0px, #CC6600 -2.96998px 0.42336px 0px, #CC6600 -2.94502px -0.571704px 0px, #CC6600 -2.59586px -1.50383px 0px, #CC6600 -1.96093px -2.27041px 0px, #CC6600 -1.11013px -2.78704px 0px, #CC6600 -0.137119px -2.99686px 0px, #CC6600 0.850987px -2.87677px 0px, #CC6600 1.74541px -2.43999px 0px, #CC6600 2.44769px -1.73459px 0px, #CC6600 2.88051px -0.838247px 0px;
+    box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.5);
+    border: solid 2px #b38c09;
+		transition: text-shadow 0.15s;
+  }
+
+	.reset:hover {
+    text-shadow: #000 3px 0px 0px, #000 2.83487px 0.981584px 0px, #000 2.35766px 1.85511px 0px, #000 1.62091px 2.52441px 0px, #000 0.705713px 2.91581px 0px, #000 -0.287171px 2.98622px 0px, #000 -1.24844px 2.72789px 0px, #000 -2.07227px 2.16926px 0px, #000 -2.66798px 1.37182px 0px, #000 -2.96998px 0.42336px 0px, #000 -2.94502px -0.571704px 0px, #000 -2.59586px -1.50383px 0px, #000 -1.96093px -2.27041px 0px, #000 -1.11013px -2.78704px 0px, #000 -0.137119px -2.99686px 0px, #000 0.850987px -2.87677px 0px, #000 1.74541px -2.43999px 0px, #000 2.44769px -1.73459px 0px, #000 2.88051px -0.838247px 0px;
+	}
+
+  @media screen and (min-width: 768px) {
+    .reset {
+      font-size: 1.75rem;
+    }
+  }
+	
+	@media screen and (min-width: 1200px) {
+		.buttons {
+			grid-template-columns: repeat(2, 1fr);
+			gap: 1.5rem;
+		}
 	}
 </style>

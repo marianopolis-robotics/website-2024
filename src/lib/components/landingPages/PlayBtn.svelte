@@ -4,6 +4,7 @@
 
 <a href={lang === 'en' ? '/home' : '/fr/home'} class="position-absolute play text-decoration-none d-flex justify-content-center align-items-center text-white px-4 py-1">
   {lang === 'en' ? 'Play' : 'Jouer'}
+  <slot />
 </a>
 
 <style>

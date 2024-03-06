@@ -58,6 +58,7 @@
 	.p-wrapper p {
 		margin: 0;
 		text-align: justify;
+		font-size: 1.25rem;
 	}
 
 	@media screen and (min-width: 800px) {
@@ -80,7 +81,7 @@
 			margin: 0px;
 			padding: 30px;
 			text-align: justify;
-			font-size: 2vh;
+			font-size: 1.3rem;
 		}
 	}
 	.img-wrapper img {
