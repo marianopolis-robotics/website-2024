@@ -427,7 +427,7 @@
 								<div>
 									<p class="stat p-2 mt-2">
 										<strong>{isFr ? 'Nom:' : 'Name:'}</strong>
-										{currentBird == 'user' ? $userStore.name : angryneer[currentBird].name}
+										{currentBird == 'user' ?  $userStore.name==""? isFr? "Angrynieur":"Angryneer": $userStore.name : angryneer[currentBird].name}
 									</p>
 									{#if currentBird != 'user'}
 										<p class="stat p-2">

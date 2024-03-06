@@ -159,8 +159,11 @@
 					<li>
 						<strong>{isFr ? "L'équipe du site web" : 'The website team'}</strong>
 						{isFr
-							? 'pour aider les nouveaux recrus à se familiariser avec la compétition'
-							: 'for helping new recruits to get familiar with the competition'}
+							? 'pour aider les nouveaux recrus à se familiariser avec la compétition. "'
+							: 'for helping new recruits to get familiar with the competition. '}
+						<a href="https://github.com/marianopolis-robotics/website-2024"
+							>{isFr ? 'Venez voir leur bon travail ici!' : 'Come see their amazing work here!'}</a
+						>
 					</li>
 					<li>
 						<strong>{isFr ? "L'équipe de design" : 'The design team'}</strong>
@@ -208,7 +211,9 @@
 		font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 		font-size: 25px;
 	}
-
+	a {
+		color: black;
+	}
 	ul li {
 		margin-bottom: 10px;
 	}

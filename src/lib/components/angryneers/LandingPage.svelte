@@ -122,6 +122,7 @@
 			rotate var(--final-rotate-duration) infinite alternate-reverse,
 			translate var(--final-translate-duration) infinite alternate-reverse;
 		transform-origin: 50% 100%;
+		width:100%;
 	}
 
 	.angryneer:hover {
@@ -180,6 +181,7 @@
 
 	blockquote.speech {
 		background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/speech-bubble.svg);
+		background-repeat: no-repeat;
 		height: auto;
 		width: auto;
 		padding-top: 10%;

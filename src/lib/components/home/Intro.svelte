@@ -10,6 +10,7 @@
 
 	let inputError = false;
 	let userName = $userStore.name;
+	let errorMessage;
 
 	onMount(() => {
 		if (typeof $userStore.submittedName != 'boolean') {
@@ -21,8 +22,21 @@
 	});
 
 	function setSubmittedName(value) {
-		if (userName == '' || inputFilter.isProfane(userName) || userName.length >= 15) {
+		if (userName == '') {
+			userName = "";
+			errorMessage = `${isFr ? "Le nom ne peut pas être vide": "Name cannot be empty"}`;
 			inputError = true;
+			
+		} else if (inputFilter.isProfane(userName)) {
+			userName = "";
+			errorMessage = `${isFr? "Pas de mots inappropriés s'il vous plait" : "No bad words please"}`
+			inputError = true;
+			// profane = true;
+		} else if (userName.length >= 15) {
+			userName = "";
+			errorMessage = `${isFr? "Nom trop long" : "Name is too long"}`
+			inputError = true;
+		
 		} else {
 			userStore.update((currentElemens) => ({
 				...currentElemens,
@@ -55,16 +69,15 @@
 						type="text"
 						bind:value={userName}
 						placeholder={inputError
-							? isFr
-								? 'Veuillez entrer un nom'
-								: 'Please enter a name'
+							? 
+								errorMessage
 							: isFr
 								? 'Entrez votre nom'
 								: 'Enter your name'}
 						class="form-control-lg w-75 m-0"
 						class:input_error={inputError}
 					/>
-					<p class="character-limit">Maximum 15 characters</p>
+					<p class="character-limit h5 text-left">Maximum 15 characters</p>
 
 					<!--  -->
 					<button
@@ -105,7 +118,6 @@
 		font-size: 30px;
 	}
 	.character-limit {
-		color: red;
-		
+		color: rgb(243, 90, 90);
 	}
 </style>
