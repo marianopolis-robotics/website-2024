@@ -3,6 +3,7 @@
   import {onMount} from 'svelte';
 	import WoodButton from './WoodButton.svelte';
 	import UserBird from './UserBird.svelte';
+	import { BirdStore } from '../../../BirdStore';
 
 	export let isFr = false;
 
@@ -33,10 +34,10 @@
 	};
 
   onMount(() => {
-		if (!attributes.shapes.includes($userStore.shape)){
+		if (!$BirdStore.birds.includes($userStore.shape)){
       userStore.update((currentElements) => ({
 			...currentElements,
-			shape: attributes.shapes[0],
+			shape: !$BirdStore.birds[0],
       shapeIndex: 0
 		  }));
     }
@@ -48,7 +49,6 @@
 		  }));
     }
     if (!attributes.accessories.includes($userStore.accessory)){
-      console.log("worked");
       console.log($userStore.accessory)
       userStore.update((currentElements) => ({
 			...currentElements,

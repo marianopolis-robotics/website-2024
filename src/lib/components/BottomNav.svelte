@@ -37,7 +37,7 @@
 
 <style>
   .bottom-nav {
-    z-index: 999;
+    z-index: 1;
     row-gap: 1.2rem;
   }
   
