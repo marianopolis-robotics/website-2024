@@ -69,7 +69,7 @@
 			</div>
 			<div class="col">
 				<div class="row align-items-center row-cols-1 row-cols-md-2 row-cols-lg-2">
-					<div class="col col-12 col-md-12 col-lg-4 bird_display " in:fade={{ delay: 500 }} out:fade>
+					<div class="col col-12 col-md-12 col-lg-4 bird_display " >
 						
 						{#if currentBird == 'user'}
 							<UserBird />
