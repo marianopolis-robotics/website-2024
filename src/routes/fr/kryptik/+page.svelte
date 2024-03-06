@@ -24,7 +24,7 @@
 <h1 class="mx-2 my-5 mt-lg-2 mb-lg-4 display-1 text-white">Kryptik</h1>
 
 <p class="pb-4 px-5">
-	Nous sommes ravis que vous vous intéressez à l'angryneering, {$userStore.name ? $userStore.name : 'Angrynieur'}! La compétition d'angryneering annuelle Kryptik est organisée chaque année par la CRC to commemorate the victorious attack on the King Pig's castle, which allowed us to rightfully retrieve the
+	Nous sommes ravis que vous vous intéressez à Kryptik, {$userStore.name ? $userStore.name : 'Angrynieur'}! La compétition d'angryneering annuelle Kryptik est organisée chaque année par la CRC to commemorate the victorious attack on the King Pig's castle, which allowed us to rightfully retrieve the
 	eggs. Cette année, Kryptik 2024 aura lieu à École Curé-Antoine-Labelle (216 Blvd Marc-Aurèle-Fortin, Laval, QC) les 11 à 13 avril!
 </p>
 <p class="pb-4 px-5">

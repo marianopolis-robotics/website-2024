@@ -30,7 +30,7 @@
 <h1 class="mx-2 my-5 mt-lg-2 mb-lg-4 display-1 text-white">Kryptik</h1>
 
 <p class="pb-4 px-5 lh-lg">
-	We're very excited to see that you're interested in angryneering, {$userStore.name ? $userStore.name : 'Angryneer'}! The Kryptik Angryneering competition is organized each year by the CRC to commemorate the victorious attack on the King Pig's castle, which allowed us to rightfully retrieve the
+	We're very excited to see that you're interested in Kryptik, {$userStore.name ? $userStore.name : 'Angryneer'}! The Kryptik Angryneering competition is organized each year by the CRC to commemorate the victorious attack on the King Pig's castle, which allowed us to rightfully retrieve the
 	eggs. This year, Kryptik 2024 will take place at École Curé-Antoine-Labelle (216 Blvd Marc-Aurèle-Fortin, Laval, QC) from April 11th to 13th! <br />
 	The game was designed to replicate the tactics used during the war, but we removed the original dangerous launching mechanism. In fact, they
 	developed a mechanism to launch projectiles other than themselves! First, read the instructions before entering the arena. <br />

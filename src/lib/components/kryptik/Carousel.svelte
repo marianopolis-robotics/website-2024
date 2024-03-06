@@ -28,7 +28,7 @@
 	};
 </script>
 
-<div class="carousel pt-2 pb-3">
+<div class="carousel pt-2 pb-3 mx-5">
 	<div class="top w-100 px-3">
 		<table>
 			<tr>
@@ -101,8 +101,7 @@
 	}
 
 	div.middle {
-		height: 400px;
-		overflow-y: scroll;
+		height: 100%;
 	}
 
 	button {

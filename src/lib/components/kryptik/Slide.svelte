@@ -43,6 +43,8 @@
 		width: 100%;
 		height: fit-content;
 		display: flex;
+		justify-content: center;
+		align-items: center;
 		flex-direction: column;
 	}
 	.images-wrapper {

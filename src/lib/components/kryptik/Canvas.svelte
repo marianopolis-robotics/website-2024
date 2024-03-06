@@ -709,20 +709,20 @@
 						if (score > highscore) {
 							// inner HTML may not be the best practice, but it is the most efficient solution for our purposes
 							start_mask_text.innerHTML =
-								`${isFr ? 'Fin de la joute' : 'Heat ended'}` +
+								`${isFr ? 'Fin de la joute!' : 'Heat ended!'}` +
 								'<br/>' +
 								`${isFr ? 'Pointage: ' : 'Score: '}` +
 								score +
 								'<br/>' +
 								`${isFr ? 'Vous avez battu votre pointage record de ' : 'You beat your previous highscore of '}` +
 								highscore +
-								'<br/>' +
+								':)<br/>' +
 								`${isFr ? 'Votre nouveau pointage record est: ' : 'Your new highscore is: '}` +
 								score;
 							$userStore.highscore = score;
 						} else {
 							start_mask_text.innerHTML =
-								`${isFr ? 'Fin de la joute' : 'Heat ended'}` + '<br/>' + 'Score: ' + score + '<br/>' + `${isFr ? 'Votre pointage record précédent était ' : 'Your previous highscore was '}` + highscore;
+								`${isFr ? 'Fin de la joute!' : 'Heat ended!'}` + '<br/>' + 'Score: ' + score + '<br/>' + `${isFr ? 'Votre pointage record précédent était ' : 'Your previous highscore was '}` + highscore;
 						}
 					} else {
 						start_mask_text.innerHTML = `${isFr ? 'Fin de la joute' : 'Heat ended'}` + '<br/>' + 'Score: ' + score + '<br/>' + `${isFr ? 'Votre nouveau pointage record est: ' : 'Your new highscore is: '}` + score;
