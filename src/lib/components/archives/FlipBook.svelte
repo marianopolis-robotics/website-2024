@@ -134,6 +134,8 @@
 		min-height: 100px;
 		max-height: 600px;
 		margin-top: 3rem;
+		background-color: rgba(255, 234, 181, 0.8);
+		box-shadow: 0 0 10px 30px rgba(255, 234, 181, 0.8);
 	}
 
 	#book {
@@ -171,8 +173,8 @@
 		}
 	}
 	
-	/* at around 592px the page-flip turns into one page */
-	@media screen and (min-width: 592px) {
+	/* around this width the page-flip is big enough for all tabs */
+	@media screen and (min-width: 610px) {
 		.book-page {
 			border-radius: 0px;
 		}

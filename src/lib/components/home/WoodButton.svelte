@@ -5,15 +5,13 @@
 	export let reverseTilt = false;
 </script>
 
-<main>
-	<button
-		class="btn btn-lg button my-2 change_on_hover"
-		class:selected={isSelected}
-		class:reverse-tilt={reverseTilt}
-		class:w-100={large_width}
-		on:click|self>{message}</button
-	>
-</main>
+<button
+	class="btn btn-lg button my-2 change_on_hover"
+	class:selected={isSelected}
+	class:reverse-tilt={reverseTilt}
+	class:w-100={large_width}
+	on:click|self>{message}</button
+>
 
 <style>
 	.button {

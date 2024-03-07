@@ -10,12 +10,6 @@
 	<title>Home | Mari Angryneers</title>
 </svelte:head>
 
-<main>
-	<Intro />
-	<BirdCustomization />
-	<UserAttributes />
-</main>
-
-<style>
-	
-</style>
+<Intro />
+<BirdCustomization />
+<UserAttributes />

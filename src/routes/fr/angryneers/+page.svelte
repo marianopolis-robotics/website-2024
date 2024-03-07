@@ -5,9 +5,7 @@
 </script>
 <svelte:head>
   <meta name="description" content="Meet the Mari Angryneers!">
-  <title>Angryneers | Angryneers Mari</title>
+  <title>Angrynieurs | Angrynieurs Mari</title>
 </svelte:head>
 
-<main>
-  <LandingPage isFr={true}/>
-</main>
+<LandingPage isFr={true}/>
