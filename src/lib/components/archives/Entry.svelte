@@ -16,9 +16,10 @@
     flex-direction: row;
   }
 
-  @media screen and (min-width: 592px) {
+  @media screen and (min-width: 600px) {
     .entry {
       flex-direction: column;
+      gap: 1.5rem;
     }
   }
 

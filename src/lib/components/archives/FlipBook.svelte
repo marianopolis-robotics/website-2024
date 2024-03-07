@@ -12,11 +12,11 @@
 
 	onMount(() => {
 		pageFlip = new St.PageFlip(flipbook, {
-			width: 500,
-			height: 600,
+			width: 600,
+			height: 700,
 			size: 'stretch',
 			minWidth: 280,
-			maxWidth: 500
+			maxWidth: 600
 		});
 		pageFlip.loadFromHTML(flipbook.querySelectorAll('.book-page'));
 		
