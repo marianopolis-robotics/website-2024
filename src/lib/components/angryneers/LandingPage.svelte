@@ -10,6 +10,7 @@
 
 	let currentBird = $BirdStore.birds[0];
 	let bubbleTriangleHeight;
+	let jumpingDuration = 0.5;
 
 	function displayPopup(bird) {
 		currentBird = bird;
@@ -26,7 +27,10 @@
 				<button
 					class="angryneer stella"
 					on:click={() => displayPopup('stella')}
-					style="--rotate-duration: {randomRange(0.5, 0.75)}s; --translate-duration: 0.8s;"
+					style="--rotate-duration: {randomRange(
+						0.5,
+						0.75
+					)}s; --translate-duration: {jumpingDuration}s;"
 				>
 					<img src="/birds/stella.svg" alt="stella" class="w-100 h-100" />
 				</button>
@@ -57,7 +61,10 @@
 			<div class="col pe-5">
 				<div
 					class="angryneer"
-					style="--rotate-duration: {randomRange(0.5, 0.75)}s; --translate-duration: 0.8s;"
+					style="--rotate-duration: {randomRange(
+						0.5,
+						0.75
+					)}s; --translate-duration: {jumpingDuration}s;"
 					on:click={() => displayPopup('user')}
 					role="button"
 					on:keydown={(event) => event.key == 'Enter' && displayPopup('user')}
@@ -71,10 +78,42 @@
 
 	<div class="container mb-5">
 		<div class="row">
+			<div
+				class="col my-auto character_column col-6 col-md-3 col-lg-2 text-center justify-content-center p-md-3"
+				class:left-angryneers={$BirdStore.birds.indexOf('tony') % 2 == 0}
+				class:right-angryneers={$BirdStore.birds.indexOf('tony') % 2 != 0}
+			>
+				<button
+					class="angryneer angryneer-group"
+					on:click={() => displayPopup('tony')}
+					data-tooltip={$BirdStore['tony'].name}
+					style="--rotate-duration: {randomRange(0.5, 0.75)}s;
+						--translate-duration: {jumpingDuration}s; "
+				>
+					<img src="/birds/tony.svg" alt={'tony'} />
+				</button>
+			</div>
+			<div
+				class="col my-auto character_column col-6 col-md-3 col-lg-2 text-center justify-content-center p-md-3"
+				class:left-angryneers={$BirdStore.birds.indexOf('terence') % 2 == 0}
+				class:right-angryneers={$BirdStore.birds.indexOf('terence') % 2 != 0}
+			>
+				<button
+					class="angryneer angryneer-group"
+					on:click={() => displayPopup('terence')}
+					data-tooltip={$BirdStore['terence'].name}
+					style="--rotate-duration: {randomRange(0.5, 0.75)}s;
+						--translate-duration: {jumpingDuration}s; "
+				>
+					<img src="/birds/terence.svg" alt={'terence'} />
+				</button>
+			</div>
+		</div>
+		<div class="row">
 			{#each $BirdStore.birds as bird (bird)}
-				{#if bird != 'user' && bird != 'stella'}
+				{#if bird != 'user' && bird != 'stella' && bird != 'pig'}
 					<div
-						class="col character_column col-6 col-md-3 col-lg-2 text-center pe-5 ps-5 pt-5 p-md-3"
+						class="col my-auto character_column col-6 col-md-3 col-lg-2 text-center justify-content-center p-md-3"
 						class:left-angryneers={$BirdStore.birds.indexOf(bird) % 2 == 0}
 						class:right-angryneers={$BirdStore.birds.indexOf(bird) % 2 != 0}
 					>
@@ -83,9 +122,9 @@
 							on:click={() => displayPopup(bird)}
 							data-tooltip={$BirdStore[bird].name}
 							style="--rotate-duration: {randomRange(0.5, 0.75)}s;
-						--translate-duration: 0.8s; "
+						--translate-duration: {jumpingDuration}s; "
 						>
-							<img src="/birds/{bird.includes('blue') ? 'blue' : bird}.svg" alt={bird} />
+							<img src="/birds/{bird}.svg" alt={bird} />
 						</button>
 					</div>
 				{/if}
@@ -132,6 +171,7 @@
 
 	.angryneer:hover {
 		--final-translate-duration: var(--translate-duration);
+		--final-rotate-duration: 0s !important;
 	}
 
 	@keyframes rotate {
@@ -148,7 +188,7 @@
 			translate: 0 0%;
 		}
 		100% {
-			translate: 0 -30%;
+			translate: 0 -10%;
 		}
 	}
 	.left-angryneers {
@@ -169,31 +209,6 @@
 		font-style: italic;
 		font-weight: 400;
 	}
-
-	/* .bubble {
-		font-family: SequentialistBB, cursive;
-		margin: 0;
-	}
-
-	blockquote.bubble {
-		margin: 0 auto;
-		text-align: center;
-		height: 0;
-		box-sizing: content-box;
-		line-height: 1;
-		margin-left: -7vw;
-	}
-
-	blockquote.speech {
-		background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/speech-bubble.svg);
-		background-repeat: no-repeat;
-		height: auto;
-		width: auto;
-		padding-top: 10%;
-		padding-bottom: 30%;
-		padding-left: 10%;
-		padding-right: 10%;
-	} */
 
 	.bubble {
 		margin: 8px 0;
@@ -226,38 +241,11 @@
 		height: 60%;
 		width: 30%;
 		clip-path: polygon(50% 0%, 0 46%, 100% 0);
-		/* border: 2px solid #000; */
 	}
 
-	/* .b {
-		border: 0.5vmin solid black;
-	}
-	.r {
-		border-radius: 100%;
-	}
-
-	.hb::before,
-	.ha::after {
-		content: '';
-		display: block;
-		position: absolute;
-	}
-	.bubble::before {
-		width: 40%;
-		height: 100%;
-		bottom: -51%;
-		border-radius: 50%;
-		left: 10%;
-		box-shadow:
-			0.5vmin 0,
-			2vmin -0.5vmin #ffd,
-			2vmin -0.5vmin 0 0.5vmin;
-		clip-path: polygon(0% 49%, 150% 48%, 150% 100%, 0% 100%);
-	} */
 	@media only screen and (max-width: 450px) {
 		.speech-text {
 			font-size: 2vh;
-			/* padding-bottom: 50% !important; */
 		}
 	}
 	/* tooltip */
