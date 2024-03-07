@@ -1,5 +1,5 @@
 <script>
-	import { userStore } from '../../../Store';
+	import { userStore } from '$lib/Store';
 
     export let mirrored=false;
     let birdImg;

@@ -3,7 +3,7 @@
   import {onMount} from 'svelte';
 	import WoodButton from './WoodButton.svelte';
 	import UserBird from './UserBird.svelte';
-	import { BirdStore } from '../../../BirdStore';
+	import { BirdStore } from '$lib/BirdStore';
 
 	export let isFr = false;
 

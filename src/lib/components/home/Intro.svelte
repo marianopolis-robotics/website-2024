@@ -1,7 +1,7 @@
 <script>
 	import badWords from 'bad-words';
 	import frenchWords from 'french-badwords-list';
-	import { userStore } from '../../../Store';
+	import { userStore } from '$lib/Store';
 	import { onMount } from 'svelte';
 
 	export let isFr = false;

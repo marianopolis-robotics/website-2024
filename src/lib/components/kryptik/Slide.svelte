@@ -1,102 +1,114 @@
 <script>
 	import { fly } from 'svelte/transition';
 	import { cubicOut } from 'svelte/easing';
+	import FloorScore from '$lib/assets/kryptik/floor-score.png';
+	import MultFactorEn from '$lib/assets/kryptik/mult-factor-en.png';
+	import MultFactorFr from '$lib/assets/kryptik/mult-factor-fr.png';
+	import { enSlides, frSlides } from '$lib/kryptik';
+
 	export let current_slide = 1;
 	export let isFr = false;
  	export let bird;
-	import { enSlides, frSlides } from '$lib/kryptik';
+	export let name = isFr ? 'Angrynieur' : 'Angryneer';
 
 	let slides = isFr ? frSlides : enSlides;
 
 	let slide_info = slides[current_slide];
-	let { images, text } = slide_info;
-
+	let { model, text } = slide_info;
 </script>
 
-<div class="content" in:fly={{ delay: 300, duration: 300, axis: 'x', easing: cubicOut }} out:fly={{ duration: 300, axis: 'x', easing: cubicOut }}>
+<div class="content" in:fly={{ delay: 300, duration: 300, axis: 'x', easing: cubicOut }}>
 	{#key current_slide}
-	<div class="images-wrapper">
-		{#if current_slide === 6}
-			<div class="img-wrapper">
-				<img src='/birds/{bird}.svg' alt={isFr ? 'L\'Angrynieur de l\'utilisateur' : 'The user\'s Angryneer'} />
-			</div>
+		{#if current_slide === 7}
+		<img class="bird" src='/birds/{bird}.svg' alt={isFr ? 'L\'Angrynieur de l\'utilisateur' : 'The user\'s Angryneer'} />
+		{:else if current_slide === 4}
+		<img src={FloorScore} alt={isFr ? 'Pointage sur le plancher du terrain' : 'Field floor score'} />
+		{:else if current_slide === 6}
+		<img src={isFr ? MultFactorFr : MultFactorEn} alt={isFr ? 'Facteur multiplicateur pour l\'équipe bleu' : 'Multiplier factor for the blue team'} />
 		{:else}
-		{#each images as { url, alternate_text }}
-			<div class="img-wrapper">
-				<img src={url} alt={alternate_text} />
-			</div>
-		{/each}
+		<model-viewer src="/3d-objects/{model}.glb" ar ar-modes="webxr scene-viewer quick-look" camera-controls tone-mapping="commerce" poster="/3d-objects/posters/{model}.webp" 
+									shadow-intensity="1" environment-image="{current_slide === 2 ? '' : 'legacy'}" shadow-softness="1" exposure="2"></model-viewer>
 		{/if}
-	</div>
-	<div class="p-wrapper">
-		<div class="scroll-container">
-			<p>
-				{text}
-			</p>
+		<div class="p-wrapper d-flex flex-column justify-content-center">
+			{#if current_slide === 7}
+				<p>{text[0]} {name}!</p>
+				<p>{text[1]}</p>
+				<p>{text[2]}</p>
+			{:else}
+				{#each text as line}
+					<p>{line}</p>
+				{/each}
+			{/if}
 		</div>
-	</div>
 	{/key}
 </div>
 
 <style>
+	model-viewer {
+		width: 100%;
+		height: 300px;
+	}
+
+	img {
+		width: 100%;
+		align-self: center;
+	}
+
 	.content {
 		width: 100%;
-		height: fit-content;
-		display: flex;
+		height: 750px;
+		overflow-y: scroll;
+		display: grid;
 		justify-content: center;
 		align-items: center;
 		flex-direction: column;
+		gap: 2rem;
 	}
-	.images-wrapper {
-		width: 100%;
-		max-height: 50%;
-		display: flex;
-		flex-direction: column;
+	.bird {
+		height: 70%;
 	}
 	.p-wrapper {
 		width: 100%;
 		height: 100%;
 	}
 	.p-wrapper p {
-		margin: 0;
-		text-align: justify;
 		font-size: 1.25rem;
 	}
 
-	@media screen and (min-width: 800px) {
+	@media screen and (min-width: 450px) {
 		.content {
-			width: 100%;
 			height: 100%;
-			flex-direction: row;
+			overflow-y: auto;
 		}
-		.images-wrapper {
-			width: 50%;
+	}
+
+	@media screen and (min-width: 700px) {
+		.bird {
+			height: 60%;
+		}
+	}
+
+	@media screen and (min-width: 1024px) {
+		.content {
+			height: 500px;
+			grid-template-columns: repeat(2, 1fr);
+			gap: 1.5rem;
+		}
+		.bird {
+			height: 80%;
+		}
+		model-viewer {
 			height: 100%;
-			flex-direction: column;
+		}
+		img {
+			width: max-content;
+			justify-self: center;
 		}
 		.p-wrapper {
-			width: 50%;
 			height: 100%;
-			overflow-y: scroll;
 		}
 		.p-wrapper p {
-			margin: 0px;
-			padding: 30px;
-			text-align: justify;
 			font-size: 1.3rem;
 		}
-	}
-	.img-wrapper img {
-		height: 100%;
-		max-width: 100%;
-		object-fit: contain;
-		display: block;
-		margin: auto;
-	}
-	.scroll-container {
-		margin: auto;
-		display: flex;
-		justify-content: center;
-		align-items: center;
 	}
 </style>

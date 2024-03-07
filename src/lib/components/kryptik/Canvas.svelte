@@ -407,7 +407,7 @@
 				Math.round(timer_seconds) +
 				' s' +
 				'<br/>' +
-				`${isFr ? 'Pouvoir du lancement: ' : 'Launch power: '}` +
+				`${isFr ? 'Puissance de lancement: ' : 'Launch power: '}` +
 				self_player.power +
 				' m/s' +
 				'<br/>' +
@@ -716,7 +716,7 @@
 								'<br/>' +
 								`${isFr ? 'Vous avez battu votre pointage record de ' : 'You beat your previous highscore of '}` +
 								highscore +
-								':)<br/>' +
+								' :)<br/>' +
 								`${isFr ? 'Votre nouveau pointage record est: ' : 'Your new highscore is: '}` +
 								score;
 							$userStore.highscore = score;
@@ -783,10 +783,10 @@
 		</div>
 	</div>
 	<div class="options p-4 mt-5">
-		<p class="mb-4 fs-4">{isFr ? 'Votre pointage record est' : 'Your high score is'}: {$userStore.highscore} points</p>
+		<p class="mb-4 fs-4 text-black">{isFr ? 'Votre pointage record est' : 'Your high score is'}: {$userStore.highscore} points</p>
 		<div class="buttons d-grid">
 			<button class="reset" on:click={reset_balls}>{reset_ball_requested ? (isFr ? 'Pièces de jeu ajoutées!' : 'Game pieces spawned!') : (isFr ? 'Ajouter plus de pièces de jeu' : 'Spawn more game pieces')}</button>
-			<button class="reset" on:click={restart_game}>{isFr ? 'Recommencer le jeu' : 'Restart game'}</button>
+			<button class="reset" on:click={restart_game}>{isFr ? 'Redémarrer le jeu' : 'Restart game'}</button>
 		</div>
 	</div>
 </div>
@@ -797,6 +797,7 @@
 		margin: auto;
 		position: relative;
 		width: 75%;
+		background-color: rgba(255, 237, 194, 0.8);
 		outline: solid 15px rgba(255, 237, 194, 0.8);
 		border-radius: 10px;
 	}
