@@ -31,7 +31,7 @@
 		{/if}
 		<div class="p-wrapper d-flex flex-column justify-content-center">
 			{#if current_slide === 7}
-				<p>{text[0]} {name}!</p>
+				<p>{text[0]} {name ? name : (isFr ? 'Angrynieur' : 'Angryneer')}!</p>
 				<p>{text[1]}</p>
 				<p>{text[2]}</p>
 			{:else}

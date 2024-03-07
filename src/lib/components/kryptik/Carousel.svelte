@@ -15,39 +15,33 @@
 	let load = false;
 	setTimeout(() => load = true, 100);
 
-	let current_slide = $userStore.level;
+	$: current_slide = $userStore.level;
 	let indices = [1, 2, 3, 4, 5, 6, 7];
 
 	const left = () => {
 		if (current_slide > 1) {
-			current_slide--;
-			$userStore.level = current_slide;
+			$userStore.level--; // since current_slide is reactive, it'll update automatically as $userStore.level changes
 		}
 	};
 	const right = () => {
 		if (current_slide < 7) {
-			current_slide++;
-			$userStore.level = current_slide;
+			$userStore.level++;
 		}
 	};
 </script>
 
-<div class="carousel pt-2 pb-3 mx-4 mx-sm-5">
+<h2 class="text-center display-4 mt-5 mb-3 text-black">{isFr ? 'Entraînez-vous pour Kryptik' : 'Train for Kryptik'}</h2>
+<hr class="w-50 mx-auto text-dark opacity-75" />
+<div class="carousel pt-2 pb-3 mx-4 mx-sm-5 mb-5">
 	<div class="top w-100 px-3">
 		<table>
 			<tr>
 				{#each indices as index}
 					<td>
 						{#if current_slide === index && load}
-								<img src="/birds/{bird}.svg" id="userPos" alt="Angry Birds icon" in:fade={{ duration: 100 }} />
-						{:else if index < current_slide}
-							<svg viewBox="0 0 50 50">
-								<circle cx="25" cy="25" r="25" fill="#c48c00" />
-							</svg>
-						{:else if index > current_slide}
-							<svg viewBox="0 0 50 50">
-								<circle cx="25" cy="25" r="25" fill="#f5c03b" />
-							</svg>
+							<img src="/birds/{bird}.svg" id="userPos" alt="Angry Birds icon" in:fade={{ duration: 100 }} />
+						{:else}
+							<button class="pagination" class:passed={index < current_slide} on:click={() => $userStore.level = index}></button>
 						{/if}
 					</td>
 				{/each}
@@ -55,16 +49,16 @@
 		</table>
 	</div>
 	<div class="slideControls d-flex pt-3 pb-4">
-		<div class="left px-3" class:disable={current_slide == 1}>
-			<button on:click={left}><img src={current_slide == 1 ? ArrowDisabled : Arrow} alt="Left button" /></button>
+		<div class="left" class:disable={current_slide == 1}>
+			<button class="px-3" on:click={left}><img src={current_slide == 1 ? ArrowDisabled : Arrow} alt="Left button" /></button>
 		</div>
 		<div class="middle px-3">
 			{#key current_slide}
 				<Slide {current_slide} {bird} {name} {isFr} />
 			{/key}
 		</div>
-		<div class="right px-3" class:disable={current_slide == 7}>
-			<button on:click={right}><img src={current_slide == 7 ? ArrowDisabled : Arrow} alt="Right button" /></button>
+		<div class="right" class:disable={current_slide == 7}>
+			<button class="right px-3" on:click={right}><img src={current_slide == 7 ? ArrowDisabled : Arrow} alt="Right button" /></button>
 		</div>
 	</div>
 </div>
@@ -73,21 +67,35 @@
 	div.carousel {
 		background-color: #ffedc2;
 		border-radius: 10px;
-		margin: 1rem 1.5rem 3rem;
+		margin: 2rem 1.5rem 3rem;
 		height: 915px;
 		box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.3);
 		border: solid 0.5px #332400;
 	}
 
-	table tr td {
-		width: 50px;
+	.pagination {
+		border-radius: 50%;
+		width: 45px;
 		aspect-ratio: 1;
-		padding: 0.5rem;
+		border: inset 2px black;
+		background-color: #f5c03b;
+		opacity: 1;
+		transition: opacity 0.15s;
 	}
 
-	svg {
-		border: inset 0.5px black;
-		border-radius: 50%;
+	.pagination.passed {
+		background-color: #c48c00;
+	}
+
+	.pagination:hover {
+		opacity: 0.8;
+		border-width: 1px;
+	}
+
+	table tr td {
+		width: 45px;
+		aspect-ratio: 1;
+		padding: 0.5rem;
 	}
 
 	div.top {
@@ -134,12 +142,7 @@
 	}
 
 	div.left button img {
-		height: 100%;
 		transform: rotate(180deg);
-	}
-
-	div.right button img {
-		height: 100%;
 	}
 
 	#userPos {
