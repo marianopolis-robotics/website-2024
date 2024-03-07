@@ -18,8 +18,10 @@
 	$: footer = isFr ? ftText.fr : ftText.en;
 </script>
 
-<footer class="position-relative p-4 d-flex flex-column align-items-center">
-	<h1 class="text-white mb-3 display-5">{footer.title}</h1>
+<footer class="position-relative p-4 d-flex flex-column align-items-center text-center">
+	<h1 class="mb-3 display-5">
+		<a class="link-light text-decoration-none link-opacity-75-hover" href="{path}#">{footer.title}</a>
+	</h1>
 	<span><a href="{isFr ? '/fr' : ''}/credits">{footer.credits}</a></span>
 	<p class="mb-0">
 		<a href="https://github.com/marianopolis-robotics/website-2024">{footer.copyright}</a>

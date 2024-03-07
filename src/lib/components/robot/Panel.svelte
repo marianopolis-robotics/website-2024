@@ -1,4 +1,4 @@
-<h1 class="col text-center text-white display-1 mt-5 mt-lg-0">Robot</h1>
+<h1 class="col text-center text-white display-1 mt-5">Robot</h1>
 <div class="grid p-5 mt-5 wood-sign position-relative">
   <slot />
 </div>

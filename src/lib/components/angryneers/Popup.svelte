@@ -44,7 +44,7 @@
 	}
 </script>
 
-<main class="background">
+<div class="background">
 	<div
 		class="container popup-content"
 		transition:fadeScale={{
@@ -203,7 +203,7 @@
 			</div>
 		</div>
 	</div>
-</main>
+</div>
 
 <style>
 	#box_container {

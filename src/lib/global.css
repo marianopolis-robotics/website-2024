@@ -1,10 +1,18 @@
 /* global stylesheet: make use of Vite's style processing and avoid bad practice of forcing global scope with :global() */
-
-
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+*::selection {
+  background-color: #048C9C;
+  color: #fff;
+}
+
+html {
+  scroll-behavior: auto !important; /* override smooth scroll behaviour set by Bootstrap, causes known bug/issue 
+                                       with scroll position not being reset to top after changing pages          */
 }
 
 h1, h2, h3, h4, h5, h6 {

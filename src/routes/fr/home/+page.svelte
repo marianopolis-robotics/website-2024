@@ -11,11 +11,6 @@
 </svelte:head>
 
 <!-- remove later! just a placeholder for testing background -->
-<main>
-
-  <Intro isFr=true/>
-  <BirdCustomization isFr=true/>
-  <UserAttributes isFr=true/>
-  
- 
-</main>
+<Intro isFr=true/>
+<BirdCustomization isFr=true/>
+<UserAttributes isFr=true/>

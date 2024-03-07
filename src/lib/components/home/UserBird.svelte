@@ -1,6 +1,7 @@
 <script>
 	import { userStore } from '$lib/Store';
 	import { onMount } from 'svelte';
+	import { fly, blur, fade } from 'svelte/transition';
 
 	export let mirrored = false;
 	// let birdImg;
@@ -14,20 +15,34 @@
 </script>
 
 <div class="text-center bird_display" class:mirror={mirrored}>
-	<img
-		class="accessory"
-		class:big_accessory={$userStore.accessory == 'laptop'}
-		src='/accessories/{$userStore.accessory}.svg'
-		alt={$userStore.hat}
-	/>
-	<img
-		class="hat"
-		class:hat-big={tallBirds.includes($userStore.shape)}
-		class:mirror={mirrored && $userStore.hat == 'director-hat'}
-		src='/hats/{$userStore.hat}.svg'
-		alt={$userStore.hat}
-	/>
-	<img class="bird" src='/birds/{$userStore.shape}.svg' alt="" />
+	{#if $userStore.accessory !== 'none'}
+		{#key $userStore.accessory}
+			<img
+				class="accessory"
+				class:big_accessory={$userStore.accessory == 'laptop'}
+				src='/accessories/{$userStore.accessory}.svg'
+				alt={$userStore.hat}
+				in:fade={{ duration: 200 }}
+			/>
+			{/key}
+		{/if}
+	
+	{#if $userStore.hat !== 'none'}
+		{#key $userStore.hat}
+			<img
+				class="hat"
+				class:hat-big={tallBirds.includes($userStore.shape)}
+				class:mirror={mirrored && $userStore.hat == 'director-hat'}
+				src='/hats/{$userStore.hat}.svg'
+				alt={$userStore.hat}
+				transition:fly={{ duration: 200 }}
+			/>
+		{/key}
+	{/if}
+
+	{#key $userStore.shape}
+		<img class="bird" src='/birds/{$userStore.shape}.svg' alt="" in:blur={{ duration: 200 }} />
+	{/key}
 </div>
 
 <style>

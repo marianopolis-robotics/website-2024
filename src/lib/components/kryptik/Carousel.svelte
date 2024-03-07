@@ -73,14 +73,21 @@
 		border: solid 0.5px #332400;
 	}
 
+	.pagination, table tr td {
+		width: 15px;
+	}
+
+	#userPos {
+		width: 20px;
+	}
+
 	.pagination {
 		border-radius: 50%;
-		width: 45px;
 		aspect-ratio: 1;
 		border: inset 2px black;
 		background-color: #f5c03b;
-		opacity: 1;
-		transition: opacity 0.15s;
+		filter: opacity(1);
+		transition: filter 0.15s ease-in-out;
 	}
 
 	.pagination.passed {
@@ -88,12 +95,11 @@
 	}
 
 	.pagination:hover {
-		opacity: 0.8;
+		filter: opacity(0.8);
 		border-width: 1px;
 	}
 
 	table tr td {
-		width: 45px;
 		aspect-ratio: 1;
 		padding: 0.5rem;
 	}
@@ -146,7 +152,6 @@
 	}
 
 	#userPos {
-		width: 45px;
 		filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.8));
 	}
 
@@ -164,11 +169,19 @@
 			position: relative;
 			transition: background-color 0.15s ease-in-out;
 		}
+
+		.pagination, table tr td, #userPos {
+			width: 30px;
+		}
 	}
 
 	@media screen and (min-width: 768px) {
 		div.left:not(.disable):hover, div.right:not(.disable):hover {
 			background-color: #e5dbc2;
+		}
+
+		.pagination, table tr td, #userPos {
+			width: 45px;
 		}
 	}
 </style>

@@ -27,14 +27,7 @@
     model-viewer {
       position: sticky;
 		  top: 0;
-      height: 40%;
+      height: 100vh;
     }
   }
-
-  @media screen and (min-width: 1650px) {
-    model-viewer {
-      height: 50%;
-    }
-  }
-
 </style>
