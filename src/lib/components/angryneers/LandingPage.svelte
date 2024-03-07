@@ -74,7 +74,7 @@
 			{#each $BirdStore.birds as bird (bird)}
 				{#if bird != 'user' && bird != 'stella'}
 					<div
-						class="col character_column col-6 col-md-3 col-lg-2 text-center pe-5 ps-5 pt-5 p-md-3"
+						class="col my-auto character_column col-6 col-md-3 col-lg-2 text-center justify-content-center p-md-3"
 						class:left-angryneers={$BirdStore.birds.indexOf(bird) % 2 == 0}
 						class:right-angryneers={$BirdStore.birds.indexOf(bird) % 2 != 0}
 					>
@@ -85,7 +85,7 @@
 							style="--rotate-duration: {randomRange(0.5, 0.75)}s;
 						--translate-duration: 0.8s; "
 						>
-							<img src="/birds/{bird.includes('blue') ? 'blue' : bird}.svg" alt={bird} />
+							<img src="/birds/{bird}.svg" alt={bird} />
 						</button>
 					</div>
 				{/if}
@@ -132,6 +132,7 @@
 
 	.angryneer:hover {
 		--final-translate-duration: var(--translate-duration);
+		--final-rotate-duration: 0s !important;
 	}
 
 	@keyframes rotate {
@@ -148,7 +149,7 @@
 			translate: 0 0%;
 		}
 		100% {
-			translate: 0 -30%;
+			translate: 0 -10%;
 		}
 	}
 	.left-angryneers {

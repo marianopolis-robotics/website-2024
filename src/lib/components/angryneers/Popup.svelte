@@ -62,6 +62,7 @@
 			<div class="col col-1 arrows">
 				<WoodButton
 					message="<"
+					reverseTilt={true}
 					on:click={() => {
 						changeBird(-1);
 					}}
@@ -75,7 +76,7 @@
 							<UserBird />
 						{:else}
 							<img
-								src={`/birds/${currentBird.includes('blue') ? 'blue' : currentBird}.svg`}
+								src={`/birds/${currentBird}.svg`}
 								alt=""
 							/>
 						{/if}

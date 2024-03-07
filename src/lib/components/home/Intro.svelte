@@ -23,20 +23,18 @@
 
 	function setSubmittedName(value) {
 		if (userName == '') {
-			userName = "";
-			errorMessage = `${isFr ? "Le nom ne peut pas être vide": "Name cannot be empty"}`;
+			userName = '';
+			errorMessage = `${isFr ? 'Le nom ne peut pas être vide' : 'Name cannot be empty'}`;
 			inputError = true;
-			
 		} else if (inputFilter.isProfane(userName)) {
-			userName = "";
-			errorMessage = `${isFr? "Pas de mots inappropriés s'il vous plait" : "No bad words please"}`
+			userName = '';
+			errorMessage = `${isFr ? "Pas de mots inappropriés s'il vous plait" : 'No bad words please'}`;
 			inputError = true;
 			// profane = true;
 		} else if (userName.length >= 15) {
-			userName = "";
-			errorMessage = `${isFr? "Nom trop long" : "Name is too long"}`
+			userName = '';
+			errorMessage = `${isFr ? 'Nom trop long' : 'Name is too long'}`;
 			inputError = true;
-		
 		} else {
 			userStore.update((currentElemens) => ({
 				...currentElemens,
@@ -68,12 +66,7 @@
 					<input
 						type="text"
 						bind:value={userName}
-						placeholder={inputError
-							? 
-								errorMessage
-							: isFr
-								? 'Entrez votre nom'
-								: 'Enter your name'}
+						placeholder={inputError ? errorMessage : isFr ? 'Entrez votre nom' : 'Enter your name'}
 						class="form-control-lg w-75 m-0"
 						class:input_error={inputError}
 					/>
@@ -110,6 +103,7 @@
 </main>
 
 <style>
+	
 	.angryneer-title h1 {
 		margin-top: 5vh !important;
 	}

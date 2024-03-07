@@ -147,35 +147,35 @@
 					<li>
 						<strong>{isFr ? "L'équipe du lance-pierre" : 'The slingshot team'}</strong>
 						{isFr
-							? "qui s'occupe de la fabrication du lance-pierre le plus performant utilisant les dernères technologies"
-							: 'involved in the production of the most performant slingshot using the newest technologies'}
+							? "composée d'excellents produceurs de lance-pierres."
+							: 'composed of amazing slingshot makers.'}
 					</li>
 					<li>
 						<strong>{isFr ? "L'équipe de recrutement" : 'The recruitment team'}</strong>
 						{isFr
-							? 'pour produire des vidéos qui attirent des nouveaux recrus'
-							: 'for producing videos that attract new recruits'}
+							? 'pour produire des vidéos qui attirent des nouveaux recrus.'
+							: 'for producing videos that attract new recruits.'}
 					</li>
 					<li>
 						<strong>{isFr ? "L'équipe du site web" : 'The website team'}</strong>
 						{isFr
-							? 'pour aider les nouveaux recrus à se familiariser avec la compétition. "'
-							: 'for helping new recruits to get familiar with the competition. '}
-						<a href="https://github.com/marianopolis-robotics/website-2024"
+							? 'pour familiariser les nouveaux recrus avec la compétition.'
+							: 'for familiarizing new recruits with the competition. '}
+						<!-- <a href="https://github.com/marianopolis-robotics/website-2024"
 							>{isFr ? 'Venez voir leur bon travail ici!' : 'Come see their amazing work here!'}</a
-						>
+						> -->
 					</li>
 					<li>
 						<strong>{isFr ? "L'équipe de design" : 'The design team'}</strong>
 						{isFr
-							? 'qui est en charge de reconstruire le Chateau du Roi Cochon où la compétition aura lieu'
-							: "that is in charge of rebuilding the King Pig's Castle where the competition will take place"}
+							? 'en charge de reconstruire le Chateau du Roi Cochon.'
+							: "in charge of rebuilding the King Pig's Castle."}
 					</li>
 					<li>
 						<strong>{isFr ? "L'équipe de programmation" : 'The programming team'}</strong>
 						{isFr
-							? "qui est en charge de s'assurer que nous avons les systèmes les plus sécuritaire pour tenir les pirateurs informatiques loin durant la compétition"
-							: 'that is in charge of making sure that we have the most secure systems to keep hackers away during the competition'}
+							? "en charge de nous protéger des pirateurs informatiques."
+							: 'in charge of keeping hackers away.'}
 					</li>
 				</ul>
 			</div>
@@ -211,9 +211,7 @@
 		font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 		font-size: 25px;
 	}
-	a {
-		color: black;
-	}
+
 	ul li {
 		margin-bottom: 10px;
 	}
