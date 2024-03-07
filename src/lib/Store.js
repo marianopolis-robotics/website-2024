@@ -1,5 +1,5 @@
-import {writable} from "svelte/store";
-import {browser} from "$app/environment";
+import { writable } from "svelte/store";
+import { browser } from "$app/environment";
 
 // Initial Store values
 const user = { 
@@ -17,6 +17,7 @@ const user = {
                 shape: "red", 
                 shapeIndex: 0, 
                 level: 1,
+                archivesPg: 0,
                 highscore: 0,
             };
 

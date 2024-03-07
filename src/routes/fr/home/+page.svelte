@@ -1,7 +1,7 @@
 <script>
-  import BirdCustomization from "../../../lib/components/home/BirdCustomization.svelte";
-  import Intro from "../../../lib/components/home/Intro.svelte";
-  import UserAttributes from "../../../lib/components/home/UserAttributes.svelte";
+  import BirdCustomization from "$lib/components/home/BirdCustomization.svelte";
+  import Intro from "$lib/components/home/Intro.svelte";
+  import UserAttributes from "$lib/components/home/UserAttributes.svelte";
 
 </script>
 
