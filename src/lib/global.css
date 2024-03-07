@@ -1,4 +1,6 @@
 /* global stylesheet: make use of Vite's style processing and avoid bad practice of forcing global scope with :global() */
+
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -32,6 +34,7 @@ body {
   width: 150px;
   bottom: 1rem;
   right: 1rem;
+  filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.5));
 }
 
 .landingHero h1 {
@@ -70,12 +73,6 @@ body {
   }
 }
 
-@media screen and (min-width: 992px) {
-  .navbar-brand img {
-    height: 150px;
-  }
-}
-
 @media screen and (min-width: 1200px) {
   .landingHero h1 {
     margin-top: 25vh;
@@ -98,3 +95,16 @@ body {
   background-color: #ffeab5;
   border-radius: 25px;
 }
+
+.btn-outline-primary,
+	.btn-outline-primary:hover,
+	.btn-outline-primary:active,
+	.btn-outline-primary:visited {
+		border-color: rgb(78,168,242) !important;
+		color: rgb(78,168,242) !important;
+	}
+	.btn-outline-primary:hover {
+		background-color: rgb(78,168,242) !important;
+		color: white!important;
+	}
+  

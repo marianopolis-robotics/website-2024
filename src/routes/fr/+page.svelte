@@ -14,5 +14,5 @@
   <h1>Les Angrynieurs Mari</h1>
   <PlayBtn lang="fr" />
   <SwitchLang switchLang="en" />
-  <Logo />
+  <Logo alt="Logo des Angrynieurs Mari" />
 </LandingHero>

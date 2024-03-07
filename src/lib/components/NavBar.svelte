@@ -1,9 +1,6 @@
 <script>
   import { slide } from 'svelte/transition';
   import { bounceOut } from 'svelte/easing';
-  import smNavbarBrandMeta from '$lib/assets/logos/mari-angryneers-xs.png?w=75;100&format=avif;webp;png&as=picture';
-  import navbarBrandMeta from '$lib/assets/logos/mari-angryneers-sm.png?w=150&format=avif;webp;png&as=picture';
-  import Picture from '$lib/components/Picture.svelte';
   export let path;
 
   const enLinks = {
@@ -17,7 +14,7 @@
   const frLinks = {
     "Accueil": "/fr/home",
     "Kryptik": "/fr/kryptik",
-    "Angryneers": "/fr/angryneers",
+    "Angrynieurs": "/fr/angryneers",
     "Archives": "/fr/archives",
     "Robot": "/fr/robot"
   };
@@ -31,19 +28,17 @@
 {#key path}
   <!-- check this condition here to play the nav bounce animation even after navigating to (home) page through landing/root page -->
   {#if path !== '/' && path !== '/fr'}
-    <nav class="navbar navbar-expand-lg mainNav position-relative" in:slide|global={{ duration: 1000, easing: bounceOut }}>
+    <nav class="navbar navbar-expand-lg mainNav position-relative" id="main-navbar" in:slide|global={{ duration: 1000, easing: bounceOut }}>
       <div class="container-fluid navContainer align-items-center">
         <a class="navbar-brand" href="{isFr ? '/fr' : ''}/home">
-          <Picture meta={smNavbarBrandMeta}
-            sizes="(min-width: 768px) 100px, 75px" 
-            alt={isFr ? "Angrynieurs de Mari" : "Mari Angryneers"} 
+          <img src="/logos/mari-angryneers.svg"
+            alt={isFr ? "Angrynieurs Mari" : "Mari Angrynieurs"} 
             loading="eager"
-            pictureClass="d-block d-lg-none" />
-          <Picture meta={navbarBrandMeta}
-            sizes="150px" 
-            alt={isFr ? "Angrynieurs de Mari" : "Mari Angryneers"} 
+            class="d-block d-lg-none" />
+          <img src="/logos/mari-angryneers.svg"
+            alt={isFr ? "Angrynieurs Mari" : "Mari Angryneers"} 
             loading="eager"
-            pictureClass="d-none d-lg-block" />
+            class="d-none d-lg-block" />
         </a>
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -105,6 +100,10 @@
   .navContainer {
     padding: 0;
     z-index: 999;
+  }
+
+  #navbarNav {
+    margin-top: 35px;
   }
 
   .navbar-brand {

@@ -1,11 +1,11 @@
 <script>
-	import { userStore } from '../../../Store';
-  import {onMount} from 'svelte';
+	import { userStore } from "$lib/Store";
+  import { onMount } from 'svelte';
 	import WoodButton from './WoodButton.svelte';
 	import UserBird from './UserBird.svelte';
+	import { BirdStore } from '$lib/BirdStore';
 
 	export let isFr = false;
-
 
 	let attributes = {
 		accessories: ['caliper', 'screwdriver', 'laptop', 'measuring-tape', "none"],
@@ -13,7 +13,7 @@
 		shapes: [
 			'red',
 			'bomb',
-			'blue',
+			'blue1',
 			'bubbles',
 			'chuck',
 			'dahlia',
@@ -32,36 +32,35 @@
 		]
 	};
 
-  onMount(() => {
-		if (!attributes.shapes.includes($userStore.shape)){
-      userStore.update((currentElements) => ({
-			...currentElements,
-			shape: attributes.shapes[0],
-      shapeIndex: 0
-		  }));
-    }
-    if (!attributes.hats.includes($userStore.hat)){
-      userStore.update((currentElements) => ({
-			...currentElements,
-			hat: attributes.hats[0],
-      hatIndex: 0
-		  }));
-    }
-    if (!attributes.accessories.includes($userStore.accessory)){
-      console.log("worked");
-      console.log($userStore.accessory)
-      userStore.update((currentElements) => ({
-			...currentElements,
-			accessory: attributes.accessories[0],
-      accessoryIndex: 0
-		  }));
-      
-    }
-  });
+	onMount(() => {
+		if (!$BirdStore.birds.includes($userStore.shape)) {
+			userStore.update((currentElements) => ({
+				...currentElements,
+				shape: !$BirdStore.birds[0],
+				shapeIndex: 0
+			}));
+			console.log('run');
+		}
+		if (!attributes.hats.includes($userStore.hat)) {
+			userStore.update((currentElements) => ({
+				...currentElements,
+				hat: attributes.hats[0],
+				hatIndex: 0
+			}));
+		}
+		if (!attributes.accessories.includes($userStore.accessory)) {
+			console.log($userStore.accessory);
+			userStore.update((currentElements) => ({
+				...currentElements,
+				accessory: attributes.accessories[0],
+				accessoryIndex: 0
+			}));
+		}
+	});
 
 	let tabs = [
 		{ tab: 'Shape', tabFr: 'Forme', selected: true },
-		{ tab: 'Hat', tabFr: 'Chapeur', selected: false },
+		{ tab: 'Hat', tabFr: 'Chapeau', selected: false },
 		{ tab: 'Accessory', tabFr: 'Accessoire', selected: false }
 	];
 
@@ -132,26 +131,9 @@
 						: `Choose your ${selectedTab.tab.toLowerCase()}!`}
 				</div>
 			</div>
-      <div class="row align-items-center small-screen mt-5 mb-3">
-        {#each tabs as tab}
-          <div class="col">
-            <WoodButton
-							message={isFr ? tab.tabFr : tab.tab}
-							isSelected={tab.selected}
-							large_width={true}
-							on:click={() => {
-								toggleSelect(tab);
-							}}
-						/>
-          </div>
-						
-					{/each}
-      </div>
-      
-			<div class="row align-items-center">
-				<!-- Choose accessory type tabs -->
-				<div class="col text-center big-screen">
-					{#each tabs as tab}
+			<div class="row align-items-center small-screen mt-5 mb-3">
+				{#each tabs as tab}
+					<div class="col">
 						<WoodButton
 							message={isFr ? tab.tabFr : tab.tab}
 							isSelected={tab.selected}
@@ -160,23 +142,38 @@
 								toggleSelect(tab);
 							}}
 						/>
+					</div>
+				{/each}
+			</div>
+
+			<div class="row align-items-center">
+				<!-- Choose accessory type tabs -->
+				<div class="col text-center big-screen">
+					{#each tabs as tab}
+						<div class="mt-4">
+							<WoodButton
+								message={isFr ? tab.tabFr : tab.tab}
+								isSelected={tab.selected}
+								large_width={true}
+								on:click={() => {
+									toggleSelect(tab);
+								}}
+							/>
+						</div>
 					{/each}
 				</div>
 				<!-- Switch between accessories -->
 				<div class="col text-center col-sm-1 col-lg-3 big-screen">
 					<WoodButton
 						message="<"
+						reverseTilt={true}
 						on:click={() => {
 							prevAccessory(selectedTab.tab.toLowerCase());
 						}}
 					/>
 				</div>
-				<div
-					class="col align-items-center mb-1 "
-				>
-		
-					<UserBird  /> 
-         
+				<div class="col mb-1">
+					<UserBird />
 				</div>
 				<div class="col col-sm-1 text-center big-screen">
 					<WoodButton
@@ -187,26 +184,27 @@
 					/>
 				</div>
 			</div>
-      <div class="row small-screen arrows_small">
-        <div class="col text-center">
+			<div class="row small-screen arrows_small">
+				<div class="col text-center">
 					<WoodButton
-            large_width={true}
+						large_width={true}
 						message="<"
+						reverseTilt={true}
 						on:click={() => {
 							nextAccessory(selectedTab.tab.toLowerCase());
 						}}
 					/>
 				</div>
-        <div class="col  text-center">
+				<div class="col text-center">
 					<WoodButton
-            large_width={true}
+						large_width={true}
 						message=">"
 						on:click={() => {
 							nextAccessory(selectedTab.tab.toLowerCase());
 						}}
 					/>
 				</div>
-      </div>
+			</div>
 			<div class="row">
 				<div class="col text-center">
 					<WoodButton
@@ -229,8 +227,8 @@
 				</div>
 			</div>
 			<div class="row text-center display-row justify-content-center mt-5">
-				<div class="col col col-md-8 col-lg-4" >
-					<UserBird/>
+				<div class="col col col-md-8 col-lg-4">
+					<UserBird />
 				</div>
 			</div>
 			<div class="row">
@@ -252,8 +250,7 @@
 		font-size: 40px;
 	}
 
-
-  @media only screen and (max-width: 768px) {
+	@media only screen and (max-width: 768px) {
 		.big-screen {
 			display: none;
 		}
@@ -264,5 +261,4 @@
 			display: none;
 		}
 	}
-
 </style>
