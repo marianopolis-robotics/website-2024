@@ -17,6 +17,7 @@ const user = {
                 shape: "red", 
                 shapeIndex: 0, 
                 level: 1,
+                highscore: 0,
             };
 
 // Retrieve stored object from local storage

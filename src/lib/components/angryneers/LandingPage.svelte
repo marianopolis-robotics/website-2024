@@ -1,8 +1,8 @@
 <script>
 	import UserBird from '../home/UserBird.svelte';
 	import Popup from './Popup.svelte';
-	import { userStore } from '../../../Store';
-	import { BirdStore } from '../../../BirdStore';
+	import { userStore } from '$lib/Store';
+	import { BirdStore } from '$lib/BirdStore';
 
 	export let isFr = false;
 

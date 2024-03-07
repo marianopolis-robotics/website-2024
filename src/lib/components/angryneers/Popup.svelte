@@ -1,9 +1,9 @@
 <script>
 	import { onMount } from 'svelte';
-	import { userStore } from '../../../Store';
+	import { userStore } from '$lib/Store';
 	import UserBird from '../home/UserBird.svelte';
 	import WoodButton from '../home/WoodButton.svelte';
-	import { BirdStore } from '../../../BirdStore';
+	import { BirdStore } from '$lib/BirdStore';
 	import { cubicInOut } from 'svelte/easing';
 	import fadeScale from './svelte-scale-transition';
 	import { fade } from 'svelte/transition';

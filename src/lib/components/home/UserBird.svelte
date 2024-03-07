@@ -1,6 +1,6 @@
 <script>
+	import { userStore } from '$lib/Store';
 	import { onMount } from 'svelte';
-	import { userStore } from '../../../Store';
 
 	export let mirrored = false;
 	// let birdImg;

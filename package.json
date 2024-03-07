@@ -15,6 +15,7 @@
 		"@sveltejs/kit": "^2.4.3",
 		"@sveltejs/vite-plugin-svelte": "^3.0.0",
 		"@types/eslint": "8.56.0",
+		"@types/three": "^0.160.0",
 		"eslint": "^8.56.0",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-svelte": "^2.35.1",
@@ -26,9 +27,12 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@dimforge/rapier3d-compat": "^0.11.2",
 		"bad-words": "^3.0.4",
 		"bootstrap": "^5.3.2",
 		"french-badwords-list": "^1.0.7",
-		"svelte-persisted-store": "^0.8.0"
+		"postprocessing": "^7.0.0-alpha-1",
+		"svelte-persisted-store": "^0.8.0",
+		"three": "^0.160.0"
 	}
 }

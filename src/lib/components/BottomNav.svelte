@@ -25,7 +25,8 @@
   $: navBtns = isFr ? btns.fr : btns.en;
 </script>
 
-<div class="bottom-nav position-relative d-grid p-5">
+<hr class="text-dark opacity-75 mx-auto w-75 position-relative z-1 mt-5 py-3" />
+<div class="bottom-nav position-relative d-grid px-5 pb-5">
   {#each Object.entries(navBtns) as [link, text]}
     {#if link !== path}
       <a href="{link}" class="wood-btn p-3 text-decoration-none text-white text-center">
