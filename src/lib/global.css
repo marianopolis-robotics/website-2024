@@ -1,4 +1,6 @@
 /* global stylesheet: make use of Vite's style processing and avoid bad practice of forcing global scope with :global() */
+
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -110,3 +112,4 @@ body {
 		background-color: rgb(78,168,242) !important;
 		color: white!important;
 	}
+  

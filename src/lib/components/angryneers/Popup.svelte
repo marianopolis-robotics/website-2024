@@ -36,6 +36,9 @@
 		if (birdIndex >= $BirdStore.birds.length) {
 			birdIndex = 0;
 		}
+		if ($BirdStore.birds[birdIndex] == 'pig') {
+			changeBird(number);
+		}
 
 		currentBird = $BirdStore.birds[birdIndex];
 	}
@@ -44,7 +47,6 @@
 <main class="background">
 	<div
 		class="container popup-content"
-
 		transition:fadeScale={{
 			delay: 250,
 			duration: 1000,
@@ -70,15 +72,11 @@
 			</div>
 			<div class="col">
 				<div class="row align-items-center row-cols-1 row-cols-md-2 row-cols-lg-2">
-					<div class="col col-12 col-md-12 col-lg-4 bird_display " >
-						
+					<div class="col col-12 col-md-12 col-lg-4 bird_display">
 						{#if currentBird == 'user'}
 							<UserBird />
 						{:else}
-							<img
-								src={`/birds/${currentBird}.svg`}
-								alt=""
-							/>
+							<img src={`/birds/${currentBird}.svg`} alt="" />
 						{/if}
 					</div>
 					<div class="col arrows_small">
@@ -87,6 +85,7 @@
 								<WoodButton
 									large_width={true}
 									message="<"
+									reverseTilt={true}
 									on:click={() => {
 										changeBird(-1);
 									}}
@@ -210,7 +209,7 @@
 	#box_container {
 		position: relative;
 	}
-	.popup-content{
+	.popup-content {
 		z-index: 1000;
 	}
 	.bird_display {
