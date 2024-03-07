@@ -1,6 +1,6 @@
 <svelte:head>
   <meta name="description" content="Welcome to the base of the Mari Angryneers!">
-  <title>Les Angryneers Mari</title>
+  <title>Les Angrynieurs Mari</title>
 </svelte:head>
 
 <script>
@@ -11,8 +11,8 @@
 </script>
 
 <LandingHero>
-  <h1>Les Angryneers Mari</h1>
+  <h1>Les Angrynieurs Mari</h1>
   <PlayBtn lang="fr" />
   <SwitchLang switchLang="en" />
-  <Logo />
+  <Logo alt="Logo des Angrynieurs Mari" />
 </LandingHero>
