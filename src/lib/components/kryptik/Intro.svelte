@@ -1,6 +1,8 @@
 <script>
   export let name;
   export let isFr = false;
+  import CRC from '$lib/assets/kryptik/crc.png';
+  // import KryptikLogo from '$lib/assets/kryptik/kryptik-logo.png';
 
   let displayName = name ? name : (isFr ? 'Angrynieur' : 'Angryneer');
 
@@ -28,9 +30,10 @@
 
 <h1 class="mx-2 my-5 mb-lg-4 display-1 text-white text-center">Kryptik</h1>
 
-<div class="desc m-5 px-5 py-4">
-  <p class="mb-4 lh-lg text-black">{intro[0]}</p>
-  <p class="mb-4 lh-lg text-black">{intro[1]}</p>
+<div class="desc m-5 px-5 py-4 d-grid">
+  <p class="mb-3 lh-lg text-black">{intro[0]}</p>
+  <img class="logo" src={CRC} alt="{isFr ? 'Logo CRC' : 'CRC logo'}" />
+  <p class="mt-3 mb-4 lh-lg text-black">{intro[1]}</p>
   <p class="mb-4 lh-lg text-black">{intro[2]}</p>
 </div>
 
@@ -46,4 +49,27 @@
 		font-size: 1.5rem;
 		line-height: 2;
 	}
+
+  .logo {
+    width: 100%;
+    justify-self: center;
+  }
+
+  @media screen and (min-width: 768px) {
+    .logo {
+      width: 75%;
+    }
+  }
+
+  @media screen and (min-width: 992px) {
+    .logo {
+      width: 50%;
+    }
+  }
+
+  @media screen and (min-width: 1200px) {
+    .logo {
+      width: 460px;
+    }
+  }
 </style>

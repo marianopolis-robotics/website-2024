@@ -6,6 +6,7 @@
 <script>
   import Panel from '$lib/components/robot/Panel.svelte';
   import ModelRow from '$lib/components/robot/ModelRow.svelte';
+  import Gallery from '$lib/components/robot/Gallery.svelte';
 </script>
 
 <Panel>
@@ -114,3 +115,5 @@
     </p>
   </ModelRow>
 </Panel>
+
+<Gallery />
