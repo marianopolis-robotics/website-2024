@@ -11,6 +11,7 @@
 	let currentBird = $BirdStore.birds[0];
 	let bubbleTriangleHeight;
 	let jumpingDuration = 0.5;
+	let notDisplayBirds = ["stella", "pig", "terence", "tony", "user"]
 
 	function displayPopup(bird) {
 		currentBird = bird;
@@ -77,11 +78,10 @@
 	</div>
 
 	<div class="container mb-5">
-		<div class="row">
+		<div class="row pt-5 justify-content-center">
 			<div
-				class="col my-auto character_column col-6 col-md-3 col-lg-2 text-center justify-content-center p-md-3"
-				class:left-angryneers={$BirdStore.birds.indexOf('tony') % 2 == 0}
-				class:right-angryneers={$BirdStore.birds.indexOf('tony') % 2 != 0}
+				class="col my-auto character_column col-6 col-md-3 col-lg-2 text-center me-5 justify-content-center p-md-3 left-angryneers"
+
 			>
 				<button
 					class="angryneer angryneer-group"
@@ -94,9 +94,7 @@
 				</button>
 			</div>
 			<div
-				class="col my-auto character_column col-6 col-md-3 col-lg-2 text-center justify-content-center p-md-3"
-				class:left-angryneers={$BirdStore.birds.indexOf('terence') % 2 == 0}
-				class:right-angryneers={$BirdStore.birds.indexOf('terence') % 2 != 0}
+				class="col my-auto character_column col-6 col-md-3 col-lg-2 text-center justify-content-center p-md-3 right-angryneers"
 			>
 				<button
 					class="angryneer angryneer-group"
@@ -111,7 +109,7 @@
 		</div>
 		<div class="row">
 			{#each $BirdStore.birds as bird (bird)}
-				{#if bird != 'user' && bird != 'stella' && bird != 'pig'}
+				{#if !notDisplayBirds.includes(bird)}
 					<div
 						class="col my-auto character_column col-6 col-md-3 col-lg-2 text-center justify-content-center p-md-3"
 						class:left-angryneers={$BirdStore.birds.indexOf(bird) % 2 == 0}
