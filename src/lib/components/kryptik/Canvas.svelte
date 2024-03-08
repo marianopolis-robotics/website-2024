@@ -1,6 +1,8 @@
 <script>
-	export let mobile = false;
+	export let mobile;
 	export let isFr = false;
+	export let winH;
+
 	import { onMount } from 'svelte';
 	import * as THREE from 'three';
 	import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
@@ -32,7 +34,7 @@
 	} from '$lib/3d/custom-objects.js';
 	import __ from '$lib/3d/custom-physics.js';
 
-	import SlingshotImage from '$lib/assets/icons/slingshot.png';
+	import SlingshotImage from '$lib/assets/kryptik/icons/slingshot.svg';
 
 	//html elements
 	let main_div;
@@ -132,8 +134,8 @@
 		}
 	};
 	const on_resize = function () {
-		renderer.setSize(main_div.offsetWidth, window.innerHeight * 0.75);
-		camera.aspect = main_div.offsetWidth / (window.innerHeight * 0.75);
+		renderer.setSize(main_div.offsetWidth, winH * 0.75);
+		camera.aspect = main_div.offsetWidth / (winH * 0.75);
 		camera.updateProjectionMatrix();
 	};
 	const on_canvas_click = function () {
@@ -704,7 +706,7 @@
 						}
 						update_game_info();
 					}
-					let highscore = $userStore.highscore;
+					let highscore = $userStore.highscore ?? 0; // use nullish coalescing in case highscore is null or undefined (localStorage can be finicky)
 					if (highscore != null) {
 						if (score > highscore) {
 							// inner HTML may not be the best practice, but it is the most efficient solution for our purposes
@@ -834,10 +836,9 @@
 	}
 	button.fire {
 		position: absolute;
-		right: 5%;
-		bottom: 5%;
-		width: 25%;
-		height: 40%;
+		right: 10px;
+		bottom: 40px;
+		width: 75px;
 		z-index: 200;
 		background-color: transparent;
 		border: none;
@@ -849,10 +850,10 @@
 	}
 	div.joystick-start {
 		position: absolute;
-		left: 0px;
-		bottom: 0px;
-		width: 25%;
-		height: 50%;
+		left: 0;
+		bottom: 0;
+		width: 150px;
+		aspect-ratio: 1/1;
 		z-index: 100;
 		background-color: black;
 		opacity: 0.2;
@@ -875,10 +876,14 @@
 	}
 	div.input-wrapper {
 		position: absolute;
-		right: 20px;
-		bottom: 0px;
+		right: 10px;
+		bottom: 10px;
 		z-index: 250;
 		opacity: 0.5;
+	}
+	div.input-wrapper input {
+		position: relative;
+		z-index: 300;
 	}
 	div.options {
 		margin: 2rem auto 0px;

@@ -16,7 +16,7 @@
     top: 1.4rem;
     background-color: #CDA827;
     width: 12px;
-    aspect-ratio: 1;
+    aspect-ratio: 1/1;
     border-radius: 50%;
     border: solid 1px rgba(0, 0, 0, 0.6);
     box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.4);

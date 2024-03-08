@@ -4,8 +4,8 @@
 	import { userStore } from '$lib/Store';
 	import Slide from './Slide.svelte';
 
-	import Arrow from '$lib/assets/icons/arrow.svg';
-	import ArrowDisabled from '$lib/assets/icons/arrow-disabled.svg';
+	import Arrow from '$lib/assets/kryptik/icons/arrow.svg';
+	import ArrowDisabled from '$lib/assets/kryptik/icons/arrow-disabled.svg';
 
 	export let isFr = false;
 
@@ -48,7 +48,7 @@
 			</tr>
 		</table>
 	</div>
-	<div class="slideControls d-flex pt-3 pb-4">
+	<div class="slideControls d-flex pt-3 pb-4 justify-content-between">
 		<div class="left" class:disable={current_slide == 1}>
 			<button class="px-3" on:click={left}><img src={current_slide == 1 ? ArrowDisabled : Arrow} alt="Left button" /></button>
 		</div>
@@ -83,7 +83,7 @@
 
 	.pagination {
 		border-radius: 50%;
-		aspect-ratio: 1;
+		aspect-ratio: 1/1;
 		border: inset 2px black;
 		background-color: #f5c03b;
 		filter: opacity(1);
@@ -100,7 +100,7 @@
 	}
 
 	table tr td {
-		aspect-ratio: 1;
+		aspect-ratio: 1/1;
 		padding: 0.5rem;
 	}
 

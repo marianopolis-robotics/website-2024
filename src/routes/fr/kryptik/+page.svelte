@@ -10,11 +10,15 @@
 	let landscape = false;
 	let name = $userStore.name;
 
+	let mobile;
+
 	function checkOrientation() {
 		setTimeout(() => landscape = winW > winH ? true : false, 500); // need slight delay for width and height bindings to update to final/correct screen dimensions
 	}
 
-	onMount(checkOrientation); // load initial screen size (otherwise winW and winH will be 0 until resize :/)
+	onMount(() => {
+		checkOrientation();
+	}); // load initial screen size (otherwise winW and winH will be 0 until resize :/)
 </script>
 
 <svelte:head>
@@ -22,21 +26,32 @@
 	<title>Kryptik | Angrynieurs Mari</title>
 </svelte:head>
 
-<svelte:window bind:innerWidth={winW} bind:innerHeight={winH} on:resize={checkOrientation}></svelte:window>
+<!-- mobile devices tend to have a coarse pointer instead of a fine/precise pointer -->
+<svelte:window bind:innerWidth={winW} bind:innerHeight={winH} on:resize={checkOrientation} 
+	on:pageshow={() => mobile = window.matchMedia("(pointer: coarse)").matches}></svelte:window>
 
 <Intro {name} isFr={true} />
 
 <Carousel isFr={true} />
 
+<!-- only show 3D simulation if in landscape mode -->
 {#if landscape}
 	<ControlsGuide isFr={true} {name}>
-		Cliquez sur la fenêtre de la simulation pour démarrer une joute Kryptik de 5 minutes. Appuyez sur <kbd>Esc</kbd> pour sortir de la simulation.<br />
-		Caméra: déplacez votre curseur pour changer l'orientation de la vue, utilisez la touche <kbd>I</kbd> pour zoomer, <kbd>O</kbd> pour effectuer un zoom arrière.<br />
-		Mouvement: les touches <kbd>WASD</kbd> pour déplacer le robot.<br />
-		Tir: la touche <kbd>Q</kbd> pour augmenter la puissance, <kbd>E</kbd> pour diminuer la puissance, la barre <kbd>Espace</kbd> pour lancer.<br />
-		Multiplicateur: la touche <kbd>M</kbd> pour activer un multiplicateur.<br />
+		<!-- mobile devices have different instructions (joystick, etc.) -->
+		{#if mobile}
+			Caméra: drag right side of simulation screen (slightly shaded) to adjust view.<br />
+			Mouvement: use the joystick in the bottom left corner of the simulation screen.<br />
+			Tir: use the slider in the bottom right to increase or decrease power, click slingshot button to launch.<br />
+			Multiplicateur: multiplier button will appear when near multiplier, click to place.<br />
+		{:else}
+			Cliquez sur la fenêtre de la simulation pour démarrer une joute Kryptik de 5 minutes. Appuyez sur <kbd>Esc</kbd> pour sortir de la simulation.<br />
+			Caméra: déplacez votre curseur pour changer l'orientation de la vue, utilisez la touche <kbd>I</kbd> pour zoomer, <kbd>O</kbd> pour effectuer un zoom arrière.<br />
+			Mouvement: les touches <kbd>WASD</kbd> pour déplacer le robot.<br />
+			Tir: la touche <kbd>Q</kbd> pour augmenter la puissance, <kbd>E</kbd> pour diminuer la puissance, la barre <kbd>Espace</kbd> pour lancer.<br />
+			Multiplicateur: la touche <kbd>M</kbd> pour activer un multiplicateur.<br />
+		{/if}
 	</ControlsGuide>
-	<Canvas isFr={true} />
+	<Canvas isFr={true} {mobile} {winH} />
 {:else}
 	<p class="landscapeWarning position-relative text-danger pt-2 pb-4 px-5">Veuillez utiliser votre appareil en mode paysage pour jouer la simulation Kryptik.</p>
 {/if}

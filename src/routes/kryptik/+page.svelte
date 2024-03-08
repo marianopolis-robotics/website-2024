@@ -8,16 +8,13 @@
 	
 	let winW, winH; // window width and height
 	let landscape = false;
-	$: mobile = false;
-	
-	const checkMobile = () => window.matchMedia("(pointer: coarse)").matches;
+	let mobile;
 	
 	function checkOrientation() {
 		setTimeout(() => landscape = winW > winH ? true : false, 300); // need slight delay for width and height bindings to update to final/correct screen dimensions
 	}
 	
 	onMount(() => {
-		mobile = checkMobile();
 		checkOrientation();
 	}); // load initial screen size (otherwise winW and winH will be 0 until resize :/)
 </script>
@@ -27,21 +24,31 @@
 	<title>Kryptik | Mari Angryneers</title>
 </svelte:head>
 
-<svelte:window bind:innerWidth={winW} bind:innerHeight={winH} on:resize={checkOrientation}></svelte:window>
+<svelte:window bind:innerWidth={winW} bind:innerHeight={winH} on:resize={checkOrientation} 
+	on:pageshow={() => mobile = window.matchMedia("(pointer: coarse)").matches}></svelte:window>
 
 <Intro name={$userStore.name} />
 
 <Carousel isFr={false} />
 
+<!-- only show 3D simulation if in landscape mode -->
 {#if landscape}
 	<ControlsGuide name={$userStore.name}>
 		Click the simulation window to start a 5-minute Kryptik heat. Press <kbd>Esc</kbd> to exit the simulation.<br />
-		Camera: Move mouse to adjust view, <kbd>I</kbd> key to zoom in, <kbd>O</kbd> key to zoom out.<br />
-		Movement: <kbd>WASD</kbd> keys to move.<br />
-		Shooting: <kbd>Q</kbd> key to increase power, <kbd>E</kbd> key to decrease power, <kbd>Space</kbd> bar to launch.<br />
-		Multiplier: <kbd>M</kbd> key to place on multiplier.<br />
+		<!-- mobile devices have different instructions (joystick, etc.) -->
+		{#if mobile}
+			Camera: drag right side of simulation screen (slightly shaded) to adjust view.<br />
+			Movement: use the joystick in the bottom left corner of the simulation screen.<br />
+			Shooting: use the slider in the bottom right to increase or decrease power, click slingshot button to launch.<br />
+			Multiplier: multiplier button will appear when near multiplier, click to place.<br />
+		{:else}
+			Camera: move mouse to adjust view, <kbd>I</kbd> key to zoom in, <kbd>O</kbd> key to zoom out.<br />
+			Movement: <kbd>WASD</kbd> keys to move.<br />
+			Shooting: <kbd>Q</kbd> key to increase power, <kbd>E</kbd> key to decrease power, <kbd>Space</kbd> bar to launch.<br />
+			Multiplier: <kbd>M</kbd> key to place on multiplier.<br />
+		{/if}
 	</ControlsGuide>
-	<Canvas {mobile} />
+	<Canvas {mobile} {winH} />
 {:else}
 	<p class="landscapeWarning position-relative text-danger pt-2 pb-4 px-5 warning">Please use landscape mode to play the Kryptik simulation.</p>
 {/if}
