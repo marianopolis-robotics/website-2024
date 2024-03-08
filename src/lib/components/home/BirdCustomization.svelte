@@ -173,7 +173,7 @@
 					}}
 				/>
 			</div>
-			<div class="col mb-1">
+			<div class="col mb-1 bird-container">
 				<UserBird />
 			</div>
 			<div class="col col-sm-1 text-center big-screen">
@@ -251,6 +251,9 @@
 <style>
 	.description_text {
 		font-size: 40px;
+	}
+	.bird-container{
+		aspect-ratio: 1/1;
 	}
 
 	@media only screen and (max-width: 768px) {
