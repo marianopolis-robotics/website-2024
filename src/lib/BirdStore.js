@@ -217,7 +217,7 @@ export const BirdStore = writable({
             "Since it was my first year building and decorating I learned how to organize and plan where everything needs to go and a timeline. I also learned how much I miss Hayday when I'm in robotics since I had to give up my designated Hayday time for robotics."
     },
     blue1: {
-        bird: 'Jay',
+        bird: 'blue1',
         name: 'Junlin Song (Martin)',
         subteam: 'Robot',
         subteamFr: '',
@@ -232,7 +232,7 @@ export const BirdStore = writable({
             'I learned how to use different tools, and how to make designs come to reality starting from prototyping. I also realized the importance of organization and communication skills in a workplace with a team. I had to sacrifice my last week of winter break to be at robotics which meant I had less time to prepare for the new semester. Luckily, we were productive during thatweek and were able to get a lot of work done, which should help us gain more testing time.'
     },
     blue2: {
-        bird: 'Jake',
+        bird: 'blue2',
         name: 'Theo Radhakrishna',
         subteam: 'Robot',
         subteamFr: '',
@@ -247,7 +247,7 @@ export const BirdStore = writable({
             'I learned how to cooperate with lots of other people to build the robot. I also learned about pretty much every part of the robot. I had to sacrifice time with friends, and study time during activity periods.'
     },
     blue3: {
-        bird: 'blue',
+        bird: 'blue3',
         name: 'Tyler Hamel-Wong',
         subteam: 'Website, kiosk',
         subteamFr: '',

@@ -42,11 +42,14 @@
 
 		currentBird = $BirdStore.birds[birdIndex];
 	}
+	function changePic(element, bird, changeTo, fileExt) {
+		element.src = `/${changeTo}/${bird}.${fileExt}`;
+	}
 </script>
 
-<div class="background">
+<div class="background d-flex align-items-center">
 	<div
-		class="container popup-content"
+		class="container popup-content my-auto align-middle"
 		transition:fadeScale={{
 			delay: 100,
 			duration: 500,
@@ -55,7 +58,7 @@
 		}}
 	>
 		<div class="row align-items-center">
-			<div class="col d-flex flex-row-reverse top-spacing">
+			<div class="col d-flex flex-row-reverse">
 				<WoodButton on:click={() => (showPopup = false)} message="X" />
 			</div>
 		</div>
@@ -78,7 +81,13 @@
 								{#if currentBird == 'user'}
 									<UserBird />
 								{:else}
-									<img src='/birds/{currentBird}.svg' alt="{currentBird}" />
+									<img
+										src="/birds/{currentBird}.svg"
+										on:mouseenter={changePic(this, currentBird, 'members', 'png')}
+										on:mouseleave={changePic(this, currentBird, 'birds', 'svg')}
+										alt={currentBird}
+										class="bird-picture"
+									/>
 								{/if}
 							</div>
 						{/key}
@@ -100,18 +109,16 @@
 							</div>
 						</div>
 					</div>
-					
-					<div class="col col-sm-12 col-md-12 col-lg-8" id="box_container">
-						<img class="frame_left" src="/textures/wood_frame.svg" alt="wood frame left" />
-						<img class="frame_right" src="/textures/wood_frame.svg" alt="" />
+					{#key currentBird}
+						<div class="col col-sm-12 col-md-12 col-lg-8" id="box_container" in:fly={{ duration: 500 }}>
+							<img class="frame_left" src="/textures/wood_frame.svg" alt="wood frame left" />
+							<img class="frame_right" src="/textures/wood_frame.svg" alt="" />
 
-						<img class="frame_top" src="/textures/wood_frame_horizontal.svg" alt="" />
-						<img class="frame_bottom" src="/textures/wood_frame_horizontal.svg" alt="" />
-						
-						
-						<div class="rounded-content-box box m-4 p-4 pt-5">
-							{#key currentBird}
-								<div in:fly={{ duration: 500 }}>
+							<img class="frame_top" src="/textures/wood_frame_horizontal.svg" alt="" />
+							<img class="frame_bottom" src="/textures/wood_frame_horizontal.svg" alt="" />
+
+							<div class="rounded-content-box box m-4 p-4 pt-5">
+								<div>
 									<p class="stat p-2 mt-2">
 										<strong>{isFr ? 'Nom:' : 'Name:'}</strong>
 										{currentBird == 'user'
@@ -131,51 +138,29 @@
 									<p class="stat p-2">
 										<strong>{isFr ? 'Pouvoir:' : 'Power:'}</strong>
 
-										{currentBird == 'user'
-											? $userStore.superPower
-											: isFr
-												? $BirdStore[currentBird].powerFr
-												: $BirdStore[currentBird].power}
+										{currentBird == 'user' ? $userStore.superPower : isFr ? $BirdStore[currentBird].powerFr : $BirdStore[currentBird].power}
 										{#if currentBird == 'user' && $userStore.superPower == ''}
 											{isFr ? 'Rediriger-vous vers la' : 'Head to the'}
-											<a href="/home" class="main-page-link"
-												>{isFr ? "page d'accueil" : 'home page'}</a
-											>
+											<a href="/home" class="main-page-link">{isFr ? "page d'accueil" : 'home page'}</a>
 											{isFr ? 'pour choisir votre super-pouvoir!' : 'to chose your super power!'}
 										{/if}
 									</p>
 									<p class="stat p-2">
 										<strong>{isFr ? 'Passe-temps:' : 'Hobbies:'}</strong>
-										{currentBird == 'user'
-											? $userStore.hobbies
-											: isFr
-												? $BirdStore[currentBird].hobbiesFr
-												: $BirdStore[currentBird].hobbies}
+										{currentBird == 'user' ? $userStore.hobbies : isFr ? $BirdStore[currentBird].hobbiesFr : $BirdStore[currentBird].hobbies}
 										{#if currentBird == 'user' && $userStore.hobbies == ''}
 											{isFr ? 'Rediriger-vous vers la' : 'Head to the'}
-											<a href="/home" class="main-page-link"
-												>{isFr ? "page d'accueil" : 'home page'}</a
-											>
-											{isFr
-												? 'pour nous en dire plus sur vos passe-temps!'
-												: 'to tell us more about your hobbies!'}
+											<a href="/home" class="main-page-link">{isFr ? "page d'accueil" : 'home page'}</a>
+											{isFr ? 'pour nous en dire plus sur vos passe-temps!' : 'to tell us more about your hobbies!'}
 										{/if}
 									</p>
 									<p class="stat p-2">
 										<strong>{isFr ? 'Faits divers:' : 'Fun Facts:'}</strong>
-										{currentBird == 'user'
-											? $userStore.funFact
-											: isFr
-												? $BirdStore[currentBird].funFactsFr
-												: $BirdStore[currentBird].funFacts}
+										{currentBird == 'user' ? $userStore.funFact : isFr ? $BirdStore[currentBird].funFactsFr : $BirdStore[currentBird].funFacts}
 										{#if currentBird == 'user' && $userStore.hobbies == ''}
 											{isFr ? 'Rediriger-vous vers la' : 'Head to the'}
-											<a href="/home" class="main-page-link"
-												>{isFr ? "page d'accueil" : 'home page'}</a
-											>
-											{isFr
-												? 'pour partager un fait divers avec nous!'
-												: 'to let us know a fun fact!'}
+											<a href="/home" class="main-page-link">{isFr ? "page d'accueil" : 'home page'}</a>
+											{isFr ? 'pour partager un fait divers avec nous!' : 'to let us know a fun fact!'}
 										{/if}
 									</p>
 									<p class="stat p-2" class:mb-5={currentBird != 'user'}>
@@ -191,19 +176,15 @@
 									{#if currentBird == 'user'}
 										<p class="stat p-2 mb-5">
 											{isFr ? 'Retourner à la' : 'Head back to the'}
-											<a class="main-page-link" href="/home"
-												>{isFr ? "page d'accueil" : 'home page'}</a
-											>
-											{isFr
-												? 'si vous voulez nous en dire plus sur vous-même'
-												: 'if you want to tell us more about you,'}
+											<a class="main-page-link" href="/home">{isFr ? "page d'accueil" : 'home page'}</a>
+											{isFr ? 'si vous voulez nous en dire plus sur vous-même' : 'if you want to tell us more about you,'}
 											{$userStore.name == '' ? (isFr ? 'Angrynieur' : 'Angryneer') : $userStore.name}!
 										</p>
 									{/if}
 								</div>
-							{/key}
+							</div>
 						</div>
-					</div>
+					{/key}
 				</div>
 			</div>
 			<div class="col col-1 arrows">
@@ -217,11 +198,17 @@
 	#box_container {
 		position: relative;
 	}
+	.bird-picture {
+		width: 100%;
+	}
 	.popup-content {
 		z-index: 1000;
+		margin-top: auto;
+		margin-bottom: auto;
 	}
 	.bird_display {
 		min-width: 25%;
+		aspect-ratio: 1/1;
 	}
 
 	.box {
@@ -298,11 +285,6 @@
 	@media only screen and (min-width: 600px) {
 		.arrows_small {
 			display: none;
-		}
-	}
-	@media only screen and (min-width: 992px) {
-		.top-spacing {
-			margin-top: 20vh;
 		}
 	}
 </style>

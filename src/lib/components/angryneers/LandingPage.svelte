@@ -11,7 +11,7 @@
 	let currentBird = $BirdStore.birds[0];
 	let bubbleTriangleHeight;
 	let jumpingDuration = 0.5;
-	let notDisplayBirds = ["stella", "pig", "terence", "tony", "user"]
+	let notDisplayBirds = ['stella', 'pig', 'terence', 'tony', 'user'];
 
 	function displayPopup(bird) {
 		currentBird = bird;
@@ -22,16 +22,14 @@
 </script>
 
 <div class="landing-container">
-	<div class="container">
+	<h1 class="mx-2 my-5 mb-lg-4 display-1 text-white text-center">Angryneers</h1>
+	<div class="container mt-5">
 		<div class="row row-cols-2 row-cols-md-3 row-cols-lg-3 justify-content-end">
 			<div class="col stella-container">
 				<button
 					class="angryneer stella"
 					on:click={() => displayPopup('stella')}
-					style="--rotate-duration: {randomRange(
-						0.5,
-						0.75
-					)}s; --translate-duration: {jumpingDuration}s;"
+					style="--rotate-duration: {randomRange(0.5, 0.75)}s; --translate-duration: {jumpingDuration}s;"
 				>
 					<img src="/birds/stella.svg" alt="stella" class="w-100 h-100" />
 				</button>
@@ -39,20 +37,12 @@
 			<div class="col">
 				<!-- <blockquote class="speech bubble h2 speech-text"> -->
 				<div class="bubble align-middle p-5 p-md-5 h2 speech-text text-center">
-					{isFr ? 'Bonjour, ' : 'Hi, '}{$userStore.name == ''
-						? isFr
-							? 'Angrynieur'
-							: 'Angryneer'
-						: $userStore.name}!
+					{isFr ? 'Bonjour, ' : 'Hi, '}{$userStore.name == '' ? (isFr ? 'Angrynieur' : 'Angryneer') : $userStore.name}!
 					{isFr
 						? 'Je suis votre superviseur. Cliquer sur chaque member pour en apprendre plus sur ceux-ci!'
 						: 'I am your supervisor. Click on each member to get to know them better!'}
 
-					<div
-						class="arrow-border"
-						bind:clientHeight={bubbleTriangleHeight}
-						style="--triangle-height = {bubbleTriangleHeight}"
-					>
+					<div class="arrow-border" bind:clientHeight={bubbleTriangleHeight} style="--triangle-height = {bubbleTriangleHeight}">
 						<div class="arrow"></div>
 					</div>
 				</div>
@@ -62,10 +52,7 @@
 			<div class="col pe-5">
 				<div
 					class="angryneer"
-					style="--rotate-duration: {randomRange(
-						0.5,
-						0.75
-					)}s; --translate-duration: {jumpingDuration}s;"
+					style="--rotate-duration: {randomRange(0.5, 0.75)}s; --translate-duration: {jumpingDuration}s;"
 					on:click={() => displayPopup('user')}
 					role="button"
 					on:keydown={(event) => event.key == 'Enter' && displayPopup('user')}
@@ -79,10 +66,7 @@
 
 	<div class="container mb-5">
 		<div class="row pt-5 justify-content-center">
-			<div
-				class="col my-auto character_column col-6 col-md-3 col-lg-2 text-center me-5 justify-content-center p-md-3 left-angryneers"
-
-			>
+			<div class="col my-auto character_column col-6 col-md-3 col-lg-2 text-center me-md-5 justify-content-center p-md-3 left-angryneers">
 				<button
 					class="angryneer angryneer-group"
 					on:click={() => displayPopup('tony')}
@@ -93,9 +77,7 @@
 					<img src="/birds/tony.svg" alt={'tony'} />
 				</button>
 			</div>
-			<div
-				class="col my-auto character_column col-6 col-md-3 col-lg-2 text-center justify-content-center p-md-3 right-angryneers"
-			>
+			<div class="col my-auto character_column col-6 col-md-3 col-lg-2 text-center justify-content-center p-md-3 right-angryneers">
 				<button
 					class="angryneer angryneer-group"
 					on:click={() => displayPopup('terence')}
@@ -107,7 +89,7 @@
 				</button>
 			</div>
 		</div>
-		<div class="row">
+		<div class="row justify-content-center">
 			{#each $BirdStore.birds as bird (bird)}
 				{#if !notDisplayBirds.includes(bird)}
 					<div
@@ -172,6 +154,7 @@
 		--final-rotate-duration: 0s !important;
 	}
 
+	/* rotate and translate are new css functions and don't pass the validator */
 	@keyframes rotate {
 		0% {
 			rotate: -15deg;
