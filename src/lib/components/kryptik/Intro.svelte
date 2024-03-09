@@ -2,7 +2,7 @@
   export let name;
   export let isFr = false;
   import CRC from '$lib/assets/kryptik/crc.png';
-  // import KryptikLogo from '$lib/assets/kryptik/kryptik-logo.png';
+  import KryptikLogo from '$lib/assets/kryptik/kryptik-logo.png';
 
   let displayName = name ? name : (isFr ? 'Angrynieur' : 'Angryneer');
 
@@ -30,11 +30,12 @@
 
 <h1 class="mx-2 my-5 mb-lg-4 display-1 text-white text-center">Kryptik</h1>
 
-<div class="desc m-5 px-5 py-4 d-grid">
+<div class="desc m-3 m-sm-5 px-4 px-md-5 py-3 py-md-4 d-grid">
   <p class="mb-3 lh-lg text-black">{intro[0]}</p>
   <img class="logo" src={CRC} alt="{isFr ? 'Logo CRC' : 'CRC logo'}" />
   <p class="mt-3 mb-4 lh-lg text-black">{intro[1]}</p>
-  <p class="mb-4 lh-lg text-black">{intro[2]}</p>
+  <img class="logo" src={KryptikLogo} alt="{isFr ? 'Logo Kryptik' : 'Kryptik logo'}" />
+  <p class="mt-3 mb-4 lh-lg text-black">{intro[2]}</p>
 </div>
 
 <style>

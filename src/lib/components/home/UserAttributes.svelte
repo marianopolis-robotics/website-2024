@@ -36,7 +36,7 @@
 	}
 </script>
 
-<div class="rounded-content-box container p-1 p-md-3">
+<div class="rounded-content-box p-1 p-md-3 mx-2 mx-md-4 mx-xl-5">
 	{#if !$userStore.submittedAttributes}
 	<div in:blur={{ duration: 300 }}>
 		<div class="text-center p-4 description-text">
@@ -139,58 +139,59 @@
 
 		<!-- include where to go next to learn more about competition -->
 	{/if}
+</div>
 
-	<div class="competition-description p-2 p-md-5 text-center">
-		<p>
+<h2 class="text-center display-4 mt-5 mb-3 text-black">{isFr ? 'Notre histoire' : 'Our story'}</h2>
+<hr class="w-50 mx-auto text-dark opacity-75" />
+
+<div class="competition-description p-3 p-md-5 text-center rounded-content-box mx-2 mx-md-4 mx-xl-5 mt-4">
+	<p>
+		{isFr
+			? 'En mémoire de la défaite du Chateau du Roi Cochon, les Angrynieurs reproduissent cet événement mémorial à chaque année et compétitionnent pour le meilleur lance-pierre! Les Angrynieurs de Mari sont divisés en cinq équipes afin de réaliser cet événement:'
+			: "In memory of the defeat of the King Pig's Castle, the Angryneers reproduce this memorial event each year and compete in order to test who has the best slingshot! The Mari Angryneers are divided into five subteams to make this happen:"}
+	</p>
+	<ul class="px-3">
+		<li>
+			<strong>{isFr ? "L'équipe du lance-pierre" : 'The slingshot team'}</strong>
 			{isFr
-				? 'En mémoire de la défaite du Chateau du Roi Cochon, les Angrynieurs reproduissent cet événement mémorial à chaque année et compétitionnent pour le meilleur lance-pierre! Les Angrynieurs de Mari sont divisés en cinq équipes afin de réaliser cet événement:'
-				: "In memory of the defeat of the King Pig's Castle, the Angryneers reproduce this memorial event each year and compete in order to test who has the best slingshot! The Mari Angryneers are divided into five subteams to make this happen:"}
-		</p>
-		<div class="text-center mt-2 p-3 p-md-5">
-			<ul>
-				<li>
-					<strong>{isFr ? "L'équipe du lance-pierre" : 'The slingshot team'}</strong>
-					{isFr
-						? "composée d'excellents produceurs de lance-pierres."
-						: 'composed of amazing slingshot makers.'}
-				</li>
-				<li>
-					<strong>{isFr ? "L'équipe de recrutement" : 'The recruitment team'}</strong>
-					{isFr
-						? 'pour produire des vidéos qui attirent des nouveaux recrus.'
-						: 'for producing videos that attract new recruits.'}
-				</li>
-				<li>
-					<strong>{isFr ? "L'équipe du site web" : 'The website team'}</strong>
-					{isFr
-						? 'pour familiariser les nouveaux recrus avec la compétition.'
-						: 'for familiarizing new recruits with the competition. '}
-					<!-- <a href="https://github.com/marianopolis-robotics/website-2024"
-						>{isFr ? 'Venez voir leur bon travail ici!' : 'Come see their amazing work here!'}</a
-					> -->
-				</li>
-				<li>
-					<strong>{isFr ? "L'équipe de design" : 'The design team'}</strong>
-					{isFr
-						? 'en charge de reconstruire le Chateau du Roi Cochon.'
-						: "in charge of rebuilding the King Pig's Castle."}
-				</li>
-				<li>
-					<strong>{isFr ? "L'équipe de programmation" : 'The programming team'}</strong>
-					{isFr
-						? "en charge de nous protéger des pirateurs informatiques."
-						: 'in charge of keeping hackers away.'}
-				</li>
-			</ul>
-		</div>
-	</div>
-	<div class="description-text ms-5 mb-5">
+				? "composée d'excellents produceurs de lance-pierres."
+				: 'composed of amazing slingshot makers.'}
+		</li>
+		<li>
+			<strong>{isFr ? "L'équipe de recrutement" : 'The recruitment team'}</strong>
+			{isFr
+				? 'pour produire des vidéos qui attirent des nouveaux recrus.'
+				: 'for producing videos that attract new recruits.'}
+		</li>
+		<li>
+			<strong>{isFr ? "L'équipe du site web" : 'The website team'}</strong>
+			{isFr
+				? 'pour familiariser les nouveaux recrus avec la compétition.'
+				: 'for familiarizing new recruits with the competition. '}
+			<!-- <a href="https://github.com/marianopolis-robotics/website-2024"
+				>{isFr ? 'Venez voir leur bon travail ici!' : 'Come see their amazing work here!'}</a
+			> -->
+		</li>
+		<li>
+			<strong>{isFr ? "L'équipe de design" : 'The design team'}</strong>
+			{isFr
+				? 'en charge de reconstruire le Chateau du Roi Cochon.'
+				: "in charge of rebuilding the King Pig's Castle."}
+		</li>
+		<li>
+			<strong>{isFr ? "L'équipe de programmation" : 'The programming team'}</strong>
+			{isFr
+				? "en charge de nous protéger des pirateurs informatiques."
+				: 'in charge of keeping hackers away.'}
+		</li>
+	</ul>
+	<p class="display-6 mt-4 mb-0 fw-bold">
 		{isFr
 			? `Apprenez à bien les connaitre, ${
 					$userStore.name == '' ? 'Angrynieur' : $userStore.name
 				}!`
 			: `Get to know them well, ${$userStore.name == '' ? 'Angryneer' : $userStore.name}!`}
-	</div>
+	</p>
 </div>
 
 <style>
@@ -199,21 +200,20 @@
 		border-radius: 25px;
 	}
 
-	.description-text {
-		font-size: 30px;
+	.description-text, .competition-description {
+		font-size: 1.5rem;
 	}
 	.form-text {
-		font-size: 25px;
+		font-size: 1.4rem;
 	}
 
 	ul {
 		list-style-type: none;
 	}
-
+/* 
 	.competition-description {
-		font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-		font-size: 25px;
-	}
+		font-family: Rubik, sans-serif;
+	} */
 
 	ul li {
 		margin-bottom: 10px;
