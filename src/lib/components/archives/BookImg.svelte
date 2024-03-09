@@ -17,6 +17,12 @@
     box-shadow: 0 0 0 4px #000, 0 0 6px 6px rgba(0, 0, 0, 0.25);
   }
 
+  @media (pointer: coarse) {
+    .frame {
+      margin-top: 1rem;
+    }
+  }
+
   .tape {
     top: -27px;
     left: 50%;

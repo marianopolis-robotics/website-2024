@@ -1,8 +1,9 @@
 <script>
   import { onMount } from 'svelte';
 	import * as St from 'page-flip';
-	import { en, fr, enTabs, frTabs } from '$lib/archives';
+	import { en, fr, imgs, enTabs, frTabs } from '$lib/archives';
 	import { userStore } from "$lib/Store";
+	import Page from '$lib/components/archives/Page.svelte';
 	import Entry from '$lib/components/archives/Entry.svelte';
 
 	export let isFr = false;
@@ -16,7 +17,8 @@
 			height: 700,
 			size: 'stretch',
 			minWidth: 280,
-			maxWidth: 600
+			maxWidth: 600,
+			startZIndex: 0
 		});
 		pageFlip.loadFromHTML(flipbook.querySelectorAll('.book-page'));
 		
@@ -49,33 +51,42 @@
 	</div>
 	<!-- overflow had to be hidden due to glitchy scrolling behaviour caused by 3D transform overflow :/ -->
 <div id="book" class="mx-auto" bind:this={flipbook}>
-		<div class="book-page">
-			<div class="d-flex align-items-center h-100">
-				<h2 class="title">{content.title}</h2>
+		<Page>
+			<div class="d-flex text-center justify-content-center align-items-center h-100">
+				<h2 class="title position-absolute">{content.title}</h2>
 			</div>
-		</div>
-		<div class="book-page">
+		</Page>
+		<Page>
 			<h2 class="chapter mb-2">{content.toc}</h2>
-		</div>
-		<div class="book-page">
+		</Page>
+		<Page>
 			<p>{content.intro}</p>
-		</div>
-		<div class="book-page">
-			<h2 class="chapter mb-1">Robot</h2>
-			<Entry date={content.robot.date1} text={content.robot.text1}
-						 img='/archives/{content.robot.img1}' alt={content.robot.alt1} rotate='left'>
-			</Entry>
-			<Entry date={content.robot.date2} text={content.robot.text2}
-						 img='/archives/{content.robot.img2}' alt={content.robot.alt2} rotate='right'>
-			</Entry>
-			
-		</div>
-		<div class="book-page">{content.robot.text1}</div>
-		<div class="book-page">
-			<div class="d-flex align-items-center h-100">
+		</Page>
+		<Page>
+			<div slot="pointer">
+				<h2 class="chapter mb-1">Robot</h2>
+				<Entry date={content.robot.date1} text={content.robot.text1}
+							 img='/archives/{imgs.img1}' alt={content.robot.alt1} rotate='left'>
+				</Entry>
+				<Entry date={content.robot.date2} text={content.robot.text2}
+							 img='/archives/{imgs.img2}' alt={content.robot.alt2} rotate='right'>
+				</Entry>
+			</div>
+			<div slot="mobile">
+				<h2 class="chapter mb-1">Robot</h2>
+				<Entry date={content.robot.date1} text={content.robot.text1}
+							 img='/archives/{imgs.img1}' alt={content.robot.alt1} rotate='left'>
+				</Entry>
+			</div>
+		</Page>
+		<Page>
+			{content.robot.text1}
+		</Page>
+		<Page>
+			<div class="d-flex justify-content-center align-items-center h-100">
 				<h2 class="title">{content.end}</h2>
 			</div>
-		</div>
+		</Page>
 	</div>
 </div>
 <!-- margin and padding on the book or its parents break the layout and/or background
@@ -123,6 +134,8 @@
 
 	.title {
 		text-transform: uppercase;
+		top: 50%;
+		transform: translateY(-50%);
 	}
 
 	.chapter, .title {
@@ -146,17 +159,8 @@
 											*/
 	}
 
-	.book-page {
-		z-index: 1;
-		background: #f7ddbb;
-		padding: 1.5rem;
-		overflow: auto;
-		border-radius: 10px;
-		border: solid 1.5rem #b4814b;
-	}
-
 	@media screen and (min-width: 500px) {
-		.book-page:nth-child(odd) {
+		/* .book-page:nth-child(odd) {
 			border-top-left-radius: 10px;
 			border-bottom-left-radius: 10px;
 		}
@@ -164,7 +168,7 @@
 		.book-page:nth-child(even) {
 			border-top-right-radius: 10px;
 			border-bottom-right-radius: 10px;
-		}
+		} */
 
 		.toc {
 			position: absolute;
@@ -175,10 +179,6 @@
 	
 	/* around this width the page-flip is big enough for all tabs */
 	@media screen and (min-width: 610px) {
-		.book-page {
-			border-radius: 0px;
-		}
-
 		.tabs {
 			display: block;
 			position: relative;

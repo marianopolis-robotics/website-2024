@@ -210,10 +210,10 @@
 	ul {
 		list-style-type: none;
 	}
-/* 
+
 	.competition-description {
 		font-family: Rubik, sans-serif;
-	} */
+	}
 
 	ul li {
 		margin-bottom: 10px;

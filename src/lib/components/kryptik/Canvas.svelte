@@ -248,6 +248,9 @@
 	const restart_game = function () {
 		window.location.reload();
 	};
+	const pause_game = () => {
+		on_pointlock_change();
+	}
 
 	// game initial setup
 	const start_perpetual = async function () {
@@ -787,6 +790,9 @@
 	<div class="options p-4 mt-5">
 		<p class="mb-4 fs-4 text-black">{isFr ? 'Votre pointage record est' : 'Your high score is'}: {$userStore.highscore} points</p>
 		<div class="buttons d-grid">
+			{#if mobile === true}
+				<button class="reset" on:click={pause_game}>{isFr ? 'Mettre en pause/reprendre le jeu' : 'Pause/resume game'}</button>
+			{/if}
 			<button class="reset" on:click={reset_balls}>{reset_ball_requested ? (isFr ? 'Pièces de jeu ajoutées!' : 'Game pieces spawned!') : (isFr ? 'Ajouter plus de pièces de jeu' : 'Spawn more game pieces')}</button>
 			<button class="reset" on:click={restart_game}>{isFr ? 'Redémarrer le jeu' : 'Restart game'}</button>
 		</div>
