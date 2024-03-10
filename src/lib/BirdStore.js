@@ -36,7 +36,7 @@ export const BirdStore = writable({
         funFactsFr:
             "Je suis née prématurément et j'ai un petit chien qui a une personalité très snob.",
         learnedFr:
-            "J'ai appris un peu comment développer des sites web pour aider à programmer cette page (la page des Angrynieurs). J'ai appris à concevoir, peindre et construire un kiosque thématique. J'ai dû sacrifier de nombreuses nuits de sommeil et de relaxation pendant les vacances d'hiver en apprenant à coder sans aucune expérience en développement Web. Au départ, je pensais que ce chemin serait trop difficile et ennuyeux, mais je n’aurais pas pu me tromper davantage. J'ai eu tellement de plaisir à apprendre à programmer et à déboguer mon code que j'ai l'intention de faire davantage de développement Web dans le futur.",
+            "J'ai appris un peu comment développer des sites web pour aider à programmer cette page (la page des Angrynieurs). J'ai appris à concevoir, peindre et construire un kiosque thématique. J'ai dû sacrifier de nombreuses nuits de sommeil et de relaxation pendant les vacances d'hiver en apprenant à coder sans aucune expérience en développement Web. Au départ, je pensais que ce chemin serait trop difficile et ennuyeux, mais je n'aurais pas pu me tromper davantage. J'ai eu tellement de plaisir à apprendre à programmer et à déboguer mon code que j'ai l'intention de faire davantage de développement Web dans le futur.",
         power: 'Tornado spin',
         hobbies: '3D modeling, karate, and learning new skills through online courses',
         funFacts:
@@ -227,7 +227,7 @@ export const BirdStore = writable({
         learnedFr: '',
         power: 'Duplication, high intelligence',
         hobbies: 'Watching soccer, buying Legos (Star Wars), and playing mobile games',
-        funFacts: "I'm 6’3 but terrible at basketbal",
+        funFacts: "I'm 6'3 but terrible at basketball",
         learned:
             'I learned how to use different tools, and how to make designs come to reality starting from prototyping. I also realized the importance of organization and communication skills in a workplace with a team. I had to sacrifice my last week of winter break to be at robotics which meant I had less time to prepare for the new semester. Luckily, we were productive during thatweek and were able to get a lot of work done, which should help us gain more testing time.'
     },

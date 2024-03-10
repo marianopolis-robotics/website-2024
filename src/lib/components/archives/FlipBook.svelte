@@ -7,7 +7,8 @@
 	import Entry from '$lib/components/archives/Entry.svelte';
 
 	export let isFr = false;
-	let flipbook, pageFlip;
+	export let name;
+	let flipbook, pageFlip, mobile;
 	let content = isFr ? fr : en;
 	let tabs = isFr ? frTabs : enTabs;
 
@@ -37,6 +38,15 @@
 		getCurrentPage();
 	}
 </script>
+
+<!-- mobile devices tend to have a coarse pointer instead of a fine/precise pointer
+		we'll need more pages to display all journal entries on mobile so we use the mobile variable to determine if extra pages should be shown
+		because we don't want lots of blank pages when not on mobile -->
+<svelte:window on:pageshow={() => mobile = window.matchMedia("(pointer: coarse)").matches}></svelte:window>
+
+<p class="rounded-box-container">{isFr ? `Bienvenue aux archives des Angrynieurs Mari de 2023-2024, ${name ? name : 'Angrynieur'}! Nous espérons que vous trouverez les souvenirs que vous cherchez dans notre journal.` 
+	: `Welcome to the 2023-2024 Mari Angryneer archives, ${name ? name : 'fellow Angryneer'}! We hope you find the memories you're looking for in our journal.`}
+</p>
 
 <div
 	class="book-container position-relative d-flex flex-column justify-content-center px-3 px-md-5 px-xl-none" on:click={getCurrentPage} on:keyup={getCurrentPage} role='button' tabindex="0"

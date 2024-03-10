@@ -412,7 +412,7 @@
 				Math.round(timer_seconds) +
 				' s' +
 				'<br/>' +
-				`${isFr ? 'Puissance de lancement: ' : 'Launch power: '}` +
+				`${isFr ? 'Puissance de projection: ' : 'Launch power: '}` +
 				self_player.power +
 				' m/s' +
 				'<br/>' +

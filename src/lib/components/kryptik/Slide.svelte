@@ -84,7 +84,11 @@
 
 	@media screen and (min-width: 700px) {
 		.bird {
-			height: 60%;
+			height: 50%;
+		}
+		img {
+			width: 70%;
+			justify-self: center;
 		}
 	}
 
@@ -95,14 +99,13 @@
 			gap: 1.5rem;
 		}
 		.bird {
-			height: 80%;
+			height: 250px;
 		}
 		model-viewer {
 			height: 100%;
 		}
 		img {
-			width: max-content;
-			justify-self: center;
+			width: 400px;
 		}
 		.p-wrapper {
 			height: 100%;
