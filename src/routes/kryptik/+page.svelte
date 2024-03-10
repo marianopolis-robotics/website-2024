@@ -39,12 +39,12 @@
 		{#if mobile}
 			Camera: drag right side of simulation screen (slightly shaded) to adjust view.<br />
 			Movement: use the joystick in the bottom left corner of the simulation screen.<br />
-			Shooting: use the slider in the bottom right to increase or decrease power, click slingshot button to launch.<br />
+			Shooting: use the slider in the bottom right to increase or decrease power, click slingshot button to launch a game piece.<br />
 			Multiplier: multiplier button will appear when near multiplier, click to place.<br />
 		{:else}
 			Camera: move mouse to adjust view, <kbd>I</kbd> key to zoom in, <kbd>O</kbd> key to zoom out.<br />
 			Movement: <kbd>WASD</kbd> keys to move.<br />
-			Shooting: <kbd>Q</kbd> key to increase power, <kbd>E</kbd> key to decrease power, <kbd>Space</kbd> bar to launch.<br />
+			Shooting: <kbd>Q</kbd> key to increase power, <kbd>E</kbd> key to decrease power, <kbd>Space</kbd> bar to launch a game piece.<br />
 			Multiplier: <kbd>M</kbd> key to place on multiplier.<br />
 		{/if}
 	</ControlsGuide>

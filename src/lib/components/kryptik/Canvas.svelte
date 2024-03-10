@@ -696,7 +696,7 @@
 			} else {
 				// end score calculation
 				start_mask_div.style.visibility = 'visible';
-				start_mask_text.innerHTML = `${isFr ? 'Fin de la joute: calcul de votre pointage en cours...' : 'Heat ended: calculating your score...'}`;
+				start_mask_text.innerHTML = `${isFr ? 'Fin de la joute: calcul de votre score en cours...' : 'Heat ended: calculating your score...'}`;
 				setTimeout(function () {
 					for (let game_piece of game_pieces) {
 						let positionX = game_piece.rigid_body.translation().x;
@@ -716,21 +716,21 @@
 							start_mask_text.innerHTML =
 								`${isFr ? 'Fin de la joute!' : 'Heat ended!'}` +
 								'<br/>' +
-								`${isFr ? 'Pointage: ' : 'Score: '}` +
+								'Score: ' +
 								score +
 								'<br/>' +
-								`${isFr ? 'Vous avez battu votre pointage record de ' : 'You beat your previous highscore of '}` +
+								`${isFr ? 'Vous avez battu votre score record de ' : 'You beat your previous high score of '}` +
 								highscore +
 								' :)<br/>' +
-								`${isFr ? 'Votre nouveau pointage record est: ' : 'Your new highscore is: '}` +
+								`${isFr ? 'Votre nouveau score record est: ' : 'Your new high score is: '}` +
 								score;
 							$userStore.highscore = score;
 						} else {
 							start_mask_text.innerHTML =
-								`${isFr ? 'Fin de la joute!' : 'Heat ended!'}` + '<br/>' + 'Score: ' + score + '<br/>' + `${isFr ? 'Votre pointage record précédent était ' : 'Your previous highscore was '}` + highscore;
+								`${isFr ? 'Fin de la joute!' : 'Heat ended!'}` + '<br/>' + 'Score: ' + score + '<br/>' + `${isFr ? 'Votre score record précédent était ' : 'Your previous high score was '}` + highscore;
 						}
 					} else {
-						start_mask_text.innerHTML = `${isFr ? 'Fin de la joute' : 'Heat ended'}` + '<br/>' + 'Score: ' + score + '<br/>' + `${isFr ? 'Votre nouveau pointage record est: ' : 'Your new highscore is: '}` + score;
+						start_mask_text.innerHTML = `${isFr ? 'Fin de la joute' : 'Heat ended'}` + '<br/>' + 'Score: ' + score + '<br/>' + `${isFr ? 'Votre nouveau score record est: ' : 'Your new high score is: '}` + score;
 						$userStore.highscore = score;
 					}
 				}, 5000);
@@ -788,7 +788,7 @@
 		</div>
 	</div>
 	<div class="options p-4 mt-5">
-		<p class="mb-4 fs-4 text-black">{isFr ? 'Votre pointage record est' : 'Your high score is'}: {$userStore.highscore} points</p>
+		<p class="mb-4 fs-4 text-black">{isFr ? 'Votre score record est' : 'Your high score is'}: {$userStore.highscore} points</p>
 		<div class="buttons d-grid">
 			{#if mobile === true}
 				<button class="reset" on:click={pause_game}>{isFr ? 'Mettre en pause/reprendre le jeu' : 'Pause/resume game'}</button>

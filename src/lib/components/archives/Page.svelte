@@ -1,4 +1,4 @@
-<div class="book-page position-relative">
+<div class="book-page">
   <!-- for the StPageFlip to work well on mobile, we can't have scrolling containers/pages (tapping always flips the page)
     so we use named slots to handle touch-only screens -->
   <!-- default slot (some content is the same on all devices and doesn't need the named slots) -->

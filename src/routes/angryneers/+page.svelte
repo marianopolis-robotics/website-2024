@@ -5,10 +5,7 @@
 
 
 <script>
-  import Landingpage from  "../../lib/components/angryneers/LandingPage.svelte"
+  import Landingpage from  "$lib/components/angryneers/LandingPage.svelte"
 </script>
 
-<Landingpage/>
-<p>
-
-</p>
+<Landingpage />

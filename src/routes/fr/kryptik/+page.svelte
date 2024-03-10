@@ -39,15 +39,15 @@
 	<ControlsGuide isFr={true} {name}>
 		<!-- mobile devices have different instructions (joystick, etc.) -->
 		{#if mobile}
-			Caméra: drag right side of simulation screen (slightly shaded) to adjust view.<br />
-			Mouvement: use the joystick in the bottom left corner of the simulation screen.<br />
-			Projection: use the slider in the bottom right to increase or decrease power, click slingshot button to launch.<br />
-			Multiplicateur: multiplier button will appear when near multiplier, click to place.<br />
+			Caméra: glissez le côté droit de l'écran de la simulation (légèrement ombré) pour changer l'orientation de la vue.<br />
+			Mouvement: utilisez la manette de jeu dans le coin en bas à gauche de la simulation.<br />
+			Projection: glissez le curseur de défilement en bas à droite pour augmenter ou diminuer la puissance, cliquez sur le bouton lance-pierre pour lancer une pièce de jeu.<br />
+			Multiplicateur: cliquez sur le bouton qui apparaît lorsque vous vous rapprochez d'un multiplicateur pour activer le multiplicateur.<br />
 		{:else}
 			Cliquez sur la fenêtre de la simulation pour démarrer une joute Kryptik de 5 minutes. Appuyez sur <kbd>Esc</kbd> pour sortir de la simulation.<br />
 			Caméra: déplacez votre curseur pour changer l'orientation de la vue, utilisez la touche <kbd>I</kbd> pour zoomer, <kbd>O</kbd> pour effectuer un zoom arrière.<br />
 			Mouvement: les touches <kbd>WASD</kbd> pour déplacer le robot.<br />
-			Projection: la touche <kbd>Q</kbd> pour augmenter la puissance, <kbd>E</kbd> pour diminuer la puissance, la barre <kbd>Espace</kbd> pour lancer.<br />
+			Projection: la touche <kbd>Q</kbd> pour augmenter la puissance, <kbd>E</kbd> pour diminuer la puissance, la barre <kbd>Espace</kbd> pour lancer une pièce de jeu.<br />
 			Multiplicateur: la touche <kbd>M</kbd> pour activer un multiplicateur.<br />
 		{/if}
 	</ControlsGuide>

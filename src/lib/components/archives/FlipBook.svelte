@@ -1,23 +1,25 @@
 <script>
   import { onMount } from 'svelte';
 	import * as St from 'page-flip';
-	import { en, fr, imgs, enTabs, frTabs } from '$lib/archives';
+	import { en, fr, imgs, enTabs, frTabs, frSmTabs, enSmTabs } from '$lib/archives';
 	import { userStore } from "$lib/Store";
 	import Page from '$lib/components/archives/Page.svelte';
 	import Entry from '$lib/components/archives/Entry.svelte';
 
 	export let isFr = false;
-	export let name;
 	let flipbook, pageFlip, mobile;
 	let content = isFr ? fr : en;
 	let tabs = isFr ? frTabs : enTabs;
+	let smTabs = isFr ? frSmTabs : enSmTabs;
+
+	let displayName = $userStore.name ? $userStore.name : (isFr ? 'Angrynieur' : 'Angryneer');
 
 	onMount(() => {
 		pageFlip = new St.PageFlip(flipbook, {
 			width: 600,
 			height: 700,
 			size: 'stretch',
-			minWidth: 280,
+			minWidth: 250,
 			maxWidth: 600,
 			startZIndex: 0
 		});
@@ -32,11 +34,6 @@
 			$userStore.archivesPg = pageFlip.getCurrentPageIndex();
 		}, 1000);
 	};
-
-	const tocClick = () => {
-		pageFlip.flip(1, 'top');
-		getCurrentPage();
-	}
 </script>
 
 <!-- mobile devices tend to have a coarse pointer instead of a fine/precise pointer
@@ -44,48 +41,58 @@
 		because we don't want lots of blank pages when not on mobile -->
 <svelte:window on:pageshow={() => mobile = window.matchMedia("(pointer: coarse)").matches}></svelte:window>
 
-<p class="rounded-box-container">{isFr ? `Bienvenue aux archives des Angrynieurs Mari de 2023-2024, ${name ? name : 'Angrynieur'}! Nous espérons que vous trouverez les souvenirs que vous cherchez dans notre journal.` 
-	: `Welcome to the 2023-2024 Mari Angryneer archives, ${name ? name : 'fellow Angryneer'}! We hope you find the memories you're looking for in our journal.`}
-</p>
+<p class="desc rounded-box-container mt-3 mx-3 mx-sm-5 px-4 px-md-5 py-3 py-md-4">{isFr ? `Bienvenue aux archives des Angrynieurs Mari de 2023-2024, ${displayName}! Nous espérons que vous trouverez les souvenirs que vous cherchez dans notre journal.` 
+	: `Welcome to the 2023-2024 Mari Angryneer archives, ${displayName}! We hope you find the memories you're looking for in our journal.`}
+</p><br /><br />
 
 <div
 	class="book-container position-relative d-flex flex-column justify-content-center px-3 px-md-5 px-xl-none" on:click={getCurrentPage} on:keyup={getCurrentPage} role='button' tabindex="0"
 	>
-	<button class="toc" on:click={tocClick}>
-		{content.toc}
-	</button>
-	<div class="tabs" on:click={getCurrentPage} on:keyup={getCurrentPage} role='button' tabindex="0">
+	<div class="tabs lg-tabs" on:click={getCurrentPage} on:keyup={getCurrentPage} role='button' tabindex="0">
 		{#each Object.entries(tabs) as [text, page] (page)}
 			<button class="tab" on:click={() => pageFlip.flip(page, 'top')}>{text}</button>
 		{/each}
 	</div>
+	<div class="tabs sm-tabs" on:click={getCurrentPage} on:keyup={getCurrentPage} role='button' tabindex="0">
+		{#each Object.entries(smTabs) as [text, page] (page)}
+			<button class="tab" on:click={() => pageFlip.flip(page, 'top')}>{text}</button>
+		{/each}
+	</div>
 	<!-- overflow had to be hidden due to glitchy scrolling behaviour caused by 3D transform overflow :/ -->
-<div id="book" class="mx-auto" bind:this={flipbook}>
+	<div id="book" class="mx-auto" bind:this={flipbook}>
 		<Page>
 			<div class="d-flex text-center justify-content-center align-items-center h-100">
-				<h2 class="title position-absolute">{content.title}</h2>
+				<h2 class="title">{content.title}</h2>
 			</div>
 		</Page>
 		<Page>
 			<h2 class="chapter mb-2">{content.toc}</h2>
+			<div class="toc-page mt-2 mt-sm-4" slot="pointer">
+				<p class="mb-0 mb-sm-1"><span class="toc-chapter">Robot<span><span class="visually-hidden">Page</span> 1</span></p>
+				<p class="mb-0 mb-sm-1"><span class="toc-chapter">{isFr ? 'Kiosque' : 'Kiosk'} <span><span class="visually-hidden">Page</span> 1</span></p>
+				<p class="mb-0 mb-sm-1"><span class="toc-chapter">{isFr ? 'Site web' : 'Website'} <span><span class="visually-hidden">Page</span> 1</span></p>
+				<p class="mb-0 mb-sm-1"><span class="toc-chapter">{isFr ? 'Vidéo' : 'Video'} <span><span class="visually-hidden">Page</span> 1</span></p>
+				<p class="mb-0 mb-sm-1"><span class="toc-chapter">{isFr ? 'Programmation' : 'Programming'} <span><span class="visually-hidden">Page</span> 1</span></p>
+			</div>
 		</Page>
 		<Page>
-			<p>{content.intro}</p>
+			<p class="fs-5">{content.intro1}</p>
+			<p class="fs-5">{content.intro2} {displayName}!</p>
 		</Page>
 		<Page>
 			<div slot="pointer">
 				<h2 class="chapter mb-1">Robot</h2>
 				<Entry date={content.robot.date1} text={content.robot.text1}
-							 img='/archives/{imgs.img1}' alt={content.robot.alt1} rotate='left'>
+							 img='/archives/{imgs.robot.pl1}' alt={content.robot.alt1} rotate='left'>
 				</Entry>
 				<Entry date={content.robot.date2} text={content.robot.text2}
-							 img='/archives/{imgs.img2}' alt={content.robot.alt2} rotate='right'>
+							 img='/archives/{imgs.robot.pl2}' alt={content.robot.alt2} rotate='right'>
 				</Entry>
 			</div>
 			<div slot="mobile">
 				<h2 class="chapter mb-1">Robot</h2>
 				<Entry date={content.robot.date1} text={content.robot.text1}
-							 img='/archives/{imgs.img1}' alt={content.robot.alt1} rotate='left'>
+							 img='/archives/{imgs.robot.pl1}' alt={content.robot.alt1} rotate='left'>
 				</Entry>
 			</div>
 		</Page>
@@ -93,8 +100,8 @@
 			{content.robot.text1}
 		</Page>
 		<Page>
-			<div class="d-flex justify-content-center align-items-center h-100">
-				<h2 class="title">{content.end}</h2>
+			<div class="d-flex justify-content-center align-items-center h-100 text-center">
+				<h2 class="title">~ {content.end} ~</h2>
 			</div>
 		</Page>
 	</div>
@@ -105,15 +112,15 @@
 <br><br>
 
 <style>
-	.tabs, .toc {
+	.tabs {
 		margin-left: 0.5rem;
 	}
 	
-	.tabs {
+	.lg-tabs {
 		display: none;
 	}
 
-	.tab, .toc {
+	.tab {
 		background-image: url('/textures/wood.png');
 		background-size: 100% 100%;
 		border-top-left-radius: 10px;
@@ -127,30 +134,49 @@
 		box-shadow: rgba(0, 0, 0, 0.7) 0px 14px 28px, rgba(0, 0, 0, 0.65) 0px 10px 10px;
 	}
 
-	.tab:hover, .toc:hover {
+	.tab:hover {
 		color: black;
 		text-shadow: none;
 	}
 	
 	.tab {
-		font-size: 18px;
-		margin-left: 5px;
-		margin-right: 5px;
+		font-size: 0.9rem;
+		margin-left: 3px;
+		margin-right: 3px;
 	}
-
-	.toc {
-		width: max-content;
-	}
-
+	
+	.desc {
+    background-color: rgba(255, 237, 194, 0.6);
+    border-radius: 10px;
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.3);
+    border: solid 0.5px #332400;
+		font-size: 1.5rem;
+		line-height: 2;
+  }
+	
 	.title {
 		text-transform: uppercase;
-		top: 50%;
-		transform: translateY(-50%);
 	}
 
 	.chapter, .title {
 		font-family: 'Jockey One', sans-serif;
 		text-align: center;
+	}
+
+	.toc-chapter {
+		display: inline-grid;
+		grid-template-columns: auto max-content;
+		width: 100%;
+	}
+
+	.visually-hidden {
+		clip: rect(0 0 0 0);
+		clip-path: inset(100%);
+		height: 1px;
+		overflow: hidden;
+		position: absolute;
+		width: 1px;
+		white-space: nowrap;
 	}
 
 	.book-container {
@@ -170,31 +196,27 @@
 	}
 
 	@media screen and (min-width: 500px) {
-		/* .book-page:nth-child(odd) {
-			border-top-left-radius: 10px;
-			border-bottom-left-radius: 10px;
-		}
-		
-		.book-page:nth-child(even) {
-			border-top-right-radius: 10px;
-			border-bottom-right-radius: 10px;
-		} */
-
-		.toc {
+		.tabs {
 			position: absolute;
 			top: -1.5lh;
 			left: calc((100% - 470px) / 2);
+		}
+
+		.tab {
+			font-size: 18px;
+			margin-left: 5px;
+			margin-right: 5px;
 		}
 	}
 	
 	/* around this width the page-flip is big enough for all tabs */
 	@media screen and (min-width: 610px) {
-		.tabs {
+		.lg-tabs {
 			display: block;
 			position: relative;
 		}
 
-		.toc {
+		.sm-tabs {
 			display: none;
 		}
 	}
