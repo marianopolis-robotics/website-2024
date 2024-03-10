@@ -9,7 +9,7 @@
 	export let isFr = false;
 
 	let attributes = {
-		accessories: ['caliper', 'screwdriver', 'laptop', 'measuring-tape', "none"],
+		accessories: ['caliper', 'screwdriver', 'laptop', 'measuringTape', "none"],
 		hats: ['construction-hat', 'gear-hat', 'director-hat', 'hacker-hat', "none"],
 		shapes: [
 			'red',
@@ -187,7 +187,7 @@
 					message="<"
 					reverseTilt={true}
 					on:click={() => {
-						nextAccessory(selectedTab.tab.toLowerCase());
+						prevAccessory(selectedTab.tab.toLowerCase());
 					}}
 				/>
 			</div>

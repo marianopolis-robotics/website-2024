@@ -42,11 +42,14 @@
 
 		currentBird = $BirdStore.birds[birdIndex];
 	}
+	function changePic(element, bird, changeTo, fileExt) {
+		element.src = `/${changeTo}/${bird}.${fileExt}`;
+	}
 </script>
 
-<div class="background">
+<div class="background d-flex align-items-center">
 	<div
-		class="container popup-content"
+		class="container popup-content my-auto align-middle"
 		transition:fadeScale={{
 			delay: 100,
 			duration: 500,
@@ -55,7 +58,7 @@
 		}}
 	>
 		<div class="row align-items-center">
-			<div class="col d-flex flex-row-reverse top-spacing">
+			<div class="col d-flex flex-row-reverse">
 				<WoodButton on:click={() => (showPopup = false)} message="X" />
 			</div>
 		</div>
@@ -78,7 +81,13 @@
 								{#if currentBird == 'user'}
 									<UserBird />
 								{:else}
-									<img src='/birds/{currentBird}.svg' alt="{currentBird}" />
+									<img
+										src="/birds/{currentBird}.svg"
+										on:mouseenter={changePic(this, currentBird, 'members', 'png')}
+										on:mouseleave={changePic(this, currentBird, 'birds', 'svg')}
+										alt={currentBird}
+										class="bird-picture"
+									/>
 								{/if}
 							</div>
 						{/key}
@@ -100,7 +109,7 @@
 							</div>
 						</div>
 					</div>
-					
+
 					{#key currentBird}
 					<div class="col col-sm-12 col-md-12 col-lg-8" id="box_container" in:fly={{ duration: 500 }}>
 						
@@ -215,11 +224,17 @@
 	#box_container {
 		position: relative;
 	}
+	.bird-picture {
+		width: 100%;
+	}
 	.popup-content {
 		z-index: 1000;
+		margin-top: auto;
+		margin-bottom: auto;
 	}
 	.bird_display {
 		min-width: 25%;
+		aspect-ratio: 1/1;
 	}
 
 	.box {
@@ -296,11 +311,6 @@
 	@media only screen and (min-width: 600px) {
 		.arrows_small {
 			display: none;
-		}
-	}
-	@media only screen and (min-width: 992px) {
-		.top-spacing {
-			margin-top: 20vh;
 		}
 	}
 </style>

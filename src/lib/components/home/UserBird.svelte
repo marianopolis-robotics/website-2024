@@ -12,45 +12,66 @@
 	// 	}
 	// });
 	let tallBirds = ['tony', 'terence', 'matilda'];
+
+	let hatPositions = {
+		construction: 25,
+		gear: 15,
+		hacker: 20,
+		director: 10
+	};
+	let accesorySizes = {
+		measuringTape: 25,
+		caliper: 25,
+		laptop: 35,
+		screwdriver: 30
+	};
+	let hatElement;
+	$: hatElement && hatElement.style.setProperty('--position-top', `${hatPositions[$userStore.hat.substring(0, $userStore.hat.length - 4)]}%`);
+	let accessoryElement;
+	$: accessoryElement && accessoryElement.style.setProperty('--accessory-size', `${accesorySizes[$userStore.accessory]}%`);
 </script>
 
-<div class="text-center bird_display" class:mirror={mirrored}>
+<div class="text-center bird_display" bind:this={accessoryElement} class:mirror={mirrored}>
 	{#if $userStore.accessory !== 'none'}
 		{#key $userStore.accessory}
 			<img
 				class="accessory"
 				class:big_accessory={$userStore.accessory == 'laptop'}
-				src='/accessories/{$userStore.accessory}.svg'
+				src="/accessories/{$userStore.accessory}.svg"
 				alt={$userStore.hat}
-				in:fade={{ duration: 200 }}
+				in:fade={{ duration: 400 }}
 			/>
-			{/key}
-		{/if}
-	
+		{/key}
+	{/if}
+
 	{#if $userStore.hat !== 'none'}
 		{#key $userStore.hat}
 			<img
 				class="hat"
 				class:hat-big={tallBirds.includes($userStore.shape)}
 				class:mirror={mirrored && $userStore.hat == 'director-hat'}
-				src='/hats/{$userStore.hat}.svg'
+				bind:this={hatElement}
+				src="/hats/{$userStore.hat}.svg"
 				alt={$userStore.hat}
-				transition:fly={{ duration: 200 }}
+				transition:fly={{ duration: 400 }}
 			/>
 		{/key}
 	{/if}
-
 	{#key $userStore.shape}
-		<img class="bird" src='/birds/{$userStore.shape}.svg' alt="" in:blur={{ duration: 200 }} />
+		<img class="bird" src="/birds/{$userStore.shape}.svg" alt="" in:blur={{ duration: 400 }} />
 	{/key}
 </div>
 
 <style>
+	:root {
+		--position-top: inherit;
+		--accessory-size: inherit;
+	}
 	.hat {
 		width: 50%;
 		z-index: -1;
 		position: absolute;
-		top: 10%;
+		top: var(--position-top);
 		left: 0;
 		right: 0;
 		margin-left: auto;
@@ -66,7 +87,7 @@
 	.hat-big {
 		width: 50%;
 		position: absolute;
-		top: -10%;
+		top: calc(var(--position-top) -25%);
 		left: 0;
 		right: 0;
 		margin-left: auto;
@@ -81,10 +102,10 @@
 
 	.accessory {
 		float: left;
-		width: 50%;
+		width: var(--accessory-size);
 		position: absolute;
-		left: -5%;
-		top: 45%;
+		/* left: -5%; */
+		bottom: 0;
 	}
 
 	.big_accessory {

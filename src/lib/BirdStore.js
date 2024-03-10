@@ -232,7 +232,7 @@ export const BirdStore = writable({
             'I learned how to use different tools, and how to create prototypes based on our designs. I also realized the importance of organization and communication skills as part of a team. I had to sacrifice my last week of winter break to be at robotics, which meant I had less time to prepare for the new semester. Luckily, we were productive during that week and were able to get a lot of work done, which should help us gain more testing time.'
     },
     blue2: {
-        bird: 'Jake',
+        bird: 'blue2',
         name: 'Theo Radhakrishna',
         subteam: 'Robot, video',
         subteamFr: 'Robot, vidéo',
@@ -247,7 +247,7 @@ export const BirdStore = writable({
             'I learned how to cooperate with lots of other people to build the robot, and I learned about pretty much every part of the robot. I had to sacrifice time with friends and study time during Activity Periods.'
     },
     blue3: {
-        bird: 'blue',
+        bird: 'blue3',
         name: 'Tyler Hamel-Wong',
         subteam: 'Website, kiosk, video',
         subteamFr: 'Site web, kiosque, vidéo',

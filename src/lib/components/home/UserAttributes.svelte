@@ -86,12 +86,12 @@
 								: 'e.g. engineering,  play piano, video games'}
 						bind:value={userHobbies}
 					/>
-					<label for="fun fact" class="form-label mt-4"
+					<label for="funFact" class="form-label mt-4"
 						>{isFr ? 'Un fait divers:' : 'Fun Fact:'}</label
 					>
 					<input
 						type="text"
-						id="fun fact"
+						id="funFact"
 						class="form-control form-control-lg"
 						class:input_error={inputError}
 						placeholder={inputError
