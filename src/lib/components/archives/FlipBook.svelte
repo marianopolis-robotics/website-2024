@@ -39,21 +39,21 @@
 <!-- mobile devices tend to have a coarse pointer instead of a fine/precise pointer
 		we'll need more pages to display all journal entries on mobile so we use the mobile variable to determine if extra pages should be shown
 		because we don't want lots of blank pages when not on mobile -->
-<svelte:window on:pageshow={() => mobile = window.matchMedia("(pointer: coarse)").matches}></svelte:window>
+<svelte:window on:pageshow={() => mobile = window.matchMedia("(pointer: coarse)").matches} on:click={getCurrentPage} on:keyup={getCurrentPage} ></svelte:window>
 
 <p class="desc rounded-box-container mt-3 mx-3 mx-sm-5 px-4 px-md-5 py-3 py-md-4">{isFr ? `Bienvenue aux archives des Angrynieurs Mari de 2023-2024, ${displayName}! Nous espérons que vous trouverez les souvenirs que vous cherchez dans notre journal.` 
 	: `Welcome to the 2023-2024 Mari Angryneer archives, ${displayName}! We hope you find the memories you're looking for in our journal.`}
 </p><br /><br />
 
 <div
-	class="book-container position-relative d-flex flex-column justify-content-center px-3 px-md-5 px-xl-none" on:click={getCurrentPage} on:keyup={getCurrentPage} role='button' tabindex="0"
+	class="book-container position-relative d-flex flex-column justify-content-center px-3 px-md-5 px-xl-none"
 	>
-	<div class="tabs lg-tabs" on:click={getCurrentPage} on:keyup={getCurrentPage} role='button' tabindex="0">
+	<div class="tabs lg-tabs">
 		{#each Object.entries(tabs) as [text, page] (page)}
 			<button class="tab" on:click={() => pageFlip.flip(page, 'top')}>{text}</button>
 		{/each}
 	</div>
-	<div class="tabs sm-tabs" on:click={getCurrentPage} on:keyup={getCurrentPage} role='button' tabindex="0">
+	<div class="tabs sm-tabs">
 		{#each Object.entries(smTabs) as [text, page] (page)}
 			<button class="tab" on:click={() => pageFlip.flip(page, 'top')}>{text}</button>
 		{/each}
