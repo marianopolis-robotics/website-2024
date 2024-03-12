@@ -17,7 +17,7 @@
 		construction: 25,
 		gear: 15,
 		hacker: 20,
-		director: 10
+		director: 20
 	};
 	let accesorySizes = {
 		measuringTape: 25,
