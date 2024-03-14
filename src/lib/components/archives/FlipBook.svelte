@@ -34,6 +34,11 @@
 			$userStore.archivesPg = pageFlip.getCurrentPageIndex();
 		}, 1000);
 	};
+
+	const isActive = (start, end) => {
+		let curr = $userStore.archivesPg;
+		return (curr >= start && curr <= end);
+	}
 </script>
 
 <!-- mobile devices tend to have a coarse pointer instead of a fine/precise pointer
@@ -49,13 +54,13 @@
 	class="book-container position-relative d-flex flex-column justify-content-center px-3 px-md-5 px-xl-none"
 	>
 	<div class="tabs lg-tabs">
-		{#each Object.entries(tabs) as [text, page] (page)}
-			<button class="tab" on:click={() => pageFlip.flip(page, 'top')}>{text}</button>
+		{#each Object.entries(tabs) as [text, pageRange] (pageRange[0])}
+			<button class="tab" class:activeTab={isActive(pageRange[0], pageRange[1])} on:click={() => pageFlip.flip(pageRange[0], 'top')}>{text}</button>
 		{/each}
 	</div>
 	<div class="tabs sm-tabs">
-		{#each Object.entries(smTabs) as [text, page] (page)}
-			<button class="tab" on:click={() => pageFlip.flip(page, 'top')}>{text}</button>
+		{#each Object.entries(smTabs) as [text, pageRange] (pageRange[0])}
+			<button class="tab" class:activeTab={isActive(pageRange[0], pageRange[1])} on:click={() => pageFlip.flip(pageRange[0], 'top')}>{text}</button>
 		{/each}
 	</div>
 	<!-- overflow had to be hidden due to glitchy scrolling behaviour caused by 3D transform overflow :/ -->
@@ -83,21 +88,110 @@
 			<div slot="pointer">
 				<h2 class="chapter mb-1">Robot</h2>
 				<Entry date={content.robot.date1} text={content.robot.text1}
-							 img='/archives/{imgs.robot.pl1}' alt={content.robot.alt1} rotate='left'>
+							 img='/archives/{imgs.robot.img1}' alt={content.robot.alt1} rotate='left'>
 				</Entry>
 				<Entry date={content.robot.date2} text={content.robot.text2}
-							 img='/archives/{imgs.robot.pl2}' alt={content.robot.alt2} rotate='right'>
+							 img='/archives/{imgs.robot.img2}' alt={content.robot.alt2} rotate='right'>
 				</Entry>
 			</div>
 			<div slot="mobile">
 				<h2 class="chapter mb-1">Robot</h2>
 				<Entry date={content.robot.date1} text={content.robot.text1}
-							 img='/archives/{imgs.robot.pl1}' alt={content.robot.alt1} rotate='left'>
+							 img='/archives/{imgs.robot.img1}' alt={content.robot.alt1} rotate='left'>
 				</Entry>
 			</div>
 		</Page>
 		<Page>
-			{content.robot.text1}
+			<div slot="pointer">
+				<Entry date={content.robot.date3} text={content.robot.text3}
+							 img='/archives/{imgs.robot.img3}' alt={content.robot.alt3} rotate='left'>
+				</Entry>
+				<Entry date={content.robot.date4} text={content.robot.text4}
+							 img='/archives/{imgs.robot.img4}' alt={content.robot.alt4} rotate='right'>
+				</Entry>
+			</div>
+			<div slot="mobile">
+				<Entry date={content.robot.date2} text={content.robot.text2}
+							 img='/archives/{imgs.robot.img2}' alt={content.robot.alt2} rotate='left'>
+				</Entry>
+			</div>
+		</Page>
+		<Page>
+			<div slot="pointer">
+				<Entry date={content.robot.date5} text={content.robot.text5}
+							 img='/archives/{imgs.robot.img5}' alt={content.robot.alt5} rotate='left'>
+				</Entry>
+				<Entry date={content.robot.date6} text={content.robot.text6}
+							 img='/archives/{imgs.robot.img6}' alt={content.robot.alt6} rotate='right'>
+				</Entry>
+			</div>
+			<div slot="mobile">
+				<Entry date={content.robot.date3} text={content.robot.text3}
+							 img='/archives/{imgs.robot.img3}' alt={content.robot.alt3} rotate='left'>
+				</Entry>
+			</div>
+		</Page>
+		<Page>
+			<div slot="pointer">
+				<Entry date={content.robot.date7} text={content.robot.text7}
+							 img='/archives/{imgs.robot.img7}' alt={content.robot.alt7} rotate='left'>
+				</Entry>
+				<Entry date={content.robot.date8} text={content.robot.text8}
+							 img='/archives/{imgs.robot.img8}' alt={content.robot.alt8} rotate='right'>
+				</Entry>
+			</div>
+			<div slot="mobile">
+				<Entry date={content.robot.date4} text={content.robot.text4}
+							 img='/archives/{imgs.robot.img4}' alt={content.robot.alt4} rotate='left'>
+				</Entry>
+			</div>
+		</Page>
+		<Page>
+			<div slot="pointer">
+				<Entry date={content.robot.date9} text={content.robot.text9}
+							 img='/archives/{imgs.robot.img9}' alt={content.robot.alt9} rotate='left'>
+				</Entry>
+				<Entry date={content.robot.date10} text={content.robot.text10}
+							 img='/archives/{imgs.robot.img10}' alt={content.robot.alt10} rotate='right'>
+				</Entry>
+			</div>
+			<div slot="mobile">
+				<Entry date={content.robot.date5} text={content.robot.text5}
+							 img='/archives/{imgs.robot.img5}' alt={content.robot.alt5} rotate='left'>
+				</Entry>
+			</div>
+		</Page>
+		<Page>
+			<div slot="pointer">
+				<h2 class="chapter mb-1">Kiosk</h2>
+				<Entry date={content.kiosk.date1} text={content.kiosk.text1}
+							 img='/archives/{imgs.kiosk.img1}' alt={content.kiosk.alt1} rotate='left'>
+				</Entry>
+				<Entry date={content.kiosk.date2} text={content.kiosk.text2}
+							 img='/archives/{imgs.kiosk.img2}' alt={content.kiosk.alt2} rotate='right'>
+				</Entry>
+			</div>
+			<div slot="mobile">
+				<h2 class="chapter mb-1">Kiosk</h2>
+				<Entry date={content.kiosk.date1} text={content.kiosk.text1}
+							 img='/archives/{imgs.kiosk.img1}' alt={content.kiosk.alt1} rotate='left'>
+				</Entry>
+			</div>
+		</Page>
+		<Page>
+			<div slot="pointer">
+				<Entry date={content.kiosk.date3} text={content.kiosk.text3}
+							 img='/archives/{imgs.kiosk.img3}' alt={content.kiosk.alt3} rotate='left'>
+				</Entry>
+				<Entry date={content.kiosk.date4} text={content.kiosk.text4}
+							 img='/archives/{imgs.kiosk.img4}' alt={content.kiosk.alt4} rotate='right'>
+				</Entry>
+			</div>
+			<div slot="mobile">
+				<Entry date={content.kiosk.date2} text={content.kiosk.text2}
+							 img='/archives/{imgs.kiosk.img2}' alt={content.kiosk.alt2} rotate='left'>
+				</Entry>
+			</div>
 		</Page>
 		<Page>
 			<div class="d-flex justify-content-center align-items-center h-100 text-center">
@@ -143,6 +237,10 @@
 		font-size: 0.9rem;
 		margin-left: 3px;
 		margin-right: 3px;
+	}
+
+	.activeTab {
+		text-decoration: underline;
 	}
 	
 	.desc {

@@ -3,11 +3,11 @@
   export let date, text, img, alt, rotate;
 </script>
 
-<div class="entry d-flex column-gap-4">
+<div class="entry d-flex flex-column">
   <BookImg src={img} {alt} {rotate} />
-  <div class="textbox">
+  <div class="textbox mt-4">
     <h4 class="date">{date}</h4>
-    <p>{text}</p>
+    <p class="mb-1">{text}</p>
   </div>
 </div>
 
@@ -35,7 +35,7 @@
   @media screen and (min-width: 600px) {
     .entry {
       flex-direction: column;
-      gap: 1.5rem;
+      gap: 0.5rem;
     }
   }
 
@@ -52,7 +52,7 @@
   }
 
   .textbox {
-    width: 80%;
+    width: 92%;
   }
 
   .textbox p {
