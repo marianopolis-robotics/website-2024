@@ -164,8 +164,8 @@ export const fr = {
     "alt4": "7 membres de l'équipe robot en train de tester le mécanisme de lancement à double volant d'inertie.",
     "date5": "11 janv. 2024",
     "text5": "Les angrynieurs en robotique terminent l'alignement du cadre de base et des roues omnidirectionnelles mecanum. Ils construisent une rampe et testent les capacités d'escalade du robot. Succès!",
-    "alt5": "11 janv. 2024",
-    "date6": "7 membres de l'équipe robot en train de conduire le robot sur une rampe.",
+    "alt5": "7 membres de l'équipe robot en train de conduire le robot sur une rampe.",
+    "date6": "12 janv. 2024",
     "text6": "Les angrynieurs en robotique optent pour un système de stockage de type toboggan pour ranger les pièces de jeu après les avoir prises.",
     "alt6": "Une balle qui dévale le système de stockage toboggan.",
     "date7": "18 janv. 2024",
@@ -317,9 +317,9 @@ export const imgs = {
   },
   "website": {
     "img1": "website/nov-30.jpg",
-    "img2-en": "website/dec-29-en.png",
-    "img2-fr": "website/dec-29-fr.png",
-    "img3": "website/jan-3.png",
+    "img2-en": "website/dec-29-en.jpg",
+    "img2-fr": "website/dec-29-fr.jpg",
+    "img3": "website/jan-3.jpg",
     "img4": "website/jan-8.jpg",
     "img5": "website/jan-10.jpg",
     "img6": "website/feb-6.jpg",
@@ -327,7 +327,7 @@ export const imgs = {
     "img8": "website/mar-8.jpg"
   },
   "video": {
-    "img1": "video/nov-30.png",
+    "img1": "video/nov-30.jpg",
     "img2": "video/jan-8.jpg",
     "img3": "video/jan-18.jpg",
     "img4": "video/feb-6.jpg",
@@ -338,10 +338,10 @@ export const imgs = {
   },
   "programming": {
     "img1": "programming/nov-19.jpg",
-    "img2": "programming/dec-3.png",
-    "img3": "programming/jan-26.png",
-    "img4": "programming/feb-5.png",
-    "img5": "programming/feb-18.png"
+    "img2": "programming/dec-3.jpg",
+    "img3": "programming/jan-26.jpg",
+    "img4": "programming/feb-5.jpg",
+    "img5": "programming/feb-18.jpg"
   }
 }
 
