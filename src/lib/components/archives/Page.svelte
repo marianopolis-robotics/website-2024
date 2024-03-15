@@ -1,3 +1,8 @@
+<script>
+  export let mNumber = null;
+  export let number = null;
+</script>
+
 <div class="book-page">
   <!-- for the StPageFlip to work well on mobile, we can't have scrolling containers/pages (tapping always flips the page)
     so we use named slots to handle touch-only screens -->
@@ -5,9 +10,13 @@
   <slot />
   <div class="pointer">
     <slot name="pointer" />
+    {#if number}
+    <p class="text-center fst-italic mb-0">{number}</p>
+    {/if}
   </div>
   <div class="mobile">
     <slot name="mobile" />
+    <p class="text-center fst-italic mb-0">{mNumber}</p>
   </div>
 </div>
 

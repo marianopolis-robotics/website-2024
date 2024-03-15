@@ -20,21 +20,18 @@ export const en = {
     "date5": "Jan 11, 2024",
     "text5": "The robot angryneers complete the base frame and mecanum wheelbase alignment. They build a ramp and test the robot's ramp-climbing abilities. Success!",
     "alt5": "7 members of the robot team driving the robot onto a ramp.",
-    "date6": "Jan 12, 2024",
-    "text6": "The robot angryneers settle on a toboggan-style storage system to store game pieces after intaking them.",
-    "alt6": "A ball rolling down the toboggan storage system.",
-    "date7": "Jan 18, 2024",
-    "text7": "The robot angryneers finalise the circuit board with some (not-so) innovative soldering techniques.",
-    "alt7": "2 members of the robot team soldering motors.",
-    "date8": "Feb 6, 2024",
-    "text8": "A makeshift toboggan is assembled onto the robot for testing.",
-    "alt8": "The robot with the makeshift toboggan made out of cardboard.",
-    "date9": "Feb 20, 2024",
-    "text9": "The robot angryneers build a shooting tower to test out the improved double flywheel system with new gearbox ratios. Success!",
-    "alt9": "The tower with its vertical conveyor belt and double flywheel system.",
-    "date10": "Mar 7, 2024",
-    "text10": "After a long week of hard work, the robot angryneers have completed the toboggan, multiplier and intake systems to test a fully functional robot! They are very proud of how far the robot has come and will continue to make improvements.",
-    "alt10": "The finalised version of the robot with all its functional systems."
+    "date6": "Jan 18, 2024",
+    "text6": "The robot angryneers finalise the circuit board with some (not-so) innovative soldering techniques.",
+    "alt6": "2 members of the robot team soldering motors.",
+    "date7": "Feb 6, 2024",
+    "text7": "A makeshift toboggan is assembled onto the robot for testing.",
+    "alt7": "The robot with the makeshift toboggan made out of cardboard.",
+    "date8": "Feb 20, 2024",
+    "text8": "The robot angryneers build a shooting tower to test out the improved double flywheel system with new gearbox ratios. Success!",
+    "alt8": "The tower with its vertical conveyor belt and double flywheel system.",
+    "date9": "Mar 7, 2024",
+    "text9": "After a long week of hard work, the robot angryneers have completed the toboggan, multiplier and intake systems to test a fully functional robot! They are very proud of how far the robot has come and will continue to make improvements.",
+    "alt9": "The finalised version of the robot with all its functional systems."
   },
     "kiosk": {
     "date1": "Nov 30, 2023",
@@ -165,21 +162,18 @@ export const fr = {
     "date5": "11 janv. 2024",
     "text5": "Les angrynieurs en robotique terminent l'alignement du cadre de base et des roues omnidirectionnelles mecanum. Ils construisent une rampe et testent les capacités d'escalade du robot. Succès!",
     "alt5": "7 membres de l'équipe robot en train de conduire le robot sur une rampe.",
-    "date6": "12 janv. 2024",
-    "text6": "Les angrynieurs en robotique optent pour un système de stockage de type toboggan pour ranger les pièces de jeu après les avoir prises.",
-    "alt6": "Une balle qui dévale le système de stockage toboggan.",
-    "date7": "18 janv. 2024",
-    "text7": "Les angrynieurs en robotique finalisent le circuit électrique à l'aide de techniques de soudure (pas si) innovantes.",
-    "alt7": "2 membres de l'équipe robotique en train de souder des moteurs.",
-    "date8": "6 fév. 2024",
-    "text8": "Un toboggan est assemblé sur le robot pour tester ses capacités de stockage des pièces de jeu.",
-    "alt8": "Le robot muni d'un système toboggan en carton.",
-    "date9": "20 fév. 2024",
-    "text9": "Les angrynieurs Mari construisent une tour de tir pour tester le système amélioré de double volant d'inertie avec de nouveaux rapports de boîte de vitesses. Succès!",
-    "alt9": "La tour avec son convoyeur vertical et le système à double volant d'inertie.",
-    "date10": "7 mars",
-    "text10": "Après une longue semaine de travail acharné, les robots angryneers ont terminé le toboggan, le multiplicateur et les systèmes d'admission pour tester un robot entièrement fonctionnel ! Ils sont très fiers du chemin parcouru par le robot et continueront à l'améliorer dans les semaines à venir.",
-    "alt10": "Le robot finalisé avec tous ses systèmes fonctionnels."
+    "date6": "18 janv. 2024",
+    "text6": "Les angrynieurs en robotique finalisent le circuit électrique à l'aide de techniques de soudure (pas si) innovantes.",
+    "alt6": "2 membres de l'équipe robotique en train de souder des moteurs.",
+    "date7": "6 fév. 2024",
+    "text7": "Un toboggan est assemblé sur le robot pour tester ses capacités de stockage des pièces de jeu.",
+    "alt7": "Le robot muni d'un système toboggan en carton.",
+    "date8": "20 fév. 2024",
+    "text8": "Les angrynieurs Mari construisent une tour de tir pour tester le système amélioré de double volant d'inertie avec de nouveaux rapports de boîte de vitesses. Succès!",
+    "alt8": "La tour avec son convoyeur vertical et le système à double volant d'inertie.",
+    "date9": "7 mars",
+    "text9": "Après une longue semaine de travail acharné, les robots angryneers ont terminé le toboggan, le multiplicateur et les systèmes d'admission pour tester un robot entièrement fonctionnel ! Ils sont très fiers du chemin parcouru par le robot et continueront à l'améliorer dans les semaines à venir.",
+    "alt9": "Le robot finalisé avec tous ses systèmes fonctionnels."
   },
     "kiosk": {
     "date1": "30 nov. 2023",
@@ -296,11 +290,10 @@ export const imgs = {
     "img3": "robot/dec-7.jpg",
     "img4": "robot/jan-10.jpg",
     "img5": "robot/jan-11.jpg",
-    "img6": "robot/jan-12.jpg",
-    "img7": "robot/jan-18.jpg",
-    "img8": "robot/feb-6.jpg",
-    "img9": "robot/feb-20.jpg",
-    "img10": "robot/mar-7.jpg"
+    "img6": "robot/jan-18.jpg",
+    "img7": "robot/feb-6.jpg",
+    "img8": "robot/feb-20.jpg",
+    "img9": "robot/mar-7.jpg"
   },
   "kiosk": {
     "img1": "kiosk/nov-30.jpg",
@@ -345,7 +338,7 @@ export const imgs = {
   }
 }
 
-const chapterPages = [3, 8, 18, 26, 34];
+const chapterPages = [3, 8, 14, 26, 34];
 const mobileChapterPages = [3, 15, 23, 29, 38];
 
 export const enTabs = {

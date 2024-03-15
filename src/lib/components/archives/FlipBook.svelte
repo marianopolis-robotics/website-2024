@@ -1,5 +1,6 @@
 <script>
   import { onMount } from 'svelte';
+	import { fade } from 'svelte/transition';
 	import * as St from 'page-flip';
 	import { en, fr, imgs, enTabs, frTabs, frSmTabs, enSmTabs } from '$lib/archives';
 	import { userStore } from "$lib/Store";
@@ -16,11 +17,11 @@
 
 	onMount(() => {
 		pageFlip = new St.PageFlip(flipbook, {
-			width: 600,
-			height: 700,
+			width: 650,
+			height: 800,
 			size: 'stretch',
 			minWidth: 250,
-			maxWidth: 600,
+			maxWidth: 650,
 			startZIndex: 0
 		});
 		pageFlip.loadFromHTML(flipbook.querySelectorAll('.book-page'));
@@ -36,7 +37,7 @@
 	};
 
 	const isActive = (start, end) => {
-		let curr = $userStore.archivesPg;
+		let curr = mobile ? $userStore.archivesPg : ($userStore.archivesPg % 2 == 0 ? $userStore.archivesPg : $userStore.archivesPg - 1);
 		return (curr >= start && curr <= end);
 	}
 </script>
@@ -51,7 +52,7 @@
 </p><br /><br />
 
 <div
-	class="book-container position-relative d-flex flex-column justify-content-center px-3 px-md-5 px-xl-none"
+	class="book-container position-relative d-flex flex-column justify-content-center px-3 px-md-5 px-xl-none" in:fade
 	>
 	<div class="tabs lg-tabs">
 		{#each Object.entries(tabs) as [text, pageRange] (pageRange[0])}
@@ -70,7 +71,7 @@
 				<h2 class="title">{content.title}</h2>
 			</div>
 		</Page>
-		<Page>
+		<Page mNumber="1" number="1">
 			<h2 class="chapter mb-2">{content.toc}</h2>
 			<div class="toc-page mt-2 mt-sm-4" slot="pointer">
 				<p class="mb-0 mb-sm-1"><span class="toc-chapter">Robot<span><span class="visually-hidden">Page</span> 1</span></p>
@@ -80,11 +81,11 @@
 				<p class="mb-0 mb-sm-1"><span class="toc-chapter">{isFr ? 'Programmation' : 'Programming'} <span><span class="visually-hidden">Page</span> 1</span></p>
 			</div>
 		</Page>
-		<Page>
+		<Page mNumber="2" number="2">
 			<p class="fs-5">{content.intro1}</p>
 			<p class="fs-5">{content.intro2} {displayName}!</p>
 		</Page>
-		<Page>
+		<Page mNumber="3" number="3">
 			<div slot="pointer">
 				<h2 class="chapter mb-1">Robot</h2>
 				<Entry date={content.robot.date1} text={content.robot.text1}
@@ -101,7 +102,7 @@
 				</Entry>
 			</div>
 		</Page>
-		<Page>
+		<Page mNumber="4" number="4">
 			<div slot="pointer">
 				<Entry date={content.robot.date3} text={content.robot.text3}
 							 img='/archives/{imgs.robot.img3}' alt={content.robot.alt3} rotate='left'>
@@ -116,7 +117,7 @@
 				</Entry>
 			</div>
 		</Page>
-		<Page>
+		<Page mNumber="5" number="5">
 			<div slot="pointer">
 				<Entry date={content.robot.date5} text={content.robot.text5}
 							 img='/archives/{imgs.robot.img5}' alt={content.robot.alt5} rotate='left'>
@@ -131,7 +132,7 @@
 				</Entry>
 			</div>
 		</Page>
-		<Page>
+		<Page mNumber="6" number="6">
 			<div slot="pointer">
 				<Entry date={content.robot.date7} text={content.robot.text7}
 							 img='/archives/{imgs.robot.img7}' alt={content.robot.alt7} rotate='left'>
@@ -146,13 +147,10 @@
 				</Entry>
 			</div>
 		</Page>
-		<Page>
+		<Page mNumber="7" number="7">
 			<div slot="pointer">
 				<Entry date={content.robot.date9} text={content.robot.text9}
 							 img='/archives/{imgs.robot.img9}' alt={content.robot.alt9} rotate='left'>
-				</Entry>
-				<Entry date={content.robot.date10} text={content.robot.text10}
-							 img='/archives/{imgs.robot.img10}' alt={content.robot.alt10} rotate='right'>
 				</Entry>
 			</div>
 			<div slot="mobile">
@@ -161,9 +159,9 @@
 				</Entry>
 			</div>
 		</Page>
-		<Page>
+		<Page mNumber="8" number="8">
 			<div slot="pointer">
-				<h2 class="chapter mb-1">Kiosk</h2>
+				<h2 class="chapter mb-1">{isFr ? 'Kiosque' : 'Kiosk'}</h2>
 				<Entry date={content.kiosk.date1} text={content.kiosk.text1}
 							 img='/archives/{imgs.kiosk.img1}' alt={content.kiosk.alt1} rotate='left'>
 				</Entry>
@@ -172,13 +170,13 @@
 				</Entry>
 			</div>
 			<div slot="mobile">
-				<h2 class="chapter mb-1">Kiosk</h2>
+				<h2 class="chapter mb-1">{isFr ? 'Kiosque' : 'Kiosk'}</h2>
 				<Entry date={content.kiosk.date1} text={content.kiosk.text1}
 							 img='/archives/{imgs.kiosk.img1}' alt={content.kiosk.alt1} rotate='left'>
 				</Entry>
 			</div>
 		</Page>
-		<Page>
+		<Page mNumber="9" number="9">
 			<div slot="pointer">
 				<Entry date={content.kiosk.date3} text={content.kiosk.text3}
 							 img='/archives/{imgs.kiosk.img3}' alt={content.kiosk.alt3} rotate='left'>
@@ -190,6 +188,110 @@
 			<div slot="mobile">
 				<Entry date={content.kiosk.date2} text={content.kiosk.text2}
 							 img='/archives/{imgs.kiosk.img2}' alt={content.kiosk.alt2} rotate='left'>
+				</Entry>
+			</div>
+		</Page>
+		<Page mNumber="10" number="10">
+			<div slot="pointer">
+				<Entry date={content.kiosk.date5} text={content.kiosk.text5}
+							 img='/archives/{imgs.kiosk.img5}' alt={content.kiosk.alt5} rotate='left'>
+				</Entry>
+				<Entry date={content.kiosk.date6} text={content.kiosk.text6}
+							 img='/archives/{imgs.kiosk.img6}' alt={content.kiosk.alt6} rotate='right'>
+				</Entry>
+			</div>
+			<div slot="mobile">
+				<Entry date={content.kiosk.date3} text={content.kiosk.text3}
+							 img='/archives/{imgs.kiosk.img3}' alt={content.kiosk.alt3} rotate='left'>
+				</Entry>
+			</div>
+		</Page>
+		<Page mNumber="11" number="11">
+			<div slot="pointer">
+				<Entry date={content.kiosk.date7} text={content.kiosk.text7}
+							 img='/archives/{imgs.kiosk.img7}' alt={content.kiosk.alt7} rotate='left'>
+				</Entry>
+				<Entry date={content.kiosk.date8} text={content.kiosk.text8}
+							 img='/archives/{imgs.kiosk.img8}' alt={content.kiosk.alt8} rotate='right'>
+				</Entry>
+			</div>
+			<div slot="mobile">
+				<Entry date={content.kiosk.date4} text={content.kiosk.text4}
+							 img='/archives/{imgs.kiosk.img4}' alt={content.kiosk.alt4} rotate='left'>
+				</Entry>
+			</div>
+		</Page>
+		<Page mNumber="12" number="12">
+			<div slot="pointer">
+				<Entry date={content.kiosk.date9} text={content.kiosk.text9}
+							 img='/archives/{imgs.kiosk.img9}' alt={content.kiosk.alt9} rotate='left'>
+				</Entry>
+				<Entry date={content.kiosk.date10} text={content.kiosk.text10}
+							 img='/archives/{imgs.kiosk.img10}' alt={content.kiosk.alt10} rotate='right'>
+				</Entry>
+			</div>
+			<div slot="mobile">
+				<Entry date={content.kiosk.date5} text={content.kiosk.text5}
+							 img='/archives/{imgs.kiosk.img5}' alt={content.kiosk.alt5} rotate='left'>
+				</Entry>
+			</div>
+		</Page>
+		<Page mNumber="13" number="13">
+			<div slot="pointer">
+				<Entry date={content.kiosk.date11} text={content.kiosk.text11}
+							 img='/archives/{imgs.kiosk.img11}' alt={content.kiosk.alt11} rotate='left'>
+				</Entry>
+			</div>
+			<div slot="mobile">
+				<Entry date={content.kiosk.date6} text={content.kiosk.text6}
+							 img='/archives/{imgs.kiosk.img6}' alt={content.kiosk.alt6} rotate='left'>
+				</Entry>
+			</div>
+		</Page>
+		<Page mNumber="14" number="14">
+			<div slot="pointer">
+				<h2 class="chapter mb-1">{isFr ? 'Site web' : 'Website'}</h2>
+				<Entry date={content.website.date1} text={content.website.text1}
+				img='/archives/{imgs.website.img1}' alt={content.website.alt1} rotate='left'>
+				</Entry>
+				<Entry date={content.website.date2} text={content.website.text2}
+				img='/archives/{isFr ? imgs.website['img2-fr'] : imgs.website['img2-en']}' alt={content.website.alt2} rotate='right'>
+				</Entry>
+			</div>
+			<div slot="mobile">
+				<h2 class="chapter mb-1">{isFr ? 'Site web' : 'Website'}</h2>
+				<Entry date={content.website.date1} text={content.website.text1}
+				img='/archives/{imgs.website.img1}' alt={content.website.alt1} rotate='left'>
+				</Entry>
+			</div>
+		</Page>
+		<Page mNumber="15" number="15">
+			<div slot="pointer">
+				<Entry date={content.website.date3} text={content.website.text3}
+				img='/archives/{imgs.website.img3}' alt={content.website.alt3} rotate='left'>
+				</Entry>
+				<Entry date={content.website.date4} text={content.website.text4}
+				img='/archives/{imgs.website.img4}' alt={content.website.alt4} rotate='right'>
+				</Entry>
+			</div>
+			<div slot="mobile">
+				<Entry date={content.website.date2} text={content.website.text2}
+				img='/archives/{isFr ? imgs.website['img2-fr'] : imgs.website['img2-en']}' alt={content.website.alt2} rotate='left'>
+				</Entry>
+			</div>
+		</Page>
+		<Page mNumber="16" number="16">
+			<div slot="pointer">
+				<Entry date={content.website.date5} text={content.website.text5}
+				img='/archives/{imgs.website.img5}' alt={content.website.alt5} rotate='left'>
+				</Entry>
+				<Entry date={content.website.date6} text={content.website.text6}
+				img='/archives/{imgs.website.img6}' alt={content.website.alt6} rotate='right'>
+				</Entry>
+			</div>
+			<div slot="mobile">
+				<Entry date={content.website.date3} text={content.website.text3}
+				img='/archives/{imgs.website.img3}' alt={content.website.alt3} rotate='left'>
 				</Entry>
 			</div>
 		</Page>
@@ -297,7 +399,7 @@
 		.tabs {
 			position: absolute;
 			top: -1.5lh;
-			left: calc((100% - 470px) / 2);
+			/* left: calc((100% - 470px) / 2); */
 		}
 
 		.tab {
@@ -311,7 +413,6 @@
 	@media screen and (min-width: 610px) {
 		.lg-tabs {
 			display: block;
-			position: relative;
 		}
 
 		.sm-tabs {
@@ -324,7 +425,7 @@
 		.tabs {
 			position: absolute;
 			top: -1.7lh;
-			left: calc((100% - 931.666px) / 2 + 5px);
+			left: calc((100% - 910px) / 2 + 5px);
 			margin-left: 0;
 		}
 	}
@@ -336,7 +437,7 @@
 		}
 		.tabs {
 			top: -1.75lh;
-			left: calc((100% - 1000px) / 2 + 5px);
+			left: calc((100% - 950px) / 2 + 5px);
 		}
 	}
 </style>
