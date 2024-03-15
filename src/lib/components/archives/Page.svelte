@@ -1,6 +1,8 @@
 <script>
   export let mNumber = null;
   export let number = null;
+  export let toc = false;
+  export let specialPg = false;
 </script>
 
 <div class="book-page">
@@ -8,15 +10,15 @@
     so we use named slots to handle touch-only screens -->
   <!-- default slot (some content is the same on all devices and doesn't need the named slots) -->
   <slot />
-  <div class="pointer">
+  <div class="pointer flex-column justify-content-between" class:toc class:specialPg>
     <slot name="pointer" />
     {#if number}
-    <p class="text-center fst-italic mb-0">{number}</p>
+    <p class="text-center fst-italic mb-0{specialPg ? '' : ' pb-2 pb-sm-4'}">{number}</p>
     {/if}
   </div>
-  <div class="mobile">
+  <div class="mobile flex-column justify-content-between" class:toc class:specialPg>
     <slot name="mobile" />
-    <p class="text-center fst-italic mb-0">{mNumber}</p>
+    <p class="text-center fst-italic mb-0{specialPg ? '' : ' pb-2 pb-sm-4'}">{mNumber}</p>
   </div>
 </div>
 
@@ -28,13 +30,21 @@
 		border: solid 1.5rem #b4814b;
 	}
 
+  .pointer, .mobile {
+    height: 100%;
+  }
+
+  .book-page .toc {
+    height: calc(100% - 32px - 0.5rem);
+  }
+
   @media (pointer: fine) {
     .book-page {
       overflow: auto;
     }
 
     div.pointer {
-      display: block;
+      display: flex;
     }
 
     div.mobile {
@@ -48,7 +58,7 @@
     }
 
     div.mobile {
-      display: block;
+      display: flex;
     }
   }
 
@@ -62,6 +72,12 @@
 			border-top-right-radius: 10px;
 			border-bottom-right-radius: 10px;
 		}
+  }
+
+  @media screen and (min-width: 576px) {
+    .book-page .toc {
+      height: calc(100% - 32px - 1rem);
+    }
   }
 
   @media screen and (min-width: 610px) {

@@ -22,11 +22,11 @@
 </script>
 
 <div class="landing-container">
-	<h1 class="mx-2 my-5 mb-lg-4 display-1 text-white text-center">Angryneers</h1>
+	<h1 class="mx-2 my-5 mb-lg-4 display-1 text-white text-center">{isFr ? 'Nos angrynieurs' : 'Our Angryneers'}</h1>
 	<div class="container">
 		<div class="row align-items-center row-cols-1 row-cols-md-2 justify-content-center">
 			<div
-				class="col col-7 col-md-3 angryneer"
+				class="col col-7 col-md-3 userAngryneer"
 				style="--rotate-duration: {randomRange(0.5, 0.75)}s; --translate-duration: {jumpingDuration}s;"
 				on:click={() => displayPopup('user')}
 				role="button"
@@ -37,10 +37,12 @@
 				<UserBird />
 			</div>
 			<div class="col rounded-content-box text-center col-md-9 col-12 p-5 h2">
-				{isFr ? 'Bonjour, ' : 'Hi, '}{$userStore.name == '' ? (isFr ? 'Angrynieur' : 'Angryneer') : $userStore.name}!
+				<p>{isFr ? 'Bonjour, ' : 'Hi, '}{$userStore.name == '' ? (isFr ? 'Angrynieur' : 'Angryneer') : $userStore.name}!
 				{isFr
-					? "Bienvenue dans l'équipe! Cliquer sur chaque member pour en apprendre plus sur ceux-ci. Une fois sur un membre, passer votre souris devant leur oiseau (ou cliquer sur mobile) pour découvrir leur vraie apparance."
-					: "Welcome to the team! Get to know your teammates well by clicking on each one. Once you are viewing a teammate's popup, hover your mouse over their bird (or click the bird on mobile) in order to discover their real appearance."}
+					? "Bienvenue dans l'équipe! Cliquez sur chaque membre d'équipe pour en apprendre plus sur eux."
+					: "Welcome to the team! Get to know your teammates by clicking on each one."}</p>
+				<p>{isFr ? "Une fois sur le pop-up, survolez leur oiseau avec votre souris (ou cliquez sur l'oiseau sur les appareils mobiles) pour découvrir leur vraie apparance. Assurez-vous de faire défiler leur description complète!" :
+					"Once you are viewing a teammate's popup, hover your mouse over their bird (or click the bird on mobile) in order to discover their real appearance. Make sure to scroll through their full description!"}</p>
 			</div>
 		</div>
 	</div>
@@ -132,15 +134,18 @@
 		overflow-x: hidden;
 	}
 
-	.angryneer {
+	.angryneer, .userAngryneer {
 		--final-rotate-duration: var(--rotate-duration);
 		--final-translate-duration: 0s;
 		animation:
 			rotate var(--final-rotate-duration) infinite alternate-reverse,
 			translate var(--final-translate-duration) infinite alternate-reverse;
 		transform-origin: 50% 100%;
-		/* width: 100%; */
 		z-index: 0 !important;
+	}
+
+	.angryneer {
+		width: 100%;
 	}
 
 	.angryneer:hover {

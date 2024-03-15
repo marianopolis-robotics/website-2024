@@ -3,7 +3,8 @@ export const en = {
   "title": "The Mari Angryneer Archives",
   "toc": "Table of Contents",
   "intro1": "Once upon a time in the Bird Kingdom, a group of angryneers at Marianopolis banded together to form the Mari Angryneers…",
-  "intro2": "They've come a long way and now, they're gearing up for the CRC's 2024 Kryptik Angryneering Competition. This priceless artifact contains the official 2023-24 Mari Angryneer Archives, so cherish this journal and protect it,",
+  "intro2": "They've come a long way and now, they're gearing up for the CRC's 2024 Kryptik Angryneering Competition.",
+  "intro3": "This priceless artifact contains the official 2023-24 Mari Angryneer Archives, so cherish this journal and protect it,",
   "robot": {
     "date1": "Nov 13, 2023: Kickoff!",
     "text1": "Angryneers from all over the Bird Kingdom gather at Curé-Antoine-Labelle high school, the site of the infamous angryneering competition held annually by the CRC, for the Kryptik 2024 kickoff!",
@@ -129,7 +130,7 @@ export const en = {
     "alt2": "Team members discussing their progress on the preliminary problems on Discord.",
     "date3": "Jan 26, 2024",
     "text3": "Ming and Aleksandr collaborate to determine the most optimal solutions for each part of preliminary problem 2. Once they reach agreement, the Mari Angryneers make their final submission for this problem.",
-    "alt3": "Comments of code discussing efficiency of program.",
+    "alt3": "Two team members discussing in the hallway.",
     "date4": "Feb 5, 2024",
     "text4": "As soon as preliminary problem 3 is released, Ming and Aleksandr get to work.",
     "alt4": "File diff of two solutions for prelim 2 part 4.",
@@ -145,7 +146,8 @@ export const fr = {
   "title": "Les archives des angrynieurs Mari",
   "toc": "Table des matières",
   "intro1": "Il était une fois dans le Royaume des oiseaux, un groupe d'angrynieurs à Marianopolis se regroupent pour former l'équipe des Angrynieurs Mari…",
-  "intro2": "Ils ont parcouru un long chemin et maintenant ils se préparent pour la compétition d'angrynierie Kryptik 2024, organisée par la CRC. Cette œuvre inestimable contient les archives officielles de 2023-24 des Angrynieurs Mari, donc chérissez ce journal et protégez-le,",
+  "intro2": "Ils ont parcouru un long chemin et maintenant ils se préparent pour la compétition d'angrynierie Kryptik 2024, organisée par la CRC.",
+  "intro3": "Cette œuvre inestimable contient les archives officielles de 2023-24 des Angrynieurs Mari, donc chérissez ce journal et protégez-le,",
   "robot": {
     "date1": "13 nov. 2023",
     "text1": "Les angrynieurs du Royaume des oiseaux se rassemblent à l'école secondaire Curé-Antoine-Labelle, le site de l'infâme compétition d'angrynierie organisée chaque année par le CRC, pour le coup d'envoi de Kryptik 2024 !",
@@ -271,7 +273,7 @@ export const fr = {
     "alt2": "Liste d'étapes de la solution générale pour résoudre le premier problème préliminaire.",
     "date3": "26 janv. 2024",
     "text3": "Ming et Aleksandr collaborent pour déterminer les solutions les plus optimales pour chaque partie du deuxième problème préliminaire. Une fois les décisions prises, les Angrynieurs Mari préparent leur soumission finale pour ce problème.",
-    "alt3": "Différenciation de fichier pour deux solutions à la partie 4 du deuxième problème préliminaire.",
+    "alt3": "Deux membres de l'équipe discutant dans un couloir.",
     "date4": "5 fév. 2024",
     "text4": "Dès la publication du troisième problème préliminaire, Ming et Aleksandr se mettent au travail.",
     "alt4": "Membres de l'équipe ayant une discussion sur le progrès des problèmes préliminaires de programmation sur Discord.",
@@ -338,7 +340,7 @@ export const imgs = {
   }
 }
 
-const chapterPages = [3, 8, 14, 26, 34];
+const chapterPages = [3, 8, 14, 18, 22];
 const mobileChapterPages = [3, 15, 23, 29, 38];
 
 export const enTabs = {

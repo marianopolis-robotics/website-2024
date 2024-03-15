@@ -67,23 +67,29 @@
 	<!-- overflow had to be hidden due to glitchy scrolling behaviour caused by 3D transform overflow :/ -->
 	<div id="book" class="mx-auto" bind:this={flipbook}>
 		<Page>
-			<div class="d-flex text-center justify-content-center align-items-center h-100">
-				<h2 class="title">{content.title}</h2>
-			</div>
+			<h2 class="title">{content.title}</h2>
 		</Page>
-		<Page mNumber="1" number="1">
+		<Page mNumber="1" number="1" specialPg={true} toc={true}>
 			<h2 class="chapter mb-2">{content.toc}</h2>
 			<div class="toc-page mt-2 mt-sm-4" slot="pointer">
-				<p class="mb-0 mb-sm-1"><span class="toc-chapter">Robot<span><span class="visually-hidden">Page</span> 1</span></p>
-				<p class="mb-0 mb-sm-1"><span class="toc-chapter">{isFr ? 'Kiosque' : 'Kiosk'} <span><span class="visually-hidden">Page</span> 1</span></p>
-				<p class="mb-0 mb-sm-1"><span class="toc-chapter">{isFr ? 'Site web' : 'Website'} <span><span class="visually-hidden">Page</span> 1</span></p>
-				<p class="mb-0 mb-sm-1"><span class="toc-chapter">{isFr ? 'Vidéo' : 'Video'} <span><span class="visually-hidden">Page</span> 1</span></p>
-				<p class="mb-0 mb-sm-1"><span class="toc-chapter">{isFr ? 'Programmation' : 'Programming'} <span><span class="visually-hidden">Page</span> 1</span></p>
+				<p class="mb-0 mb-sm-1"><span class="toc-chapter">Robot<span><span class="visually-hidden">Page</span> {mobile ? smTabs['Robot'][0] : tabs['Robot'][0]}</span></p>
+				<p class="mb-0 mb-sm-1"><span class="toc-chapter">{isFr ? 'Kiosque' : 'Kiosk'} <span><span class="visually-hidden">Page</span> {isFr ? (mobile ? smTabs['Kiosque'][0] : tabs['Kiosque'][0]) : (mobile ? smTabs['Kiosk'][0] : tabs['Kiosk'][0])}</span></p>
+				<p class="mb-0 mb-sm-1"><span class="toc-chapter">{isFr ? 'Site web' : 'Website'} <span><span class="visually-hidden">Page</span> {isFr ? (mobile ? smTabs['Site web'][0] : tabs['Site web'][0]) : (mobile ? smTabs['Website'][0] : tabs['Website'][0])}</span></p>
+				<p class="mb-0 mb-sm-1"><span class="toc-chapter">{isFr ? 'Vidéo' : 'Video'} <span><span class="visually-hidden">Page</span> {isFr ? (mobile ? smTabs['Vidéo'][0] : tabs['Vidéo'][0]) : (mobile ? smTabs['Video'][0] : tabs['Video'][0])}</span></p>
+				<p class="mb-0 mb-sm-1"><span class="toc-chapter">{isFr ? 'Programmation' : 'Programming'} <span><span class="visually-hidden">Page</span> {isFr ? (mobile ? smTabs['Programmation'][0] : tabs['Programmation'][0]) : (mobile ? smTabs['Programming'][0] : tabs['Programming'][0])}</span></p>
 			</div>
 		</Page>
-		<Page mNumber="2" number="2">
-			<p class="fs-5">{content.intro1}</p>
-			<p class="fs-5">{content.intro2} {displayName}!</p>
+		<Page mNumber="2" number="2" specialPg={true}>
+			<div slot="pointer">
+				<p class="fs-5">{content.intro1}</p>
+				<p class="fs-5">{content.intro2}</p>
+				<p class="fs-5">{content.intro3} {displayName}!</p>
+			</div>
+			<div slot="mobile">
+				<p class="fs-5">{content.intro1}</p>
+				<p class="fs-5">{content.intro2}</p>
+				<p class="fs-5">{content.intro3} {displayName}!</p>
+			</div>
 		</Page>
 		<Page mNumber="3" number="3">
 			<div slot="pointer">
@@ -295,10 +301,129 @@
 				</Entry>
 			</div>
 		</Page>
-		<Page>
-			<div class="d-flex justify-content-center align-items-center h-100 text-center">
-				<h2 class="title">~ {content.end} ~</h2>
+		<Page mNumber="17" number="17">
+			<div slot="pointer">
+				<Entry date={content.website.date7} text={content.website.text7}
+				img='/archives/{imgs.website.img7}' alt={content.website.alt7} rotate='left'>
+				</Entry>
+				<Entry date={content.website.date8} text={content.website.text8}
+				img='/archives/{imgs.website.img8}' alt={content.website.alt8} rotate='right'>
+				</Entry>
 			</div>
+			<div slot="mobile">
+				<Entry date={content.website.date4} text={content.website.text4}
+				img='/archives/{imgs.website.img4}' alt={content.website.alt4} rotate='left'>
+				</Entry>
+			</div>
+		</Page>
+		<Page mNumber="18" number="18">
+			<div slot="pointer">
+				<h2 class="chapter mb-1">{isFr ? 'Vidéo' : 'Video'}</h2>
+				<Entry date={content.video.date1} text={content.video.text1}
+				img='/archives/{imgs.video.img1}' alt={content.video.alt1} rotate='left'>
+				</Entry>
+				<Entry date={content.video.date2} text={content.video.text2}
+				img='/archives/{imgs.video.img2}' alt={content.video.alt2} rotate='right'>
+				</Entry>
+			</div>
+			<div slot="mobile">
+				<h2 class="chapter mb-1">{isFr ? 'Vidéo' : 'Video'}</h2>
+				<Entry date={content.video.date1} text={content.video.text1}
+				img='/archives/{imgs.video.img1}' alt={content.video.alt1} rotate='left'>
+				</Entry>
+			</div>
+		</Page>
+		<Page mNumber="19" number="19">
+			<div slot="pointer">
+				<Entry date={content.video.date3} text={content.video.text3}
+				img='/archives/{imgs.video.img3}' alt={content.video.alt3} rotate='left'>
+				</Entry>
+				<Entry date={content.video.date4} text={content.video.text4}
+				img='/archives/{imgs.video.img4}' alt={content.video.alt4} rotate='right'>
+				</Entry>
+			</div>
+			<div slot="mobile">
+				<Entry date={content.video.date2} text={content.video.text2}
+				img='/archives/{imgs.video.img2}' alt={content.video.alt2} rotate='left'>
+				</Entry>
+			</div>
+		</Page>
+		<Page mNumber="20" number="20">
+			<div slot="pointer">
+				<Entry date={content.video.date5} text={content.video.text5}
+				img='/archives/{imgs.video.img5}' alt={content.video.alt5} rotate='left'>
+				</Entry>
+				<Entry date={content.video.date6} text={content.video.text6}
+				img='/archives/{imgs.video.img6}' alt={content.video.alt6} rotate='right'>
+				</Entry>
+			</div>
+			<div slot="mobile">
+				<Entry date={content.video.date3} text={content.video.text3}
+				img='/archives/{imgs.video.img3}' alt={content.video.alt3} rotate='left'>
+				</Entry>
+			</div>
+		</Page>
+		<Page mNumber="21" number="21">
+			<div slot="pointer">
+				<Entry date={content.video.date7} text={content.video.text7}
+				img='/archives/{imgs.video.img7}' alt={content.video.alt7} rotate='left'>
+				</Entry>
+				<Entry date={content.video.date8} text={content.video.text8}
+				img='/archives/{imgs.video.img8}' alt={content.video.alt8} rotate='right'>
+				</Entry>
+			</div>
+			<div slot="mobile">
+				<Entry date={content.video.date4} text={content.video.text4}
+				img='/archives/{imgs.video.img4}' alt={content.video.alt4} rotate='left'>
+				</Entry>
+			</div>
+		</Page>
+		<Page mNumber="22" number="22">
+			<div slot="pointer">
+				<h2 class="chapter mb-1">{isFr ? 'Programmation' : 'Programming'}</h2>
+				<Entry date={content.programming.date1} text={content.programming.text1}
+				img='/archives/{imgs.programming.img1}' alt={content.programming.alt1} rotate='left'>
+				</Entry>
+				<Entry date={content.programming.date2} text={content.programming.text2}
+				img='/archives/{imgs.programming.img2}' alt={content.programming.alt2} rotate='right'>
+				</Entry>
+			</div>
+			<div slot="mobile">
+				<h2 class="chapter mb-1">{isFr ? 'Programmation' : 'Programming'}</h2>
+				<Entry date={content.programming.date1} text={content.programming.text1}
+				img='/archives/{imgs.programming.img1}' alt={content.programming.alt1} rotate='left'>
+				</Entry>
+			</div>
+		</Page>
+		<Page mNumber="23" number="23">
+			<div slot="pointer">
+				<Entry date={content.programming.date3} text={content.programming.text3}
+				img='/archives/{imgs.programming.img3}' alt={content.programming.alt3} rotate='left'>
+				</Entry>
+				<Entry date={content.programming.date4} text={content.programming.text4}
+				img='/archives/{imgs.programming.img4}' alt={content.programming.alt4} rotate='right'>
+				</Entry>
+			</div>
+			<div slot="mobile">
+				<Entry date={content.programming.date2} text={content.programming.text2}
+				img='/archives/{imgs.programming.img2}' alt={content.programming.alt2} rotate='left'>
+				</Entry>
+			</div>
+		</Page>
+		<Page mNumber="23" number="23">
+			<div slot="pointer">
+				<Entry date={content.programming.date5} text={content.programming.text5}
+				img='/archives/{imgs.programming.img5}' alt={content.programming.alt5} rotate='left'>
+				</Entry>
+			</div>
+			<div slot="mobile">
+				<Entry date={content.programming.date3} text={content.programming.text3}
+				img='/archives/{imgs.programming.img3}' alt={content.programming.alt3} rotate='left'>
+				</Entry>
+			</div>
+		</Page>
+		<Page>
+			<h2 class="title">~ {content.end} ~</h2>
 		</Page>
 	</div>
 </div>
@@ -356,6 +481,11 @@
 	
 	.title {
 		text-transform: uppercase;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 90%;
 	}
 
 	.chapter, .title {

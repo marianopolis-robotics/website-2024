@@ -22,8 +22,8 @@ export const BirdStore = writable({
 		'user',
         'stella',
         'pig',
-        'terence',
         'tony',
+        'terence',
 	],
     poppy: {
         bird: 'poppy',
