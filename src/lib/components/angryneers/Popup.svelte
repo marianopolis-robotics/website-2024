@@ -15,6 +15,7 @@
 	$: currentBird = bird;
 	let birdIndex = $BirdStore.birds.indexOf(bird);
 	let showBird = true;
+	let memberPic;
 
 	onMount(() => {
 		birdIndex = $BirdStore.birds.indexOf(bird);
@@ -86,8 +87,13 @@
 										on:mouseenter={changePic(this, currentBird, 'members', 'png')}
 										on:mouseleave={changePic(this, currentBird, 'birds', 'svg')}
 										alt={currentBird}
-										class="bird-picture"
+										class="bird-picture computer-picture"
 									/>
+									<!-- add on click -->
+								<button class="angryneer-button" on:click={changePic(memberPic, currentBird, memberPic.src.includes(`/birds/${currentBird}.svg`) ? "members" : "birds", memberPic.src.includes(`/birds/${currentBird}.svg`) ? "png" : "svg")}>
+									<img src="/birds/{currentBird}.svg" alt={currentBird} class="bird-picture mobile-picture"  bind:this={memberPic}/>
+								</button>
+									
 								{/if}
 							</div>
 						{/key}
@@ -225,7 +231,15 @@
 		position: relative;
 	}
 	.bird-picture {
+		height: 100%;
 		width: 100%;
+	}
+	.angryneer-button {
+		height: 100%;
+		width: 100%;
+		background: none;
+		border: none;
+		padding: 0;
 	}
 	.popup-content {
 		z-index: 1000;
@@ -310,6 +324,20 @@
 
 	@media only screen and (min-width: 600px) {
 		.arrows_small {
+			display: none;
+		}
+	}
+
+	/* computer */
+	@media (pointer: fine) {
+		.mobile-picture {
+			display: none;
+		}
+	}
+
+	/* mobile */
+	@media (pointer: coarse) {
+		.computer-picture {
 			display: none;
 		}
 	}
