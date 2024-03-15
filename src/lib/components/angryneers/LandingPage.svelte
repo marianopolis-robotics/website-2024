@@ -39,8 +39,8 @@
 			<div class="col rounded-content-box text-center col-md-9 col-12 p-5 h2">
 				{isFr ? 'Bonjour, ' : 'Hi, '}{$userStore.name == '' ? (isFr ? 'Angrynieur' : 'Angryneer') : $userStore.name}!
 				{isFr
-					? 'Je suis votre superviseur. Cliquer sur chaque member pour en apprendre plus sur ceux-ci!'
-					: 'Welcome to the team! Get to know your well teammates by clicking on each one!'}
+					? "Bienvenue dans l'équipe! Cliquer sur chaque member pour en apprendre plus sur ceux-ci. Une fois sur un membre, passer votre souris devant leur oiseau (ou cliquer sur mobile) pour découvrir leur vraie apparance."
+					: "Welcome to the team! Get to know your teammates well by clicking on each one. Once you are viewing a teammate's popup, hover your mouse over their bird (or click the bird on mobile) in order to discover their real appearance."}
 			</div>
 		</div>
 	</div>
@@ -166,6 +166,7 @@
 			translate: 0 -10%;
 		}
 	}
+
 	.left-angryneers {
 		padding-right: 0px !important;
 	}
