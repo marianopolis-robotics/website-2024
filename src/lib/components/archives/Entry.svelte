@@ -1,14 +1,23 @@
 <script>
   import BookImg from "$lib/components/archives/BookImg.svelte";
-  export let date, text, img, alt, rotate;
+  export let date = '';
+  export let text = '';
+  export let img = '';
+  export let alt = '';
+  export let rotate = '';
 </script>
 
-<div class="entry d-flex align-items-center column-gap-4 my-5">
-  <BookImg src={img} {alt} {rotate} />
-  <div class="textbox">
-    <h4 class="date">{date}</h4>
-    <p>{text}</p>
-  </div>
+<div class="entry d-flex flex-column align-items-center">
+  {#if img}
+    <BookImg src={img} {alt} {rotate} />
+  {/if}
+
+  {#if date && text}
+    <div class="textbox">
+      <h4 class="date">{date}</h4>
+      <p class="mb-1">{text}</p>
+    </div>
+  {/if}
 </div>
 
 <style>
@@ -16,10 +25,37 @@
     flex-direction: row;
   }
 
+  @media (pointer: coarse) {
+    .textbox {
+      font-size: 1rem;
+    }
+
+    .date {
+      font-size: 1.1rem;
+    }
+  }
+
+  @media (pointer: fine) {
+    .entry {
+      margin-top: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .date {
+      margin-top: 1.5rem;
+      font-size: 1.25rem;
+    }
+
+    .textbox {
+      width: 92%;
+      font-size: 1.1rem;
+    }
+  }
+
   @media screen and (min-width: 600px) {
     .entry {
       flex-direction: column;
-      gap: 1.5rem;
+      gap: 0.5rem;
     }
   }
 
@@ -30,16 +66,11 @@
   }
 
   .date {
-    font-family: 'Jaldi', 'Trebuchet MS', sans-serif;
     font-weight: bold;
-    font-size: 1.25rem;
-  }
-
-  .textbox {
-    width: 80%;
+    font-family: Jaldi, 'Trebuchet MS', sans-serif;
   }
 
   .textbox p {
-    font-family: 'Jaldi', sans-serif;
+    font-family: Jaldi, sans-serif;
   }
 </style>

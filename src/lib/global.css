@@ -106,15 +106,15 @@ body {
   border-radius: 25px;
 }
 
+/* override some Bootstrap defaults (done very sparingly) */
 .btn-outline-primary,
-	.btn-outline-primary:hover,
-	.btn-outline-primary:active,
-	.btn-outline-primary:visited {
-		border-color: #4F250A !important;
-		color: #4F250A !important;
-	}
-	.btn-outline-primary:hover {
-		background-color: #4F250A !important;
-		color: white!important;
-	}
-  
+.btn-outline-primary:hover,
+.btn-outline-primary:active,
+.btn-outline-primary:visited {
+  border-color: #4F250A !important;
+  color: #4F250A !important;
+}
+.btn-outline-primary:hover {
+  background-color: #4F250A !important;
+  color: white!important;
+}

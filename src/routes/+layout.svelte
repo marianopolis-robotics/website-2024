@@ -14,7 +14,6 @@
   const isLanding = (path) => path === '/' || path === '/fr';
 </script>
 
-
 <NavBar {path} />
 
 {#key path}

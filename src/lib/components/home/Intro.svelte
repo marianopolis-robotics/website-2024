@@ -49,17 +49,14 @@
 	}
 </script>
 
-<div
-	class="w-100 landingHero text-center px-4 px-lg-5 d-flex justify-content-center mb-3 angryneer-title"
->
-	<h1>{isFr ? 'Les Angrynieurs de Mari' : 'The Mari Angryneers'}</h1>
-</div>
-<div class="container rounded-content-box my-5 description-text">
-	<div class="row align-items-center row-cols-1 row-cols-md-2">
+<h1 class="text-white text-center display-1 my-5">{isFr ? 'Les Angrynieurs Mari' : 'The Mari Angryneers'}</h1>
+
+<div class="px-2 px-md-4 px-xl-5 my-5 description-text">
+	<div class="row align-items-center row-cols-1 row-cols-md-2 mx-auto rounded-content-box">
 		<div class="col text-center p-md-5 p-3 pt-5">
 			{isFr
-				? 'Bienvenue à la base principale des Angrynieurs de Mari! Designez votre oiseau pour rejoindre la compétition annuelle des Angrynieurs Kryptic!'
-				: 'Welcome to the Mari Angryneers\' home base! Design your bird in order to join the annual Kryptik Angryneers competition!'}
+				? 'Bienvenue à la base principale des Angrynieurs Mari! Designez votre oiseau pour rejoindre la compétition annuelle d\'angrynierie Kryptik!'
+				: 'Welcome to the Mari Angryneers\' home base! Design your bird in order to join the annual Kryptik Angryneering competition!'}
 		</div>
 		<div class="col p-md-5 p-3 pt-5 pb-5 text-center">
 			{#if !$userStore.submittedName}
@@ -108,12 +105,8 @@
 </div>
 
 <style>
-	.angryneer-title h1 {
-		margin-top: 5vh !important;
-	}
-
 	.description-text {
-		font-size: 30px;
+		font-size: 1.5rem;
 	}
 	.character-limit {
 		color: rgb(243, 90, 90);

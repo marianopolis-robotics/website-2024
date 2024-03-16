@@ -1,16 +1,13 @@
 <script>
-	import { fade } from 'svelte/transition';
-
 	import { userStore } from '$lib/Store';
 	import Slide from './Slide.svelte';
 
-	import Arrow from '$lib/assets/icons/arrow.svg';
-	import ArrowDisabled from '$lib/assets/icons/arrow-disabled.svg';
-	import UserBird from '../home/UserBird.svelte';
+	import Arrow from '$lib/assets/kryptik/icons/arrow.svg';
+	import ArrowDisabled from '$lib/assets/kryptik/icons/arrow-disabled.svg';
+	import UserBird from '$lib/components/home/UserBird.svelte';
 
 	export let isFr = false;
 
-	$: bird = $userStore.shape;
 	$: name = $userStore.name;
 
 	let load = false;
@@ -41,7 +38,6 @@
 					<td class:slide-indicator={current_slide==index &&load}>
 						{#if current_slide === index && load}
 							<div class="bird-container  text-center">
-
 								<UserBird {isFr} displayAccessory={false}/>
 							</div>
 						{:else}
@@ -52,7 +48,7 @@
 			</tr>
 		</table>
 	</div>
-	<div class="slideControls d-flex pt-3 pb-4">
+	<div class="slideControls d-flex pt-3 pb-4 justify-content-between">
 		<div class="left" class:disable={current_slide == 1}>
 			<button class="px-3" on:click={left}><img src={current_slide == 1 ? ArrowDisabled : Arrow} alt="Left button" /></button>
 		</div>
@@ -93,13 +89,10 @@
 		position:relative;
 		width: 25px !important;
 	}
-	#userPos {
-		width: 20px;
-	}
 
 	.pagination {
 		border-radius: 50%;
-		aspect-ratio: 1;
+		aspect-ratio: 1/1;
 		border: inset 2px black;
 		background-color: #f5c03b;
 		filter: opacity(1);
@@ -116,7 +109,7 @@
 	}
 
 	table tr td {
-		aspect-ratio: 1;
+		aspect-ratio: 1/1;
 		padding: 0.5rem;
 	}
 
@@ -167,10 +160,6 @@
 		transform: rotate(180deg);
 	}
 
-	#userPos {
-		filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.8));
-	}
-
 	@media screen and (min-width: 450px) {
 		div.carousel {
 			height: auto;
@@ -186,7 +175,7 @@
 			transition: background-color 0.15s ease-in-out;
 		}
 
-		.pagination, table tr td, #userPos {
+		.pagination, table tr td {
 			width: 30px;
 		}
 		.slide-indicator{
@@ -199,7 +188,7 @@
 			background-color: #e5dbc2;
 		}
 
-		.pagination, table tr td, #userPos {
+		.pagination, table tr td {
 			width: 45px;
 		}
 		.slide-indicator{

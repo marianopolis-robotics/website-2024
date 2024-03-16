@@ -1,10 +1,9 @@
 <script>
-	import LandingPage from "../../../lib/components/angryneers/LandingPage.svelte";
-	import Popup from "../../../lib/components/angryneers/Popup.svelte";
+	import LandingPage from "$lib/components/angryneers/LandingPage.svelte";
 
 </script>
 <svelte:head>
-  <meta name="description" content="Meet the Mari Angryneers!">
+  <meta name="description" content="Rencontrer les angrynieurs Mari!">
   <title>Angrynieurs | Angrynieurs Mari</title>
 </svelte:head>
 

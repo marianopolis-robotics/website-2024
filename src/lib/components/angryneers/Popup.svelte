@@ -127,81 +127,106 @@
 							</div>
 						</div>
 					</div>
+
 					{#key currentBird}
-						<div class="col col-sm-12 col-md-12 col-lg-8" id="box_container" in:fly={{ duration: 500 }}>
-							<img class="frame_left" src="/textures/wood_frame.svg" alt="wood frame left" />
-							<img class="frame_right" src="/textures/wood_frame.svg" alt="wood frame right" />
+					<div class="col col-sm-12 col-md-12 col-lg-8" id="box_container" in:fly={{ duration: 500 }}>
+						<img class="frame_left" src="/textures/wood_frame.svg" alt="wood frame left" />
+						<img class="frame_right" src="/textures/wood_frame.svg" alt="wood frame right" />
 
-							<img class="frame_top" src="/textures/wood_frame_horizontal.svg" alt="wood frame top" />
-							<img class="frame_bottom" src="/textures/wood_frame_horizontal.svg" alt="wood frame bottom" />
+						<img class="frame_top" src="/textures/wood_frame_horizontal.svg" alt="wood frame top" />
+						<img class="frame_bottom" src="/textures/wood_frame_horizontal.svg" alt="wood frame bottom" />
 
-							<div class="rounded-content-box box m-4 p-4 pt-5">
-								<div>
-									<p class="stat p-2 mt-2">
-										<strong>{isFr ? 'Nom:' : 'Name:'}</strong>
-										{currentBird == 'user'
-											? $userStore.name == ''
-												? isFr
-													? 'Angrynieur'
-													: 'Angryneer'
-												: $userStore.name
-											: $BirdStore[currentBird].name}
-									</p>
-									{#if currentBird != 'user'}
-										<p class="stat p-2">
-											<strong>{isFr ? 'Sous-équipe' : 'Subteam'}:</strong>
-											{$BirdStore[currentBird].subteam}
-										</p>
-									{/if}
-									<p class="stat p-2">
-										<strong>{isFr ? 'Pouvoir:' : 'Power:'}</strong>
+						<div class="rounded-content-box box m-4 p-4 pt-5">
+							<p class="stat p-2 mt-2">
+								<strong>{isFr ? 'Nom:' : 'Name:'}</strong>
+								{currentBird == 'user'
+									? $userStore.name == ''
+										? isFr
+											? 'Angrynieur'
+											: 'Angryneer'
+										: $userStore.name
+									: $BirdStore[currentBird].name}
+							</p>
+							{#if currentBird != 'user'}
+								<p class="stat p-2">
+									<strong>{isFr ? 'Sous-équipe' : 'Subteam'}:</strong>
+									{isFr ? $BirdStore[currentBird].subteamFr : $BirdStore[currentBird].subteam}
+								</p>
+							{/if}
+							<p class="stat p-2">
+								<strong>{isFr ? 'Pouvoir:' : 'Power:'}</strong>
 
-										{currentBird == 'user' ? $userStore.superPower : isFr ? $BirdStore[currentBird].powerFr : $BirdStore[currentBird].power}
-										{#if currentBird == 'user' && $userStore.superPower == ''}
-											{isFr ? 'Rediriger-vous vers la' : 'Head to the'}
-											<a href="/home" class="main-page-link">{isFr ? "page d'accueil" : 'home page'}</a>
-											{isFr ? 'pour choisir votre super-pouvoir!' : 'to chose your super power!'}
-										{/if}
-									</p>
-									<p class="stat p-2">
-										<strong>{isFr ? 'Passe-temps:' : 'Hobbies:'}</strong>
-										{currentBird == 'user' ? $userStore.hobbies : isFr ? $BirdStore[currentBird].hobbiesFr : $BirdStore[currentBird].hobbies}
-										{#if currentBird == 'user' && $userStore.hobbies == ''}
-											{isFr ? 'Rediriger-vous vers la' : 'Head to the'}
-											<a href="/home" class="main-page-link">{isFr ? "page d'accueil" : 'home page'}</a>
-											{isFr ? 'pour nous en dire plus sur vos passe-temps!' : 'to tell us more about your hobbies!'}
-										{/if}
-									</p>
-									<p class="stat p-2">
-										<strong>{isFr ? 'Faits divers:' : 'Fun Facts:'}</strong>
-										{currentBird == 'user' ? $userStore.funFact : isFr ? $BirdStore[currentBird].funFactsFr : $BirdStore[currentBird].funFacts}
-										{#if currentBird == 'user' && $userStore.hobbies == ''}
-											{isFr ? 'Rediriger-vous vers la' : 'Head to the'}
-											<a href="/home" class="main-page-link">{isFr ? "page d'accueil" : 'home page'}</a>
-											{isFr ? 'pour partager un fait divers avec nous!' : 'to let us know a fun fact!'}
-										{/if}
-									</p>
-									<p class="stat p-2" class:mb-5={currentBird != 'user'}>
-										<strong>Description:</strong>
-										{currentBird == 'user'
-											? isFr
-												? "Je suis un nouveau membre des Angrynieurs de Mari. J'ai hâte de les rejoindre lors du prochain concours de la CRC."
-												: 'I am a new recruit of the Mari Angryneers. I look forward to join them in the upcoming CRC competition!'
-											: isFr
-												? $BirdStore[currentBird].learnedFr
-												: $BirdStore[currentBird].learned}
-									</p>
-									{#if currentBird == 'user'}
-										<p class="stat p-2 mb-5">
-											{isFr ? 'Retourner à la' : 'Head back to the'}
-											<a class="main-page-link" href="/home">{isFr ? "page d'accueil" : 'home page'}</a>
-											{isFr ? 'si vous voulez nous en dire plus sur vous-même' : 'if you want to tell us more about you,'}
-											{$userStore.name == '' ? (isFr ? 'Angrynieur' : 'Angryneer') : $userStore.name}!
-										</p>
-									{/if}
-								</div>
-							</div>
+								{currentBird == 'user'
+									? $userStore.superPower
+									: isFr
+										? $BirdStore[currentBird].powerFr
+										: $BirdStore[currentBird].power}
+								{#if currentBird == 'user' && $userStore.superPower == ''}
+									{isFr ? 'Redirigez-vous vers la' : 'Head to the'}
+									<a href="/home" class="main-page-link"
+										>{isFr ? "page d'accueil" : 'home page'}</a
+									>
+									{isFr ? 'pour choisir votre super-pouvoir!' : 'to choose your super power!'}
+								{/if}
+							</p>
+							<p class="stat p-2">
+								<strong>{isFr ? 'Passe-temps:' : 'Hobbies:'}</strong>
+								{currentBird == 'user'
+									? $userStore.hobbies
+									: isFr
+										? $BirdStore[currentBird].hobbiesFr
+										: $BirdStore[currentBird].hobbies}
+								{#if currentBird == 'user' && $userStore.hobbies == ''}
+									{isFr ? 'Redirigez-vous vers la' : 'Head to the'}
+									<a href="/home" class="main-page-link"
+										>{isFr ? "page d'accueil" : 'home page'}</a
+									>
+									{isFr
+										? 'pour nous en dire plus sur vos passe-temps!'
+										: 'to tell us more about your hobbies!'}
+								{/if}
+							</p>
+							<p class="stat p-2">
+								<strong>{isFr ? 'Faits divers:' : 'Fun Facts:'}</strong>
+								{currentBird == 'user'
+									? $userStore.funFact
+									: isFr
+										? $BirdStore[currentBird].funFactsFr
+										: $BirdStore[currentBird].funFacts}
+								{#if currentBird == 'user' && $userStore.hobbies == ''}
+									{isFr ? 'Redirigez-vous vers la' : 'Head to the'}
+									<a href="/home" class="main-page-link"
+										>{isFr ? "page d'accueil" : 'home page'}</a
+									>
+									{isFr
+										? 'pour partager un fait divers avec nous!'
+										: 'to let us know a fun fact!'}
+								{/if}
+							</p>
+							<p class="stat p-2" class:mb-5={currentBird != 'user'}>
+								<strong>Description:</strong>
+								{currentBird == 'user'
+									? isFr
+										? "Je suis un nouveau membre des Angrynieurs Mari. J'ai hâte de les rejoindre lors du prochain concours de la CRC."
+										: 'I am a new recruit of the Mari Angryneers. I look forward to join them in the upcoming CRC competition!'
+									: isFr
+										? $BirdStore[currentBird].learnedFr
+										: $BirdStore[currentBird].learned}
+							</p>
+							{#if currentBird == 'user'}
+								<p class="stat p-2 mb-5">
+									{isFr ? 'Retourner à la' : 'Head back to the'}
+									<a class="main-page-link" href="/home"
+										>{isFr ? "page d'accueil" : 'home page'}</a
+									>
+									{isFr
+										? 'si vous voulez nous en dire plus sur vous-même'
+										: 'if you want to tell us more about you,'}
+									{$userStore.name == '' ? (isFr ? 'Angrynieur' : 'Angryneer') : $userStore.name}!
+								</p>
+							{/if}
 						</div>
+					</div>
 					{/key}
 				</div>
 			</div>

@@ -1,6 +1,8 @@
 <script>
-	export let mobile = false;
+	export let mobile;
 	export let isFr = false;
+	export let winH;
+
 	import { onMount } from 'svelte';
 	import * as THREE from 'three';
 	import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
@@ -32,7 +34,7 @@
 	} from '$lib/3d/custom-objects.js';
 	import __ from '$lib/3d/custom-physics.js';
 
-	import SlingshotImage from '$lib/assets/icons/slingshot.png';
+	import SlingshotImage from '$lib/assets/kryptik/icons/slingshot.svg';
 
 	//html elements
 	let main_div;
@@ -132,8 +134,8 @@
 		}
 	};
 	const on_resize = function () {
-		renderer.setSize(main_div.offsetWidth, window.innerHeight * 0.75);
-		camera.aspect = main_div.offsetWidth / (window.innerHeight * 0.75);
+		renderer.setSize(main_div.offsetWidth, winH * 0.75);
+		camera.aspect = main_div.offsetWidth / (winH * 0.75);
 		camera.updateProjectionMatrix();
 	};
 	const on_canvas_click = function () {
@@ -246,6 +248,9 @@
 	const restart_game = function () {
 		window.location.reload();
 	};
+	const pause_game = () => {
+		on_pointlock_change();
+	}
 
 	// game initial setup
 	const start_perpetual = async function () {
@@ -407,7 +412,7 @@
 				Math.round(timer_seconds) +
 				' s' +
 				'<br/>' +
-				`${isFr ? 'Puissance de lancement: ' : 'Launch power: '}` +
+				`${isFr ? 'Puissance de projection: ' : 'Launch power: '}` +
 				self_player.power +
 				' m/s' +
 				'<br/>' +
@@ -691,7 +696,7 @@
 			} else {
 				// end score calculation
 				start_mask_div.style.visibility = 'visible';
-				start_mask_text.innerHTML = `${isFr ? 'Fin de la joute: calcul de votre pointage en cours...' : 'Heat ended: calculating your score...'}`;
+				start_mask_text.innerHTML = `${isFr ? 'Fin de la joute: calcul de votre score en cours...' : 'Heat ended: calculating your score...'}`;
 				setTimeout(function () {
 					for (let game_piece of game_pieces) {
 						let positionX = game_piece.rigid_body.translation().x;
@@ -704,28 +709,28 @@
 						}
 						update_game_info();
 					}
-					let highscore = $userStore.highscore;
+					let highscore = $userStore.highscore ?? 0; // use nullish coalescing in case highscore is null or undefined (localStorage can be finicky)
 					if (highscore != null) {
 						if (score > highscore) {
 							// inner HTML may not be the best practice, but it is the most efficient solution for our purposes
 							start_mask_text.innerHTML =
 								`${isFr ? 'Fin de la joute!' : 'Heat ended!'}` +
 								'<br/>' +
-								`${isFr ? 'Pointage: ' : 'Score: '}` +
+								'Score: ' +
 								score +
 								'<br/>' +
-								`${isFr ? 'Vous avez battu votre pointage record de ' : 'You beat your previous highscore of '}` +
+								`${isFr ? 'Vous avez battu votre score record de ' : 'You beat your previous high score of '}` +
 								highscore +
 								' :)<br/>' +
-								`${isFr ? 'Votre nouveau pointage record est: ' : 'Your new highscore is: '}` +
+								`${isFr ? 'Votre nouveau score record est: ' : 'Your new high score is: '}` +
 								score;
 							$userStore.highscore = score;
 						} else {
 							start_mask_text.innerHTML =
-								`${isFr ? 'Fin de la joute!' : 'Heat ended!'}` + '<br/>' + 'Score: ' + score + '<br/>' + `${isFr ? 'Votre pointage record précédent était ' : 'Your previous highscore was '}` + highscore;
+								`${isFr ? 'Fin de la joute!' : 'Heat ended!'}` + '<br/>' + 'Score: ' + score + '<br/>' + `${isFr ? 'Votre score record précédent était ' : 'Your previous high score was '}` + highscore;
 						}
 					} else {
-						start_mask_text.innerHTML = `${isFr ? 'Fin de la joute' : 'Heat ended'}` + '<br/>' + 'Score: ' + score + '<br/>' + `${isFr ? 'Votre nouveau pointage record est: ' : 'Your new highscore is: '}` + score;
+						start_mask_text.innerHTML = `${isFr ? 'Fin de la joute' : 'Heat ended'}` + '<br/>' + 'Score: ' + score + '<br/>' + `${isFr ? 'Votre nouveau score record est: ' : 'Your new high score is: '}` + score;
 						$userStore.highscore = score;
 					}
 				}, 5000);
@@ -783,8 +788,11 @@
 		</div>
 	</div>
 	<div class="options p-4 mt-5">
-		<p class="mb-4 fs-4 text-black">{isFr ? 'Votre pointage record est' : 'Your high score is'}: {$userStore.highscore} points</p>
+		<p class="mb-4 fs-4 text-black">{isFr ? 'Votre score record est' : 'Your high score is'}: {$userStore.highscore} points</p>
 		<div class="buttons d-grid">
+			{#if mobile === true}
+				<button class="reset" on:click={pause_game}>{isFr ? 'Mettre en pause/reprendre le jeu' : 'Pause/resume game'}</button>
+			{/if}
 			<button class="reset" on:click={reset_balls}>{reset_ball_requested ? (isFr ? 'Pièces de jeu ajoutées!' : 'Game pieces spawned!') : (isFr ? 'Ajouter plus de pièces de jeu' : 'Spawn more game pieces')}</button>
 			<button class="reset" on:click={restart_game}>{isFr ? 'Redémarrer le jeu' : 'Restart game'}</button>
 		</div>
@@ -834,10 +842,9 @@
 	}
 	button.fire {
 		position: absolute;
-		right: 5%;
-		bottom: 5%;
-		width: 25%;
-		height: 40%;
+		right: 10px;
+		bottom: 40px;
+		width: 75px;
 		z-index: 200;
 		background-color: transparent;
 		border: none;
@@ -849,10 +856,10 @@
 	}
 	div.joystick-start {
 		position: absolute;
-		left: 0px;
-		bottom: 0px;
-		width: 25%;
-		height: 50%;
+		left: 0;
+		bottom: 0;
+		width: 150px;
+		aspect-ratio: 1/1;
 		z-index: 100;
 		background-color: black;
 		opacity: 0.2;
@@ -875,10 +882,14 @@
 	}
 	div.input-wrapper {
 		position: absolute;
-		right: 20px;
-		bottom: 0px;
+		right: 10px;
+		bottom: 10px;
 		z-index: 250;
 		opacity: 0.5;
+	}
+	div.input-wrapper input {
+		position: relative;
+		z-index: 300;
 	}
 	div.options {
 		margin: 2rem auto 0px;

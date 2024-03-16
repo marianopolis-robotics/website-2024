@@ -9,7 +9,6 @@
 
 	export let current_slide = 1;
 	export let isFr = false;
- 	// export let bird;
 	export let name = isFr ? 'Angrynieur' : 'Angryneer';
 
 	let slides = isFr ? frSlides : enSlides;
@@ -88,7 +87,11 @@
 
 	@media screen and (min-width: 700px) {
 		.bird {
-			height: 60%;
+			height: 50%;
+		}
+		img {
+			width: 70%;
+			justify-self: center;
 		}
 	}
 
@@ -106,8 +109,7 @@
 			height: 100%;
 		}
 		img {
-			width: max-content;
-			justify-self: center;
+			width: 400px;
 		}
 		.p-wrapper {
 			height: 100%;
