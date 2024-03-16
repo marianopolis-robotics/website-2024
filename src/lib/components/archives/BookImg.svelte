@@ -20,6 +20,10 @@
     .frame {
       margin-top: 1rem;
     }
+
+    .frame img {
+      height: 100%;
+    }
   }
 
   .tape {

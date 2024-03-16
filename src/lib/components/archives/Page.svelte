@@ -3,9 +3,11 @@
   export let number = null;
   export let toc = false;
   export let specialPg = false;
+  export let pointer = false;
+  export let mobile = false;
 </script>
 
-<div class="book-page">
+<div class="book-page" class:pointerPg={number || pointer} class:mobilePg={mNumber || mobile}>
   <!-- for the StPageFlip to work well on mobile, we can't have scrolling containers/pages (tapping always flips the page)
     so we use named slots to handle touch-only screens -->
   <!-- default slot (some content is the same on all devices and doesn't need the named slots) -->
@@ -16,18 +18,20 @@
     <p class="text-center fst-italic mb-0{specialPg ? '' : ' pb-2 pb-sm-4'}">{number}</p>
     {/if}
   </div>
-  <div class="mobile flex-column justify-content-between" class:toc class:specialPg>
+  <div class="mobile flex-column justify-content-evenly" class:toc class:specialPg>
     <slot name="mobile" />
-    <p class="text-center fst-italic mb-0{specialPg ? '' : ' pb-2 pb-sm-4'}">{mNumber}</p>
+    {#if mNumber}
+    <p class="text-center fst-italic mb-0{specialPg ? '' : ' pt-2 pt-sm-4'}">{mNumber}</p>
+    {/if}
   </div>
 </div>
 
 <style>
   .book-page {
 		background: #f7ddbb;
-		padding: 1.5rem;
 		border-radius: 10px;
-		border: solid 1.5rem #b4814b;
+		border: solid 1rem #b4814b;
+    padding: 1rem;
 	}
 
   .pointer, .mobile {
@@ -41,6 +45,7 @@
   @media (pointer: fine) {
     .book-page {
       overflow: auto;
+      padding: 1.5rem;
     }
 
     div.pointer {
@@ -75,6 +80,10 @@
   }
 
   @media screen and (min-width: 576px) {
+    .book-page {
+      border: solid 1.5rem #b4814b;
+    }
+
     .book-page .toc {
       height: calc(100% - 32px - 1rem);
     }

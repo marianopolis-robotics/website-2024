@@ -1,10 +1,10 @@
 // content for archives pages
 export const en = {
-  "title": "The Mari Angryneer Archives",
+  "title": "The 2023-2024 Mari Angryneer Archives",
   "toc": "Table of Contents",
   "intro1": "Once upon a time in the Bird Kingdom, a group of angryneers at Marianopolis banded together to form the Mari Angryneers…",
   "intro2": "They've come a long way and now, they're gearing up for the CRC's 2024 Kryptik Angryneering Competition.",
-  "intro3": "This priceless artifact contains the official 2023-24 Mari Angryneer Archives, so cherish this journal and protect it,",
+  "intro3": "This priceless artifact contains the official 2023-2024 Mari Angryneer Archives, so cherish this journal and protect it,",
   "robot": {
     "date1": "Nov 13, 2023: Kickoff!",
     "text1": "Angryneers from all over the Bird Kingdom gather at Curé-Antoine-Labelle high school, the site of the infamous angryneering competition held annually by the CRC, for the Kryptik 2024 kickoff!",
@@ -13,7 +13,7 @@ export const en = {
     "text2": "The Mari Angryneers discuss the different intake mechanisms to pick up the game pieces from the ground, and split into small teams to each work on intake prototypes and on base.",
     "alt2": "A sketch of the robot design.",
     "date3": "Dec 7, 2023",
-    "text3": "The robot angryneers settle on the dimensions of the base and wheelbase to optimise movement (especially while climbing the 12 degree slope toward the gutters) and start building the base. They continue prototyping throughout December.",
+    "text3": "The robot angryneers settle on the dimensions of the base and wheelbase to optimise movement (especially while climbing the 12 degree slope toward the gutters) and start building the base.",
     "alt3": "3 members of the robot team building the frame for the robot.",
     "date4": "Jan 10, 2024",
     "text4": "The robot angryneers begin testing intake and double flywheel launching mechanisms with some promising results!",
@@ -31,7 +31,7 @@ export const en = {
     "text8": "The robot angryneers build a shooting tower to test out the improved double flywheel system with new gearbox ratios. Success!",
     "alt8": "The tower with its vertical conveyor belt and double flywheel system.",
     "date9": "Mar 7, 2024",
-    "text9": "After a long week of hard work, the robot angryneers have completed the toboggan, multiplier and intake systems to test a fully functional robot! They are very proud of how far the robot has come and will continue to make improvements.",
+    "text9": "After a long week of hard work, the robot angryneers have completed the toboggan, multiplier and intake systems to test a fully functional robot!",
     "alt9": "The finalised version of the robot with all its functional systems."
   },
     "kiosk": {
@@ -143,7 +143,7 @@ export const en = {
 }
 
 export const fr = {
-  "title": "Les archives des angrynieurs Mari",
+  "title": "Les archives des angrynieurs Mari de 2023-2024",
   "toc": "Table des matières",
   "intro1": "Il était une fois dans le Royaume des oiseaux, un groupe d'angrynieurs à Marianopolis se regroupent pour former l'équipe des Angrynieurs Mari…",
   "intro2": "Ils ont parcouru un long chemin et maintenant ils se préparent pour la compétition d'angrynierie Kryptik 2024, organisée par la CRC.",
@@ -156,7 +156,7 @@ export const fr = {
     "text2": "Les angrynieurs Mari discutent des différents mécanismes d'admission pour ramasser les pièces du jeu au sol et se divisent en petites équipes pour travailler sur les prototypes d'admission.",
     "alt2": "Une esquisse du design du robot.",
     "date3": "7 déc. 2023",
-    "text3": "Les angrynieurs en robotique définissent les dimensions de la base et de l'empattement pour optimiser les déplacements (notamment pour gravir la pente de 12 degrés vers les gouttières). Ils commencent la construction de la base et continuent le prototypage tout au long du mois de décembre.",
+    "text3": "Les angrynieurs en robotique définissent les dimensions de la base et de l'empattement pour optimiser les déplacements (notamment pour gravir la pente de 12 degrés vers les gouttières). Ils commencent la construction de la base.",
     "alt3": "3 membres de l'équipe robotique en train de concevoir la base du robot.",
     "date4": "10 janv. 2024",
     "text4": "Les angrynieurs en robotique commencent à tester les mécanismes de lancement par admission et par double volant d'inertie, avec des résultats prometteurs!",
@@ -174,7 +174,7 @@ export const fr = {
     "text8": "Les angrynieurs Mari construisent une tour de tir pour tester le système amélioré de double volant d'inertie avec de nouveaux rapports de boîte de vitesses. Succès!",
     "alt8": "La tour avec son convoyeur vertical et le système à double volant d'inertie.",
     "date9": "7 mars",
-    "text9": "Après une longue semaine de travail acharné, les robots angryneers ont terminé le toboggan, le multiplicateur et les systèmes d'admission pour tester un robot entièrement fonctionnel ! Ils sont très fiers du chemin parcouru par le robot et continueront à l'améliorer dans les semaines à venir.",
+    "text9": "Après une longue semaine de travail acharné, les robots angryneers ont terminé le toboggan, le multiplicateur et les systèmes d'admission pour tester un robot entièrement fonctionnel!",
     "alt9": "Le robot finalisé avec tous ses systèmes fonctionnels."
   },
     "kiosk": {
@@ -341,7 +341,7 @@ export const imgs = {
 }
 
 const chapterPages = [3, 8, 14, 18, 22];
-const mobileChapterPages = [3, 15, 23, 29, 38];
+const mobileChapterPages = [5, 21, 43, 59, 75];
 
 export const enTabs = {
   'Robot': [chapterPages[0], chapterPages[1] - 1],

@@ -18,6 +18,7 @@ const user = {
                 shapeIndex: 0, 
                 level: 1,
                 archivesPg: 0,
+                mArchivesPg: 0,
                 highscore: 0,
             };
 
