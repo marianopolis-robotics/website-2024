@@ -4,6 +4,8 @@
 	import { fly, blur, fade } from 'svelte/transition';
 
 	export let mirrored = false;
+	export let isFr;
+	export let displayAccessory=true;
 	// let birdImg;
 	// let birdImageHeight;
 	// onMount(() => {
@@ -32,13 +34,13 @@
 </script>
 
 <div class="text-center bird_display" bind:this={accessoryElement} class:mirror={mirrored}>
-	{#if $userStore.accessory !== 'none'}
+	{#if $userStore.accessory !== 'none' && displayAccessory}
 		{#key $userStore.accessory}
 			<img
 				class="accessory"
 				class:big_accessory={$userStore.accessory == 'laptop'}
 				src="/accessories/{$userStore.accessory}.svg"
-				alt={$userStore.hat}
+				alt={isFr ? 'L\'accessoire de l\'utilisateur' : 'The user\'s accessory'}
 				in:fade={{ duration: 400 }}
 			/>
 		{/key}
@@ -52,13 +54,13 @@
 				class:mirror={mirrored && $userStore.hat == 'director-hat'}
 				bind:this={hatElement}
 				src="/hats/{$userStore.hat}.svg"
-				alt={$userStore.hat}
+				alt={isFr ? 'Le chapeau de l\'utilisateur' : 'The user\'s hat'}
 				transition:fly={{ duration: 400 }}
 			/>
 		{/key}
 	{/if}
 	{#key $userStore.shape}
-		<img class="bird" src="/birds/{$userStore.shape}.svg" alt="" in:blur={{ duration: 400 }} />
+		<img class="bird" src="/birds/{$userStore.shape}.svg" alt={isFr ? 'L\'Angrynieur de l\'utilisateur' : 'The user\'s Angryneer'} in:blur={{ duration: 400 }} />
 	{/key}
 </div>
 
@@ -69,7 +71,7 @@
 	}
 	.hat {
 		width: 50%;
-		z-index: -1;
+		z-index: 2;
 		position: absolute;
 		top: var(--position-top);
 		left: 0;
@@ -95,7 +97,7 @@
 	}
 
 	.bird {
-		z-index: -2;
+		z-index: 1;
 		width: 100%;
 		height: 100%;
 	}
@@ -105,7 +107,8 @@
 		width: var(--accessory-size);
 		position: absolute;
 		/* left: -5%; */
-		bottom: 0;
+		bottom: 10%;
+		z-index: 2;
 	}
 
 	.big_accessory {

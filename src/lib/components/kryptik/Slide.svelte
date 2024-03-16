@@ -5,10 +5,11 @@
 	import MultFactorEn from '$lib/assets/kryptik/mult-factor-en.png';
 	import MultFactorFr from '$lib/assets/kryptik/mult-factor-fr.png';
 	import { enSlides, frSlides } from '$lib/kryptik';
+	import UserBird from '../home/UserBird.svelte';
 
 	export let current_slide = 1;
 	export let isFr = false;
- 	export let bird;
+ 	// export let bird;
 	export let name = isFr ? 'Angrynieur' : 'Angryneer';
 
 	let slides = isFr ? frSlides : enSlides;
@@ -20,7 +21,10 @@
 <div class="content" in:fly={{ delay: 300, duration: 300, axis: 'x', easing: cubicOut }}>
 	{#key current_slide}
 		{#if current_slide === 7}
-		<img class="bird" src='/birds/{bird}.svg' alt={isFr ? 'L\'Angrynieur de l\'utilisateur' : 'The user\'s Angryneer'} />
+		<div class="bird mx-auto">
+			<UserBird {isFr}/>
+		</div>
+		<!-- <img class="bird" src='/birds/{bird}.svg' alt={isFr ? 'L\'Angrynieur de l\'utilisateur' : 'The user\'s Angryneer'} /> -->
 		{:else if current_slide === 4}
 		<img src={FloorScore} alt={isFr ? 'Pointage sur le plancher du terrain' : 'Field floor score'} />
 		{:else if current_slide === 6}
@@ -96,6 +100,7 @@
 		}
 		.bird {
 			height: 80%;
+			width: 50%
 		}
 		model-viewer {
 			height: 100%;

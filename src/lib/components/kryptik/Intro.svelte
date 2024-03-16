@@ -1,4 +1,6 @@
 <script>
+	import UserBird from "../home/UserBird.svelte";
+
   export let name;
   export let isFr = false;
 

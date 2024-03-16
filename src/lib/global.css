@@ -3,6 +3,8 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  scrollbar-color: #A77038 white;
+  scrollbar-width: auto;
 }
 
 *::selection {

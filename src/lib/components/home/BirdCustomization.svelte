@@ -171,7 +171,7 @@
 					/>
 				</div>
 				<div class="col mb-1 bird-container">
-					<UserBird />
+					<UserBird {isFr}/>
 				</div>
 				<div class="col col-sm-1 text-center big-screen">
 					<WoodButton
@@ -226,7 +226,7 @@
 			</div>
 			<div class="row text-center justify-content-center mb-5">
 				<div class="col col-md-8 col-lg-4">
-					<UserBird />
+					<UserBird {isFr}/>
 				</div>
 			</div>
 			<div class="row">

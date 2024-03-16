@@ -18,6 +18,7 @@
 		if (
 			userHobbies == '' ||
 			userPower == '' ||
+			userFunFact == '' ||
 			inputFilter.isProfane(userHobbies) ||
 			inputFilter.isProfane(userPower) ||
 			inputFilter.isProfane(userFunFact)

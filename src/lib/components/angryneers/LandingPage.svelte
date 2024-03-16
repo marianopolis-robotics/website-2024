@@ -34,7 +34,7 @@
 				tabindex="0"
 				data-tooltip={$userStore.name == '' ? 'Angryneer' : $userStore.name}
 			>
-				<UserBird />
+				<UserBird {isFr} />
 			</div>
 			<div class="col rounded-content-box text-center col-md-9 col-12 p-5 h2">
 				{isFr ? 'Bonjour, ' : 'Hi, '}{$userStore.name == '' ? (isFr ? 'Angrynieur' : 'Angryneer') : $userStore.name}!
@@ -47,7 +47,7 @@
 
 	<div class="container mb-5">
 		<div class="row pt-5 justify-content-center">
-			<div class="col justify-content-center stella-container col-6 col-md-3 col-lg-2">
+			<div class="col justify-content-center stella-container col-9 col-md-3 col-lg-2">
 				<button
 					class="angryneer stella"
 					on:click={() => displayPopup('stella')}
