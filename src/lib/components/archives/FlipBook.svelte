@@ -72,6 +72,7 @@
 		<Page mNumber="1" number="1" specialPg={true} toc={true}>
 			<h2 class="chapter mb-2">{content.toc}</h2>
 			<div class="toc-page mt-2 mt-sm-4" slot="pointer">
+				<!-- the visually hidden spans improve accessibility for users with screen readers -->
 				<p class="mb-0 mb-sm-1"><span class="toc-chapter">Robot<span><span class="visually-hidden">Page</span> {mobile ? smTabs['Robot'][0] : tabs['Robot'][0]}</span></p>
 				<p class="mb-0 mb-sm-1"><span class="toc-chapter">{isFr ? 'Kiosque' : 'Kiosk'} <span><span class="visually-hidden">Page</span> {isFr ? (mobile ? smTabs['Kiosque'][0] : tabs['Kiosque'][0]) : (mobile ? smTabs['Kiosk'][0] : tabs['Kiosk'][0])}</span></p>
 				<p class="mb-0 mb-sm-1"><span class="toc-chapter">{isFr ? 'Site web' : 'Website'} <span><span class="visually-hidden">Page</span> {isFr ? (mobile ? smTabs['Site web'][0] : tabs['Site web'][0]) : (mobile ? smTabs['Website'][0] : tabs['Website'][0])}</span></p>

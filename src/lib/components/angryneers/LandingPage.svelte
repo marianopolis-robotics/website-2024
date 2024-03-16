@@ -23,7 +23,7 @@
 
 <div class="landing-container">
 	<h1 class="mx-2 my-5 mb-lg-4 display-1 text-white text-center">{isFr ? 'Nos angrynieurs' : 'Our Angryneers'}</h1>
-	<div class="container">
+	<div class="container mt-5">
 		<div class="row align-items-center row-cols-1 row-cols-md-2 justify-content-center">
 			<div
 				class="col col-7 col-md-3 userAngryneer"
