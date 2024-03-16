@@ -1,4 +1,6 @@
 <script>
+	import UserBird from "../home/UserBird.svelte";
+
   export let name;
   export let isFr = false;
   import CRC from '$lib/assets/kryptik/crc.png';

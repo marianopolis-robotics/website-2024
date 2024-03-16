@@ -14,8 +14,8 @@
 
 	$: currentBird = bird;
 	let birdIndex = $BirdStore.birds.indexOf(bird);
-	let showBird = true;
 	let memberPic;
+	$: imgSource = `/birds/${currentBird}.svg`;
 
 	onMount(() => {
 		birdIndex = $BirdStore.birds.indexOf(bird);
@@ -43,8 +43,8 @@
 
 		currentBird = $BirdStore.birds[birdIndex];
 	}
-	function changePic(element, bird, changeTo, fileExt) {
-		element.src = `/${changeTo}/${bird}.${fileExt}`;
+	function changePic(bird, changeTo, fileExt) {
+		imgSource = `/${changeTo}/${bird}.${fileExt}`;
 	}
 </script>
 
@@ -78,22 +78,34 @@
 				<div class="row align-items-center row-cols-1 row-cols-md-2 row-cols-lg-2">
 					<div class="col col-12 col-md-12 col-lg-4 bird_display">
 						{#key currentBird}
-							<div in:fly={{ duration: 500 }}>
+							<div in:fly={{ duration: 600 }}>
 								{#if currentBird == 'user'}
-									<UserBird />
+									<UserBird {isFr} />
 								{:else}
-									<img
-										src="/birds/{currentBird}.svg"
-										on:mouseenter={changePic(this, currentBird, 'members', 'png')}
-										on:mouseleave={changePic(this, currentBird, 'birds', 'svg')}
-										alt={currentBird}
-										class="bird-picture computer-picture"
-									/>
-									<!-- add on click -->
-								<button class="angryneer-button" on:click={changePic(memberPic, currentBird, memberPic.src.includes(`/birds/${currentBird}.svg`) ? "members" : "birds", memberPic.src.includes(`/birds/${currentBird}.svg`) ? "png" : "svg")}>
-									<img src="/birds/{currentBird}.svg" alt={currentBird} class="bird-picture mobile-picture"  bind:this={memberPic}/>
-								</button>
-									
+									{#key imgSource}
+										<button class="angryneer-button" in:fly={{ duration: 600 }}>
+											<img
+												src={imgSource}
+												on:mouseenter={changePic(currentBird, 'members', 'png')}
+												on:mouseleave={changePic(currentBird, 'birds', 'svg')}
+												alt={isFr ? 'L\'Angrynieur du membre' : 'The member\'s Angryneer'}
+												class="bird-picture computer-picture"
+											/>
+										</button>
+
+										<!-- add on click -->
+										<button
+											class="angryneer-button"
+											in:fly={{ duration: 600 }}
+											on:click={changePic(
+												currentBird,
+												imgSource.includes(`/birds/${currentBird}.svg`) ? 'members' : 'birds',
+												imgSource.includes(`/birds/${currentBird}.svg`) ? 'png' : 'svg'
+											)}
+										>
+											<img src={imgSource} alt={isFr ? 'L\'Angrynieur du membre' : 'The member\'s Angryneer'} class="bird-picture mobile-picture" />
+										</button>
+									{/key}
 								{/if}
 							</div>
 						{/key}
@@ -118,12 +130,11 @@
 
 					{#key currentBird}
 					<div class="col col-sm-12 col-md-12 col-lg-8" id="box_container" in:fly={{ duration: 500 }}>
-						
 						<img class="frame_left" src="/textures/wood_frame.svg" alt="wood frame left" />
-						<img class="frame_right" src="/textures/wood_frame.svg" alt="" />
+						<img class="frame_right" src="/textures/wood_frame.svg" alt="wood frame right" />
 
-						<img class="frame_top" src="/textures/wood_frame_horizontal.svg" alt="" />
-						<img class="frame_bottom" src="/textures/wood_frame_horizontal.svg" alt="" />
+						<img class="frame_top" src="/textures/wood_frame_horizontal.svg" alt="wood frame top" />
+						<img class="frame_bottom" src="/textures/wood_frame_horizontal.svg" alt="wood frame bottom" />
 
 						<div class="rounded-content-box box m-4 p-4 pt-5">
 							<p class="stat p-2 mt-2">

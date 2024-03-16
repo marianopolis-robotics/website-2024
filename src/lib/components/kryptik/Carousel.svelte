@@ -1,11 +1,10 @@
 <script>
-	import { fade } from 'svelte/transition';
-
 	import { userStore } from '$lib/Store';
 	import Slide from './Slide.svelte';
 
-	import Arrow from '$lib/assets/kryptik/icons/arrow.svg';
-	import ArrowDisabled from '$lib/assets/kryptik/icons/arrow-disabled.svg';
+	import Arrow from '$lib/assets/icons/arrow.svg';
+	import ArrowDisabled from '$lib/assets/icons/arrow-disabled.svg';
+	import UserBird from '../home/UserBird.svelte';
 
 	export let isFr = false;
 
@@ -37,9 +36,11 @@
 		<table>
 			<tr>
 				{#each indices as index}
-					<td>
+					<td class:slide-indicator={current_slide==index &&load}>
 						{#if current_slide === index && load}
-							<img src="/birds/{bird}.svg" id="userPos" alt="Angry Birds icon" in:fade={{ duration: 100 }} />
+							<div class="bird-container  text-center">
+								<UserBird {isFr} displayAccessory={false}/>
+							</div>
 						{:else}
 							<button class="pagination" class:passed={index < current_slide} on:click={() => $userStore.level = index}></button>
 						{/if}
@@ -54,7 +55,7 @@
 		</div>
 		<div class="middle px-3">
 			{#key current_slide}
-				<Slide {current_slide} {bird} {name} {isFr} />
+				<Slide {current_slide} {name} {isFr} />
 			{/key}
 		</div>
 		<div class="right" class:disable={current_slide == 7}>
@@ -76,7 +77,19 @@
 	.pagination, table tr td {
 		width: 15px;
 	}
+	.bird-container{
+		position: absolute;
+		bottom: 5%;
+		left: -10%;
+		width: 120%;
+		/* width: 200% !important; */
+		aspect-ratio: 1/1;
+	}
 
+	.slide-indicator{
+		position:relative;
+		width: 25px !important;
+	}
 	#userPos {
 		width: 20px;
 	}
@@ -173,6 +186,9 @@
 		.pagination, table tr td, #userPos {
 			width: 30px;
 		}
+		.slide-indicator{
+			width: 40px !important;
+		}
 	}
 
 	@media screen and (min-width: 768px) {
@@ -183,5 +199,9 @@
 		.pagination, table tr td, #userPos {
 			width: 45px;
 		}
+		.slide-indicator{
+			width: 50px !important;
+		}
 	}
+
 </style>

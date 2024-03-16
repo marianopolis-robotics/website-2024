@@ -2,6 +2,10 @@ import { writable } from "svelte/store";
 
 export const BirdStore = writable({
     birds: [
+        'user',
+        'stella',
+        'tony',
+        'terence',
 		'poppy',
 		'blue1',
 		'blue2',
@@ -19,11 +23,7 @@ export const BirdStore = writable({
 		'red',
 		'silver',
 		'willow',
-		'user',
-        'stella',
         'pig',
-        'tony',
-        'terence',
 	],
     poppy: {
         bird: 'poppy',
