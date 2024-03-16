@@ -2,13 +2,12 @@
 	import { userStore } from '$lib/Store';
 	import Slide from './Slide.svelte';
 
-	import Arrow from '$lib/assets/icons/arrow.svg';
-	import ArrowDisabled from '$lib/assets/icons/arrow-disabled.svg';
-	import UserBird from '../home/UserBird.svelte';
+	import Arrow from '$lib/assets/kryptik/icons/arrow.svg';
+	import ArrowDisabled from '$lib/assets/kryptik/icons/arrow-disabled.svg';
+	import UserBird from '$lib/components/home/UserBird.svelte';
 
 	export let isFr = false;
 
-	$: bird = $userStore.shape;
 	$: name = $userStore.name;
 
 	let load = false;
@@ -90,9 +89,6 @@
 		position:relative;
 		width: 25px !important;
 	}
-	#userPos {
-		width: 20px;
-	}
 
 	.pagination {
 		border-radius: 50%;
@@ -164,10 +160,6 @@
 		transform: rotate(180deg);
 	}
 
-	#userPos {
-		filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.8));
-	}
-
 	@media screen and (min-width: 450px) {
 		div.carousel {
 			height: auto;
@@ -183,7 +175,7 @@
 			transition: background-color 0.15s ease-in-out;
 		}
 
-		.pagination, table tr td, #userPos {
+		.pagination, table tr td {
 			width: 30px;
 		}
 		.slide-indicator{
@@ -196,7 +188,7 @@
 			background-color: #e5dbc2;
 		}
 
-		.pagination, table tr td, #userPos {
+		.pagination, table tr td {
 			width: 45px;
 		}
 		.slide-indicator{
