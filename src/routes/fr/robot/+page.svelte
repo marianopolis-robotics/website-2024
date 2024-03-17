@@ -1,5 +1,5 @@
 <svelte:head>
-  <meta name="description" content="Blueprints for the Mari Angryneers' robot">
+  <meta name="description" content="Plans pour le robot des Angrynieurs Mari">
   <title>Robot | Angrynieurs Mari</title>
 </svelte:head>
 
@@ -13,7 +13,7 @@
 </script>
 
 <h1 class="col text-center text-white display-1 my-5">Robot</h1>
-<p class="mt-3 mx-3 mx-sm-5 px-4 px-md-5 py-3 py-md-4 desc-box">Voici tout ce qu'il y a à savoir sur le robot des angrynieurs Mari pour Kryptik 2024, {displayName}! 
+<p class="mt-3 mx-3 mx-sm-5 px-4 px-md-5 py-3 py-md-4 desc-box">Voici tout ce qu'il y a à savoir sur le robot des Angrynieurs Mari pour Kryptik 2024, {displayName}! 
   Nous avons documenté comment fonctionne chaque système et comment nous avons affronté plusieurs défis au cours des phases de construction.</p>
 
 <Panel>
@@ -55,10 +55,9 @@
     <p>La pièce de jeu au prisonnier parcourt ainsi une distance considérable tout en prenant de la hauteur pour atteindre nos cibles.</p>
     <br />
     <h2 class="text-center mb-4">Notre deuxième défi</h2>
-    <p>Le deuxième défi consistait à trouver une vitesse de rotation appropriée pour les 4 moteurs de propulsion, notamment les Banebot 550.</p>
-    <p>Bien que nous souhaitions augmenter la vitesse du robot, certains moteurs à régime élevé émettraient de la fumée en raison du manque de torque sous le poids du robot.</p>
-    <p>Finalement, nous avons opté pour des moteurs à plus faible régime (avec un couple plus élevé) combinés à des boîtes de vitesses 64:1 pour résoudre le problème.</p>
-
+    <p>Le deuxième défi a été la mise au point du mécanisme de tir.</p>
+    <p>Bien que nous ayons veillé à ce que notre convoyeur menant au mécanisme de tir soit constant, il était difficile de déterminer rapidement la vitesse à laquelle les volants d'inertie devaient tourner pour atteindre les cibles avec précision.</p>
+    <p>Nous avons donc codé une interface utilisateur simple, capable de communiquer rapidement avec l'Arduino pour régler les différentes vitesses du système à double volant.</p>
   </ModelRow>
   <ModelRow model="robotfinal" config="caption">
     <h2 class="text-center mb-4">The robot</h2>
@@ -69,9 +68,9 @@
       Nous avons choisi les roues Mecanum pour un mouvement omnidirectionnel qui permet une large gamme de mouvements qui nous aideront à être plus polyvalents et à avoir plus d'impact dans un match!</p>
     <br />
     <h2 class="text-center mb-4">Notre troisième défi</h2>
-    <p>Le troisième défi majeur a été la mise au point du mécanisme de tir.</p>
-    <p>Bien que nous ayons veillé à ce que notre convoyeur menant au mécanisme de tir soit constant, il était difficile de déterminer rapidement la vitesse à laquelle les volants d'inertie devaient tourner pour atteindre les cibles avec précision.</p>
-    <p>Nous avons donc codé une interface utilisateur simple, capable de communiquer rapidement avec l'Arduino pour régler les différentes vitesses du système à double volant.</p>
+    <p>Le troisième défi majeur consistait à trouver une vitesse de rotation appropriée pour les 4 moteurs de propulsion, notamment les Banebot 550.</p>
+    <p>Bien que nous souhaitions augmenter la vitesse du robot, certains moteurs à régime élevé émettraient de la fumée en raison du manque de torque sous le poids du robot.</p>
+    <p>Finalement, nous avons opté pour des moteurs à plus faible régime (avec un couple plus élevé) combinés à des boîtes de vitesses 64:1 pour résoudre le problème.</p>
   </ModelRow>
 </Panel>
 

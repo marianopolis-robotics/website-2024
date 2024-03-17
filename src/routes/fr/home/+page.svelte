@@ -6,7 +6,7 @@
 </script>
 
 <svelte:head>
-  <meta name="description" content="Welcome to the base of the Mari Angryneers!">
+  <meta name="description" content="Bienvenue à la base des Angrynieurs Mari!">
   <title>Accueil | Mari Angrynieurs</title>
 </svelte:head>
 

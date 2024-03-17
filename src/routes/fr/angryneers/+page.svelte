@@ -3,7 +3,7 @@
 
 </script>
 <svelte:head>
-  <meta name="description" content="Rencontrer les angrynieurs Mari!">
+  <meta name="description" content="Rencontrer les Angrynieurs Mari!">
   <title>Angrynieurs | Angrynieurs Mari</title>
 </svelte:head>
 

@@ -1,5 +1,5 @@
 <svelte:head>
-  <meta name="description" content="Welcome to the base of the Mari Angryneers!">
+  <meta name="description" content="Nous vous présentons les Angrynieurs Mari!">
   <title>Les Angrynieurs Mari</title>
 </svelte:head>
 

@@ -79,6 +79,6 @@ export const frSlides = {
   7: {
     model: '',
     text: ['Vous êtes maintenant prêt à entrer dans l\'arène,', 'N\'oubliez pas que vous n\'avez que 5 minutes pour marquer le maximum de points.',
-      'Bonne chance, angrynieur... envolez-vous!']
+      'Bonne chance, Angrynieur... envolez-vous!']
   }
 };

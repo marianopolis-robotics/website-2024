@@ -148,15 +148,15 @@
 <div class="competition-description p-3 p-md-5 text-center rounded-content-box mx-2 mx-md-4 mx-xl-5 mt-4">
 	<p>
 		{isFr
-			? 'En mémoire de la défaite du Chateau du Roi Cochon, les Angrynieurs reproduissent cet événement mémorial à chaque année et compétitionnent pour le meilleur lance-pierre! Les angrynieurs (mot-valise réunissant Angry Birds et l\'ingénierie) Mari sont divisés en cinq équipes afin de réaliser cet événement:'
-			: "In memory of the defeat of the King Pig's Castle, the Angryneers reproduce this memorial event each year and compete in order to test who has the best slingshot! The Mari Angryneers (portmanteau of Angry Birds and engineers) are divided into five subteams to make this happen:"}
+			? 'En mémoire de la défaite du Chateau du Roi Cochon, les angrynieurs reproduissent cet événement mémorial à chaque année et compétitionnent pour le meilleur lance-pierre! Les angrynieurs (mot-valise réunissant Angry Birds et l\'ingénierie) Mari sont divisés en cinq équipes afin de réaliser cet événement:'
+			: "In memory of the defeat of the King Pig's Castle, the angryneers reproduce this memorial event each year and compete in order to test who has the best slingshot! The Mari Angryneers (portmanteau of Angry Birds and engineers) are divided into five subteams to make this happen:"}
 	</p>
 	<ul class="px-3">
 		<li>
 			<strong>{isFr ? "L'équipe de robot/lance-pierre" : 'The robot/slingshot team'}</strong>
 			{isFr
-				? "composée d'excellents produceurs de lance-pierres."
-				: 'composed of amazing slingshot makers.'}
+				? "composée d'excellents fabricants de robots/lance-pierres."
+				: 'composed of amazing robot/slingshot makers.'}
 		</li>
 		<li>
 			<strong>{isFr ? "L'équipe de vidéo/recrutement" : 'The video/recruitment team'}</strong>

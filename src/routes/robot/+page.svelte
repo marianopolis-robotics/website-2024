@@ -55,9 +55,9 @@
     <p>This makes sure that the game piece covers a considerable distance while gaining height to reach our targets.</p>
     <br />
     <h2 class="text-center mb-4">Our second challenge</h2>
-    <p>The second challenge involved finding an appropriate RPM for the 4 drive motors, namely the Banebot 550s.</p>
-    <p>While we wanted to increase the speed of the robot, some higher RPM motors would emit smoke due to the lack of torque under the weight of the robot.</p>
-    <p>Finally, we settled on lower RPM (with higher torque) coupled with 64:1 gearboxes to solve the problem.</p>
+    <p>The second challenge was the fine tuning of the firing mechanism.</p>
+    <p>While we ensured our conveyor belt leading to the shooting mechanism was consistent, it was difficult to quickly determine the speed at which the flywheels should spin to hit the targets precisely.</p>
+    <p>Accordingly, we coded a simple user interface that could quickly communicate with the Arduino to set various speeds for the double-flywheel system.</p>
 
   </ModelRow>
   <ModelRow model="robotfinal" config="caption">
@@ -69,9 +69,9 @@
       We chose Mecanum wheels for omnidirectional movement that allows for a wide range of motions that will help us be more versatile and be more impactful in a match!</p>
     <br />
     <h2 class="text-center mb-4">Our third challenge</h2>
-    <p>A third major challenge was the fine tuning of the firing mechanism.</p>
-    <p>While we ensured our conveyor belt leading to the shooting mechanism was consistent, it was difficult to quickly determine the speed at which the flywheels should spin to hit the targets precisely.</p>
-    <p>Accordingly, we coded a simple user interface that could quickly communicate with the Arduino to set various speeds for the double-flywheel system.</p>
+    <p>A third major challenge involved finding an appropriate RPM for the 4 drive motors, namely the Banebot 550s.</p>
+    <p>While we wanted to increase the speed of the robot, some higher RPM motors would emit smoke due to the lack of torque under the weight of the robot.</p>
+    <p>Finally, we settled on lower RPM (with higher torque) coupled with 64:1 gearboxes to solve the problem.</p>
   </ModelRow>
 </Panel>
 

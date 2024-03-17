@@ -22,7 +22,7 @@
 </script>
 
 <svelte:head>
-	<meta name="description" content="En savoir plus sur Kryptik, la compétition d'angryneering annuelle!" />
+	<meta name="description" content="En savoir plus sur Kryptik, la compétition d'Angrynierie annuelle!" />
 	<title>Kryptik | Angrynieurs Mari</title>
 </svelte:head>
 

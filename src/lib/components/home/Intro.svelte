@@ -55,7 +55,7 @@
 	<div class="row align-items-center row-cols-1 row-cols-md-2 mx-auto rounded-content-box">
 		<div class="col text-center p-md-5 p-3 pt-5">
 			{isFr
-				? 'Bienvenue à la base principale des Angrynieurs Mari! Designez votre oiseau pour rejoindre la compétition annuelle d\'angrynierie Kryptik!'
+				? 'Bienvenue à la base principale des Angrynieurs Mari! Designez votre oiseau pour rejoindre la compétition annuelle d\'Angrynierie Kryptik!'
 				: 'Welcome to the Mari Angryneers\' home base! Design your bird in order to join the annual Kryptik Angryneering competition!'}
 		</div>
 		<div class="col p-md-5 p-3 pt-5 pb-5 text-center">
@@ -70,7 +70,7 @@
 						class="form-control-lg w-75 m-0"
 						class:input_error={inputError}
 					/>
-					<p class="character-limit h5 text-left">Maximum 15 characters</p>
+					<p class="character-limit h5 text-left">{isFr ? 'Maximum 15 caractères' : 'Maximum 15 characters'}</p>
 	
 					<button
 						class="btn btn-outline-primary btn-lg m-0 px-2"

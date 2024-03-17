@@ -18,7 +18,7 @@
 	    read before entering the arena! If you want to go the extra mile, you can train for Kryptik 2024 using our 3D simulation!`
     ],
     fr: [
-      `Nous sommes ravis que vous vous intéressiez à Kryptik, ${displayName}! La compétition d'angrynierie annuelle Kryptik est organisée chaque année par la CRC pour commémorer l\'attaque victorieuse contre le château du Roi Cochon, nous permettant de récupérer les œufs qui nous appartiennent. Cette année, Kryptik 2024 aura lieu à École Curé-Antoine-Labelle (216 Boul Marc-Aurèle-Fortin, Laval, QC) du 11 au 13 avril!`,
+      `Nous sommes ravis que vous vous intéressiez à Kryptik, ${displayName}! La compétition d'Angrynierie annuelle Kryptik est organisée chaque année par la CRC pour commémorer l\'attaque victorieuse contre le château du Roi Cochon, nous permettant de récupérer les œufs qui nous appartiennent. Cette année, Kryptik 2024 aura lieu à l'École Curé-Antoine-Labelle (216 Boul Marc-Aurèle-Fortin, Laval, QC) du 11 au 13 avril!`,
       `Les premiers angrynieurs ont formé la CRC, une organisation à but non lucratif, en 2001. Ils ont ensuite créé un jeu d\'angrynierie pour reproduire les tactiques employées durant la guerre contre les cochons, mais sans le mécanisme de projection original. En fait, ils ont conçu un mécanisme qui lance des projectiles autre que les oiseaux (angrynieurs) eux-mêmes!`,
       `Jamais participé à la compétition Kryptik ou novice en matière de l\'angrynierie en général? Nous vous avons préparé des instructions détaillées à lire avant d\'entrer dans l\'arène! Si vous voulez faire un effort supplémentaire, vous pouvez vous entraîner pour Kryptik 2024 avec notre simulation 3D!`
     ]

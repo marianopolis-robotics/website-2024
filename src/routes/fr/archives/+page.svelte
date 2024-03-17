@@ -4,7 +4,7 @@
 </script>
 
 <svelte:head>
-  <meta name="description" content="Les archives officielles des angrynieurs Mari!">
+  <meta name="description" content="Les archives officielles des Angrynieurs Mari!">
   <title>Archives | Angrynieurs Mari</title>
 </svelte:head>
 
