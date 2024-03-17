@@ -357,7 +357,7 @@ export const imgs = {
 }
 
 const chapterPages = [5, 10, 16, 20, 24];
-const mobileChapterPages = [11, 27, 50, 66, 82];
+const mobileChapterPages = [11, 27, 49, 65, 81]; // website, video, programming page flips (even numbers) need to be set to the actual page - 1 (not sure why :/)
 
 export const enTabs = {
   'Robot': [chapterPages[0], chapterPages[1] - 1],
