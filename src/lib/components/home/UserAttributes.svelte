@@ -120,12 +120,12 @@
 		<div in:blur={{ duration: 300 }}>
 			<p class="description-text text-center">
 				{isFr
-					? `Il parait que vous êtes un maitre de ${$userStore.superPower} et que vous aimez ${$userStore.hobbies}!`
+					? `Il parait que vous êtes un expert de ${$userStore.superPower} et que vous aimez ${$userStore.hobbies}!`
 					: `It looks like you are a master of ${$userStore.superPower} and you enjoy ${$userStore.hobbies}!`}
 			</p>
 			<p class="description-text text-center">
 				{isFr
-					? `Fait interessant sur vous: ${$userStore.funFact}!`
+					? `Fait intéressant sur vous: ${$userStore.funFact}!`
 					: `Fun fact about you: ${$userStore.funFact}!`}
 			</p>
 			<div class="text-center mb-4">
@@ -133,7 +133,7 @@
 					class="btn btn-outline-primary mx"
 					on:click={() => {
 						setSubmitAttributes(false);
-					}}>{isFr ? 'Modifiez les qualités' : 'Edit Qualitites'}</button
+					}}>{isFr ? 'Modifiez les qualités' : 'Edit Qualities'}</button
 				>
 			</div>
 		</div>
@@ -153,13 +153,13 @@
 	</p>
 	<ul class="px-3">
 		<li>
-			<strong>{isFr ? "L'équipe du lance-pierre" : 'The slingshot team'}</strong>
+			<strong>{isFr ? "L'équipe de robot/lance-pierre" : 'The robot/slingshot team'}</strong>
 			{isFr
 				? "composée d'excellents produceurs de lance-pierres."
 				: 'composed of amazing slingshot makers.'}
 		</li>
 		<li>
-			<strong>{isFr ? "L'équipe de recrutement" : 'The recruitment team'}</strong>
+			<strong>{isFr ? "L'équipe de vidéo/recrutement" : 'The video/recruitment team'}</strong>
 			{isFr
 				? 'pour produire des vidéos qui attirent des nouveaux recrus.'
 				: 'for producing videos that attract new recruits.'}
@@ -169,12 +169,12 @@
 			{isFr
 				? 'pour familiariser les nouveaux recrus avec la compétition.'
 				: 'for familiarizing new recruits with the competition. '}
-			<!-- <a href="https://github.com/marianopolis-robotics/website-2024"
+			<a href="https://github.com/marianopolis-robotics/website-2024"
 				>{isFr ? 'Venez voir leur bon travail ici!' : 'Come see their amazing work here!'}</a
-			> -->
+			>
 		</li>
 		<li>
-			<strong>{isFr ? "L'équipe de design" : 'The design team'}</strong>
+			<strong>{isFr ? "L'équipe de kiosque/design" : 'The kiosk/design team'}</strong>
 			{isFr
 				? 'en charge de reconstruire le Chateau du Roi Cochon.'
 				: "in charge of rebuilding the King Pig's Castle."}

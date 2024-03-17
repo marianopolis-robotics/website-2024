@@ -1,9 +1,10 @@
 <script>
-  export let src, poster;
+  export let model;
 </script>
 
 <div class="bg">
-  <model-viewer {src} ar ar-modes="webxr scene-viewer quick-look" camera-controls {poster} shadow-intensity="1"></model-viewer>
+  <model-viewer src="/robot/3d/{model}.glb" ar ar-modes="webxr scene-viewer quick-look" camera-controls tone-mapping="commerce" 
+                poster="/robot/3d/posters/{model}.webp" shadow-intensity="1" environment-image="/robot/3d/posters/aircraft_workshop_01_1k.hdr"></model-viewer>
 </div>
 
 <style>

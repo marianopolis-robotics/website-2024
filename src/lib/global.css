@@ -118,3 +118,10 @@ body {
   background-color: #4F250A !important;
   color: white!important;
 }
+
+.desc-box {
+  background-color: rgba(255, 237, 194, 0.6);
+  border-radius: 10px;
+  box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.3);
+  border: solid 0.5px #332400;
+}

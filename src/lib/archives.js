@@ -5,6 +5,14 @@ export const en = {
   "intro1": "Once upon a time in the Bird Kingdom, a group of angryneers at Marianopolis banded together to form the Mari Angryneers…",
   "intro2": "They've come a long way and now, they're gearing up for the CRC's 2024 Kryptik Angryneering Competition.",
   "intro3": "This priceless artifact contains the official 2023-2024 Mari Angryneer Archives, so cherish this journal and protect it,",
+  "struggles": {
+    "robot": "The robot angryneers encountered a series of challenges as they prepared the robot for the Kryptik game. Head over to the Robot page to read all about it!",
+    "kiosk1": "Coming up with a proper kiosk design was not our easiest job. We often struggled to follow a structured plan and usually just went with the flow. But in the end, the kiosk turned out very nicely!",
+    "kiosk2": "To fix our scheduling problem, we decided to not focus on big overwhelming tasks but instead smaller ones to help us accomplish everything. This allowed us to work efficiently and get our tasks done without being too stressed about following a strict plan.",
+    "website": "We welcomed several web development beginners this year, so we struggled to ensure everyone learned the necessary technologies to develop our website. However, thanks to guidance from our most experienced web developers, the website angryneers had lots of fun creating this final product.",
+    "video": "Equipment for the video took a frustratingly long time to arrive, and once we received everything, the weather was too uninviting to film long scenes outside! Our video angryneers remained patient and planned meticulously in the meantime, so when the wait was over the filming and editing process went smoothly.",
+    "programming": "Our programmers had to balance solving the preliminary problems before the deadlines, helping other Mari Angryneers with their tasks, and of course, managing their school workload! This was far from easy, but with effective communication and collaboration, our programming angryneers stepped up to the challenge and overcame this hurdle."
+  },
   "robot": {
     "date1": "Nov 13, 2023: Kickoff!",
     "text1": "Angryneers from all over the Bird Kingdom gather at Curé-Antoine-Labelle high school, the site of the infamous angryneering competition held annually by the CRC, for the Kryptik 2024 kickoff!",
@@ -148,9 +156,17 @@ export const fr = {
   "intro1": "Il était une fois dans le Royaume des oiseaux, un groupe d'angrynieurs à Marianopolis se regroupent pour former l'équipe des Angrynieurs Mari…",
   "intro2": "Ils ont parcouru un long chemin et maintenant ils se préparent pour la compétition d'angrynierie Kryptik 2024, organisée par la CRC.",
   "intro3": "Cette œuvre inestimable contient les archives officielles de 2023-24 des Angrynieurs Mari, donc chérissez ce journal et protégez-le,",
+  "struggles": {
+    "robot": "Les angrynieurs du robot ont été confrontés à une série de défis lorsqu'ils ont préparé le robot pour le jeu Kryptik. Dirigez-vous vers la page Robot pour tout savoir à ce sujet!",
+    "kiosk1": "La conception d'un design adéquat n'a pas été notre tâche la plus facile. Nous avons souvent eu du mal à suivre un plan structuré et nous nous sommes généralement contentés de voir ou les choses nous emmenent. Mais au bout du compte, nous sommes très contents avec le résultat!",
+    "kiosk2": "Pour résoudre notre problème concernant la gestion des horaires, nous avons décidé de ne pas nous concentrer sur les grandes tâches écrasantes, mais sur les petites tâches qui nous permettent d'accomplir tout ce que nous avons à faire, petit à petit. Cela nous a permis de travailler efficacement et d'accomplir nos tâches, sans être trop stressés par le fait de devoir suivre un agenda strict.",
+    "website": "Nous avons accueilli plusieurs débutants en développement web cette année. Nous avons donc eu de la difficulté à encourager tout le monde à apprendre les technologies nécessaires pour développer notre site web. Cependant, grâce à nos développeurs web les plus expérimentés, les angrynieurs du site web se sont beaucoup amusés en créant ce produit final.",
+    "video": "L'équipement pour la vidéo a mis un temps frustrant pour arriver, et une fois que nous avons tout reçu, la météo était trop mauvaise pour filmer de longues scènes à l'extérieur! Nos Angrynieurs dédiés à la vidéo sont restés patients et ont planifié méticuleusement entre-temps, de sorte qu'une fois l'attente terminée, le processus de tournage et de montage s'est déroulé sans problème.",
+    "programming": "Nos programmeurs devaient trouver le juste milieu entre plusieurs tâches: résoudre les problèmes préliminaires avant leurs dates de remise, aider d'autres angrynieurs Mari avec leur travail et bien sûr, gérer la charge de travail scolaire! Ce n'était pas facile, mais nos angrynieurs de logiciel ont relevé le défi en communicant et collaborant efficacement afin de surmonter cet obstacle."
+  },
   "robot": {
     "date1": "13 nov. 2023",
-    "text1": "Les angrynieurs du Royaume des oiseaux se rassemblent à l'école secondaire Curé-Antoine-Labelle, le site de l'infâme compétition d'angrynierie organisée chaque année par le CRC, pour le coup d'envoi de Kryptik 2024 !",
+    "text1": "Les angrynieurs du Royaume des oiseaux se rassemblent à l'école secondaire Curé-Antoine-Labelle, le site de l'infâme compétition d'angrynierie organisée chaque année par le CRC, pour le coup d'envoi de Kryptik 2024!",
     "alt1": "8 membres de l'équipe dans l'auditorium de l'école secondaire Curé-Antoine-Labelle.",
     "date2": "30 nov. 2023",
     "text2": "Les angrynieurs Mari discutent des différents mécanismes d'admission pour ramasser les pièces du jeu au sol et se divisent en petites équipes pour travailler sur les prototypes d'admission.",
@@ -179,7 +195,7 @@ export const fr = {
   },
     "kiosk": {
     "date1": "30 nov. 2023",
-    "text1": "Les angrynieurs Mari commencent à finaliser les couleurs et les accessoires afin de reproduire le château du Roi Cochon pour le concours annuel de Kryptik !",
+    "text1": "Les angrynieurs Mari commencent à finaliser les couleurs et les accessoires afin de reproduire le château du Roi Cochon pour le concours annuel de Kryptik!",
     "alt1": "Un croquis du plan du kiosque.",
     "date2": "28 déc. 2023",
     "text2": "Les murs de la réplique du château sont maintenant installés et prêts à être peints.",
@@ -206,15 +222,15 @@ export const fr = {
     "text9": "Les angrynieurs du kiosque ont trouvé un meilleur moyen de créer un mur de pierre: ils vont sculpter des panneaux de mousse et les peindre en gris.",
     "alt9": "Un membre de l'équipe sculptant le mur du kiosque.",
     "date10": "4 mars 2024",
-    "text10": "Des poutres en bois sont peintes en or pour un aspect plus majestueux et sont installées à l'intérieur du château. Le château du roi cochon prend forme !",
+    "text10": "Des poutres en bois sont peintes en or pour un aspect plus majestueux et sont installées à l'intérieur du château. Le château du roi cochon prend forme!",
     "alt10": "Un membre de l'équipe qui peint à l'aérosol les planches de bois du kiosque.",
     "date11": "6 mars 2024",
-    "text11": "Les angrynieurs du kiosque fabriquent des peluches avec du tissu et du rembourrage Polyfill pour trois angrynieurs Mari: Red, Chuck et Black. Bientôt, ils pourront inviter le reste de l'équipe à les rejoindre à l'intérieur !",
+    "text11": "Les angrynieurs du kiosque fabriquent des peluches avec du tissu et du rembourrage Polyfill pour trois angrynieurs Mari: Red, Chuck et Black. Bientôt, ils pourront inviter le reste de l'équipe à les rejoindre à l'intérieur!",
     "alt11": "Deux membres de l'équipe qui tiennent du rembourrage.",
   },
   "website": {
     "date1": "30 nov. 2023",
-    "text1": "Les angrynieurs du site web commencent à discuter du contenu et de la structure de leur site web Kryptik 2024, et décident d'utiliser Svelte et Bootstrap pour développer le site cette année !",
+    "text1": "Les angrynieurs du site web commencent à discuter du contenu et de la structure de leur site web Kryptik 2024, et décident d'utiliser Svelte et Bootstrap pour développer le site cette année!",
     "alt1": "Deux membres de l'équipe travaillant sur le site web.",
     "date2": "29 déc. 2023",
     "text2": "Les membres du groupe se réunissent en ligne pour commencer à concevoir des mises en page et des éléments interactifs tels que des modèles 3D et des animations de défilement.",
@@ -226,21 +242,21 @@ export const fr = {
     "text4": "L'équipe du site web avance rapidement dans son travail et termine le codage de certains composants et pages réutilisables.",
     "alt4": "Deux membres de l'équipe travaillant sur le site web.",
     "date5": "10 janv. 2024",
-    "text5": "Ming (aka. Silver) travaille sans relâche pour coder une impressionnante simulation 3D de Kryptik !",
+    "text5": "Ming (aka. Silver) travaille sans relâche pour coder une impressionnante simulation 3D de Kryptik!",
     "alt5": "Un membre de l'équipe travaillant sur le site web.",
     "date6": "6 fév. 2024",
-    "text6": "Certaines pages du site web ont maintenant une version initiale complétée ! Les angrynieurs du site continuent de concevoir et de coder les pages restantes, tout en déboguant et en améliorant celles qui sont terminées.",
+    "text6": "Certaines pages du site web ont maintenant une version initiale complétée! Les angrynieurs du site continuent de concevoir et de coder les pages restantes, tout en déboguant et en améliorant celles qui sont terminées.",
     "alt6": "Un membre de l'équipe programmant le site web.",
     "date7": "7 mars 2024",
     "text7": "Les angrynieurs du site web ont programmé toutes les pages, et il ne reste plus que quelques tâches: le contenu du site, les améliorations, et une relecture minutieuse.",
     "alt7": "Deux membres de l'équipe travaillant sur le site web.",
     "date8": "8 mars 2024",
-    "text8": "Les angrynieurs du site web notent leurs dernières mises à jour sur l'équipe et présentent le site web pour en finaliser les fonctionnalités alors que la date limite de soumission approche à grands pas. Des photos individuelles des angrynieurs Mari (pas sous forme d'oiseau) sont également prises et téléchargées sur le site web !",
+    "text8": "Les angrynieurs du site web notent leurs dernières mises à jour sur l'équipe et présentent le site web pour en finaliser les fonctionnalités alors que la date limite de soumission approche à grands pas. Des photos individuelles des angrynieurs Mari (pas sous forme d'oiseau) sont également prises et téléchargées sur le site web!",
     "alt8": "Deux membres de l'équipe testant la caméra.",
   },
   "video": {
     "date1": "30 nov. 2023",
-    "text1": "Les angrynieurs vidéo confirment qu'ils vont réaliser une vidéo en hommage aux braves angrynieurs qui ont triomphé contre le Roi Cochon et ses alliés. La vidéo sera diffusée lors de la compétition d'angrynierie de Kryptik 2024, pour une célébration encore plus festive et excitante !",
+    "text1": "Les angrynieurs vidéo confirment qu'ils vont réaliser une vidéo en hommage aux braves angrynieurs qui ont triomphé contre le Roi Cochon et ses alliés. La vidéo sera diffusée lors de la compétition d'angrynierie de Kryptik 2024, pour une célébration encore plus festive et excitante!",
     "alt1": "Deux membres de l'équipe discutant derrière un ordinateur portable.",
     "date2": "8 janv. 2024",
     "text2": "Certains accessoires et costumes de la vidéo sont arrivés. Voici un aperçu de l'action...",
@@ -252,13 +268,13 @@ export const fr = {
     "text4": "Avec un plan complet pour la vidéo, plus d'accessoires et de costumes sont commandés et en route vers la base des angrynieurs de Mari.",
     "alt4": "Un membre de l'équipe en costume de canard.",
     "date5": "15 fév. 2024",
-    "text5": "La vidéo et le matériel d'enregistrement ont été livrés ! Les angrynieurs Mari sont impatients de créer l'hommage vidéo et de tester leurs caméras pour s'assurer qu'elles fonctionnent comme prévu.",
+    "text5": "La vidéo et le matériel d'enregistrement ont été livrés! Les angrynieurs Mari sont impatients de créer l'hommage vidéo et de tester leurs caméras pour s'assurer qu'elles fonctionnent comme prévu.",
     "alt5": "Un membre de l'équipe qui prend des photos.",
     "date6": "29 fév. 2024",
     "text6": "Tous les accessoires et outils nécessaires sont enfin arrivés. Les angrynieurs vidéo se préparent au tournage, et se mettent d'accord pour créer un tutoriel sur la conception web.",
     "alt6": "Un membre de l'équipe en costume de cochon vert.",
     "date7": "4 mars 2024",
-    "text7": "Aujourd'hui est un jour très excitant: les angrynieurs Mari commencent à filmer la vidéo !",
+    "text7": "Aujourd'hui est un jour très excitant: les angrynieurs Mari commencent à filmer la vidéo!",
     "alt7": "Enregistrement de la scène avec trois cochons.",
     "date8": "8 mars 2024",
     "text8": "Le tournage est terminé après plusieurs jours de travail acharné. Il est temps de faire le montage pour la vidéo des angrynieurs!",
@@ -340,15 +356,15 @@ export const imgs = {
   }
 }
 
-const chapterPages = [3, 8, 14, 18, 22];
-const mobileChapterPages = [5, 21, 43, 59, 75];
+const chapterPages = [5, 10, 16, 20, 24];
+const mobileChapterPages = [11, 27, 50, 66, 82];
 
 export const enTabs = {
   'Robot': [chapterPages[0], chapterPages[1] - 1],
   'Kiosk': [chapterPages[1], chapterPages[2] - 1],
   'Website': [chapterPages[2], chapterPages[3] - 1],
   'Video': [chapterPages[3], chapterPages[4] - 1],
-  'Programming': [chapterPages[4], 50]
+  'Programming': [chapterPages[4], 26]
 }
 
 export const frTabs = {
@@ -356,7 +372,7 @@ export const frTabs = {
   'Kiosque': [chapterPages[1], chapterPages[2] - 1],
   'Site web': [chapterPages[2], chapterPages[3] - 1],
   'Vidéo': [chapterPages[3], chapterPages[4] - 1],
-  'Programmation': [chapterPages[4], 50]
+  'Programmation': [chapterPages[4], 26]
 }
 
 export const enSmTabs = {
@@ -364,7 +380,7 @@ export const enSmTabs = {
   'Kiosk': [mobileChapterPages[1], mobileChapterPages[2] - 1],
   'Web': [mobileChapterPages[2], mobileChapterPages[3] - 1],
   'Vid': [mobileChapterPages[3], mobileChapterPages[4] - 1],
-  'Prog': [mobileChapterPages[4], 50]
+  'Prog': [mobileChapterPages[4], 91]
 }
 
 export const frSmTabs = {
@@ -372,5 +388,5 @@ export const frSmTabs = {
   'Kiosque': [mobileChapterPages[1], mobileChapterPages[2] - 1],
   'Web': [mobileChapterPages[2], mobileChapterPages[3] - 1],
   'Vid': [mobileChapterPages[3], mobileChapterPages[4] - 1],
-  'Prog': [mobileChapterPages[4], 50]
+  'Prog': [mobileChapterPages[4], 91]
 }

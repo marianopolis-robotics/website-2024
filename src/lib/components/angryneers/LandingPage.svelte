@@ -23,8 +23,8 @@
 
 <div class="landing-container">
 	<h1 class="mx-2 my-5 mb-lg-4 display-1 text-white text-center">{isFr ? 'Nos angrynieurs' : 'Our Angryneers'}</h1>
-	<div class="container mt-5">
-		<div class="row align-items-center row-cols-1 row-cols-md-2 justify-content-center">
+	<div class="container mt-5 desc">
+		<div class="row align-items-center row-cols-1 row-cols-md-2 justify-content-center m-3 m-sm-5 row-gap-4 row-gap-md-0">
 			<div
 				class="col col-7 col-md-3 userAngryneer"
 				style="--rotate-duration: {randomRange(0.5, 0.75)}s; --translate-duration: {jumpingDuration}s;"
@@ -36,7 +36,7 @@
 			>
 				<UserBird {isFr} />
 			</div>
-			<div class="col rounded-content-box text-center col-md-9 col-12 p-5 h2">
+			<div class="col rounded-content-box text-center col-md-9 col-12 px-4 px-md-5 py-3 py-md-4 h2 desc-box">
 				<p>{isFr ? 'Bonjour, ' : 'Hi, '}{$userStore.name == '' ? (isFr ? 'Angrynieur' : 'Angryneer') : $userStore.name}!
 				{isFr
 					? "Bienvenue dans l'équipe! Cliquez sur chaque membre d'équipe pour en apprendre plus sur eux."
@@ -48,7 +48,7 @@
 	</div>
 
 	<div class="container mb-5">
-		<div class="row pt-5 justify-content-center">
+		<div class="row pt-1 justify-content-center">
 			<div class="col justify-content-center stella-container col-9 col-md-3 col-lg-2">
 				<button
 					class="angryneer stella"
@@ -148,7 +148,7 @@
 		width: 100%;
 	}
 
-	.angryneer:hover {
+	.angryneer:hover, .userAngryneer:hover {
 		--final-translate-duration: var(--translate-duration);
 		--final-rotate-duration: 0s !important;
 	}

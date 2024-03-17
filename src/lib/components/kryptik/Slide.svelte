@@ -23,7 +23,6 @@
 		<div class="bird mx-auto">
 			<UserBird {isFr}/>
 		</div>
-		<!-- <img class="bird" src='/birds/{bird}.svg' alt={isFr ? 'L\'Angrynieur de l\'utilisateur' : 'The user\'s Angryneer'} /> -->
 		{:else if current_slide === 4}
 		<img src={FloorScore} alt={isFr ? 'Pointage sur le plancher du terrain' : 'Field floor score'} />
 		{:else if current_slide === 6}

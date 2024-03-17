@@ -787,7 +787,7 @@
 			<p bind:this={start_mask_text}>{isFr ? 'Jouer' : 'Play'}</p>
 		</div>
 	</div>
-	<div class="options p-4 mt-5">
+	<div class="options p-4 mt-5 desc-box">
 		<p class="mb-4 fs-4 text-black">{isFr ? 'Votre score record est' : 'Your high score is'}: {$userStore.highscore} points</p>
 		<div class="buttons d-grid">
 			{#if mobile === true}
@@ -894,11 +894,7 @@
 	div.options {
 		margin: 2rem auto 0px;
 		width: calc(100% - 6rem); /* to "imitate" 3rem margin on both sides */
-		background-color: rgba(255, 237, 194, 0.6);
-		border-radius: 10px;
 		text-align: center;
-    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.3);
-		border: solid 0.5px #332400;
 	}
 
 	.buttons {

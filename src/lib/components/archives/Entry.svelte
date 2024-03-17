@@ -12,9 +12,11 @@
     <BookImg src={img} {alt} {rotate} />
   {/if}
 
-  {#if date && text}
+  {#if text}
     <div class="textbox">
+      {#if date}
       <h4 class="date">{date}</h4>
+      {/if}
       <p class="mb-1">{text}</p>
     </div>
   {/if}
