@@ -65,6 +65,7 @@
 					<p>{isFr ? 'Quel est votre nom, Angrynieur?' : 'What is your name, Angryneer?'}</p>
 					<input
 						type="text"
+						id="user-name"
 						bind:value={userName}
 						placeholder={inputError ? errorMessage : isFr ? 'Entrez votre nom' : 'Enter your name'}
 						class="form-control-lg w-75 m-0"

@@ -52,7 +52,7 @@
 
 		<div class="p-3 p-md-5">
 			<div>
-				<form action="" class="form-text">
+				<form action="#" class="form-text">
 					<label for="power" class="form-label text-black"
 						>{isFr ? 'Votre super pouvoir:' : 'Your super power:'}</label
 					>
@@ -82,7 +82,7 @@
 							? isFr
 								? 'Veuillez entrer un passe-temps'
 								: 'Please enter a hobby'
-							: isFr
+							: isFr	
 								? 'Ex: ingénierie, piano, jeux video'
 								: 'e.g. engineering,  play piano, video games'}
 						bind:value={userHobbies}
