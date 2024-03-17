@@ -53,7 +53,7 @@
 		<div class="p-3 p-md-5">
 			<div>
 				<form action="" class="form-text">
-					<label for="power" class="form-label"
+					<label for="power" class="form-label text-black"
 						>{isFr ? 'Votre super pouvoir:' : 'Your super power:'}</label
 					>
 					<input
@@ -70,7 +70,7 @@
 								: 'e.g. teleportation, telekinesis, enlargement'}
 						bind:value={userPower}
 					/>
-					<label for="hobbies" class="form-label mt-4"
+					<label for="hobbies" class="form-label text-black mt-4"
 						>{isFr ? 'Vos passe-temps:' : 'Your hobbies:'}</label
 					>
 					<input
@@ -87,7 +87,7 @@
 								: 'e.g. engineering,  play piano, video games'}
 						bind:value={userHobbies}
 					/>
-					<label for="funFact" class="form-label mt-4"
+					<label for="funFact" class="form-label text-black mt-4"
 						>{isFr ? 'Un fait divers:' : 'Fun Fact:'}</label
 					>
 					<input
@@ -142,7 +142,7 @@
 	{/if}
 </div>
 
-<h2 class="text-center display-4 mt-5 mb-3 text-black">{isFr ? 'Notre histoire' : 'Our story'}</h2>
+<h2 class="text-center display-4 mt-5 mb-3 text-black mx-3">{isFr ? 'Notre histoire' : 'Our story'}</h2>
 <hr class="w-50 mx-auto text-dark opacity-75" />
 
 <div class="competition-description p-3 p-md-5 text-center rounded-content-box mx-2 mx-md-4 mx-xl-5 mt-4">
@@ -186,9 +186,9 @@
 				: 'in charge of keeping hackers away.'}
 		</li>
 	</ul>
-	<p class="display-6 mt-4 mb-0 fw-bold">
+	<p class="mt-4 mb-0 fw-bold end-title">
 		{isFr
-			? `Apprenez à bien les connaitre, ${
+			? `Apprenez à bien les connaître, ${
 					$userStore.name == '' ? 'Angrynieur' : $userStore.name
 				}!`
 			: `Get to know them well, ${$userStore.name == '' ? 'Angryneer' : $userStore.name}!`}
@@ -201,7 +201,11 @@
 		border-radius: 25px;
 	}
 
-	.description-text, .competition-description {
+	.competition-description {
+		font-size: 1.1rem;
+		font-family: Rubik, sans-serif;
+	}
+	.description-text {
 		font-size: 1.5rem;
 	}
 	.form-text {
@@ -212,11 +216,19 @@
 		list-style-type: none;
 	}
 
-	.competition-description {
-		font-family: Rubik, sans-serif;
-	}
-
 	ul li {
 		margin-bottom: 10px;
+	}
+	.end-title {
+		font-size: 1.5rem;
+	}
+
+	@media screen and (min-width: 768px) {
+		.competition-description {
+			font-size: 1.5rem;
+		}
+		.end-title {
+			font-size: 2.2rem;
+		}
 	}
 </style>

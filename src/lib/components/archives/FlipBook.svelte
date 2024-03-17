@@ -853,7 +853,7 @@
 	}
 	
 	.desc {
-		font-size: 1.5rem;
+		font-size: 1.1rem;
 		line-height: 2;
   }
 	
@@ -947,6 +947,10 @@
 
 		.sm-tabs {
 			display: none;
+		}
+
+		.desc {
+			font-size: 1.5rem;
 		}
 	}
 

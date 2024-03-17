@@ -1,4 +1,4 @@
-<div class="grid p-5 mt-5 wood-sign position-relative">
+<div class="grid p-4 mt-3 p-md-5 mt-md-5 wood-sign position-relative">
   <slot />
 </div>
 

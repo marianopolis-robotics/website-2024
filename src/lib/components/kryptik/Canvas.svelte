@@ -1,4 +1,11 @@
 <script>
+	/* NOTE: model-viewer also imports Three.js, which leads to a warning but in our case it is insignificant and does not affect the website.
+		 Importing model-viewer's npm package is not quite compatible with Svelte, so unfortunately we could not resolve it that way
+		 and instead had to "keep" the warning.
+
+		 For the 3D simulation to work as intended, we need to run perpetual() when the page loads. Dev mode complains about this,
+		 but again, the warning/error is insignificant in our case and does not impact the website.
+	*/
 	export let mobile;
 	export let isFr = false;
 	export let winH;

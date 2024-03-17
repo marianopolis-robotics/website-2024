@@ -39,7 +39,7 @@
 
 <style>
   p {
-		font-size: 1.5rem;
+		font-size: 1.1rem;
 		line-height: 2;
 	}
 
@@ -51,6 +51,10 @@
   @media screen and (min-width: 768px) {
     .logo {
       width: 75%;
+    }
+
+    p {
+      font-size: 1.5rem;
     }
   }
 

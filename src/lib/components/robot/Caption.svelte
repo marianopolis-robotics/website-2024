@@ -1,4 +1,4 @@
-<div class="col me-5 p-5 w-100 position-relative caption-container">
+<div class="col me-5 px-2 py-5 px-sm-4 p-md-5 w-100 position-relative caption-container">
   <div class="left pin"></div>
   <div class="right pin"></div>
   <slot />

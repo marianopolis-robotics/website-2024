@@ -28,7 +28,7 @@
 	};
 </script>
 
-<h2 class="text-center display-4 mt-5 mb-3 text-black">{isFr ? 'Entraînez-vous pour Kryptik' : 'Train for Kryptik'}</h2>
+<h2 class="text-center display-4 mt-5 mb-3 text-black mx-3">{isFr ? 'Entraînez-vous pour Kryptik' : 'Train for Kryptik'}</h2>
 <hr class="w-50 mx-auto text-dark opacity-75" />
 <div class="carousel pt-2 pb-3 mx-4 mx-sm-5 mb-5">
 	<div class="top w-100 px-3">

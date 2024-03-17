@@ -74,7 +74,7 @@
 		height: 100%;
 	}
 	.p-wrapper p {
-		font-size: 1.25rem;
+		font-size: 1.1rem;
 	}
 
 	@media screen and (min-width: 450px) {

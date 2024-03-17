@@ -13,7 +13,7 @@
 </script>
 
 <h1 class="col text-center text-white display-1 my-5">Robot</h1>
-<p class="mx-4 mx-sm-5 mb-5 py-4 px-5 desc-box">Here is everything you need to know about the Mari Angryneers' robot for Kryptik 2024, {displayName}! 
+<p class="mt-3 mx-3 mx-sm-5 px-4 px-md-5 py-3 py-md-4 desc-box">Here is everything you need to know about the Mari Angryneers' robot for Kryptik 2024, {displayName}! 
   We've documented how each system works and how we faced numerous challenges along the way, just for you.</p>
 
 <Panel>
@@ -79,10 +79,20 @@
 
 <style>
   h2 {
-    font-size: 3.2rem;
+    font-size: 1.8rem;
   }
 
   p {
-    font-size: 1.5rem;
+    font-size: 1.1rem;
+  }
+
+  @media screen and (min-width: 768px) {
+    h2 {
+    font-size: 3.2rem;
+  }
+
+    p {
+      font-size: 1.5rem;
+    }
   }
 </style>

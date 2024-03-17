@@ -25,8 +25,8 @@
 			<Model {model} />
 		{/if}
 	</div>
-	
 </div>
+<br class="d-block d-lg-none" />
 
 <style>
 	.model-row {

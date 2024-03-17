@@ -6,12 +6,22 @@
 
 <div class="d-lg-flex column-gap-lg-4 column-gap-xl-5 align-items-lg-center">
   <img class="desjardins" src="/logos/desjardins.svg" alt="{isFr ? 'Logo Desjardins' : 'Desjardins logo'}" />
-  <p class="fs-4 mt-3 mb-0 mt-lg-0">{desjardins}</p>
+  <p class="mt-3 mb-0 mt-lg-0">{desjardins}</p>
 </div>
 
 <style>
   .desjardins {
     width: 100%;
+  }
+
+  p {
+    font-size: 1.1rem;
+  }
+
+  @media screen and (min-width: 768px) {
+    p {
+      font-size: 1.5rem;
+    }
   }
 
   @media screen and (min-width: 992px) {

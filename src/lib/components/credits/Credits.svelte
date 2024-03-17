@@ -14,6 +14,18 @@
 </script>
 
 {#each creditText as p}
-  <p class="fs-4">{p}</p>
+  <p>{p}</p>
 {/each}
 <hr class="border border-dark my-4 my-xl-5" />
+
+<style>
+  p {
+    font-size: 1.1rem;
+  }
+
+  @media screen and (min-width: 768px) {
+    p {
+      font-size: 1.5rem;
+    }
+  }
+</style>

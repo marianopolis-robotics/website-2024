@@ -6,7 +6,7 @@
     : 'Warning: if you restart, leave the page or close the tab before completing the heat, you will lose all progress in the simulation!';
 </script>
 
-<h2 class="text-center display-4 mt-5 mb-3 text-black">{isFr ? 'Prêt à jouer' : 'Ready to play'}, {name ? name : (isFr ? 'Angrynieur' : 'Angryneer')}?</h2>
+<h2 class="text-center display-4 mt-5 mb-3 text-black mx-3">{isFr ? 'Prêt à jouer' : 'Ready to play'}, {name ? name : (isFr ? 'Angrynieur' : 'Angryneer')}?</h2>
 <hr class="w-50 mx-auto text-dark opacity-75" />
 <p class="py-4 px-5 text-center instructions mx-5 mb-5 text-black desc-box">
   <slot />

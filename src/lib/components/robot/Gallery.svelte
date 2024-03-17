@@ -5,7 +5,7 @@
   let displayName = $userStore.name ? $userStore.name : (isFr ? 'Angrynieur' : 'Angryneer');
 </script>
 
-<h2 class="text-center display-4 mt-5 mb-3 text-black">{isFr ? 'Notre robot en action' : 'Our robot in action'}!</h2>
+<h2 class="text-center display-4 mt-5 mb-3 text-black mx-3">{isFr ? 'Notre robot en action' : 'Our robot in action'}!</h2>
 
 <div class="desc-box m-3 m-sm-5 px-4 px-md-5 py-3 py-md-4">
   <p class="mb-4">{isFr ? "Voici des extraits vidéo de notre mécanisme d'admission, notre système d'autoroute/de toboggan, notre système de volant d'inertie et notre robot dans l'ensemble. Amusez-vous bien,"
@@ -45,12 +45,16 @@
   }
 
   p {
-    font-size: 1.5rem;
+    font-size: 1.1rem;
   }
 
   @media screen and (min-width: 576px) {
     video {
       width: 80%;
+    }
+
+    p {
+      font-size: 1.5rem;
     }
   }
 

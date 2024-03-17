@@ -36,7 +36,7 @@
 			>
 				<UserBird {isFr} />
 			</div>
-			<div class="col rounded-content-box text-center col-md-9 col-12 px-4 px-md-5 py-3 py-md-4 h2 desc-box">
+			<div class="col rounded-content-box text-center col-md-9 col-12 px-4 px-md-5 py-3 py-md-4 h2 desc-box intro">
 				<p>{isFr ? 'Bonjour, ' : 'Hi, '}{$userStore.name == '' ? (isFr ? 'Angrynieur' : 'Angryneer') : $userStore.name}!
 				{isFr
 					? "Bienvenue dans l'équipe! Cliquez sur chaque membre d'équipe pour en apprendre plus sur eux."
@@ -111,6 +111,9 @@
 </div>
 
 <style>
+	.intro {
+		font-size: 1.1rem;
+	}
 	.stella-container {
 		position: relative;
 	}
@@ -153,7 +156,7 @@
 		--final-rotate-duration: 0s !important;
 	}
 
-	/* rotate and translate are new css functions and don't pass the validator */
+	/* rotate and translate are new css functions and don't pass the validator :/ */
 	@keyframes rotate {
 		0% {
 			rotate: -15deg;
@@ -239,9 +242,10 @@
 		opacity: 1;
 		transform: translate(-50%, 0);
 	}
-	/* [data-tooltip=false]:hover:before,
-[data-tooltip=false]:hover:after {
-  visibility: hidden;
-  opacity: 0;
-} */
+
+	@media screen and (min-width: 576px) {
+		.intro {
+			font-size: 1.5rem;
+		}
+	}
 </style>
