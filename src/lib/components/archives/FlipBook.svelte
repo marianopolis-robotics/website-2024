@@ -81,23 +81,13 @@
 		}
 	}
 
-	const update = () => {
+	// a bit hacky unfortunately, but the flipbook interferes with pointer events so we update every second
+	// it's a bit risky to rely on updating when the user's cursor moves (they can flip pages without moving their cursor at all)
+	const updateData = () => {
 		getCurrentPage();
 		setTimeout(() => {
 			active = isActive();
 		}, 750);
-	}
-
-	// a bit hacky unfortunately, but the flipbook interferes with pointer events (not on mobile) so we update every second
-	// it's a bit risky to rely on updating when the user's cursor moves (they can flip pages without moving their cursor at all)
-	const updateData = () => {
-		if (mobile) {
-			update()
-		} else {
-			setInterval(() => {
-				update()
-			}, 1000);
-		}
 	}
 </script>
 
@@ -107,7 +97,8 @@
 <svelte:window on:pageshow={() => mobile = window.matchMedia("(pointer: coarse)").matches} on:click={() => mobile = window.matchMedia("(pointer: coarse)").matches}
 	on:touchend={() => mobile = window.matchMedia("(pointer: coarse)").matches} on:touchend={updateData} on:pageshow={updateData}
 	></svelte:window>
-
+<!-- which event successfully triggers updateData is very unpredictable depending on browser and devices, so to be safe
+  we unfortunately have to set several event listeners -->
 <svelte:document on:mousemove={updateData} />
 
 <p class="desc desc-box rounded-box-container mt-3 mx-3 mx-sm-5 px-4 px-md-5 py-3 py-md-4">{isFr ? `Bienvenue aux archives des Angrynieurs Mari de 2023-2024, ${displayName}! Nous espérons que vous trouverez les souvenirs que vous cherchez dans notre journal.` 
