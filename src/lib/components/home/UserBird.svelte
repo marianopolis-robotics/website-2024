@@ -89,7 +89,7 @@
 	.hat-big {
 		width: 50%;
 		position: absolute;
-		top: calc(var(--position-top) -25%);
+		top: calc(var(--position-top) - 25%);
 		left: 0;
 		right: 0;
 		margin-left: auto;

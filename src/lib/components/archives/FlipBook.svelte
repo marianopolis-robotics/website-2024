@@ -893,7 +893,7 @@
 	}
 
 	#book, #mbook {
-		filter: drop-shadow(#000 0px 10px 10px);
+		filter: drop-shadow(0px 10px 10px #000);
 		border-radius: 10px;
 		overflow: hidden; /* unfortunately the only way to prevent glitchy scrolling behaviour
 												 caused by 3D transform overflow :/
